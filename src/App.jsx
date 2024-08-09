@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 import { HomePage } from './pages'
-import { UserSetting } from './Components'
 
 function App() {
   return (
@@ -13,7 +12,7 @@ function App() {
         />
         <Route
           path="/test"
-          element={<UserSetting/>}
+          element={<UserIcon/>}
         />
       </Routes>
     </BrowserRouter>

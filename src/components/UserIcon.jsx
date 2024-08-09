@@ -12,16 +12,16 @@ const UserIcon = ({ url, stroy, add, edit}) => {
       />
       {add === "purple" ? (
         <button
-          className='w-7 h-7 bg-light-purple rounded-full text-primary font-semibold text-[26px] absolute bottom-[0px] right-[-6px] border-[3px] border-primary flex items-center justify-center'
+          className='w-7 h-7 bg-light-purple rounded-full text-primary font-medium text-[26px] absolute bottom-[0px] right-[-6px] border-[3px] border-primary flex items-center justify-center'
         >
-          <span className='mb-1'>+</span>
+          <span>+</span>
         </button>
       )
         : add === "light" ? (
           <button
-            className='w-7 h-7 bg-button-anti-flash-light rounded-full text-text font-semibold text-[26px] absolute bottom-[0px] right-[-6px] border-[3px] border-primary flex items-center justify-center'
+            className='w-7 h-7 bg-button-anti-flash-light rounded-full text-text font-medium text-[26px] absolute bottom-[0px] right-[-6px] border-[3px] border-primary flex items-center justify-center'
           >
-            <span className='mb-1'>+</span>
+            <span>+</span>
           </button>
         ) : ""}
         {

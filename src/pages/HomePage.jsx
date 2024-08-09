@@ -1,11 +1,12 @@
 import React from 'react'
 import { LeftBar, RightBar } from '../Components'
+import { Bell } from 'lucide-react'
 
 const HomePage = () => {
   return (
     <div>
         <LeftBar />
-        <h1>Home Page</h1>
+        <h1>HomePage</h1>
         <RightBar />
     </div>
   )

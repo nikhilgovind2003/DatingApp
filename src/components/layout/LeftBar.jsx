@@ -6,7 +6,7 @@ import { Star } from 'lucide-react';
 import { Search } from 'lucide-react';
 const LeftBar = () => {
   return (
-    <div className='w-1/6 h-screen bg-gray-700 text-white text-lg font-bold pt-5'>
+    <div className='w-full h-full bg-deep-plum text-white text-lg  pt-5'>
       <ul className='space-y-2'>
        <li className="hover:bg-gray-500">
           <a href="#" className="block px-4 py-2 flex items-center">

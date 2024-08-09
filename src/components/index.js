@@ -17,7 +17,7 @@ export {
     NavBar,
 
     MatchCards,
-    HomeCard
+    HomeCard,
 
     UserIcon,
     InteractionIcon,

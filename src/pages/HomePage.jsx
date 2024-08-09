@@ -6,12 +6,10 @@ import { Bell } from 'lucide-react'
 
 const HomePage = () => {
   return (
-    <div>
-        <LeftBar />
-        <h1>HomePage</h1>
-      <RightBar />
-      <HomeCard />
-    </div>
+    
+       <div>nfmwnfkjwdnfkwdmfckl</div>
+   
+    
   )
 }
 

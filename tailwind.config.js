@@ -19,6 +19,7 @@ export default {
         'text': '#22172a',
         'text-light': '#655d6a',
         'light-purple': '#dd88cf',
+        'button-anti-flash-light': '#F0F3F5'
       },
     },
   },

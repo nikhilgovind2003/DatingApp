@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 import { HomePage } from './pages'
-import { UserIcon } from './Components'
+import { InteractionIcon } from './Components'
 
 function App() {
   return (
@@ -13,9 +13,7 @@ function App() {
         />
         <Route
           path="/test"
-          element={<UserIcon
-            stroy={false}
-            edit={false} />}
+          element={<InteractionIcon />}
         />
       </Routes>
     </BrowserRouter>

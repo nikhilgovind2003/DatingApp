@@ -10,10 +10,6 @@ function App() {
           path="/"
           element={<HomePage />}
         />
-        <Route
-          path="/test"
-          element={<UserIcon/>}
-        />
       </Routes>
     </BrowserRouter>
   )

@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 import { HomePage } from './pages'
-import { InteractionIcon } from './Components'
+import { UserSetting } from './Components'
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
         />
         <Route
           path="/test"
-          element={<InteractionIcon />}
+          element={<UserSetting/>}
         />
       </Routes>
     </BrowserRouter>

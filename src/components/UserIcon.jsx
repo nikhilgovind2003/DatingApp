@@ -6,7 +6,7 @@ const UserIcon = ({ url, stroy, add, edit}) => {
     <div
       className='relative w-16 h-16'>
       <img
-        src={url ? url : "https://images.unsplash.com/photo-1496345875659-11f7dd282d1d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
+        src={url ? url : "https://images.pexels.com/photos/13704184/pexels-photo-13704184.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}
         alt="user icon"
         className={`inline-block h-16 w-16 rounded-full ring-2 ring-white object-center ${stroy ? "border-[3px] border-light-purple p-0.5" : ""}`}
       />

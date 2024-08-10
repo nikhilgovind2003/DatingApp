@@ -10,6 +10,8 @@ export default {
         montserrat: ['Montserrat', 'sans-serif'],
         poppins: ['Poppins', 'sans-serif'],
         roboto: ['Roboto', 'sans-serif'],
+        Play:['Play','sans-serif']
+
       },
       colors: {
         'deep-plum': '#4b164c',

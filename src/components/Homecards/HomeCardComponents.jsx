@@ -9,7 +9,7 @@ const HomeCardComponents = (props) => {
         style={{
           backgroundImage: `url("${props.img}")`
         }}
-        className=" w-[157.79px] h-[120.03px] rounded-2xl bg-cover bg-left relative"
+        className=" w-[157.79px] h-[120.03px] rounded-l-2xl bg-cover bg-left relative"
       >
           <div className=" bg-[#FFFFFF] bg-opacity-[20%] text-white top-2 left-4 absolute text-[10px] px-[2px]  rounded-full">
         <p>Online</p>

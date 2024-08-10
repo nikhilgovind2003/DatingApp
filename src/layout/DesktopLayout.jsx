@@ -14,8 +14,8 @@ const DesktopLayout = ()=>{
         
         <main className="md:col-span-6 bg-lime-300 mx-5 md:mx-0 min-h-screen relative">
             <Outlet />
-            <BottomNavbar 
-            className="md:hidden "/>
+            {/* <BottomNavbar `
+            className="md:hidden "/>` */}
         </main>
     
        

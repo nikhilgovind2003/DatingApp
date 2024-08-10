@@ -1,0 +1,28 @@
+.curve::before{
+    content: "";
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    background: transparent;
+    top: 15.5px;
+    left: -23px;
+    height: 15px;
+    border-top-right-radius: 100%;
+    box-shadow: 3px -5px 0 #4B164C;
+}
+.curve::after{
+    content: "";
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    background: transparent;
+    top: 15.5px;
+    right: -23px;
+    height: 15px;
+    border-top-left-radius: 100%;
+    box-shadow: -3px -5px 0 #4B164C;
+}

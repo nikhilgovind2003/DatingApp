@@ -7,7 +7,7 @@ import UserIcon from "./usericons/UserIcon";
 import InteractionIcon from "./usericons/InteractionIcon";
 import UserPreview from "./usericons/UserPreview";
 import UserSetting from "./usericons/UserSetting";
-
+import UpgradePopup from "./UpgradePopup/UpgradePopup";
 
 export {
     LeftBar,
@@ -18,6 +18,7 @@ export {
     UserIcon,
     InteractionIcon,
     UserPreview,
-    UserSetting
+    UserSetting,
+    UpgradePopup
 }
 

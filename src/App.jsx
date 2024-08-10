@@ -11,10 +11,7 @@ function App() {
       path="/" 
       element={<HomePage />}
       />
-       <Route 
-      path="/bottombar" 
-      element={<BottomNavbar />}
-      />
+  
     </Routes>
     </BrowserRouter>
   )

@@ -1,5 +1,7 @@
 import HomePage from "./HomePage";
+import QualificationPage from "./QualificationPage";
 
 export {
-    HomePage
+    HomePage,
+    QualificationPage
 }

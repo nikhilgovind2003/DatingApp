@@ -1,14 +1,14 @@
 import { useState } from "react";
 
 const MatchCardComponent = (props) => {
-  const [isNew, setisNew] = useState(false);
+  const [isNew, setisNew] = useState(props.isNew);
   return (
     <>
       <div
         style={{
           backgroundImage:`url(${props.img})`
         }}
-        className={isNew? "relative w-[200px] h-[300px] bg-cover bg-center rounded-3xl" : "relative  w-[200px] h-[300px] bg-cover bg-center rounded-3xl border-[7px] border-light-purple"}
+        className={isNew? "relative w-[200px] h-[300px] bg-cover bg-center rounded-3xl" : "relative w-[100%] h-[300px] bg-cover bg-center rounded-3xl border-[7px] border-light-purple"}
       >
         <div className={isNew? "" :" bg-light-purple rounded-b-3xl text-center text-white pb-2 pt-0 mt-[-5px] w-[75%] mx-auto"}>
          {isNew? "" :`${props.match}% Match`}

@@ -8,10 +8,13 @@ import Accept from "./Accept/Accept";
 
 const HomePage = () => {
   return (
-    <>
-      <Accept/>
-    </>
-  );
-};
+       <div>
+        
+       </div>
+   
+    
+  )
+}
+
 
 export default HomePage;

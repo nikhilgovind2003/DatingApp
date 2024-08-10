@@ -7,7 +7,7 @@ import { Bell } from 'lucide-react'
 const HomePage = () => {
   return (
     
-       <div>nfmwnfkjwdnfkwdmfckl</div>
+       <div></div>
    
     
   )

@@ -21,7 +21,7 @@ function BottomNavbar() {
   }, [location.pathname]);
 
   return (
-    <div className="bottom-nav bg-white   shadow px-3 py-3 rounded-full m-2 lg:hidden">
+    <div className="bottom-nav bg-white   shadow px-3 py-3 rounded-full m-2 lg:hidden absolute bottom-0">
       <ul className="flex justify-between  items-center m-0 p-0 list-none relative rounded-lg">
         <span
           className="bg-red-600 border absolute rounded-full flex justify-center items-center active-indicator"

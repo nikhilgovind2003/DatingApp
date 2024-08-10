@@ -1,12 +1,13 @@
-import React from 'react'
+import React from "react";
 
-import { HomeCard, LeftBar, RightBar } from '../Components'
-import { Bell } from 'lucide-react'
-
+import { HomeCard, LeftBar, RightBar, UserPreview } from "../Components";
+import { Bell } from "lucide-react";
+import PageTitle from "../components/PageTitle/PageTitle";
+import Sent from "./Sent/Sent";
+import Accept from "./Accept/Accept";
 
 const HomePage = () => {
   return (
-    
        <div>
         
        </div>
@@ -15,4 +16,5 @@ const HomePage = () => {
   )
 }
 
-export default HomePage
+
+export default HomePage;

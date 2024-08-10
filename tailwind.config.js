@@ -25,6 +25,9 @@ export default {
         'hot-purple':'#522052',
         'dark-wine':'#7a3456',
       },
+      borderRadius:{
+        "4xl":"50px"
+      }
     },
   },
   plugins: [],

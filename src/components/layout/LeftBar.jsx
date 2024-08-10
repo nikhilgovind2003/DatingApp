@@ -9,27 +9,27 @@ const LeftBar = () => {
     <div className='w-full h-full bg-hot-purple text-white text-lg sm:text-sm md:text-sm lg:text-lg pt-5'>
       <ul className='space-y-2'>
        <li className="hover:bg-dark-wine">
-          <a href="#" className="block px-4 py-2 flex items-center">
+          <a href="#" className=" px-4 py-2 flex items-center">
             <span className="mr-2"><House /></span>Home
           </a>
         </li>
         <li className="hover:bg-dark-wine">
-          <a href="#" className="block px-4 py-2 flex items-center">
+          <a href="#" className=" px-4 py-2 flex items-center">
             <span className="mr-2"><Heart /></span>Likes
           </a>
         </li>
         <li className="hover:bg-dark-wine">
-          <a href="#" className="block px-4 py-2 flex items-center">
+          <a href="#" className=" px-4 py-2 flex items-center">
             <span className="mr-2"><MessageCircle /></span>Messages
           </a>
         </li>
         <li className="hover:bg-dark-wine">
-          <a href="#" className="block px-4 py-2 flex items-center">
+          <a href="#" className=" px-4 py-2 flex items-center">
             <span className="mr-2"><Star /></span>Favourites
           </a>
         </li>
         <li className="hover:bg-dark-wine">
-          <a href="#" className="block px-4 py-2 flex items-center">
+          <a href="#" className=" px-4 py-2 flex items-center">
             <span className="mr-2"><Search /></span>Search
           </a>
         </li>

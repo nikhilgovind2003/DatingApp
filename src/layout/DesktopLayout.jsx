@@ -1,3 +1,4 @@
+
 import React from 'react'
 import { LeftBar, RightBar } from '../Components';
 import { Outlet } from 'react-router-dom';
@@ -23,7 +24,6 @@ const DesktopLayout = ()=>{
             <RightBar />
         </aside>
     </div>
-    
-    )
-}
+  );
+};
 export default DesktopLayout;

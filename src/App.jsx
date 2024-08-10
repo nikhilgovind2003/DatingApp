@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 import { HomePage } from './pages'
-import BottomNavbar from './components/Bottomnavbar'
+
 
 function App() {
   return (

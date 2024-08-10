@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
-import { HomePage } from './pages'
+import { HomePage, QualificationPage } from './pages'
 import DesktopLayout from './layout/DesktopLayout'
 
 function App() {
@@ -9,6 +9,7 @@ function App() {
       <Routes>
         <Route element={<DesktopLayout />}>
           <Route path='/' element={<HomePage />} />
+          <Route path='/qualification' element={<QualificationPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

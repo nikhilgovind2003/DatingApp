@@ -1,5 +1,5 @@
 import React from 'react'
-import { settingData } from '../datas/userSettingData';
+import { settingData } from '../../datas/userSettingData';
 import { ArrowDownUp, Bell, CircleHelp, KeyRound, MessageCircleMore, UsersRound } from 'lucide-react';
 
 const UserSetting = () => {

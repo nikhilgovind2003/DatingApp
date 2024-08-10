@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 import { HomePage } from './pages'
-import DesktopLayout from './layout/desktopLayout'
+import DesktopLayout from './layout/DesktopLayout'
 
 
 

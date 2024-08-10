@@ -5,7 +5,7 @@ import { Userdata } from '../datas/Userdata'
 
 const QualificationPage = () => {
   return (
-    <div className='w-full md:px-0 px-5'>
+    <div className='w-full md:px-0 px-5 h-screen overflow-y-auto'>
             <div>
                 <InteractionIcon />
                 <p className='text-text font-medium my-3 text-lg'>Your Matches <span className='text-light-purple'>42</span></p>

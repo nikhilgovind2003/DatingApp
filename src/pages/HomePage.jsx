@@ -1,6 +1,5 @@
 import React from "react";
 
-import { HomeCard, LeftBar, RightBar, UserPreview } from "../Components";
 import { Bell } from "lucide-react";
 import PageTitle from "../components/PageTitle/PageTitle";
 import Sent from "./Sent/Sent";

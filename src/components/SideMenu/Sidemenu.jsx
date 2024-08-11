@@ -1,7 +1,7 @@
 import React ,  { useState } from 'react';
 import { Button, Drawer, DrawerBody, DrawerContent,DrawerOverlay, } from "@chakra-ui/react";
 import { CiCircleRemove } from "react-icons/ci";
-import { CiMenuBurger } from "react-icons/ci";
+import { AlignJustify } from 'lucide-react';
 
 function Sidemenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,30 +12,27 @@ function Sidemenu() {
 
   return (
     <div>
-      <>
-        <Button className='bg-origin-padding w-min h-64 bg-transparent text-white text-xl font-bold mb-4' onClick={onOpen}>
-          <CiMenuBurger className='right-5 space-x-3 border-s-dark-wine' /><span><h3>Buddy pair</h3></span>
+        <Button className='bg-origin-padding bg-transparent md:text-white text-text text-xl font-bold mb-4 flex items-center gap-2 pt-5' onClick={onOpen}>
+          <AlignJustify className='right-5 space-x-3 border-s-dark-wine w-6 h-6' /><span className='font-medium md:text-white text-text text-2xl'>BuddyPair</span>
         </Button>
 
         <Drawer placement={placement} isOpen={isOpen} onClose={onClose}>
           <DrawerOverlay />
           <DrawerContent className='bg-opacity-5'>
-            <DrawerBody className='bg-deep-plum'>
+            <DrawerBody className="bg-deep-plum bg-opacity-45 backdrop-filter backdrop-blur-lg border border-white border-opacity-10 w-[20rem] mt-5 rounded-lg p-4">
               
-              <CiCircleRemove   className='size-7  '  onClick={onClose} /><br />
-                <br />
-                <ul>
-                  <li className="text-white text-lg py-2 hover:bg-purple-500 px-2 rounded 	text-decoration-line: underline "> Dating</li><br />
-                  <li className="text-white text-lg py-2 hover:bg-purple-500 px-2 rounded text-decoration-line: underline">Matrimony</li><br />
-                  <li className="text-white text-lg py-2 hover:bg-purple-500 px-2 rounded text-decoration-line: underline">E commerce</li><br />
-                  <li className="text-white text-lg py-2 hover:bg-purple-500 px-2 rounded text-decoration-line: underline">Study Abroad</li><br />
-                  <li className="text-white text-lg py-2 hover:bg-purple-500 px-2 rounded text-decoration-line: underline">Job Portal</li><br />
+              <CiCircleRemove   className='size-7 text-white mb-2  '  onClick={onClose} />
+                <ul className='grid items-center'>
+                  <li className="text-white cursor-pointer text-lg py-4 hover:bg-purple-500 hover:bg-opacity-20 hover:rounded-lg px-2 rounded border-b"> Dating</li><br />
+                  <li className="text-white cursor-pointer text-lg py-4 hover:bg-purple-500 hover:bg-opacity-20 hover:rounded-lg px-2 rounded border-b">Matrimony</li><br />
+                  <li className="text-white cursor-pointer text-lg py-4 hover:bg-purple-500 hover:bg-opacity-20 hover:rounded-lg px-2 rounded border-b">E commerce</li><br />
+                  <li className="text-white cursor-pointer text-lg py-4 hover:bg-purple-500 hover:bg-opacity-20 hover:rounded-lg px-2 rounded border-b">Study Abroad</li><br />
+                  <li className="text-white cursor-pointer text-lg py-4 hover:bg-purple-500 hover:bg-opacity-20 hover:rounded-lg px-2 rounded border-b">Job Portal</li><br />
                 </ul>
             
             </DrawerBody>
           </DrawerContent>
         </Drawer>
-      </>
     </div>
   );
 }

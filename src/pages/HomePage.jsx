@@ -6,7 +6,7 @@ import HomeCardComponents from "../components/Homecards/HomeCardComponents";
 
 const HomePage = () => {
   return (
-    <section className="w-full pt-5 px-5 pb-24 md:pb-5 h-screen overflow-y-auto overflow-x-hidden">
+    <section className="lg:w-full md:w-full sm: w-screen pt-5 px-5 pb-24 md:pb-5 h-screen overflow-y-auto overflow-x-hidden">
       <div className="flex justify-between md:hidden gap-5">
         <Sidemenu />
         <div className="flex gap-3">
@@ -19,7 +19,7 @@ const HomePage = () => {
           </button>
         </div>
       </div>
-      {/* <div className="flex justify-between items-center gap-5 overflow-x-auto w-full">
+      <div className="flex  justify-between items-center gap-5 overflow-x-auto  lg:w-full sm: w-screen ">
         <button>
         <UserIcon add={'purple'} />
         <p className="mt-0.5 text-[14px]">My Story</p>
@@ -34,7 +34,7 @@ const HomePage = () => {
           <p className="mt-0.5 text-[14px]">{user.firstName}</p>
          </button>
         ))}
-      </div> */}
+      </div>
         <ButtonGroup/>
        <div className="grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-3 grid-cols-2 gap-5">
        {

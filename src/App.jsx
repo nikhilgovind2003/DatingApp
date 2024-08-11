@@ -1,10 +1,8 @@
-
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 import { DesignationPage, HomePage, LocationPage, MatchPage, QualificationPage, ViewedMyProfilePage } from './pages'
 import DesktopLayout from './layout/DesktopLayout'
 import { SubHeader } from './Components';
-
 
 function App() {
   return (
@@ -18,8 +16,6 @@ function App() {
           <Route path='/profile-views' element={<ViewedMyProfilePage />} />
           <Route path='/match' element={<MatchPage />} />
           <Route path='/test' element={<SubHeader />} />
-          
-
         </Route>
       </Routes>
     </BrowserRouter>

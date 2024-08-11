@@ -5,7 +5,7 @@ import { UserPreview } from '../../Components';
 
 function Sent() {
   return (
-    <div className='bg-deep-plum'>
+    <div className='bg-deep-plum h-screen overflow-y-auto'>
       <PageTitle icon={Search} pageTitle={"Sent"} />
       <div className='rounded-t-4xl bg-white pt-14' >
         <UserPreview name={"Afrin Sabilla"} bio={"Life is not beautifull"} close={true} />

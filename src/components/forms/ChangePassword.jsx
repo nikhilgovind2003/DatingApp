@@ -16,10 +16,10 @@ const ChangePassword = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex flex-col justify-center items-center bg-deep-plum">
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-3xl shadow-md max-w-md w-full"
+        className="bg-white p-8 rounded-t-3xl shadow-md max-w-md w-full"
       >
         <h2 className="text-lg text-gray-700 mb-4">
           Feeling worried about your account been easily preyed on? Then change that password now!
@@ -120,7 +120,7 @@ const ChangePassword = () => {
         
         <button
           type="submit"
-          className="w-full bg-purple-800 text-white py-2 rounded-full hover:bg-purple-900 transition duration-200"
+          className="w-full bg-deep-plum text-white py-2 rounded-full hover:bg-purple-900 transition duration-200"
         >
           Update
         </button>

@@ -1,13 +1,13 @@
 import React from 'react'
-import { InteractionIcon } from '../Components'
-import MatchCardComponent from '../components/matchCards/MatchCardComponent'
+import { InteractionIcon, MatchCardComponent, SubHeader } from '../Components'
 import { Userdata } from '../datas/Userdata'
 import CardNav from '../components/cardNav/CardNav'
 
 const QualificationPage = () => {
   return (
-    <div className='w-full md:px-0 px-5 h-screen overflow-y-auto'>
+    <section className='w-full pt-5 px-5 pb-24 md:pb-5 h-screen overflow-y-auto'>
             <div>
+            <SubHeader title='Qualification'/>
                 <InteractionIcon />
                 <p className='text-text font-medium my-3 text-lg'>Your Matches <span className='text-light-purple'>42</span></p>
             </div>
@@ -27,7 +27,7 @@ const QualificationPage = () => {
                 />
             ))}
         </div>
-    </div>
+    </section>
   )
 }
 

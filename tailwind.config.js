@@ -26,6 +26,9 @@ export default {
         'dark-wine':'#7a3456',
         'dark-violet':'#4B164C'
       },
+      borderRadius:{
+        "4xl":"50px"
+      }
     },
   },
   plugins: [],

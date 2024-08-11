@@ -2,15 +2,14 @@ import React from 'react'
 
 import { HomeCard, LeftBar, RightBar } from '../Components'
 import { Bell } from 'lucide-react'
-import SpinPage from './SpinPage/SpinPage'
-import YourMatches from "./YourMatches"
+import AddCreditCard from './AddCreditCard'
 
 const HomePage = () => {
   return (
     
     <div>
-      {/* <SpinPage /> */}
-      <YourMatches />
+
+      <AddCreditCard />
      </div>
    
     

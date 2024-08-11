@@ -1,6 +1,6 @@
 import { ArrowLeft, CircleX, MessageSquare, Pencil } from "lucide-react";
 import { useState } from "react";
-import UserIcon from "../components/usericons/UserIcon"; // Adjust the path according to your project structure
+import UserIcon from "../components/UserIcon"; // Adjust the path according to your project structure
 
 
 export default function Story() {
@@ -46,7 +46,7 @@ export default function Story() {
 
       {/* Modal */}
       {clicked && (
-        <div className="w-full md:w-1/3 fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-20">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-20">
           <div className="bg-white px-8 rounded-3xl shadow-lg text-center pt-12 pb-4">
             <h2 className="font-montserrat text-2xl font-medium mb-4">
               Upgrade to

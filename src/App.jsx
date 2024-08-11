@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
-import { DesignationPage, HomePage, LocationPage, MatchPage, QualificationPage, ViewedMyProfilePage } from './pages'
+import { Accept, DesignationPage, Group, HomePage, LocationPage, MatchPage, QualificationPage, Sent, ViewedMyProfilePage } from './pages'
 import DesktopLayout from './layout/DesktopLayout'
 import ChangePwdPage from './pages/ChangePwdPage';
 import EditprofilePage from './pages/EditprofilePage';
@@ -24,7 +24,7 @@ function App() {
           <Route path='/designation' element={<DesignationPage />} />
           <Route path='/profile-views' element={<ViewedMyProfilePage />} />
           <Route path='/match' element={<MatchPage />} />
-          <Route path='/test' element={<SubHeader />} />
+          <Route path='/test' element={<Group />} />
         </Route>
       </Routes>
       <BottomNavbar />

@@ -13,7 +13,7 @@ import "./Groups.css";
 
 function Groups() {
   return (
-    <div className="min-h-full bg-deep-plum w-full sm:w-full md:w-full  xl:w-3/4 mb-10">
+    <div className="min-h-full bg-deep-plum w-full mb-10 h-full">
       <div>.</div>
       <div>
         <h2 className="headText mt-10">BuddyPair</h2>

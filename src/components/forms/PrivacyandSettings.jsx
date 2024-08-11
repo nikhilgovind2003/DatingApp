@@ -10,12 +10,12 @@ const PrivacyandSettings = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-3xl shadow-md max-w-lg w-full">
-        <div className="mb-6">
+        <div className="mb-6 flex justify-between  ">
           <h3 className="text-lg text-gray-700 mb-2">Sign-in Email</h3>
           <p className="text-gray-900">johnsmith@gmail.com</p>
         </div>
 
-        <div className="mb-6">
+        <div className="mb-6 flex justify-between">
           <h3 className="text-lg text-gray-700 mb-2">Password</h3>
           <a href="#" className="text-blue-600">Change password</a>
         </div>
@@ -31,7 +31,7 @@ const PrivacyandSettings = () => {
             />
             <div
               className={`relative w-10 h-6 rounded-full ${
-                twoFactorAuth ? 'bg-purple-700' : 'bg-gray-300'
+                twoFactorAuth ? 'bg-deep-plum' : 'bg-gray-300'
               }`}
             >
               <div
@@ -43,7 +43,7 @@ const PrivacyandSettings = () => {
           </label>
         </div>
 
-        <div className="mb-6">
+        <div className="mb-6 flex justify-between">
           <h3 className="text-lg text-gray-700 mb-2">Phone number</h3>
           <p className="text-gray-900">+380 93 123 45 67</p>
         </div>
@@ -67,7 +67,7 @@ const PrivacyandSettings = () => {
 
         <button
           type="button"
-          className="w-full bg-purple-800 text-white py-2 rounded-full hover:bg-purple-900 transition duration-200"
+          className="w-full bg-deep-plum text-white py-2 rounded-full hover:bg-purple-900 transition duration-200"
         >
           + Reset all active sessions
         </button>

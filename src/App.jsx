@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
-import { Accept, DesignationPage, Group, HomePage, LocationPage, MatchPage, QualificationPage, Sent, ViewedMyProfilePage, HomePage, JobDetails, JobStatus, MoreJobDetails, RelationShipGoals, PersonalDetails,Interested,DatingInterest,LoginPage,SignUp,LandingPage } from './pages'
+import { Accept, DesignationPage, Group, LocationPage, MatchPage, QualificationPage, Sent, ViewedMyProfilePage, HomePage, JobDetails, JobStatus, MoreJobDetails, RelationShipGoals, PersonalDetails,Interested,DatingInterest,LoginPage,SignUp,LandingPage } from './pages'
 import DesktopLayout from './layout/DesktopLayout'
 import ChangePwdPage from './pages/ChangePwdPage';
 import EditprofilePage from './pages/EditprofilePage';

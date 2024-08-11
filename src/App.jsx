@@ -1,14 +1,13 @@
-
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
-import { HomePage, QualificationPage } from './pages'
+import { DesignationPage, HomePage, LocationPage, MatchPage, QualificationPage, ViewedMyProfilePage } from './pages'
 import DesktopLayout from './layout/DesktopLayout'
 import ChangePwdPage from './pages/ChangePwdPage';
 import EditprofilePage from './pages/EditprofilePage';
 import PrivacyandSettingspage from './pages/PrivacyandSettingspage';
 import SettingsPage from './pages/SettingsPage';
 import BottomNavbar from './components/BottomNavbar';
-
+import { SubHeader } from './Components';
 
 function App() {
   return (
@@ -21,9 +20,14 @@ function App() {
           <Route path='/editprofile' element={<EditprofilePage />} />
           <Route path='/privacyandsetting' element={<PrivacyandSettingspage />} />
           <Route path='/settings' element={<SettingsPage />} />
-
+          <Route path='/location' element={<LocationPage />} />
+          <Route path='/designation' element={<DesignationPage />} />
+          <Route path='/profile-views' element={<ViewedMyProfilePage />} />
+          <Route path='/match' element={<MatchPage />} />
+          <Route path='/test' element={<SubHeader />} />
         </Route>
       </Routes>
+      <BottomNavbar />
     </BrowserRouter>
   );
 }

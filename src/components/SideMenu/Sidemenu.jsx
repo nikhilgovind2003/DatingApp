@@ -19,7 +19,7 @@ function Sidemenu() {
         <Drawer placement={placement} isOpen={isOpen} onClose={onClose}>
           <DrawerOverlay />
           <DrawerContent className='bg-opacity-5'>
-            <DrawerBody className="bg-deep-plum bg-opacity-45 backdrop-filter backdrop-blur-lg border border-white border-opacity-10 w-[20rem] mt-5 rounded-lg p-4">
+            <DrawerBody className="bg-deep-plum bg-opacity-50 backdrop-filter backdrop-blur-lg border border-white border-opacity-10 w-[20rem] mt-5 rounded-lg p-4">
               
               <CiCircleRemove   className='size-7 text-white mb-2  '  onClick={onClose} />
                 <ul className='grid items-center'>

@@ -10,8 +10,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route element={<DesktopLayout />}>
-          <Route path='/' element={<HomePage />} />
-          <Route path='/qualification' element={<QualificationPage />} /
+        <Route path='/' element={<HomePage />} />
+        <Route path='/qualification' element={<QualificationPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
@@ -19,3 +19,4 @@ function App() {
 }
 
 export default App;
+

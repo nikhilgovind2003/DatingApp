@@ -17,7 +17,7 @@ const ShortlistPage = () => {
 
   return (
     <div className="bg-deep-plum h-screen overflow-y-auto">
-      <PageTitle icon={Search} pageTitle={"Shortlist"} />
+      <PageTitle icon={Search} pageTitle={"Shortlisted"} />
       <div className="rounded-t-4xl bg-white pt-5 px-5 pb-24 md:pb-5 sm:border-2 border-deep-plum ">
         {Object.keys(groupedUsers).sort().map(letter => (
           <div key={letter}>

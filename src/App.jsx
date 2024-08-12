@@ -30,7 +30,7 @@ function App() {
           <Route path='/accept' element={<Accept />} />
           <Route path='/reject' element={<RejectPage />} />
           <Route path='/received' element={<ReceivePage />} />
-          <Route path='/shortlist' element={<ShortlistPage />} />
+          <Route path='/shortlisted' element={<ShortlistPage />} />
           <Route path='/shortlisted-by' element={<ShortlistByPage />} />
           <Route path='/contacted' element={<ContactedPage />} />
           <Route path='/profile-viewed' element={<ViewedMyProfilePage />} />

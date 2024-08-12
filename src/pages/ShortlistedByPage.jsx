@@ -1,10 +1,10 @@
-import { Search } from "lucide-react";
-import { Userdata } from "../../datas/Userdata";
-import PageTitle from "../../components/PageTitle/PageTitle";
-import { UserPreview } from "../../components";
+import React from 'react';
+import { Userdata } from '../datas/Userdata';
+import { UserPreview } from '../components';
+import PageTitle from '../components/PageTitle/PageTitle';
+import { Search } from 'lucide-react';
 
-
-const RejectPage = () => {
+const ShortlistByPage = () => {
   // Group users by the first letter of their first name
   const groupedUsers = Userdata.reduce((acc, user) => {
     const firstLetter = user.firstName.charAt(0).toUpperCase();
@@ -17,7 +17,7 @@ const RejectPage = () => {
 
   return (
     <div className="bg-deep-plum h-screen overflow-y-auto">
-      <PageTitle icon={Search} pageTitle={"Sent"} />
+      <PageTitle icon={Search} pageTitle={"Shortlisted By"} />
       <div className="rounded-t-4xl bg-white pt-5 px-5 pb-24 md:pb-5 sm:border-2 border-deep-plum ">
         {Object.keys(groupedUsers).sort().map(letter => (
           <div key={letter}>
@@ -30,6 +30,7 @@ const RejectPage = () => {
                   name={name}
                   url={user.img}
                   bio={user.bio}
+                  fav={true}
                   close={true}
                 />
               );
@@ -41,4 +42,4 @@ const RejectPage = () => {
   );
 };
 
-export default RejectPage;
+export default ShortlistByPage;

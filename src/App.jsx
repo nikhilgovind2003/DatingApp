@@ -1,13 +1,12 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
-import { Accept, DesignationPage, Group, LocationPage, MatchPage, QualificationPage, Sent, ViewedMyProfilePage, HomePage, JobDetails, JobStatus, MoreJobDetails, RelationShipGoals, PersonalDetails,Interested,DatingInterest,LoginPage,SignUp,LandingPage } from './pages'
+import { Accept, DesignationPage, Group, LocationPage, MatchPage, QualificationPage, Sent, ViewedMyProfilePage, HomePage, JobDetails, JobStatus, MoreJobDetails, RelationShipGoals, PersonalDetails,Interested,DatingInterest,LoginPage,SignUp,LandingPage, RejectPage, ReceivePage, ShortlistPage, ShortlistByPage, ContactedPage } from './pages'
 import DesktopLayout from './layout/DesktopLayout'
 import ChangePwdPage from './pages/ChangePwdPage';
 import EditprofilePage from './pages/EditprofilePage';
 import PrivacyandSettingspage from './pages/PrivacyandSettingspage';
 import SettingsPage from './pages/SettingsPage';
 import BottomNavbar from './components/BottomNavbar';
-import { SubHeader } from './Components';
 
 
 
@@ -27,7 +26,14 @@ function App() {
           <Route path='/designation' element={<DesignationPage />} />
           <Route path='/profile-views' element={<ViewedMyProfilePage />} />
           <Route path='/match' element={<MatchPage />} />
-          <Route path='/test' element={<Group />} />
+          <Route path='/sent' element={<Sent />} />
+          <Route path='/accept' element={<Accept />} />
+          <Route path='/reject' element={<RejectPage />} />
+          <Route path='/received' element={<ReceivePage />} />
+          <Route path='/shortlist' element={<ShortlistPage />} />
+          <Route path='/shortlisted-by' element={<ShortlistByPage />} />
+          <Route path='/contacted' element={<ContactedPage />} />
+          <Route path='/profile-viewed' element={<ViewedMyProfilePage />} />
         </Route>
         <Route path='job_status' element={<JobStatus />} />
         <Route path='job_details' element={<JobDetails />} />

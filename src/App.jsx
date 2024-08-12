@@ -45,6 +45,7 @@ import BottomNavbar from './components/BottomNavbar';
 import { SubHeader } from './Components';
 import SubscriptionPage from './pages/SubscriptionPage';
 import SortFilter from './pages/SortFilter'
+import Messages from './pages/Messages';
 
 function App() {
   return (
@@ -80,6 +81,7 @@ function App() {
           <Route path='/story/:id' element={<Story />} />
           <Route path='/spin' element={<SpinPage />} />
           <Route path='/credit' element={<AddCreditCard />} />
+          <Route path='/message' element={<Messages />} />
           <Route path='*' element={<Error404 />} />
           
         </Route>

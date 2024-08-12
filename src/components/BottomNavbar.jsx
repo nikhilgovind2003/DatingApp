@@ -3,11 +3,11 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { House, Compass, MessageCircle, Users, Circle } from 'lucide-react'; // Import lucide-react icons
 function BottomNavbar() {
   const Menus = [
-    { name: "Home", icon: <House />, activeIcon: <House className="text-white" />, path: "/bottombar" },
-    { name: "Discovery", icon: <Compass />, activeIcon: <Compass className="text-white" />, path: "/bottombar" },
-    { name: "Message", icon: <img src='https://upload.wikimedia.org/wikipedia/commons/9/98/Color_circle_%28RGB%29.png' className='rounded-full '  width={30} />, activeIcon: <img src='https://upload.wikimedia.org/wikipedia/commons/9/98/Color_circle_%28RGB%29.png' className='rounded-full bg-white '  width={30} />, path: "/bottombar" },
-    { name: "Photos", icon: <Users />, activeIcon: <Users className="text-white" />, path: "/bottombar" },
-    { name: "Message", icon: <MessageCircle />, activeIcon: <MessageCircle className="text-white" />, path: "/bottombar" },
+    { name: "Home", icon: <House />, activeIcon: <House className="text-white" />, path: "/" },
+    { name: "Discovery", icon: <Compass />, activeIcon: <Compass className="text-white" />, path: "/" },
+    { name: "Message", icon: <img src='https://upload.wikimedia.org/wikipedia/commons/9/98/Color_circle_%28RGB%29.png' className='rounded-full '  width={30} />, activeIcon: <img src='https://upload.wikimedia.org/wikipedia/commons/9/98/Color_circle_%28RGB%29.png' className='rounded-full bg-white '  width={30} />, path: "/" },
+    { name: "Photos", icon: <Users />, activeIcon: <Users className="text-white" />, path: "/" },
+    { name: "Message", icon: <MessageCircle />, activeIcon: <MessageCircle className="text-white" />, path: "/" },
   ];
 
   const [active, setActive] = useState(0);
@@ -21,7 +21,7 @@ function BottomNavbar() {
   }, [location.pathname]);
 
   return (
-    <div className="bottom-nav bg-white   shadow px-3 py-3 rounded-full m-2 lg:hidden absolute bottom-0">
+    <div className="bottom-nav bg-white  w-full  shadow px-3 py-3 rounded-full  lg:hidden absolute md:hidden bottom-3">
       <ul className="flex justify-between  items-center m-0 p-0 list-none relative rounded-lg">
         <span
           className="bg-red-600 border absolute rounded-full flex justify-center items-center active-indicator"

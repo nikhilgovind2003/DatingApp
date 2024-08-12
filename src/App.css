@@ -1,3 +1,4 @@
+/* Styles for the curve */
 .curve::before{
     content: "";
     position: absolute;
@@ -12,6 +13,7 @@
     border-top-right-radius: 100%;
     box-shadow: 3px -5px 0 #4B164C;
 }
+
 .curve::after{
     content: "";
     position: absolute;
@@ -25,4 +27,9 @@
     height: 15px;
     border-top-left-radius: 100%;
     box-shadow: -3px -5px 0 #4B164C;
+}
+
+/* Hide the scrollbar */
+::-webkit-scrollbar{
+    display: none;
 }

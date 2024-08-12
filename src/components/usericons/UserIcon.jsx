@@ -1,14 +1,14 @@
 import { Pencil } from 'lucide-react'
 import React from 'react'
 
-const UserIcon = ({ url, stroy, add, edit}) => {
+const UserIcon = ({ url, story, add, edit}) => {
   return (
     <div
       className='relative w-16 h-16'>
       <img
         src={url ? url : "https://images.pexels.com/photos/13704184/pexels-photo-13704184.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}
         alt="user icon"
-        className={`inline-block h-16 w-16 rounded-full ring-2 ring-white object-center ${stroy ? "border-[3px] border-light-purple p-0.5" : ""}`}
+        className={`inline-block h-16 w-16 rounded-full ring-2 ring-white object-center ${story ? "border-[3px] border-light-purple p-0.5" : ""}`}
       />
       {add === "purple" ? (
         <button

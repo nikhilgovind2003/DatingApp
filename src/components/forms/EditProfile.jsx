@@ -2,9 +2,9 @@ import React from "react";
 
 function EditProfile() {
   return (
-    <div className="flex justify-center items-center min-h-screen bg-deep-plum">
-      <div className="bg-white shadow-md rounded-t-lg p-6 w-full max-w-md">
-        <div className="flex flex-col items-center">
+    <div className="flex justify-center   items-center  bg-deep-plum">
+      <div className="bg-white  rounded-t-3xl p-4 w-full ">
+        <div className="flex justify-center gap-4 items-center">
           <div className="relative">
             <img
               className="w-24 h-24 rounded-full object-cover"
@@ -13,14 +13,16 @@ function EditProfile() {
             />
             <span className="absolute bottom-0 right-0 bg-green-500 border-2 border-white rounded-full w-4 h-4"></span>
           </div>
-          <h2 className="text-xl font-semibold mt-4">Nazrul Islam</h2>
-          <p className="text-gray-500">Never give up 💪</p>
+          <div> 
+          <h2 className="text-xl font-semibold mt-">Nazrul Islam</h2>
+          <p className="text-gray-500">Never give up 💪</p> 
+          </div>
         </div>
-        <p className="mt-6 text-gray-700 text-center">
+        <p className="mt-2 text-gray-700 text-sm text-center">
           All your account information can be accessed and edited here but your
           mail will still remain un-edited.
         </p>
-        <form className="mt-4 space-y-4">
+        <form className="mt-2 space-y-4 overflow-scroll h-[50vh]">
           <input
             className="w-full p-3 border border-gray-300 rounded-lg"
             type="text"

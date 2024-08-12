@@ -1,3 +1,4 @@
+
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import { 
@@ -29,7 +30,8 @@ import {
   Error403, 
   Story,
   SpinPage,
-  AddCreditCard
+  AddCreditCard,
+  PartnerPreferances
 } from './pages';
 import DesktopLayout from './layout/DesktopLayout';
 import Profileviewpage from './pages/Profileviewpage';
@@ -42,6 +44,7 @@ import SettingsPage from './pages/SettingsPage';
 import BottomNavbar from './components/BottomNavbar';
 import { SubHeader } from './Components';
 import SubscriptionPage from './pages/SubscriptionPage';
+import SortFilter from './pages/SortFilter'
 
 function App() {
   return (
@@ -71,11 +74,14 @@ function App() {
           <Route path='/shortlisted-by' element={<ShortlistByPage />} />
           <Route path='/contacted' element={<ContactedPage />} />
           <Route path='/profile-viewed' element={<ViewedMyProfilePage />} />
+          <Route path='error_403' element={<Error403 />} />
+          <Route path='sort_filter' element={<SortFilter />} />
+          <Route path='partener_preferences' element={<PartnerPreferances />} />
           <Route path='/story/:id' element={<Story />} />
           <Route path='/spin' element={<SpinPage />} />
           <Route path='/credit' element={<AddCreditCard />} />
           <Route path='*' element={<Error404 />} />
-          <Route path='/error-403' element={<Error403 />} />
+          
         </Route>
         <Route path='/job_status' element={<JobStatus />} />
         <Route path='/job_details' element={<JobDetails />} />

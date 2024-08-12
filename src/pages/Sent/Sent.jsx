@@ -1,7 +1,7 @@
 import { Search } from "lucide-react";
 import { Userdata } from "../../datas/Userdata";
 import PageTitle from "../../components/PageTitle/PageTitle";
-import { UserPreview } from "../../components";
+import { UserPreview } from "../../Components";
 
 
 const RejectPage = () => {

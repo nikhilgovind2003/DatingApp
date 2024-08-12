@@ -1,7 +1,6 @@
 import React from 'react'
 import { InteractionIcon, MatchCardComponent, SubHeader } from '../Components'
 import { Userdata } from '../datas/Userdata'
-import CardNav from '../components/cardNav/CardNav'
 
 const QualificationPage = () => {
   return (
@@ -11,7 +10,6 @@ const QualificationPage = () => {
                 <InteractionIcon />
                 <p className='text-text font-medium my-3 text-lg'>Your Matches <span className='text-light-purple'>42</span></p>
             </div>
-            <CardNav/>
 
             <div className='grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-3 grid-cols-2 gap-5'>
             {Userdata?.map((user, i) => (

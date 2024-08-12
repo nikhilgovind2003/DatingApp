@@ -8,7 +8,7 @@ import Sidemenu from '../SideMenu/Sidemenu';
 const LeftBar = () => {
   return (
     <div className='w-full h-full bg-hot-purple text-white text-lg sm:text-sm md:text-sm lg:text-lg pt-5'>
-     <div className='px-4'>
+     <div>
      <Sidemenu />
       </div>
       <ul className='space-y-2'>

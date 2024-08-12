@@ -1,4 +1,6 @@
 import HomePage from "./HomePage";
+import SpinPage from "./SpinPage/SpinPage";
+import AddCreditCard from "./AddCreditCard";
 import JobStatus from "./JobStatus";
 import JobDetails from "./JobDetails";
 import MoreJobDetails from "./MoreJobDetails";
@@ -24,18 +26,17 @@ import ContactedPage from "./ContactedPage.jsx";
 import ViewedMyProfilePage from "./ViewedMyProfile.jsx";
 import Error404 from "./Error404.jsx";
 import Error403 from "./Error403.jsx";
+import Story from "./Story.jsx";
+import Profileviewpage from "./Profileviewpage.jsx";
+import ChangePassword from "../components/forms/ChangePassword.jsx";
 import SortFilter from "./SortFilter.jsx";
 import PartnerPreferances from "./PartnerPreferances.jsx";
 
+
 export {
     HomePage,
-    QualificationPage,
-    LocationPage,
-    DesignationPage,
-    MatchPage,
-    Accept,
-    Sent,
-    Group,
+    SpinPage,
+    AddCreditCard,
     JobStatus,
     JobDetails,
     MoreJobDetails,
@@ -46,6 +47,13 @@ export {
     LoginPage,
     SignUp,
     LandingPage,
+    QualificationPage,
+    LocationPage,
+    DesignationPage,
+    MatchPage,
+    Accept,
+    Sent,
+    Group,
     RejectPage,
     ReceivePage,
     ShortlistPage,
@@ -54,7 +62,10 @@ export {
     ViewedMyProfilePage,
     Error404,
     Error403,
-    SortFilter,
+   SortFilter,
     PartnerPreferances,
+    Story,
+    Profileviewpage,
+    ChangePassword
+};
 
-}

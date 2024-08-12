@@ -34,8 +34,8 @@ function App() {
           <Route path='/shortlisted-by' element={<ShortlistByPage />} />
           <Route path='/contacted' element={<ContactedPage />} />
           <Route path='/profile-viewed' element={<ViewedMyProfilePage />} />
-          {/* <Route path='error_404' element={<Error404 />} />
-          <Route path='error_403' element={<Error403 />} /> */}
+          <Route path='error_404' element={<Error404 />} />
+          <Route path='error_403' element={<Error403 />} />
         </Route>
         <Route path='job_status' element={<JobStatus />} />
         <Route path='job_details' element={<JobDetails />} />

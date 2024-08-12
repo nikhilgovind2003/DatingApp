@@ -26,6 +26,9 @@ import ContactedPage from "./ContactedPage.jsx";
 import ViewedMyProfilePage from "./ViewedMyProfile.jsx";
 import Error404 from "./Error404.jsx";
 import Error403 from "./Error403.jsx";
+import Story from "./Story.jsx";
+import Profileviewpage from "./Profileviewpage.jsx";
+import ChangePassword from "../components/forms/ChangePassword.jsx";
 
 export {
     HomePage,
@@ -55,5 +58,8 @@ export {
     ContactedPage,
     ViewedMyProfilePage,
     Error404,
-    Error403
+    Error403,
+    Story,
+    Profileviewpage,
+    ChangePassword
 };

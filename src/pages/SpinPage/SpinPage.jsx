@@ -2,7 +2,7 @@ import { CheckCheck, ChevronLeft  } from 'lucide-react';
 
 const SpinPage = () => {
   return (
-    <div className=" relative lg:hidden bg-deep-plum min-h-screen">
+    <div className=" relative  bg-deep-plum min-h-screen">
 
       <div className=' p-2 border-[1px] relative top-[24px] left-[24px] border-gray-400 w-[40px] h-[40px] flex items-center justify-center rounded-full'>
         < ChevronLeft  className=' text-gray-400 mt4'/>

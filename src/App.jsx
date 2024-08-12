@@ -26,7 +26,10 @@ import {
   ShortlistByPage, 
   ContactedPage, 
   Error404, 
-  Error403 
+  Error403, 
+  Story,
+  SpinPage,
+  AddCreditCard
 } from './pages';
 import DesktopLayout from './layout/DesktopLayout';
 import Profileviewpage from './pages/Profileviewpage';
@@ -48,9 +51,9 @@ function App() {
           <Route path='/' element={<HomePage />} />
           <Route path='/qualification' element={<QualificationPage />} />
           <Route path='/profileview' element={<Profileviewpage />} />
-          <Route path='/myprofile' element={<MyProfile />} />
+          <Route path='/profile' element={<MyProfile />} />
           <Route path='/paymentMethod' element={<PaymentMethods />} /> 
-          <Route path='/changepwd' element={<ChangePwdPage />} />
+          <Route path='/change-password' element={<ChangePwdPage />} />
           <Route path='/editprofile' element={<EditprofilePage />} />
           <Route path='/privacyandsetting' element={<PrivacyandSettingspage />} />
           <Route path='/settings' element={<SettingsPage />} />
@@ -68,8 +71,11 @@ function App() {
           <Route path='/shortlisted-by' element={<ShortlistByPage />} />
           <Route path='/contacted' element={<ContactedPage />} />
           <Route path='/profile-viewed' element={<ViewedMyProfilePage />} />
-          <Route path='/error_404' element={<Error404 />} />
-          <Route path='/error_403' element={<Error403 />} />
+          <Route path='/story/:id' element={<Story />} />
+          <Route path='/spin' element={<SpinPage />} />
+          <Route path='/credit' element={<AddCreditCard />} />
+          <Route path='*' element={<Error404 />} />
+          <Route path='/error-403' element={<Error403 />} />
         </Route>
         <Route path='/job_status' element={<JobStatus />} />
         <Route path='/job_details' element={<JobDetails />} />

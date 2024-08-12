@@ -24,7 +24,11 @@ export default {
         'button-anti-flash-light': '#F0F3F5',
         'hot-purple':'#522052',
         'dark-wine':'#7a3456',
+        'dark-violet':'#4B164C'
       },
+      borderRadius:{
+        "4xl":"50px"
+      }
     },
   },
   plugins: [],

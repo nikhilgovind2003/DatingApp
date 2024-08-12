@@ -9,7 +9,7 @@ const HomeCardComponents = (props) => {
         style={{
           backgroundImage: `url("${props.img}")`
         }}
-        className=" w-[157.79px] h-[120.03px] rounded-2xl bg-cover bg-left relative"
+        className=" w-full h-[120.03px] rounded-2xl bg-cover bg-left relative"
       >
           <div className=" bg-[#FFFFFF] bg-opacity-[20%] text-white top-2 left-4 absolute text-[10px] px-[2px]  rounded-full">
         <p>Online</p>
@@ -22,7 +22,7 @@ const HomeCardComponents = (props) => {
           <p className=" text-[7px] tracking-[0.25em]">{props.job}, {props.place}</p>
         </div>
 
-        <div className=" absolute top-[20%] bg-primary bg-opacity-[40%] right-0 text-white rounded-tl-lg rounded-bl-lg rounded-r-lg p-[5px]  border-[1px] border-gray-100">
+        <div className=" absolute top-[20%] bg-primary bg-opacity-[40%] right-0 text-white rounded-tl-lg rounded-bl-lg  outline outline-transparent p-[5px]  border-[1px] border-gray-100">
           <div className=" bg-[#FFFFFF] bg-opacity-[20%] p-1 w-[18.4px] h-[14px] flex items-center justify-center rounded-full">
             <IoMdThumbsUp size={10} />
           </div>

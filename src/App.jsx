@@ -7,9 +7,8 @@ import EditprofilePage from './pages/EditprofilePage';
 import PrivacyandSettingspage from './pages/PrivacyandSettingspage';
 import SettingsPage from './pages/SettingsPage';
 import BottomNavbar from './components/BottomNavbar';
-
-
-
+import { SubHeader } from './Components';
+import SubscriptionPage from './pages/SubscriptionPage';
 
 function App() {
   return (
@@ -26,6 +25,8 @@ function App() {
           <Route path='/designation' element={<DesignationPage />} />
           <Route path='/profile-views' element={<ViewedMyProfilePage />} />
           <Route path='/match' element={<MatchPage />} />
+          <Route path='/test' element={<SubHeader />} />
+          <Route path='/subscription' element={<SubscriptionPage />} />
           <Route path='/sent' element={<Sent />} />
           <Route path='/accept' element={<Accept />} />
           <Route path='/reject' element={<RejectPage />} />

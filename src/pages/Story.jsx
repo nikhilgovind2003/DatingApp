@@ -1,8 +1,8 @@
 import { ArrowLeft, CircleX, MessageSquare, Pencil } from "lucide-react";
 import { useState } from "react";
 
-import UserIcon from "../components/usericons/UserIcon"; // Adjust the path according to your project structure
 import Upgrade from './../components/upgrademore/Upgrade'
+import { UserIcon } from "../Components";
 
 
 export default function Story() {

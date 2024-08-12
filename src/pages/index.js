@@ -29,6 +29,9 @@ import Error403 from "./Error403.jsx";
 import Story from "./Story.jsx";
 import Profileviewpage from "./Profileviewpage.jsx";
 import ChangePassword from "../components/forms/ChangePassword.jsx";
+import SortFilter from "./SortFilter.jsx";
+import PartnerPreferances from "./PartnerPreferances.jsx";
+
 
 export {
     HomePage,
@@ -59,7 +62,10 @@ export {
     ViewedMyProfilePage,
     Error404,
     Error403,
+   SortFilter,
+    PartnerPreferances,
     Story,
     Profileviewpage,
     ChangePassword
 };
+

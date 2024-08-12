@@ -22,6 +22,8 @@ import ShortlistPage from "./ShortlistPage.jsx";
 import ShortlistByPage from "./ShortlistedByPage.jsx";
 import ContactedPage from "./ContactedPage.jsx";
 import ViewedMyProfilePage from "./ViewedMyProfile.jsx";
+import Error404 from "./Error404.jsx";
+import Error403 from "./Error403.jsx";
 
 export {
     HomePage,
@@ -47,5 +49,8 @@ export {
     ShortlistPage,
     ShortlistByPage,
     ContactedPage,
-    ViewedMyProfilePage
+    ViewedMyProfilePage,
+    Error404,
+    Error403
+
 }

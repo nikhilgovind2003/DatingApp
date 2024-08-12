@@ -10,7 +10,7 @@ export default function Story() {
 
   return (
     <div
-      className="relative flex h-screen bg-cover bg-center w-full md:w-1/3 mx-auto items-center"
+      className="relative flex h-screen bg-cover bg-center w-full  mx-auto items-center"
       style={{
         backgroundImage: `url('https://neural.love/cdn/ai-photostock/1eee2bb4-39ba-6ac4-8b66-ffe5a5909567/0.jpg?Expires=1727740799&Signature=MXr7E5bEM7G30qmuVC1fJGI8C0i9MRWQ55bZg4HY9AVkJnp9z7UNwNAcBtMc8Zga-FkfjnWKdxP3NbE776q0kY81fxHYdEmsA2x1LnLGV5-ocUK3d-LnhHNU11YcrbxLn3I2vQs~GoZhDlbtxRwvjn~DU88-6zD9hn2pltiyLoJBO13nBd8EWEBNI1rvnUII3K1qOURxPIWbjL2EcviT4D~fLLAyOSHVNNIzbfUNX8ZuKTL~D5chW3xLjYQoVCPDhDEGIssdvSgBXL9c9TTXgTNoHughQGF-HmAnW8KtQuI1rHHnMZh3ABvLudKFiFJ9g94DHO1gL4B2qYuMMh2giQ__&Key-Pair-Id=K2RFTOXRBNSROX')`,
       }}
@@ -33,7 +33,7 @@ export default function Story() {
           <input
             type="text"
             placeholder="Type your message..."
-            className="w-full py-3 px-5 pr-4 rounded-lg border border-[#DD88CF] focus:outline-none bg-[#4B164C]"
+            className=" md:w-full py-3 px-5 pr-4 rounded-lg border border-[#DD88CF] focus:outline-none bg-[#4B164C]"
           />
           <MessageSquare className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white" />
         </div>

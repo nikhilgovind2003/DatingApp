@@ -1,5 +1,5 @@
 import React from 'react'
-import { InteractionIcon, MatchCardComponent } from '../Components'
+import { InteractionIcon, MatchCardComponent, SubHeader } from '../Components'
 import { Userdata } from '../datas/Userdata'
 
 const MatchPage = () => {

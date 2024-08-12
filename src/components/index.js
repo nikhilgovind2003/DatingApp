@@ -10,7 +10,6 @@ import Sidemenu from "./SideMenu/Sidemenu";
 import ButtonGroup from "./buttons/HomeButtonGroup";
 import MatchCardComponent from "./matchCards/MatchCardComponent";
 import SubHeader from "./SubHeader";
-
 export {
     LeftBar,
     RightBar,

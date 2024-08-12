@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
-import { DesignationPage, HomePage, LocationPage, MatchPage, QualificationPage, ViewedMyProfilePage } from './pages'
+import { Accept, DesignationPage, Group, LocationPage, MatchPage, QualificationPage, Sent, ViewedMyProfilePage, HomePage, JobDetails, JobStatus, MoreJobDetails, RelationShipGoals, PersonalDetails,Interested,DatingInterest,LoginPage,SignUp,LandingPage, RejectPage, ReceivePage, ShortlistPage, ShortlistByPage, ContactedPage, Error404, Error403 } from './pages'
 import DesktopLayout from './layout/DesktopLayout'
 import ChangePwdPage from './pages/ChangePwdPage';
 import EditprofilePage from './pages/EditprofilePage';
@@ -27,8 +27,28 @@ function App() {
           <Route path='/match' element={<MatchPage />} />
           <Route path='/test' element={<SubHeader />} />
           <Route path='/subscription' element={<SubscriptionPage />} />
-
+          <Route path='/sent' element={<Sent />} />
+          <Route path='/accept' element={<Accept />} />
+          <Route path='/reject' element={<RejectPage />} />
+          <Route path='/received' element={<ReceivePage />} />
+          <Route path='/shortlisted' element={<ShortlistPage />} />
+          <Route path='/shortlisted-by' element={<ShortlistByPage />} />
+          <Route path='/contacted' element={<ContactedPage />} />
+          <Route path='/profile-viewed' element={<ViewedMyProfilePage />} />
+          <Route path='error_404' element={<Error404 />} />
+          <Route path='error_403' element={<Error403 />} />
         </Route>
+        <Route path='job_status' element={<JobStatus />} />
+        <Route path='job_details' element={<JobDetails />} />
+        <Route path='more_job_details' element={<MoreJobDetails />} />
+        <Route path='relationship_goals' element={<RelationShipGoals />} />
+        <Route path='interested' element={<Interested />} />
+        <Route path='dating_interest' element={<DatingInterest />} />
+        <Route path='personal_details' element={<PersonalDetails />} />
+        <Route path='login' element={<LoginPage />} />
+        <Route path='sign_up' element={<SignUp />} />
+        <Route path='landing_page' element={<LandingPage />} />
+
       </Routes>
       <BottomNavbar />
     </BrowserRouter>

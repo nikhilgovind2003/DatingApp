@@ -29,7 +29,8 @@ export const Userdata = [
     isOnline: true,
     match: "94",
     job: "DEVELOPER",
-    bio: "Music lover 🎶"
+    bio: "Music lover 🎶",
+    message: "What about that new jacket if I ..."
   },
   {
     id: "3",
@@ -45,7 +46,8 @@ export const Userdata = [
     isOnline: true,
     match: "87",
     job: "DEVELOPER",
-    bio: "Health-conscious 🧘"
+    bio: "Health-conscious 🧘",
+    message: "I know right!"
   },
   {
     id: "4",
@@ -60,7 +62,8 @@ export const Userdata = [
     isOnline: true,
     match: "100",
     job: "DEVELOPER",
-    bio: "Photography buff 📷"
+    bio: "Photography buff 📷",
+    message: "I've already registered"
   },
   {
     id: "5",
@@ -92,7 +95,8 @@ export const Userdata = [
     isOnline: true,
     match: "100",
     job: "DEVELOPER",
-    bio: "Tech & sports fan ⚽"
+    bio: "Tech & sports fan ⚽",
+    message: "It will have two lines of heading ..."
   },
   {
     id: "7",
@@ -108,7 +112,8 @@ export const Userdata = [
     isOnline: true,
     match: "70",
     job: "DEVELOPER",
-    bio: "Creative spirit 🎨"
+    bio: "Creative spirit 🎨",
+    message: "What's about dinner tonight"
   },
   {
     id: "8",
@@ -140,7 +145,8 @@ export const Userdata = [
     isOnline: true,
     match: "90",
     job: "DEVELOPER",
-    bio: "Wellness guru 🧘"
+    bio: "Wellness guru 🧘",
+    message: "How was the trip?"
   },
   {
     id: "10",
@@ -156,6 +162,7 @@ export const Userdata = [
     isOnline: true,
     match: "80",
     job: "DEVELOPER",
-    bio: "Fitness fanatic 💪"
+    bio: "Fitness fanatic 💪",
+    message: "how was the interview?"
   }
 ];

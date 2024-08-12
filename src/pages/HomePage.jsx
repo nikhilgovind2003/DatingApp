@@ -4,12 +4,16 @@ import { HomeCard, LeftBar, RightBar } from '../Components'
 import { Bell } from 'lucide-react'
 
 
+
 const HomePage = () => {
   return (
     
-       <div>nfmwnfkjwdnfkwdmfckl</div>
+       <div>nfmwnfkjwdnfkwdmfckl
+
+
+       </div>
    
-    
+   
   )
 }
 

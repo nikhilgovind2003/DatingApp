@@ -5,13 +5,13 @@ import { GoChevronRight } from "react-icons/go";
 function Error403 () {
 
   return (
-    <div className=' content-around h-full bg-hot-purple text-white text-lg   min-h-screen max-w-sm w-full m-auto '>
-     <div className=' text-center font-Play text-4xl'>
-        <h1 className=' text-center text-8xl text-yellow-200'>403</h1>
-<p className='text-5xl'>Access Denied</p><br />
-<p>Sorry , You don't </p>
-<p>have access to</p>
-<p>this page</p>
+    <div className=' content-around h-full bg-hot-purple text-white md:text-lg   min-h-screen w-full m-auto overflow-y-auto'>
+     <div className=' text-center font-Play text-2xl md:text-4xl'>
+        <h1 className=' text-center text-5xl md:text-8xl text-yellow-200'>403</h1>
+<p className='md:text-5xl text-xl'>Access Denied</p><br />
+<p className='text-sm md:text-2xl'>Sorry , You don't </p>
+<p className='text-sm md:text-2xl'>have access to</p>
+<p className='text-sm md:text-2xl'>this page</p>
 <br />
 
 <Button  colorScheme='teal text-white' variant='outline'>

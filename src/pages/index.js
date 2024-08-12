@@ -1,4 +1,6 @@
 import HomePage from "./HomePage";
+import SpinPage from "./SpinPage/SpinPage";
+import AddCreditCard from "./AddCreditCard";
 import JobStatus from "./JobStatus";
 import JobDetails from "./JobDetails";
 import MoreJobDetails from "./MoreJobDetails";
@@ -27,13 +29,8 @@ import Error403 from "./Error403.jsx";
 
 export {
     HomePage,
-    QualificationPage,
-    LocationPage,
-    DesignationPage,
-    MatchPage,
-    Accept,
-    Sent,
-    Group,
+    SpinPage,
+    AddCreditCard,
     JobStatus,
     JobDetails,
     MoreJobDetails,
@@ -44,6 +41,13 @@ export {
     LoginPage,
     SignUp,
     LandingPage,
+    QualificationPage,
+    LocationPage,
+    DesignationPage,
+    MatchPage,
+    Accept,
+    Sent,
+    Group,
     RejectPage,
     ReceivePage,
     ShortlistPage,
@@ -52,5 +56,4 @@ export {
     ViewedMyProfilePage,
     Error404,
     Error403
-
-}
+};

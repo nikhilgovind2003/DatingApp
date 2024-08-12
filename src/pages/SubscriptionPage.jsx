@@ -8,13 +8,13 @@ function SubscriptionPage() {
    <div className='text-center font-semibold text-2xl font-montserrat  p-8  text-white'>
     Subscription Plan
    </div>
-   <div className='bg-gray-900 px-2 py-4  mx-auto tracking-wide h-screen rounded-t-4xl'>
-   <div class="text-white flex justify-center  tracking-widest p-6  w- mx-auto  rounded-lg">
+   <div className='bg-gray-900 px-2 py-4   mx-auto tracking-wide h-screen rounded-t-4xl'>
+   <div class="text-white flex justify-center  tracking-widest p-6   mx-auto  rounded-lg">
     <div>
         <h2 class="text-xl font-bold">Prime Member</h2>
         <p class="text-4xl font-extrabold mt-2">₹49<span class="text-lg font-medium">/-month</span></p>
     <div className='text-sm leading-2 '>
-       <div class="mt-2 ">
+       <div class="mt-2  ">
           <span> </span>  <p class="font-semibold mb-2 flex items-center gap-2"><CircleCheck  />Daily Limits</p>
             <ul class="list-disc text-xs ml-14">
                 <li>View up to 15 profiles per day</li>
@@ -51,7 +51,7 @@ function SubscriptionPage() {
         </div>
     </div>
     <div className='text-gray-400 text-center'>
-    <button className='px-16 py-4 bg-gray-600 rounded-2xl text-2xl font-bold' >Subscribe</button>
+    <button onClick={() => window.location.href = '/paymentMethod'} className='px-16 py-4 bg-gray-600 rounded-2xl text-2xl font-bold' >Subscribe</button>
 </div>
    </div>
 

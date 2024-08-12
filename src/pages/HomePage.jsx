@@ -30,7 +30,8 @@ const HomePage = () => {
          <button>
            <UserIcon
             key={user.id}
-            stroy={true}
+            story={true}
+          
             url={user.img}
           />
           <p className="mt-0.5 text-[14px]">{user.firstName}</p>

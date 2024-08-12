@@ -1,5 +1,6 @@
 export const Userdata = [
   {
+    id: "1",
     hobbies: ["Reading", "Hiking", "Photography"],
     interests: ["Technology", "Art", "Traveling"],
     gender: "Male",
@@ -11,8 +12,11 @@ export const Userdata = [
     place: "HANOVE",
     isOnline: true,
     match: "83",
+    job: "DEVELOPER",
+    bio: "Tech enthusiast 💻"
   },
   {
+    id: "2",
     hobbies: ["Cooking", "Gaming", "Cycling"],
     interests: ["Science", "History", "Music"],
     gender: "Female",
@@ -24,8 +28,11 @@ export const Userdata = [
     place: "New York",
     isOnline: true,
     match: "94",
+    job: "DEVELOPER",
+    bio: "Music lover 🎶"
   },
   {
+    id: "3",
     hobbies: ["Drawing", "Yoga", "Gardening"],
     interests: ["Fashion", "Health", "Design"],
     gender: "Male",
@@ -37,8 +44,11 @@ export const Userdata = [
     place: "CHICAGO",
     isOnline: true,
     match: "87",
+    job: "DEVELOPER",
+    bio: "Health-conscious 🧘"
   },
   {
+    id: "4",
     hobbies: ["Fishing", "Golf", "Reading"],
     interests: ["Politics", "Economics", "Photography"],
     img: "https://media.istockphoto.com/id/1682296067/photo/happy-studio-portrait-or-professional-man-real-estate-agent-or-asian-businessman-smile-for.webp?b=1&s=170667a&w=0&k=20&c=V-RXoAk73ljzQZd0w_JcCFG-jlYs6sjpcrIZQ1TersQ=",
@@ -48,9 +58,12 @@ export const Userdata = [
     age: "23",
     place: "AUSTIN",
     isOnline: true,
-    match: "100"
+    match: "100",
+    job: "DEVELOPER",
+    bio: "Photography buff 📷"
   },
   {
+    id: "5",
     hobbies: ["Running", "Knitting", "Cooking"],
     interests: ["Wellness", "Food", "Traveling"],
     gender: "Male",
@@ -62,8 +75,11 @@ export const Userdata = [
     place: "HANOVE",
     isOnline: true,
     match: "50",
+    job: "DEVELOPER",
+    bio: "Foodie & traveler 🌍"
   },
   {
+    id: "6",
     hobbies: ["Surfing", "Gaming", "Music"],
     interests: ["Technology", "Sports", "Movies"],
     gender: "Male",
@@ -75,8 +91,11 @@ export const Userdata = [
     place: "DORTMUND",
     isOnline: true,
     match: "100",
+    job: "DEVELOPER",
+    bio: "Tech & sports fan ⚽"
   },
   {
+    id: "7",
     hobbies: ["Dancing", "Photography", "Traveling"],
     interests: ["Culture", "Fashion", "Art"],
     gender: "Female",
@@ -85,11 +104,14 @@ export const Userdata = [
     firstName: "Nami",
     lastName: "San",
     age: "20",
-    isOnline: true,
     place: "MIAMI",
+    isOnline: true,
     match: "70",
+    job: "DEVELOPER",
+    bio: "Creative spirit 🎨"
   },
   {
+    id: "8",
     hobbies: ["Woodworking", "Hiking", "Cycling"],
     interests: ["Nature", "Science", "DIY Projects"],
     gender: "Male",
@@ -100,9 +122,12 @@ export const Userdata = [
     lastName: "Williams",
     age: "22",
     isOnline: true,
-    match: "60"
+    match: "60",
+    job: "DEVELOPER",
+    bio: "Nature lover 🌲"
   },
   {
+    id: "9",
     hobbies: ["Painting", "Yoga", "Reading"],
     interests: ["Wellness", "Design", "Art"],
     gender: "Female",
@@ -113,20 +138,24 @@ export const Userdata = [
     lastName: "Johnson",
     age: "21",
     isOnline: true,
-    match: "90"
+    match: "90",
+    job: "DEVELOPER",
+    bio: "Wellness guru 🧘"
   },
   {
+    id: "10",
     hobbies: ["Running", "Traveling", "Gaming"],
     interests: ["Technology", "Fitness", "Movies"],
     gender: "Male",
     place: "BOSTON",
     img: "https://clubcorvettemontreal.com/news/img-m_p/profile-pictures-for-men_19_187990.jpg",
-    distance: "1.2",
-    firstName: "Jack",
-    lastName: "Sparrow",
+    distance: "2.1",
+    firstName: "Max",
+    lastName: "Smith",
     age: "24",
     isOnline: true,
-    match: "85"
-  },
+    match: "80",
+    job: "DEVELOPER",
+    bio: "Fitness fanatic 💪"
+  }
 ];
-

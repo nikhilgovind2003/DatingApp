@@ -1,8 +1,8 @@
 
 import React from 'react'
-import { LeftBar, RightBar } from '../Components';
 import { Outlet } from 'react-router-dom';
 import BottomNavbar from '../components/BottomNavbar';
+import { LeftBar, RightBar } from '../components';
 
 const DesktopLayout = ()=>{
     return(
@@ -13,7 +13,7 @@ const DesktopLayout = ()=>{
         </aside>
     
         
-        <main className="md:col-span-6   ">
+        <main className="md:col-span-6 ">
             <Outlet />
             <BottomNavbar 
             className="md:hidden mx-2"/>

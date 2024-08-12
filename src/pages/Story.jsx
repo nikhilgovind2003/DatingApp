@@ -3,6 +3,7 @@ import { useState } from "react";
 
 import Upgrade from './../components/upgrademore/Upgrade'
 import { UserIcon } from "../Components";
+import BottomNavbar from "../components/BottomNavbar";
 
 
 export default function Story() {

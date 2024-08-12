@@ -47,6 +47,9 @@ import SubscriptionPage from './pages/SubscriptionPage';
 import SortFilter from './pages/SortFilter'
 
 function App() {
+
+  const hideOnRoutes = ['/credit','/subscription', `/story/1`]; 
+
   return (
     <BrowserRouter>
       <Routes>
@@ -94,7 +97,7 @@ function App() {
         <Route path='/sign_up' element={<SignUp />} />
         <Route path='/landing_page' element={<LandingPage />} />
       </Routes>
-      <BottomNavbar />
+      <BottomNavbar show={true} hideOnRoutes={hideOnRoutes} />
     </BrowserRouter>
   );
 }

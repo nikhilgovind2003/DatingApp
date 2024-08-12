@@ -1,3 +1,4 @@
+/* Styles for the curve */
 .curve::before{
     content: "";
     position: absolute;
@@ -12,6 +13,7 @@
     border-top-right-radius: 100%;
     box-shadow: 3px -5px 0 #4B164C;
 }
+
 .curve::after{
     content: "";
     position: absolute;
@@ -27,6 +29,12 @@
     box-shadow: -3px -5px 0 #4B164C;
 }
 
-.cvv{
--webkit-text-security: star;
+/* Hide the scrollbar */
+::-webkit-scrollbar{
+    display: none;
+}
+
+/* Mask CVV text */
+.cvv {
+    -webkit-text-security: star;
 }

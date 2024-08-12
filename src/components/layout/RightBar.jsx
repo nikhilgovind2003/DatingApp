@@ -1,9 +1,11 @@
 import React from 'react';
 import { LogOut } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { navData } from '../../datas/navData';
 
 const RightBar = () => {
   return (
-    <div className='w-full h-full bg-hot-purple text-white text-lg sm:text-sm md:text-sm lg:text-lg pt-2'>
+    <div className='w-full h-screen bg-hot-purple text-white text-lg sm:text-sm md:text-sm lg:text-lg pt-2'>
       {/* Profile Section */}
       <div className="flex flex-col items-center ">
         <div className="relative">
@@ -24,46 +26,18 @@ const RightBar = () => {
       </div>
 
       {/* Menu Items */}
-      <ul className='space-y-2'>
-        <li className="hover:bg-dark-wine">
-          <a href='#' className="block px-4 py-2">My Profile</a>
-        </li>
-        <li className="hover:bg-dark-wine">
-          <a href="#" className="block px-4 py-2">Sent Request</a>
-        </li>
-        <li className="hover:bg-dark-wine">
-          <a href="#" className="block px-4 py-2">Viewed My Profile</a>
-        </li>
-        <li className="hover:bg-dark-wine">
-          <a href="#" className="block px-4 py-2">Accept Request</a>
-        </li>
-        <li className="hover:bg-dark-wine">
-          <a href="#" className="block px-4 py-2">Reject</a>
-        </li>
-        <li className="hover:bg-dark-wine">
-          <a href="#" className="block px-4 py-2">Received</a>
-        </li>
-        <li className="hover:bg-dark-wine">
-          <a href="#" className="block px-4 py-2">Shortlisted By</a>
-        </li>
-        <li className="hover:bg-dark-wine">
-          <a href="#" className="block px-4 py-2">Shortlisted</a>
-        </li>
-        <li className="hover:bg-dark-wine">
-          <a href="#" className="block px-4 py-2">Contacted</a>
-        </li>
-        <li className="hover:bg-dark-wine">
-          <a href="#" className="block px-4 py-2">Message</a>
-        </li>
-        <li className="hover:bg-dark-wine">
-          <a href="#" className="block px-4 py-2">Settings</a>
-        </li>
-        <li className="hover:bg-dark-wine">
-          <a href="#" className="block px-4 py-2 flex items-center">
-            <span className="mr-2"><LogOut /></span>Logout
-          </a>
-        </li>
-      </ul>
+      
+      <div className=' overflow-y-auto py-5' style={{height:'550px' }}>
+        <ul className='space-y-2'>
+          {navData?.map(item => (
+            <Link to={item.href} key={item.title}>
+            <li className="hover:bg-dark-wine  px-4 py-2">
+            {item.title}
+            </li>
+            </Link>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

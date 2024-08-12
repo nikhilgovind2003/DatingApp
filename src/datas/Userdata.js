@@ -12,7 +12,8 @@ export const Userdata = [
     place: "HANOVE",
     isOnline: true,
     match: "83",
-    job: "DEVELOPER"
+    job: "DEVELOPER",
+    bio: "Tech enthusiast 💻"
   },
   {
     id: "2",
@@ -27,7 +28,8 @@ export const Userdata = [
     place: "New York",
     isOnline: true,
     match: "94",
-    job: "DEVELOPER"
+    job: "DEVELOPER",
+    bio: "Music lover 🎶"
   },
   {
     id: "3",
@@ -42,7 +44,8 @@ export const Userdata = [
     place: "CHICAGO",
     isOnline: true,
     match: "87",
-    job: "DEVELOPER"
+    job: "DEVELOPER",
+    bio: "Health-conscious 🧘"
   },
   {
     id: "4",
@@ -56,7 +59,8 @@ export const Userdata = [
     place: "AUSTIN",
     isOnline: true,
     match: "100",
-    job: "DEVELOPER"
+    job: "DEVELOPER",
+    bio: "Photography buff 📷"
   },
   {
     id: "5",
@@ -71,7 +75,8 @@ export const Userdata = [
     place: "HANOVE",
     isOnline: true,
     match: "50",
-    job: "DEVELOPER"
+    job: "DEVELOPER",
+    bio: "Foodie & traveler 🌍"
   },
   {
     id: "6",
@@ -86,7 +91,8 @@ export const Userdata = [
     place: "DORTMUND",
     isOnline: true,
     match: "100",
-    job: "DEVELOPER"
+    job: "DEVELOPER",
+    bio: "Tech & sports fan ⚽"
   },
   {
     id: "7",
@@ -101,7 +107,8 @@ export const Userdata = [
     place: "MIAMI",
     isOnline: true,
     match: "70",
-    job: "DEVELOPER"
+    job: "DEVELOPER",
+    bio: "Creative spirit 🎨"
   },
   {
     id: "8",
@@ -116,7 +123,8 @@ export const Userdata = [
     age: "22",
     isOnline: true,
     match: "60",
-    job: "DEVELOPER"
+    job: "DEVELOPER",
+    bio: "Nature lover 🌲"
   },
   {
     id: "9",
@@ -131,7 +139,8 @@ export const Userdata = [
     age: "21",
     isOnline: true,
     match: "90",
-    job: "DEVELOPER"
+    job: "DEVELOPER",
+    bio: "Wellness guru 🧘"
   },
   {
     id: "10",
@@ -140,12 +149,13 @@ export const Userdata = [
     gender: "Male",
     place: "BOSTON",
     img: "https://clubcorvettemontreal.com/news/img-m_p/profile-pictures-for-men_19_187990.jpg",
-    distance: "1.2",
-    firstName: "Jack",
-    lastName: "Sparrow",
+    distance: "2.1",
+    firstName: "Max",
+    lastName: "Smith",
     age: "24",
     isOnline: true,
-    match: "85",
-    job: "DEVELOPER"
-  },
+    match: "80",
+    job: "DEVELOPER",
+    bio: "Fitness fanatic 💪"
+  }
 ];

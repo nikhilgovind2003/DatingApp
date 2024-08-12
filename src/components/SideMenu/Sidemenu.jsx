@@ -12,14 +12,14 @@ function Sidemenu() {
 
   return (
     <div>
-        <Button className='bg-origin-padding bg-transparent md:text-white text-text text-xl font-bold mb-4 flex items-center gap-2 pt-5' onClick={onOpen}>
+        <Button variant={'none'} className='  md:text-white text-text text-xl font-bold mb-4 flex items-center gap-2 pt-5' onClick={onOpen}>
           <AlignJustify className='right-5 space-x-3 border-s-dark-wine w-6 h-6' /><span className='font-medium md:text-white text-text text-2xl'>BuddyPair</span>
         </Button>
 
         <Drawer placement={placement} isOpen={isOpen} onClose={onClose}>
           <DrawerOverlay />
-          <DrawerContent className='bg-opacity-5'>
-            <DrawerBody className="bg-deep-plum bg-opacity-50 backdrop-filter backdrop-blur-lg border border-white border-opacity-10 w-[20rem] mt-5 rounded-lg p-4">
+          <DrawerContent className='h-fit'>
+            <DrawerBody className="bg-deep-plum   border border-white border-opacity-10 w-[20rem]   p-4">
               
               <CiCircleRemove   className='size-7 text-white mb-2  '  onClick={onClose} />
                 <ul className='grid items-center'>

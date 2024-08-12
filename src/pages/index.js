@@ -1,4 +1,6 @@
 import HomePage from "./HomePage";
+import SpinPage from "./SpinPage/SpinPage";
+import AddCreditCard from "./AddCreditCard";
 import JobStatus from "./JobStatus";
 import JobDetails from "./JobDetails";
 import MoreJobDetails from "./MoreJobDetails";
@@ -12,21 +14,23 @@ import LandingPage from "./LandingPage.jsx";
 import QualificationPage from "./QualificationPage";
 import LocationPage from "./LocationPage";
 import DesignationPage from "./DesignationPage";
-import ViewedMyProfilePage from "./ViewedMyProfilePage";
 import MatchPage from "./MatchPage";
 import Accept from "./Accept/Accept";
 import Sent from "./Sent/Sent";
-import Group from "./groups/Groups"
+import Group from "./groups/Groups";
+import RejectPage from "./RejectPage.jsx";
+import ReceivePage from "./ReceivePage.jsx";
+import ShortlistPage from "./ShortlistPage.jsx";
+import ShortlistByPage from "./ShortlistedByPage.jsx";
+import ContactedPage from "./ContactedPage.jsx";
+import ViewedMyProfilePage from "./ViewedMyProfile.jsx";
+import Error404 from "./Error404.jsx";
+import Error403 from "./Error403.jsx";
+
 export {
     HomePage,
-    QualificationPage,
-    LocationPage,
-    DesignationPage,
-    ViewedMyProfilePage,
-    MatchPage,
-    Accept,
-    Sent,
-    Group,
+    SpinPage,
+    AddCreditCard,
     JobStatus,
     JobDetails,
     MoreJobDetails,
@@ -36,5 +40,20 @@ export {
     PersonalDetails,
     LoginPage,
     SignUp,
-    LandingPage
-}
+    LandingPage,
+    QualificationPage,
+    LocationPage,
+    DesignationPage,
+    MatchPage,
+    Accept,
+    Sent,
+    Group,
+    RejectPage,
+    ReceivePage,
+    ShortlistPage,
+    ShortlistByPage,
+    ContactedPage,
+    ViewedMyProfilePage,
+    Error404,
+    Error403
+};

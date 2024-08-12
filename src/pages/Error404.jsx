@@ -5,7 +5,7 @@ import { GoChevronRight } from "react-icons/go";
 function Error404() {
     return (
 
-    <div className=' content-around h-full bg-hot-purple text-white text-lg   min-h-screen max-w-sm w-full m-auto '>
+    <div className=' content-around h-full bg-hot-purple text-white text-lg   min-h-screen  w-full m-auto '>
     <div className=' text-center font-Play text-4xl'>
        <h1 className=' text-center text-8xl text-yellow-200'>404</h1>
 

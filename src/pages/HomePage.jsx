@@ -4,8 +4,10 @@ import { ButtonGroup, Sidemenu, UserIcon } from "../Components";
 import { HiOutlineBell } from "react-icons/hi";
 import HomeCardComponents from "../components/Homecards/HomeCardComponents";
 
+
 const HomePage = () => {
   return (
+
     <section className="lg:w-full md:w-full sm: w-screen pt-5 px-5 pb-24 md:pb-5 h-screen overflow-y-auto overflow-x-hidden">
       <div className="flex justify-between md:hidden gap-5">
         <Sidemenu />
@@ -50,6 +52,7 @@ const HomePage = () => {
 
 
     </section>
+
 
 
   )

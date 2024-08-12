@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 import { Accept, DesignationPage, Group, LocationPage, MatchPage, QualificationPage, Sent, ViewedMyProfilePage, HomePage, JobDetails, JobStatus, MoreJobDetails, RelationShipGoals, PersonalDetails,Interested,DatingInterest,LoginPage,SignUp,LandingPage, RejectPage, ReceivePage, ShortlistPage, ShortlistByPage, ContactedPage, Error404, Error403 } from './pages'
 import DesktopLayout from './layout/DesktopLayout'
+import PaymentMethods from './pages/PaymentMethods' 
 import ChangePwdPage from './pages/ChangePwdPage';
 import EditprofilePage from './pages/EditprofilePage';
 import PrivacyandSettingspage from './pages/PrivacyandSettingspage';
@@ -10,12 +11,15 @@ import BottomNavbar from './components/BottomNavbar';
 import { SubHeader } from './Components';
 import SubscriptionPage from './pages/SubscriptionPage';
 
+
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<DesktopLayout />}>
           <Route path='/' element={<HomePage />} />
+
+          <Route path="/paymentMethod" element={<PaymentMethods />} /> 
           <Route path='/qualification' element={<QualificationPage />} />
           <Route path='/changepwd' element={<ChangePwdPage />} />
           <Route path='/editprofile' element={<EditprofilePage />} />
@@ -37,6 +41,7 @@ function App() {
           <Route path='/profile-viewed' element={<ViewedMyProfilePage />} />
           <Route path='error_404' element={<Error404 />} />
           <Route path='error_403' element={<Error403 />} />
+
         </Route>
         <Route path='job_status' element={<JobStatus />} />
         <Route path='job_details' element={<JobDetails />} />

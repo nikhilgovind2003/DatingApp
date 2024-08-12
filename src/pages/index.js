@@ -24,6 +24,8 @@ import ContactedPage from "./ContactedPage.jsx";
 import ViewedMyProfilePage from "./ViewedMyProfile.jsx";
 import Error404 from "./Error404.jsx";
 import Error403 from "./Error403.jsx";
+import SortFilter from "./SortFilter.jsx";
+import PartnerPreferances from "./PartnerPreferances.jsx";
 
 export {
     HomePage,
@@ -51,6 +53,8 @@ export {
     ContactedPage,
     ViewedMyProfilePage,
     Error404,
-    Error403
+    Error403,
+    SortFilter,
+    PartnerPreferances,
 
 }

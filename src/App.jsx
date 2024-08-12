@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
-import { Accept, DesignationPage, Group, LocationPage, MatchPage, QualificationPage, Sent, ViewedMyProfilePage, HomePage, JobDetails, JobStatus, MoreJobDetails, RelationShipGoals, PersonalDetails,Interested,DatingInterest,LoginPage,SignUp,LandingPage, RejectPage, ReceivePage, ShortlistPage, ShortlistByPage, ContactedPage, Error404, Error403 } from './pages'
+import { Accept, DesignationPage, Group, LocationPage, MatchPage, QualificationPage, Sent, ViewedMyProfilePage, HomePage, JobDetails, JobStatus, MoreJobDetails, RelationShipGoals, PersonalDetails,Interested,DatingInterest,LoginPage,SignUp,LandingPage, RejectPage, ReceivePage, ShortlistPage, ShortlistByPage, ContactedPage, Error404, Error403, PartnerPreferances } from './pages'
 import DesktopLayout from './layout/DesktopLayout'
 import PaymentMethods from './pages/PaymentMethods' 
 import ChangePwdPage from './pages/ChangePwdPage';
@@ -10,6 +10,7 @@ import SettingsPage from './pages/SettingsPage';
 import BottomNavbar from './components/BottomNavbar';
 import { SubHeader } from './Components';
 import SubscriptionPage from './pages/SubscriptionPage';
+import SortFilter from './pages/SortFilter'
 
 
 function App() {
@@ -41,6 +42,9 @@ function App() {
           <Route path='/profile-viewed' element={<ViewedMyProfilePage />} />
           <Route path='error_404' element={<Error404 />} />
           <Route path='error_403' element={<Error403 />} />
+          <Route path='sort_filter' element={<SortFilter />} />
+          <Route path='partener_preferences' element={<PartnerPreferances />} />
+
 
         </Route>
         <Route path='job_status' element={<JobStatus />} />

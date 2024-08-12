@@ -1,8 +1,37 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import './App.css'
-import { Accept, DesignationPage, Group, LocationPage, MatchPage, QualificationPage, Sent, ViewedMyProfilePage, HomePage, JobDetails, JobStatus, MoreJobDetails, RelationShipGoals, PersonalDetails,Interested,DatingInterest,LoginPage,SignUp,LandingPage, RejectPage, ReceivePage, ShortlistPage, ShortlistByPage, ContactedPage, Error404, Error403 } from './pages'
-import DesktopLayout from './layout/DesktopLayout'
-import PaymentMethods from './pages/PaymentMethods' 
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import './App.css';
+import { 
+  Accept, 
+  DesignationPage, 
+  Group, 
+  LocationPage, 
+  MatchPage, 
+  QualificationPage, 
+  Sent, 
+  ViewedMyProfilePage, 
+  HomePage, 
+  JobDetails, 
+  JobStatus, 
+  MoreJobDetails, 
+  RelationShipGoals, 
+  PersonalDetails, 
+  Interested, 
+  DatingInterest, 
+  LoginPage, 
+  SignUp, 
+  LandingPage, 
+  RejectPage, 
+  ReceivePage, 
+  ShortlistPage, 
+  ShortlistByPage, 
+  ContactedPage, 
+  Error404, 
+  Error403 
+} from './pages';
+import DesktopLayout from './layout/DesktopLayout';
+import Profileviewpage from './pages/Profileviewpage';
+import MyProfile from './pages/MyProfile';
+import PaymentMethods from './pages/PaymentMethods'; 
 import ChangePwdPage from './pages/ChangePwdPage';
 import EditprofilePage from './pages/EditprofilePage';
 import PrivacyandSettingspage from './pages/PrivacyandSettingspage';
@@ -11,16 +40,16 @@ import BottomNavbar from './components/BottomNavbar';
 import { SubHeader } from './Components';
 import SubscriptionPage from './pages/SubscriptionPage';
 
-
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<DesktopLayout />}>
           <Route path='/' element={<HomePage />} />
-
-          <Route path="/paymentMethod" element={<PaymentMethods />} /> 
           <Route path='/qualification' element={<QualificationPage />} />
+          <Route path='/profileview' element={<Profileviewpage />} />
+          <Route path='/myprofile' element={<MyProfile />} />
+          <Route path='/paymentMethod' element={<PaymentMethods />} /> 
           <Route path='/changepwd' element={<ChangePwdPage />} />
           <Route path='/editprofile' element={<EditprofilePage />} />
           <Route path='/privacyandsetting' element={<PrivacyandSettingspage />} />
@@ -39,21 +68,19 @@ function App() {
           <Route path='/shortlisted-by' element={<ShortlistByPage />} />
           <Route path='/contacted' element={<ContactedPage />} />
           <Route path='/profile-viewed' element={<ViewedMyProfilePage />} />
-          <Route path='error_404' element={<Error404 />} />
-          <Route path='error_403' element={<Error403 />} />
-
+          <Route path='/error_404' element={<Error404 />} />
+          <Route path='/error_403' element={<Error403 />} />
         </Route>
-        <Route path='job_status' element={<JobStatus />} />
-        <Route path='job_details' element={<JobDetails />} />
-        <Route path='more_job_details' element={<MoreJobDetails />} />
-        <Route path='relationship_goals' element={<RelationShipGoals />} />
-        <Route path='interested' element={<Interested />} />
-        <Route path='dating_interest' element={<DatingInterest />} />
-        <Route path='personal_details' element={<PersonalDetails />} />
-        <Route path='login' element={<LoginPage />} />
-        <Route path='sign_up' element={<SignUp />} />
-        <Route path='landing_page' element={<LandingPage />} />
-
+        <Route path='/job_status' element={<JobStatus />} />
+        <Route path='/job_details' element={<JobDetails />} />
+        <Route path='/more_job_details' element={<MoreJobDetails />} />
+        <Route path='/relationship_goals' element={<RelationShipGoals />} />
+        <Route path='/interested' element={<Interested />} />
+        <Route path='/dating_interest' element={<DatingInterest />} />
+        <Route path='/personal_details' element={<PersonalDetails />} />
+        <Route path='/login' element={<LoginPage />} />
+        <Route path='/sign_up' element={<SignUp />} />
+        <Route path='/landing_page' element={<LandingPage />} />
       </Routes>
       <BottomNavbar />
     </BrowserRouter>

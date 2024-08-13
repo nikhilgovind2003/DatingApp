@@ -3,6 +3,7 @@ import { useState } from "react";
 
 import Upgrade from './../components/upgrademore/Upgrade'
 import { UserIcon } from "../Components";
+import BottomNavbar from "../components/BottomNavbar";
 
 
 export default function Story() {
@@ -28,7 +29,7 @@ export default function Story() {
       </header>
 
       {/* Footer */}
-      <footer className="w-full md:w-1/3 flex items-center justify-between bg-black bg-opacity-0 text-black fixed bottom-7 z-10 px-4">
+      <footer className="w-full md:w-1/3 flex items-center  bg-black bg-opacity-0 text-black fixed bottom-7 z-10 px-4">
         <div className="relative flex-1 items-center">
           <input
             type="text"

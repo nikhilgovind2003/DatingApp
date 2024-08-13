@@ -1,37 +1,38 @@
 import React from 'react'
 import {CircleCheckBig} from "lucide-react"
+import PageTitle from '../components/PageTitle/PageTitle'
+
 
 function SortFilter() {
   return (
-    <div className='    h-1/6 sm:12 md:p-14 lg:p-16 xl:p20 text-lg text-gray-700'> 
+    <div className='    text-lg text-gray-700'> 
      {/* <section className='flex h- screen bg-pink-800 h-1/6 item-center justify-center'>
         <h1>Filter </h1>
         </section> */}
-        <div>
-        <div className=' h-screen mx-7 pt-2 pb-4 px-36 rounded-tl-lg rounded-br-lg  ' > 
+      <PageTitle  pageTitle={'Filter'}  />
+        <div className=' bg-deep-plum '>
+        <div className='h-fit py-4 px-5  bg-white rounded-t-3xl  ' > 
    
-        <div class=" md:text-4xl">Sort By</div>
-        <br /><br /><br />
-        <div className=' space-x-80'><h1 >Newest Member</h1><CircleCheckBig /></div>
-        <div className="border-t border-gray-200  space-x-80 "><h1>Last Active</h1><CircleCheckBig /></div>
-        
-        <div className="border-t border-gray-200  space-x-80"><h1>Distance</h1><CircleCheckBig /></div>
-        <div className="border-t border-gray-200  space-x-80 "><h1>Popularity</h1><CircleCheckBig /></div>
-        <div className="border-t border-gray-200  space-x-80 "><h1>Age</h1><CircleCheckBig /></div>
-        <div className="border-t border-gray-200  "></div>
-<br /><br /><br />
-        <div className='md:text-4xl'><h1>Filter By</h1></div>
+        <div class=" text-2xl mb-2 font-semibold">Sort By</div>
        
-<br /><br /><br />
-<div className='space-x-80'><h1>Gender</h1> <CircleCheckBig /></div>
-<div className="border-t border-gray-200  space-x-80"><h1>Location</h1><CircleCheckBig /></div>
-<div className="border-t border-gray-200  space-x-80"><h1>Intrest\Hobbies</h1><CircleCheckBig /></div>
-<div className="border-t border-gray-200  space-x-80"><h1>Languages Spoken</h1><CircleCheckBig /></div>
-<div className="border-t border-gray-200  space-x-80"><h1>Relationship Goals</h1><CircleCheckBig /></div>
-<div className="border-t border-gray-200  "></div>
-<br /><br /><br />
+        <div className='flex justify-between mb-2 items-center '><h1 >Newest Member</h1><CircleCheckBig /></div>
+        <div className="border-t border-gray-200  flex justify-between mb-2 items-center "><h1>Last Active</h1><CircleCheckBig /></div> 
+        <div className="border-t border-gray-200  flex justify-between mb-2 items-center"><h1>Distance</h1><CircleCheckBig /></div>
+        <div className="border-t border-gray-200  flex justify-between mb-2 items-center "><h1>Popularity</h1><CircleCheckBig /></div>
+        <div className="border-t border-gray-200  flex justify-between mb-2 items-center "><h1>Age</h1><CircleCheckBig /></div>
+        <div className="border-t border-gray-200  mb-2 "></div>
 
-<div className='flex space-x-32'>
+        <div className='text-2xl mb-2 font-semibold'><h1>Filter By</h1></div>
+       
+<div className='flex justify-between mb-2 items-center'><h1>Gender</h1> <CircleCheckBig /></div>
+<div className="border-t border-gray-200  flex justify-between mb-2 items-center"><h1>Location</h1><CircleCheckBig /></div>
+<div className="border-t border-gray-200  flex justify-between mb-2 items-center"><h1>Intrest\Hobbies</h1><CircleCheckBig /></div>
+<div className="border-t border-gray-200  flex justify-between mb-2 items-center"><h1>Languages Spoken</h1><CircleCheckBig /></div>
+<div className="border-t border-gray-200  flex justify-between mb-2 items-center"><h1>Relationship Goals</h1><CircleCheckBig /></div>
+<div className="border-t border-gray-200 mb-2 "></div>
+
+
+<div className='flex space-x-6'>
 <button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded">
   Cancel
 </button>

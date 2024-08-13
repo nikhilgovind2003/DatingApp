@@ -40,7 +40,6 @@ function MyProfile() {
   </div>
 </div>
 
-
         {/* Profile Details Section */}
         <div className="profiledetails  cursor-pointer h-full shadow-md p-4 bg-white rounded-t-3xl relative" style={{ marginTop: '-50px', zIndex: '50' }}>
           <div className="bg-gray-400 rounded-full mx-auto" style={{ width: '60px', padding: '2px' }}>

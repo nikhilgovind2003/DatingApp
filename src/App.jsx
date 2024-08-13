@@ -46,7 +46,7 @@ import { SubHeader } from './Components';
 import SubscriptionPage from './pages/SubscriptionPage';
 import SortFilter from './pages/SortFilter'
 import Messages from './pages/Messages';
-
+import Notification from "./components/NotificationBar/notificationBar"
 function App() {
 
   const hideOnRoutes = ['/credit','/subscription', `/story/1`,'/spin']; 
@@ -56,6 +56,7 @@ function App() {
       <Routes>
         <Route element={<DesktopLayout />}>
           <Route path='/' element={<HomePage />} />
+          <Route path='/notification' element={<Notification />} />
           <Route path='/qualification' element={<QualificationPage />} />
           <Route path='/profileview' element={<Profileviewpage />} />
           <Route path='/profile' element={<MyProfile />} />

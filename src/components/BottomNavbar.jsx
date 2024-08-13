@@ -6,9 +6,9 @@ function BottomNavbar({ show, hideOnRoutes = [] }) {
   const Menus = [
     { name: "Home", icon: <House />, activeIcon: <House className="text-white" />, path: "/" },
     { name: "Discovery", icon: <Compass />, activeIcon: <Compass className="text-white" />, path: "/discovery" },
-    { name: "Message", icon: <img src='https://upload.wikimedia.org/wikipedia/commons/9/98/Color_circle_%28RGB%29.png' className='rounded-full '  width={30} />, activeIcon: <img src='https://upload.wikimedia.org/wikipedia/commons/9/98/Color_circle_%28RGB%29.png' className='rounded-full bg-white '  width={30} />, path: "/message" },
-    { name: "Photos", icon: <Users />, activeIcon: <Users className="text-white" />, path: "/photos" },
-    { name: "Chat", icon: <MessageCircle />, activeIcon: <MessageCircle className="text-white" />, path: "/chat" },
+    { name: "Message", icon: <img src='https://upload.wikimedia.org/wikipedia/commons/9/98/Color_circle_%28RGB%29.png' className='rounded-full '  width={30} />, activeIcon: <img src='https://upload.wikimedia.org/wikipedia/commons/9/98/Color_circle_%28RGB%29.png' className='rounded-full bg-white '  width={30} />, path: "/spin" },
+    { name: "Photos", icon: <Users />, activeIcon: <Users className="text-white" />, path: "/groups" },
+    { name: "Chat", icon: <MessageCircle />, activeIcon: <MessageCircle className="text-white" />, path: "/message" },
   ];
 
   const [active, setActive] = useState(0);

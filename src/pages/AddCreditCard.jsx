@@ -23,7 +23,7 @@ const AddCreditCard = () => {
   console.log(Data);
   
   return (
-    <div className=" h-screen md:shadow-lg lg:mx-auto font-poppins bg-white w-full lg:p-4 p-4">
+    <div className=" h-screen md:shadow-lg lg:mx-auto font-poppins bg-white w-full lg:p-4 p-4 overflow-y-auto ">
       <ArrowLeft size={30} />
 
       <h1 className="text-[34px] font-semibold text-deep-plum md:my-4">

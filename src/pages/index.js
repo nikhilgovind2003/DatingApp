@@ -31,6 +31,7 @@ import Profileviewpage from "./Profileviewpage.jsx";
 import ChangePassword from "../components/forms/ChangePassword.jsx";
 import SortFilter from "./SortFilter.jsx";
 import PartnerPreferances from "./PartnerPreferances.jsx";
+import Groups from "./groups/Groups.jsx"
 
 
 export {
@@ -66,6 +67,7 @@ export {
     PartnerPreferances,
     Story,
     Profileviewpage,
-    ChangePassword
+    ChangePassword,
+    Groups,
 };
 

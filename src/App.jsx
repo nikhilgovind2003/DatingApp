@@ -49,7 +49,7 @@ import Messages from './pages/Messages';
 
 function App() {
 
-  const hideOnRoutes = ['/credit','/subscription', `/story/1`]; 
+  const hideOnRoutes = ['/credit','/subscription', `/story/1`,'/spin']; 
 
   return (
     <BrowserRouter>

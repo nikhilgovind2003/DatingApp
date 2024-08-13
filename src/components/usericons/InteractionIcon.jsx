@@ -4,7 +4,7 @@ import React from 'react'
 
 const InteractionIcon = () => {
   return (
-    <div className="flex gap-5 py-5 ps-5">
+    <div className="flex gap-5 py-5">
       <div>
         <div className='w-16 h-16 border-[3px] border-light-purple rounded-full p-0.5 relative'>
           <div className='w-full h-full rounded-full overflow-hidden'>

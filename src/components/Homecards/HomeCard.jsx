@@ -52,7 +52,7 @@ const HomeCard = () => {
   ]
 
   return (
-    <div className=" grid grid-cols-2 w-[30%] m-4 gap-12">
+    <div className=" grid grid-cols-2 w-full m-4 gap-12">
       {
         cards.map((card, i) => (
           <div key={i}>

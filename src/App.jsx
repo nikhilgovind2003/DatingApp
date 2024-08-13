@@ -47,9 +47,11 @@ import SubscriptionPage from './pages/SubscriptionPage';
 import SortFilter from './pages/SortFilter'
 import Messages from './pages/Messages';
 import Notification from "./components/NotificationBar/notificationBar"
+import CreateGroup from './pages/createGroup/CreateGroup';
+
 function App() {
 
-  const hideOnRoutes = ['/credit','/subscription', `/story/1`,'/spin']; 
+  const hideOnRoutes = ['/credit','/subscription', `/story/1`,'/spin','/create_group']; 
 
   return (
     <BrowserRouter>
@@ -88,6 +90,7 @@ function App() {
           <Route path='/message' element={<Messages />} />
           <Route path='*' element={<Error404 />} />
           <Route path='groups' element={<Groups />} />
+          <Route path='create_group' element={<CreateGroup />} />
           
         </Route>
         <Route path='/job_status' element={<JobStatus />} />

@@ -1,0 +1,24 @@
+.headText {
+  color: white;
+  font-weight: 400;
+  margin-left: 8px;
+  font-size: 24px; /* Example: Add a base font size */
+  color: #000;
+}
+.plll {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.headMake1{
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.headMake2{
+  color: #818181;
+  letter-spacing: 1px;
+
+}
+.headMake3{
+  font-size: 40px;
+}

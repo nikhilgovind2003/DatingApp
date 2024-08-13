@@ -1,5 +1,5 @@
 import React from "react";
-<<<<<<< HEAD
+
 
 import { HomeCard, LeftBar, RightBar, UserPreview } from "../Components";
 import { Bell } from "lucide-react";
@@ -8,21 +8,15 @@ import Sent from "./Sent/Sent";
 import Accept from "./Accept/Accept";
 import Groups from "./groups/Groups";
 import CreateGroup from "./createGroup/CreateGroup";
-
-const HomePage = () => {
-  return (
-       <div>
-        <CreateGroup />
-       </div>
-   
-=======
 import { Userdata } from "../datas/Userdata";
 import { ButtonGroup, Sidemenu, UserIcon } from "../Components";
 import { HiOutlineBell } from "react-icons/hi";
 import HomeCardComponents from "../components/Homecards/HomeCardComponents";
 
+
 const HomePage = () => {
   return (
+
     <section className="lg:w-full md:w-full sm: w-screen pt-5 px-5 pb-24 md:pb-5 h-screen overflow-y-auto overflow-x-hidden">
       <div className="flex justify-between md:hidden gap-5">
         <Sidemenu />
@@ -45,7 +39,8 @@ const HomePage = () => {
          <button>
            <UserIcon
             key={user.id}
-            stroy={true}
+            story={true}
+          
             url={user.img}
           />
           <p className="mt-0.5 text-[14px]">{user.firstName}</p>
@@ -66,10 +61,9 @@ const HomePage = () => {
        </div>
 
 
-    </section>
+    </section
 
 
->>>>>>> e1dc8b08c0c68a8524004cf74f7afef2dcd34691
   )
 }
 

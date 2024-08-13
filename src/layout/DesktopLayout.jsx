@@ -13,7 +13,7 @@ const DesktopLayout = ()=>{
         </aside>
     
         
-        <main className="md:col-span-6   ">
+        <main className="md:col-span-6 ">
             <Outlet />
             <BottomNavbar 
             className="md:hidden mx-2"/>

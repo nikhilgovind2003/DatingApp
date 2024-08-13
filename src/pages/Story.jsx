@@ -33,8 +33,8 @@ export default function Story() {
         <div className="relative flex-1 items-center">
           <input
             type="text"
-            placeholder="Type your message..."
-            className="w-full py-3 px-5 pr-4 rounded-lg border border-[#DD88CF] focus:outline-none bg-[#4B164C]"
+            placeholder="Type your message...."
+            className=" md:w-full py-3 px-5 pr-4 rounded-lg border border-[#DD88CF] focus:outline-none bg-[#4B164C]"
           />
           <MessageSquare className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white" />
         </div>

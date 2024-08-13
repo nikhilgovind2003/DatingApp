@@ -7,8 +7,8 @@ import { UserIcon } from "../../Components";
 
 function CreateGroup() {
   return (
-    <div className=" w-full">
-      <div className="min-h-10 bg-pink-50 w-full p-3">
+    <div className=" w-full ">
+      <div className="min-h-10 bg-white w-full p-3">
         {/* Header Section */}
         <div className="flex justify-between items-center p-2">
           <h2 className="headText mt-1">BuddyPair</h2>
@@ -41,13 +41,13 @@ function CreateGroup() {
           <h6 className="headMake2 mt-5">Invited Members</h6>
           <div className="grid gap-4 grid-cols-4 p-3 h-auto">
             <UserIcon />
-            <UserIcon />
-            <UserIcon />
-            <UserIcon />
-            <UserIcon />
-            <UserIcon />
-            <UserIcon />
-            <UserIcon />
+            <UserIcon add={'light'}/>
+            <UserIcon add={'light'}/>
+            <UserIcon add={'light'}/>
+            <UserIcon add={'light'}/>
+            <UserIcon add={'light'}/>
+            <UserIcon add={'light'}/>
+            <UserIcon add={'light'}/>
           </div>
 
           {/* Create Button */}

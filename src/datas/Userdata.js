@@ -13,7 +13,8 @@ export const Userdata = [
     isOnline: true,
     match: "83",
     job: "DEVELOPER",
-    bio: "Tech enthusiast 💻"
+    bio: "Tech enthusiast 💻",
+    likes: "32"
   },
   {
     id: "2",
@@ -30,7 +31,8 @@ export const Userdata = [
     match: "94",
     job: "DEVELOPER",
     bio: "Music lover 🎶",
-    message: "What about that new jacket if I ..."
+    message: "What about that new jacket if I ...",
+    likes: "24"
   },
   {
     id: "3",
@@ -47,7 +49,8 @@ export const Userdata = [
     match: "87",
     job: "DEVELOPER",
     bio: "Health-conscious 🧘",
-    message: "I know right!"
+    message: "I know right!",
+    likes: "48"
   },
   {
     id: "4",
@@ -63,7 +66,8 @@ export const Userdata = [
     match: "100",
     job: "DEVELOPER",
     bio: "Photography buff 📷",
-    message: "I've already registered"
+    message: "I've already registered",
+    likes: "56"
   },
   {
     id: "5",
@@ -79,7 +83,8 @@ export const Userdata = [
     isOnline: true,
     match: "50",
     job: "DEVELOPER",
-    bio: "Foodie & traveler 🌍"
+    bio: "Foodie & traveler 🌍",
+    likes: "23"
   },
   {
     id: "6",
@@ -96,7 +101,8 @@ export const Userdata = [
     match: "100",
     job: "DEVELOPER",
     bio: "Tech & sports fan ⚽",
-    message: "It will have two lines of heading ..."
+    message: "It will have two lines of heading ...",
+    likes: "36"
   },
   {
     id: "7",
@@ -113,7 +119,8 @@ export const Userdata = [
     match: "70",
     job: "DEVELOPER",
     bio: "Creative spirit 🎨",
-    message: "What's about dinner tonight"
+    message: "What's about dinner tonight",
+    likes: "40"
   },
   {
     id: "8",
@@ -129,7 +136,8 @@ export const Userdata = [
     isOnline: true,
     match: "60",
     job: "DEVELOPER",
-    bio: "Nature lover 🌲"
+    bio: "Nature lover 🌲",
+    likes: "51"
   },
   {
     id: "9",
@@ -146,7 +154,8 @@ export const Userdata = [
     match: "90",
     job: "DEVELOPER",
     bio: "Wellness guru 🧘",
-    message: "How was the trip?"
+    message: "How was the trip?",
+    likes: "41"
   },
   {
     id: "10",
@@ -163,6 +172,7 @@ export const Userdata = [
     match: "80",
     job: "DEVELOPER",
     bio: "Fitness fanatic 💪",
-    message: "how was the interview?"
+    message: "how was the interview?",
+    likes: "68"
   }
 ];

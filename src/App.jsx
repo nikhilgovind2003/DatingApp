@@ -4,7 +4,7 @@ import './App.css';
 import { 
   Accept, 
   DesignationPage, 
-  Group, 
+  Groups, 
   LocationPage, 
   MatchPage, 
   QualificationPage, 
@@ -86,6 +86,7 @@ function App() {
           <Route path='/credit' element={<AddCreditCard />} />
           <Route path='/message' element={<Messages />} />
           <Route path='*' element={<Error404 />} />
+          <Route path='groups' element={<Groups />} />
           
         </Route>
         <Route path='/job_status' element={<JobStatus />} />

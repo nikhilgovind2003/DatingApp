@@ -51,7 +51,7 @@ import CreateGroup from './pages/createGroup/CreateGroup';
 
 function App() {
 
-  const hideOnRoutes = ['/credit','/subscription', `/story/1`,'/spin','/create_group']; 
+  const hideOnRoutes = ['/credit','/subscription', `/story/1`,'/spin','/create_group','/notification']; 
 
   return (
     <BrowserRouter>

@@ -4,6 +4,7 @@ import { ButtonGroup, Sidemenu, UserIcon } from "../Components";
 import { HiOutlineBell } from "react-icons/hi";
 import HomeCardComponents from "../components/Homecards/HomeCardComponents";
 import { Link } from "react-router-dom";
+import Rightside from "../components/rightsidemenu/Rightside";
 
 const HomePage = () => {
   return (
@@ -17,9 +18,9 @@ const HomePage = () => {
             </Link>
             <div className=" bg-light-purple border border-primary absolute top-[16.5px] right-[19.5px] rounded-full w-[8px] h-[8px]"></div>
           </button>
-          <button>
-            <UserIcon />
-          </button>
+          <div className="pt-3"> 
+          <Rightside/>
+         </div>
         </div>
       </div>
       <div className="flex  justify-between items-center gap-5 overflow-x-auto  lg:w-full sm: w-screen ">

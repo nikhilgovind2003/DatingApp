@@ -31,12 +31,15 @@ function MyProfile() {
       <span className="text-3xl text-white text-center">Alfredo Calzoni, 20</span> <br />
       <span className="text-sm text-gray-300">HAMBURG, GERMANY</span>
     </div>
-    <div className="text-white text-center mt-6">
-      <span className="pl-1 pr-4 bg-[#4b164c] py-4 rounded-full" style={{ border: "2px solid violet" }}>
-        <span className="p-2 rounded-full mr-2 border-orange-100" style={{ border: "4px solid violet" }}>80%</span>
-        Profile Complete
-      </span>
-    </div>
+    <div className="text-white text-center py-2 mt-6">
+  <span className="inline-flex items-center pl-1  bg-[#4b164c] py-2 rounded-full border-2 border-light-purple">
+    <span className="p-2 rounded-full border-4 border-light-purple ">
+      80%
+    </span>
+    <span className='px-2'>Profile Complete</span>
+  </span>
+</div>
+
   </div>
 </div>
 

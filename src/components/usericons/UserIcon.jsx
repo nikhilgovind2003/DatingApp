@@ -5,11 +5,14 @@ const UserIcon = ({ url, story, add, edit}) => {
   return (
     <div
       className='relative w-16 h-16'>
-      <img
-        src={url ? url : "https://images.pexels.com/photos/13704184/pexels-photo-13704184.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}
-        alt="user icon"
-        className={`inline-block h-16 w-16 rounded-full ring-2 ring-white object-center ${story ? "border-[3px] border-light-purple p-0.5" : ""}`}
-      />
+        <div className={`inline-block h-16 w-16 rounded-full ring-2 ring-white object-center ${story ? "border-[3px] border-light-purple p-0.5" : ""}`}>
+  <img
+    src={url ? url : "https://images.pexels.com/photos/13704184/pexels-photo-13704184.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}
+    alt="user icon"
+    className="h-full w-full rounded-full object-cover"
+  />
+</div>
+
       {add === "purple" ? (
         <button
           className='w-7 h-7 bg-light-purple rounded-full text-primary font-medium text-[26px] absolute bottom-[0px] right-[-6px] border-[3px] border-primary flex items-center justify-center'

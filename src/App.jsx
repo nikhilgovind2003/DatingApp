@@ -48,6 +48,7 @@ import SortFilter from './pages/SortFilter'
 import Messages from './pages/Messages';
 import Notification from "./components/NotificationBar/notificationBar"
 import CreateGroup from './pages/createGroup/CreateGroup';
+import DiscoverPage from './pages/DiscoverPage';
 
 function App() {
 
@@ -58,6 +59,7 @@ function App() {
       <Routes>
         <Route element={<DesktopLayout />}>
           <Route path='/' element={<HomePage />} />
+          <Route path='/discover' element={<DiscoverPage />} />
           <Route path='/notification' element={<Notification />} />
           <Route path='/qualification' element={<QualificationPage />} />
           <Route path='/profileview' element={<Profileviewpage />} />

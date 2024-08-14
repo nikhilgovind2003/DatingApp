@@ -14,11 +14,11 @@ import "./Groups.css";
 function Groups() {
   return (
 
-    <div className="min-h-full bg-deep-plum w-full mb-10 h-full">
+    <div className="min-h-full bg-deep-plum w-full  h-full">
 
       <div>.</div>
       <div>
-        <h2 className="headText mt-10">BuddyPair</h2>
+        <h2 className="headText text-white ">BuddyPair</h2>
         <MoveLeft
           size={36}
           color="#ffff"

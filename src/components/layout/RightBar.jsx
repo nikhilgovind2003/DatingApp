@@ -3,6 +3,9 @@ import { LogOut } from "lucide-react";
 import { Link } from "react-router-dom";
 import { navData } from "../../datas/navData";
 import { Bell } from "lucide-react";
+import { MdInput } from "react-icons/md";
+import { Button } from "@chakra-ui/react";
+
 
 const RightBar = () => {
   const [notification, setnotification] = useState(false)
@@ -46,6 +49,13 @@ const RightBar = () => {
             </Link>
           ))}
         </ul>
+        <div className="hover:bg-dark-wine">
+        <Button cl variant={'none'}>
+                <MdInput className='text-lg text-white -rotate-180 ...'/>
+                <h3 className='text-white ml-4'>Logout</h3>
+                </Button>
+        </div>
+       
       </div>
     </div>
   );

@@ -3,6 +3,15 @@ import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 
 const LandingPage = () => {
+
+  const google = () => {
+    window.open("http://localhost:5000/auth/google/callback", "_self")
+  }
+
+
+
+
+
   return (
     <div className="text-sm px-4 text-center lg:px-20 lg:text-left lg:flex lg:items-center lg:justify-between lg:h-screen">
       <div className="lg:w-1/2">
@@ -27,6 +36,7 @@ const LandingPage = () => {
         </Link>
 
         <Link
+        onClick={google}
           className="flex items-center justify-center gap-4 bg-[#dabbd5] font-semibold text-[#4B164C] p-4 rounded-full text-sm mt-4 lg:text-xl lg:w-3/4 mx-auto lg:mx-0"
         >
           <FcGoogle />

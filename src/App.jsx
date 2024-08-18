@@ -58,7 +58,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route element={<DesktopLayout />}>
-          <Route path='/' element={<HomePage />} />
+          <Route path='/home' element={<HomePage />} />
           <Route path='/discover' element={<DiscoverPage />} />
           <Route path='/notification' element={<Notification />} />
           <Route path='/qualification' element={<QualificationPage />} />
@@ -104,7 +104,7 @@ function App() {
         <Route path='/personal_details' element={<PersonalDetails />} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/sign_up' element={<SignUp />} />
-        <Route path='/landing_page' element={<LandingPage />} />
+        <Route path='/' element={<LandingPage />} />
       </Routes>
       <BottomNavbar show={true} hideOnRoutes={hideOnRoutes} />
     </BrowserRouter>

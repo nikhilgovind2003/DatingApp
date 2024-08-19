@@ -8,7 +8,7 @@ import { LiaHeartSolid } from "react-icons/lia";
 
 
 export default function Messages() {
-  return (
+return (
     <div className="bg-deep-plum h-screen overflow-y-auto">
       <PageTitle icon={ChevronLeft} pageTitle={"Messages"} />
       

@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { ImagePlus, FileVideo } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { Bounce, toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
+const SUPPORTED_REEL_FORMATS = ['video/mp4', 'video/ogg', 'video/webm', 'video/quicktime'];
 
 const schema = yup.object().shape({
     name: yup.string().required('Name is required'),
@@ -12,10 +17,16 @@ const schema = yup.object().shape({
     interests: yup.string().required('Interests are required'),
     smoking: yup.string().required('Smoking habits are required'),
     drinking: yup.string().required('Drinking habits are required'),
-    qualifications: yup.string().required('Qualifications are required'),
-    profile_pic: yup.mixed().required('Profile picture is required'),
-    more_images: yup.mixed().required('More images are required'),
-    reel: yup.mixed().required('Short reel is required'),
+    qualification: yup.string().required('Qualifications are required'),
+    profile: yup.mixed().required('Image is required')
+        .test('required', 'provide one profile pic', value => value && value.length === 1)
+        .test('fileFormat', 'Unsupported file format', value => value && value.length === 1 && SUPPORTED_FORMATS.includes(value[0].type)),
+    additionalImg: yup.mixed()
+        .required('Images are required')
+        .test('fileSize', '3 images are required', (value) => value && value.length === 3),
+    reel: yup.mixed().required('reel is required')
+        .test('required', 'provide a short reel', value => value && value.length === 1)
+        .test('fileFormat', 'Unsupported file format', value => value && value.length === 1 && SUPPORTED_REEL_FORMATS.includes(value[0].type)),
 });
 
 const PersonalDetails = () => {
@@ -23,12 +34,51 @@ const PersonalDetails = () => {
         resolver: yupResolver(schema),
     });
 
-    const onSubmit = (data) => {
-        console.log(data);
-    };
+    const onSubmit = async (data) => {
+        const formData = new FormData();
+        formData.append('dob', data.dob);
+        formData.append('hobbies', data.hobbies);
+        formData.append('interests', data.interests);
+        formData.append('smoking', data.smoking);
+        formData.append('drinking', data.drinking);
+        formData.append('qualification', data.qualification);
+
+        if (data.profile && data.profile.length > 0) {
+            formData.append('profile', data.profile[0]);
+        }
+
+        if (data.additionalImg && data.additionalImg.length > 0) {
+            Array.from(data.additionalImg).forEach((img) => {
+                formData.append('additionalImg', img);
+            });
+        }
+
+        if (data.reel && data.reel.length > 0) {
+            formData.append('reel', data.reel[0]);
+        }
+
+        console.log([...formData]);
+        axios.post('http://localhost:5000/api/v1/users/profile-details', formData, { withCredentials: true })
+            .then(res => toast.success(res?.data?.message, { duration: 1000 }))
+            .catch(err => toast.error(err?.response?.data?.message, { duration: 1000 }));
+    }
+
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100 bg-[url('LandingPagebackgroundblur.png')] bg-no-repeat bg-cover bg-fixed backdrop-blur-3xl">
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Bounce}
+            />
             <div className="flex flex-col min-h-screen  p-4 lg:w-2/5">
                 <div className="bg-white p-6 mt-14 mb-10 rounded-lg shadow-lg w-full max-w-md mx-auto ">
                     <h2 className="mb-5 text-2xl font-bold text-center">Personal Details</h2>
@@ -65,18 +115,18 @@ const PersonalDetails = () => {
                         </div>
                         <div className="mb-4">
                             <label htmlFor="qualifications" className="block text-gray-700">Qualifications</label>
-                            <input type="text" id="qualifications" {...register('qualifications')} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm" />
-                            {errors.qualifications && <p className="text-red-600">{errors.qualifications.message}</p>}
+                            <input type="text" id="qualifications" {...register('qualification')} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm" />
+                            {errors.qualification && <p className="text-red-600">{errors.qualification.message}</p>}
                         </div>
                         <div className="mb-4">
                             <label htmlFor="profile_pic" className="flex items-center text-black">Profile Pic <ImagePlus className="ml-2" /></label>
-                            <input type="file" id="profile_pic" {...register('profile_pic')} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm" />
-                            {errors.profile_pic && <p className="text-red-600">{errors.profile_pic.message}</p>}
+                            <input type="file" id="profile_pic" {...register('profile')} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm" />
+                            {errors.profile && <p className="text-red-600">{errors.profile.message}</p>}
                         </div>
                         <div className="mb-4">
                             <label htmlFor="more_images" className="flex items-center text-black">Add More Images <ImagePlus className="ml-2" /></label>
-                            <input type="file" id="more_images" {...register('more_images')} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm" />
-                            {errors.more_images && <p className="text-red-600">{errors.more_images.message}</p>}
+                            <input type="file" multiple id="more_images" {...register('additionalImg')} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm" />
+                            {errors.additionalImg && <p className="text-red-600">{errors.additionalImg.message}</p>}
                         </div>
                         <div className="mb-4">
                             <label htmlFor="reel" className="flex items-center text-black">Short Reel <FileVideo className="ml-2" /></label>

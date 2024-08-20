@@ -6,18 +6,20 @@ import { ImagePlus, FileVideo } from 'lucide-react';
 import axios from 'axios';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
 const SUPPORTED_REEL_FORMATS = ['video/mp4', 'video/ogg', 'video/webm', 'video/quicktime'];
 
 const schema = yup.object().shape({
-    name: yup.string().required('Name is required'),
+    bio: yup.string().required('bio is required'),
     dob: yup.date().required('Date of Birth is required'),
     hobbies: yup.string().required('Hobbies are required'),
     interests: yup.string().required('Interests are required'),
     smoking: yup.string().required('Smoking habits are required'),
     drinking: yup.string().required('Drinking habits are required'),
     qualification: yup.string().required('Qualifications are required'),
+    gender: yup.string().required('Gender is required'),
     profile: yup.mixed().required('Image is required')
         .test('required', 'provide one profile pic', value => value && value.length === 1)
         .test('fileFormat', 'Unsupported file format', value => value && value.length === 1 && SUPPORTED_FORMATS.includes(value[0].type)),
@@ -30,18 +32,23 @@ const schema = yup.object().shape({
 });
 
 const PersonalDetails = () => {
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
     });
 
     const onSubmit = async (data) => {
+        setLoading(true);
         const formData = new FormData();
+        formData.append('bio',data.bio);
         formData.append('dob', data.dob);
         formData.append('hobbies', data.hobbies);
         formData.append('interests', data.interests);
         formData.append('smoking', data.smoking);
         formData.append('drinking', data.drinking);
         formData.append('qualification', data.qualification);
+        formData.append('gender', data.gender);
 
         if (data.profile && data.profile.length > 0) {
             formData.append('profile', data.profile[0]);
@@ -59,8 +66,17 @@ const PersonalDetails = () => {
 
         console.log([...formData]);
         axios.post('http://localhost:5000/api/v1/users/profile-details', formData, { withCredentials: true })
-            .then(res => toast.success(res?.data?.message, { duration: 1000 }))
-            .catch(err => toast.error(err?.response?.data?.message, { duration: 1000 }));
+            .then(res => {
+                toast.success(res?.data?.message, { duration: 1000 })
+                if(res.data.success) {
+                    setTimeout(() => navigate('/job_status') ,1000)
+                }
+                setLoading(false)
+            })
+            .catch(err => {
+                setLoading(false)
+                toast.error(err?.response?.data?.message, { duration: 1000 })
+            });
     }
 
 
@@ -84,9 +100,9 @@ const PersonalDetails = () => {
                     <h2 className="mb-5 text-2xl font-bold text-center">Personal Details</h2>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="mb-4">
-                            <label htmlFor="name" className="block text-gray-700">Name</label>
-                            <input type="text" id="name" {...register('name')} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm" />
-                            {errors.name && <p className="text-red-600">{errors.name.message}</p>}
+                            <label htmlFor="bio" className="block text-gray-700">Bio</label>
+                            <input type="text" id="bio" {...register('bio')} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm" />
+                            {errors.bio && <p className="text-red-600">{errors.bio.message}</p>}
                         </div>
                         <div className="mb-4">
                             <label htmlFor="dob" className="block text-gray-700">DOB</label>
@@ -119,6 +135,16 @@ const PersonalDetails = () => {
                             {errors.qualification && <p className="text-red-600">{errors.qualification.message}</p>}
                         </div>
                         <div className="mb-4">
+                          <label htmlFor="gender" className="block text-gray-700">Gender</label>
+                          <select id="gender" {...register('gender')} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm">
+                             <option value="" className="bg-white text-gray-700 hover:bg-indigo-100"></option>
+                             <option value="men" className="bg-white text-gray-700 hover:bg-indigo-100">Men</option>
+                             <option value="women" className="bg-white text-gray-700 hover:bg-indigo-100">Women</option>
+                             <option value="both" className="bg-white text-gray-700 hover:bg-indigo-100">Both</option>
+                          </select>
+                              {errors.gender && <p className="text-red-600">{errors.gender.message}</p>}
+                        </div>
+                        <div className="mb-4">
                             <label htmlFor="profile_pic" className="flex items-center text-black">Profile Pic <ImagePlus className="ml-2" /></label>
                             <input type="file" id="profile_pic" {...register('profile')} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm" />
                             {errors.profile && <p className="text-red-600">{errors.profile.message}</p>}
@@ -134,7 +160,9 @@ const PersonalDetails = () => {
                             {errors.reel && <p className="text-red-600">{errors.reel.message}</p>}
                         </div>
                         <div className="flex justify-center">
-                            <button type="submit" className="w-full py-2 bg-black text-white rounded-lg hover:bg-gray-800 text-center">Next</button>
+                        <div className="flex justify-center">
+                            <button type="submit" disabled={loading} className="w-full py-2 bg-black text-white rounded-lg hover:bg-gray-800 text-center">{loading ? 'processing...' : 'Next'}</button>
+                        </div>
                         </div>
                     </form>
                 </div>

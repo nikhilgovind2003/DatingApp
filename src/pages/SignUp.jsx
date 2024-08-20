@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { KeyRound } from "lucide-react";
 import { Link } from "react-router-dom";
+import axios from "axios"
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -9,10 +13,12 @@ const SignUp = () => {
     mobile: "",
     password: "",
     confirmPassword: "",
-    otp: "",
   });
 
   const [errors, setErrors] = useState({});
+  const [otp, setOtpSent] = useState('');
+  const [userId, setUserId] = useState(null); // Store the registered user ID
+  const navigate = useNavigate();
 
   const google = () => {
     window.open("http://localhost:5000/auth/google/callback", "_self");
@@ -49,7 +55,7 @@ const SignUp = () => {
       newErrors.confirmPassword = "Passwords do not match.";
     }
 
-    if (!formData.otp.trim()) {
+    if (otp.trim() === '') {
       newErrors.otp = "OTP is required.";
     }
 
@@ -65,20 +71,64 @@ const SignUp = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleOtpGeneration = async () => {
+    try {
+      const response = await axios.post("http://localhost:5000/api/v1/users/generateotp", {
+        email: formData.email,
+        userId: userId, // Use the registered user ID
+      });
+      if (response.data.success) {
+        toast.success(response.data.message || "OTP sent successfully.");
+        console.log("OTP sent successfully.");
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Error generating OTP:"); // Display error toast
+      console.error("Error generating OTP:", error.response.data.message);
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validate()) {
-      // Handle form submission
-      console.log("Form is valid", formData);
+      try {
+        const [firstName, ...lastName] = formData.name.trim().split(' ');
+        const registrationResponse = await axios.post("http://localhost:5000/api/v1/users/register", {
+          firstName,
+          lastName: lastName.join(' '), // Joins the rest as lastName
+          email: formData.email,
+          mobile: formData.mobile,
+          password: formData.password,
+          otp
+        });
+        if (registrationResponse.data.success) {
+          console.log("Registered successfully:", registrationResponse.data);
+          toast.success(registrationResponse.data.message || "Registered successfully!"); // Display success toast
+         
+           // Delay navigation by 2 seconds (2000 milliseconds)
+        setTimeout(() => {
+          navigate('/personal_details');
+        }, 2000);
+
+          return;
+        }
+      } catch (error) {
+        console.error("Error during submission:", error.response?.data?.message || error.message);
+        toast.error(error.response?.data?.message || "An error occurred during registration."); // Display error toast
+      }
     } else {
       console.log("Form has errors", errors);
     }
   };
 
+
+
+
   return (
     <>
       <div className="flex items-center justify-center min-h-screen bg-gray-100 bg-[url('LandingPagebackgroundblur.png')] bg-no-repeat bg-cover bg-fixed backdrop-blur-3xl">
+
         <div className="bg-white mt-14 mb-10  p-8 rounded-lg shadow-2xl w-full md:w- max-w-md">
+          <ToastContainer />
           <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
@@ -172,13 +222,14 @@ const SignUp = () => {
                   type="text"
                   id="otp"
                   value={formData.otp}
-                  onChange={handleChange}
+                  onChange={(e) => setOtpSent(e.target.value)}
                   placeholder="Value"
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
                 />
                 <button
                   type="button"
                   className="ml-2 px-3 py-2 bg-black text-white rounded-lg  hover:bg-gray-600 flex items-center"
+                  onClick={handleOtpGeneration}
                 >
                   <KeyRound className="mr-2" />
                   Generate OTP

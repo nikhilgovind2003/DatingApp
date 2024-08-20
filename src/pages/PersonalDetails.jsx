@@ -4,7 +4,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { ImagePlus, FileVideo } from 'lucide-react';
 import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
+import { Bounce, toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
 const SUPPORTED_REEL_FORMATS = ['video/mp4', 'video/ogg', 'video/webm', 'video/quicktime'];
@@ -41,31 +42,43 @@ const PersonalDetails = () => {
         formData.append('smoking', data.smoking);
         formData.append('drinking', data.drinking);
         formData.append('qualification', data.qualification);
-    
+
         if (data.profile && data.profile.length > 0) {
             formData.append('profile', data.profile[0]);
         }
-    
+
         if (data.additionalImg && data.additionalImg.length > 0) {
             Array.from(data.additionalImg).forEach((img) => {
                 formData.append('additionalImg', img);
             });
         }
-    
+
         if (data.reel && data.reel.length > 0) {
             formData.append('reel', data.reel[0]);
         }
 
         console.log([...formData]);
-        axios.post('http://localhost:5000/api/v1/users/profile-details', formData , {withCredentials: true})
-        .then(res => toast.success(res?.data?.message, { duration: 1000 }))
-        .catch(err => toast.error(err?.response?.data?.message, { duration: 1000 }));
+        axios.post('http://localhost:5000/api/v1/users/profile-details', formData, { withCredentials: true })
+            .then(res => toast.success(res?.data?.message, { duration: 1000 }))
+            .catch(err => toast.error(err?.response?.data?.message, { duration: 1000 }));
     }
-    
+
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100 bg-[url('LandingPagebackgroundblur.png')] bg-no-repeat bg-cover bg-fixed backdrop-blur-3xl">
-            <ToastContainer />
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Bounce}
+            />
             <div className="flex flex-col min-h-screen  p-4 lg:w-2/5">
                 <div className="bg-white p-6 mt-14 mb-10 rounded-lg shadow-lg w-full max-w-md mx-auto ">
                     <h2 className="mb-5 text-2xl font-bold text-center">Personal Details</h2>

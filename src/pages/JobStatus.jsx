@@ -26,9 +26,9 @@ const JobStatus = () => {
         console.log(Jobstatus)
         return;
       }
-      else{
+      else {
         
-        navigate('/more_job_details')
+        navigate('/job_portal')
         
        console.log(Jobstatus)
         return;

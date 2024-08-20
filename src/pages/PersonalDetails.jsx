@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -6,6 +6,7 @@ import { ImagePlus, FileVideo } from 'lucide-react';
 import axios from 'axios';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
 const SUPPORTED_REEL_FORMATS = ['video/mp4', 'video/ogg', 'video/webm', 'video/quicktime'];
@@ -30,11 +31,14 @@ const schema = yup.object().shape({
 });
 
 const PersonalDetails = () => {
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
     });
 
     const onSubmit = async (data) => {
+        setLoading(true);
         const formData = new FormData();
         formData.append('dob', data.dob);
         formData.append('hobbies', data.hobbies);
@@ -59,15 +63,24 @@ const PersonalDetails = () => {
 
         console.log([...formData]);
         axios.post('http://localhost:5000/api/v1/users/profile-details', formData, { withCredentials: true })
-            .then(res => toast.success(res?.data?.message, { duration: 1000 }))
-            .catch(err => toast.error(err?.response?.data?.message, { duration: 1000 }));
+            .then(res => {
+                toast.success(res?.data?.message, { duration: 1000 })
+                if(res.data.success) {
+                    setTimeout(() => navigate('/job_status') ,1000)
+                }
+                setLoading(false)
+            })
+            .catch(err => {
+                setLoading(false)
+                toast.error(err?.response?.data?.message, { duration: 1000 })
+            });
     }
 
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100 bg-[url('LandingPagebackgroundblur.png')] bg-no-repeat bg-cover bg-fixed backdrop-blur-3xl">
             <ToastContainer
-                position="top-center"
+                position="top-right"
                 autoClose={5000}
                 hideProgressBar={false}
                 newestOnTop={false}
@@ -134,7 +147,7 @@ const PersonalDetails = () => {
                             {errors.reel && <p className="text-red-600">{errors.reel.message}</p>}
                         </div>
                         <div className="flex justify-center">
-                            <button type="submit" className="w-full py-2 bg-black text-white rounded-lg hover:bg-gray-800 text-center">Next</button>
+                            <button type="submit" disabled={loading} className="w-full py-2 bg-black text-white rounded-lg hover:bg-gray-800 text-center">{loading ?'processing...' : 'Next'}</button>
                         </div>
                     </form>
                 </div>

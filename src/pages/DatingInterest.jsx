@@ -7,7 +7,7 @@ const DatingInterest = () => {
   const onHandleSubmit = async (e) => {
     let interest = e.target.value;
     await axios
-      .post("http://localhost:5000/api/interests/set-interest", { interest })
+      .post("http://localhost:5000/api/v1/users/profile-details", { interest })
       .then(() => {
         navigate("/home");
       })

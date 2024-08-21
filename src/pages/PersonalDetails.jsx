@@ -159,7 +159,7 @@ const PersonalDetails = () => {
                         <button
                             type="submit"
                             disabled={loading}
-                            className={`w-full bg-indigo-500 hover:bg-indigo-600 text-white py-2 px-4 rounded-md transition-colors duration-300 ease-in-out ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            className={`w-full py-2 bg-black hover:bg-gray-800 text-white px-4 rounded-md transition-colors duration-300 ease-in-out ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
                             {loading ? 'Loading...' : 'Submit'}
                         </button>

@@ -1,13 +1,18 @@
+import axios from 'axios';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { Bounce, toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const LoginPage = () => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     });
 
     const [errors, setErrors] = useState({});
+    const [loading, setLoading] = useState(false);
 
     const validate = () => {
         const newErrors = {};
@@ -38,11 +43,19 @@ const LoginPage = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (validate()) {
-            // Handle form submission
-            console.log("Form is valid", formData);
+            setLoading(true);
+            try {
+                const res = await axios.post('http://localhost:5000/login', formData, { withCredentials: true });
+                setLoading(false);
+                toast.success(res.data.message);
+                setTimeout(()=> navigate('/home'),1000)
+            } catch (err) {
+                setLoading(false);
+                toast.error(err.response.data.message);
+            }
         } else {
             console.log("Form has errors", errors);
         }
@@ -50,6 +63,19 @@ const LoginPage = () => {
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100 bg-[url('LandingPagebackgroundblur.png')] bg-no-repeat bg-cover bg-fixed backdrop-blur-3xl">
+             <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Bounce}
+            />
             <div className="flex items-center justify-center min-h-screen lg:w-2/5">
                 <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
                     <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
@@ -78,13 +104,15 @@ const LoginPage = () => {
                             />
                             {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
                         </div>
-                        <button type="submit" className="w-full py-2 bg-black text-white rounded-lg hover:bg-gray-600">Log In</button>
+                        <button type="submit" className="w-full py-2 bg-black text-white rounded-lg hover:bg-gray-600">
+                            {loading ? 'Logging in...' : 'Log In'}
+                        </button>
                     </form>
                     <div className="mt-4 text-center">
                         <a href="#" className="text-sm text-black hover:underline">Forgot password?</a>
                     </div>
                     <div className="mt-2 text-center">
-                        <Link href="#" className="text-sm text-black hover:underline" to="/sign_up">Don't have an account? Sign Up</Link>
+                        <Link className="text-sm text-black hover:underline" to="/sign_up">Don't have an account? Sign Up</Link>
                     </div>
                 </div>
             </div>

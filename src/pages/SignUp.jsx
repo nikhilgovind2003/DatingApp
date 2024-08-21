@@ -99,7 +99,7 @@ const SignUp = () => {
           mobile: formData.mobile,
           password: formData.password,
           otp
-        });
+        }, {withCredentials: true});
         if (registrationResponse.data.success) {
           console.log("Registered successfully:", registrationResponse.data);
           toast.success(registrationResponse.data.message || "Registered successfully!"); // Display success toast

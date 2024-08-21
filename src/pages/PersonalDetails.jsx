@@ -64,7 +64,7 @@ const PersonalDetails = () => {
         }
 
         console.log([...formData]);
-        axios.post('http://localhost:5000/api/v1/users/profile-details', formData, { withCredentials: true })
+        axios.post('http://localhost:5000/api/v1/users/profile-details', formData, {withCredentials: true})
             .then(res => {
                 toast.success(res?.data?.message, { duration: 1000 });
                 if (res.data.success) {

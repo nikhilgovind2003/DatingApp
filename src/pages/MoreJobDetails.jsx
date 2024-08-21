@@ -18,7 +18,7 @@ const MoreJobDetails = () => {
             setLoading(false);
             toast.success(res.data.message, { duration: 1000 })
             if(res.data.success) {
-                setTimeout(() => navigate('/more_job_details') ,1000) //change the path
+                setTimeout(() => navigate('/relationship_goals') ,1000) //change the path
             }
         })
         .catch(err => {

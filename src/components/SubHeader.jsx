@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 const SubHeader = ({title = ''}) => {
   return (
-    <header className='flex justify-between items-center'>
+    <header className=' lg:hidden flex justify-between items-center'>
        <Link to="/">
        <button className='w-12 h-12 p-2 border rounded-full grid place-items-center'>
             <ChevronLeft className='w-8 h-8'/>

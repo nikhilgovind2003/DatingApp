@@ -1,11 +1,25 @@
 import React from 'react'
-import { InteractionIcon, MatchCardComponent, SubHeader } from '../Components'
+import { ButtonGroup, InteractionIcon, MatchCardComponent, SubHeader, UserIcon } from '../Components'
 import { Userdata } from '../datas/Userdata'
 
 const QualificationPage = () => {
   return (
     <section className='w-full pt-5 px-5 pb-24 md:pb-5 h-screen overflow-y-auto'>
-            <div>
+      <div>
+      <div className="lg:flex justify-between items-center gap-5 overflow-x-auto  lg:w-full sm: w-screen hidden ">
+          <button>
+            <UserIcon add={"purple"} />
+            <p className="mt-0.5 text-[14px]">My Story</p>
+          </button>
+          {Userdata?.map((user, i) => (
+            <button key={i}>
+              <UserIcon key={user.id} story={true} url={user.img} />
+              <p className="mt-0.5 text-[14px]">{user.firstName}</p>
+            </button>
+          ))}
+        </div>
+        <ButtonGroup />
+
             <SubHeader title='Qualification'/>
                 <InteractionIcon />
                 <p className='text-text font-medium my-3 text-lg'>Your Matches <span className='text-light-purple'>42</span></p>

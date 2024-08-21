@@ -9,7 +9,7 @@ const DatingInterest = () => {
     await axios
       .patch("http://localhost:5000/api/v1/users/set-interest", { interest }, { withCredentials: true })
       .then(() => {
-        navigate("/home");
+       navigate("/home");
       })
       .catch((error) => {
         console.log(error);

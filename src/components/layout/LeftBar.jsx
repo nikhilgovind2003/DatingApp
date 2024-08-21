@@ -13,7 +13,7 @@ const LeftBar = () => {
       </div>
       <ul className='space-y-2'>
        <li className="hover:bg-dark-wine">
-          <a href="" className=" px-4 py-2 flex items-center">
+          <a href="/home" className=" px-4 py-2 flex items-center">
         <span className="mr-2"><House /></span>Home
           </a>
         </li>

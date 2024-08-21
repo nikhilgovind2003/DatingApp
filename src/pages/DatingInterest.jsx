@@ -9,7 +9,7 @@ const DatingInterest = () => {
     await axios
       .post("http://localhost:5000/api/interests/set-interest", { interest })
       .then(() => {
-        navigate("/home");
+       navigate("/home");
       })
       .catch((error) => {
         console.log(error);

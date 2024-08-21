@@ -1,12 +1,45 @@
-import React from "react";
+import { useEffect } from "react";
 import { Userdata } from "../datas/Userdata";
 import { ButtonGroup, Sidemenu, UserIcon } from "../Components";
 import { HiOutlineBell } from "react-icons/hi";
 import HomeCardComponents from "../components/Homecards/HomeCardComponents";
 import { Link } from "react-router-dom";
 import Rightside from "../components/rightsidemenu/Rightside";
+import axios from "axios";
 
 const HomePage = () => {
+
+  useEffect(() => {
+    userByLocation();
+  }, []);
+
+
+  const userByLocation = () => {
+    try {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          fetchByLocation(latitude, longitude);
+        });
+      } else {
+        alert("Your browser is not supporting geolocation");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchByLocation = async (latitude, longitude) => {
+    await axios
+      .post("http://localhost:5000/location", { latitude, longitude })
+      .then((res) => {
+        console.log(res.da);
+      })
+      .catch((error) => console.log(error));
+  };
+
+ 
   return (
     <section className="lg:w-full md:w-full sm: w-screen pt-5 px-5 pb-24 md:pb-5 h-screen overflow-y-auto overflow-x-hidden">
       <div className="flex justify-between md:hidden gap-5">
@@ -18,9 +51,9 @@ const HomePage = () => {
             </Link>
             <div className=" bg-light-purple border border-primary absolute top-[16.5px] right-[19.5px] rounded-full w-[8px] h-[8px]"></div>
           </button>
-          <div className="pt-3"> 
-          <Rightside/>
-         </div>
+          <div className="pt-3">
+            <Rightside />
+          </div>
         </div>
       </div>
       <div className="flex  justify-between items-center gap-5 overflow-x-auto  lg:w-full sm: w-screen ">

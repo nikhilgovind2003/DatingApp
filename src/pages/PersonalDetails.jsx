@@ -11,6 +11,8 @@ const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
 const SUPPORTED_REEL_FORMATS = ['video/mp4', 'video/ogg', 'video/webm', 'video/quicktime'];
 
 const schema = yup.object().shape({
+    firstName: yup.string().required('firstName is required'),
+    lastName: yup.string().required('lastName is required'),
     bio: yup.string().required('Bio is required'),
     dob: yup.date().required('Date of Birth is required'),
     hobbies: yup.string().required('Hobbies are required'),
@@ -40,6 +42,8 @@ const PersonalDetails = () => {
     const onSubmit = async (data) => {
         setLoading(true);
         const formData = new FormData();
+        formData.append('firstName', data.bio);
+        formData.append('lastName', data.bio);
         formData.append('bio', data.bio);
         formData.append('dob', data.dob);
         formData.append('hobbies', data.hobbies);
@@ -97,6 +101,16 @@ const PersonalDetails = () => {
                 <div className="bg-white p-6 mt-14 mb-10 rounded-lg shadow-lg w-full max-w-md mx-auto">
                     <h2 className="mb-5 text-2xl font-bold text-center">Personal Details</h2>
                     <form onSubmit={handleSubmit(onSubmit)}>
+                    <div className="mb-4">
+                            <label htmlFor="firstName" className="block text-gray-700">FirstName</label>
+                            <input type="text" id="firstName" {...register('firstName')} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm" />
+                            {errors.firstName && <p className="text-red-600">{errors.firstName.message}</p>}
+                        </div>
+                        <div className="mb-4">
+                            <label htmlFor="lastName" className="block text-gray-700">LastName</label>
+                            <input type="text" id="lastName" {...register('lastName')} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm" />
+                            {errors.lastName && <p className="text-red-600">{errors.lastName.message}</p>}
+                        </div>
                         <div className="mb-4">
                             <label htmlFor="bio" className="block text-gray-700">Bio</label>
                             <input type="text" id="bio" {...register('bio')} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm" />

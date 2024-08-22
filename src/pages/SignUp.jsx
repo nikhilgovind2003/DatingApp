@@ -95,10 +95,10 @@ const SignUp = () => {
     e.preventDefault();
     if (validate()) {
       try {
-        const [firstName, ...lastName] = formData.name.trim().split(' ');
+       
         const registrationResponse = await axios.post("http://localhost:5000/api/v1/users/register", {
-          firstName,
-          lastName: lastName.join(' '), // Joins the rest as lastName
+          firstName:formData.firstName,
+          lastName:formData.lastName, // Joins the rest as lastName
           email: formData.email,
           mobile: formData.mobile,
           password: formData.password,

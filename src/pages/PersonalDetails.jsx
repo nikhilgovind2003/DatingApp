@@ -42,8 +42,8 @@ const PersonalDetails = () => {
     const onSubmit = async (data) => {
         setLoading(true);
         const formData = new FormData();
-        formData.append('firstName', data.bio);
-        formData.append('lastName', data.bio);
+        formData.append('firstName', data.firstName);
+        formData.append('lastName', data.lastName);
         formData.append('bio', data.bio);
         formData.append('dob', data.dob);
         formData.append('hobbies', data.hobbies);

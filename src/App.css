@@ -38,3 +38,8 @@
 .cvv {
     -webkit-text-security: star;
 }
+
+
+li{
+    list-style: none;
+}

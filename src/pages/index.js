@@ -32,7 +32,8 @@ import ChangePassword from "../components/forms/ChangePassword.jsx";
 import SortFilter from "./SortFilter.jsx";
 import PartnerPreferances from "./PartnerPreferances.jsx";
 import Groups from "./groups/Groups.jsx"
-
+import ForgotPasswordPage from "./ForgotPasswordPage.jsx";
+import ResetPasswordPage from "./ResetPasswordPage.jsx";
 
 export {
     HomePage,
@@ -63,11 +64,13 @@ export {
     ViewedMyProfilePage,
     Error404,
     Error403,
-   SortFilter,
+    SortFilter,
     PartnerPreferances,
     Story,
     Profileviewpage,
     ChangePassword,
     Groups,
+    ForgotPasswordPage,
+    ResetPasswordPage
 };
 

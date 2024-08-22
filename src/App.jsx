@@ -31,7 +31,9 @@ import {
   Story,
   SpinPage,
   AddCreditCard,
-  PartnerPreferances
+  PartnerPreferances,
+  ForgotPasswordPage,
+  ResetPasswordPage
 } from './pages';
 import DesktopLayout from './layout/DesktopLayout';
 import Profileviewpage from './pages/Profileviewpage';
@@ -102,6 +104,8 @@ function App() {
         <Route path='/interested' element={<Interested />} />
         <Route path='/dating_interest' element={<DatingInterest />} />
         <Route path='/personal_details' element={<PersonalDetails />} />
+        <Route path='/forgot-password' element={<ForgotPasswordPage />} />
+        <Route path='/reset-password' element={<ResetPasswordPage />} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/sign_up' element={<SignUp />} />
         <Route path='/' element={<LandingPage />} />

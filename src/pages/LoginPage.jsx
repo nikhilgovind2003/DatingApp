@@ -109,7 +109,7 @@ const LoginPage = () => {
                         </button>
                     </form>
                     <div className="mt-4 text-center">
-                        <a href="#" className="text-sm text-black hover:underline">Forgot password?</a>
+                        <Link to={'/forgot-password'} className="text-sm text-black hover:underline">Forgot password?</Link>
                     </div>
                     <div className="mt-2 text-center">
                         <Link className="text-sm text-black hover:underline" to="/sign_up">Don't have an account? Sign Up</Link>

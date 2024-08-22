@@ -27,8 +27,12 @@ const SignUp = () => {
   const validate = () => {
     const newErrors = {};
 
-    if (!formData.name.trim()) {
-      newErrors.name = "Name is required.";
+    if (!formData.firstName.trim()) {
+      newErrors.firstName = "FirstName is required.";
+    }
+
+    if (!formData.lastName.trim()) {
+      newErrors.lastName = "FirstName is required.";
     }
 
     if (!formData.email.trim()) {
@@ -133,18 +137,34 @@ const SignUp = () => {
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label htmlFor="name" className="block text-gray-700">
-                Name
+                FirstName
               </label>
               <input
                 type="text"
-                id="name"
-                value={formData.name}
+                id="firstName"
+                value={formData.firstName}
                 onChange={handleChange}
                 placeholder="Value"
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
               />
-              {errors.name && (
-                <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+              {errors.FirstName && (
+                <p className="text-red-500 text-sm mt-1">{errors.FirstName}</p>
+              )}
+            </div>
+            <div className="mb-4">
+              <label htmlFor="name" className="block text-gray-700">
+                LastName
+              </label>
+              <input
+                type="text"
+                id="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+                placeholder="Value"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
+              />
+              {errors.lastName && (
+                <p className="text-red-500 text-sm mt-1">{errors.lastName}</p>
               )}
             </div>
             <div className="mb-4">

@@ -3,9 +3,12 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { login } from '../redux/features/auth/authSlice';
+import { useDispatch } from 'react-redux';
 
 const LoginPage = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -51,6 +54,12 @@ const LoginPage = () => {
                 const res = await axios.post('http://localhost:5000/login', formData, { withCredentials: true });
                 setLoading(false);
                 toast.success(res.data.message);
+                dispatch(login({
+                    userInfo : res.data.data,
+                    isAuthenticated : res.data.isAuthenticated,
+                    token: res.data.token,
+                    tokenExpiry: res.data.tokenExpiry,
+                  }))
                 setTimeout(()=> navigate('/home'),1000)
             } catch (err) {
                 setLoading(false);

@@ -8,7 +8,6 @@ import Rightside from "../components/rightsidemenu/Rightside";
 import axios from "axios";
 
 const HomePage = () => {
-
   useEffect(() => {
     userByLocation();
   }, []);

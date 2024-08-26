@@ -7,18 +7,28 @@ const HomeCardComponents = (props) => {
     <>
       <div
         style={{
-          backgroundImage: `url("${props.img}")`
+          backgroundImage: `url("${props.img}")`,
         }}
         className="w-full h-[120.03px] rounded-2xl bg-cover bg-left relative"
       >
-        <div className="bg-[#FFFFFF] bg-opacity-[20%] text-white top-2 left-4 absolute text-[10px] px-[2px] rounded-full">
-          <p>Online</p>
+        {/* Conditionally render "Online" status based on isActive */}
+        <div
+          className={`absolute top-2 left-4 text-[10px] px-[2px] rounded-full
+    ${
+      props.isActive
+        ? "bg-[#FFFFFF] bg-opacity-[20%] text-white"
+        : "bg-gray-500 text-gray-100"
+    }`}
+        >
+          <p>{props.isActive ? "Online" : "Offline"}</p>
         </div>
+
         <div className="flex flex-col justify-center w-full absolute bottom-[5%] text-white text-[12px] px-4">
           <div className="flex justify-between items-center">
             <p>{props.name}</p>
             <p className="text-[7px] tracking-[0.25em]">
-              {props.sex}{props.age}YRS
+              {props.sex}
+              {props.age}YRS
             </p>
           </div>
           <p className="text-[7px] tracking-[0.25em]">

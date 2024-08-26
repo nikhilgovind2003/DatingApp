@@ -51,6 +51,7 @@ import Messages from './pages/Messages';
 import Notification from "./components/NotificationBar/notificationBar"
 import CreateGroup from './pages/createGroup/CreateGroup';
 import DiscoverPage from './pages/DiscoverPage';
+import UsersProfile from './pages/test/MyProfile';
 
 function App() {
 
@@ -109,6 +110,7 @@ function App() {
         <Route path='/login' element={<LoginPage />} />
         <Route path='/sign_up' element={<SignUp />} />
         <Route path='/' element={<LandingPage />} />
+        <Route path='/profile/:userId' element={<UsersProfile />} />
       </Routes>
       <BottomNavbar show={true} hideOnRoutes={hideOnRoutes} />
     </BrowserRouter>

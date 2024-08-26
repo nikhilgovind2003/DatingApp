@@ -78,9 +78,10 @@ const SignUp = () => {
 
   const handleOtpGeneration = async () => {
     try {
+      console.log({formData, userId});
+      
       const response = await axios.post("http://localhost:5000/api/v1/users/generateotp", {
         email: formData.email,
-        userId: userId, // Use the registered user ID
       });
       if (response.data.success) {
         toast.success(response.data.message || "OTP sent successfully.");

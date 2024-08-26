@@ -44,7 +44,9 @@ const HomePage = () => {
         {Userdata.map((user, i) => {
           const name = user.firstName + " " + user.lastName;
           return (
-            <HomeCardComponents
+
+           <Link to={`/profile/${user.id}`}>
+            <HomeCardComponents       
               key={i}
               img={user.img}
               name={user.name}
@@ -52,7 +54,9 @@ const HomePage = () => {
               age={user.age}
               job={user.job}
               place={user.place}
+              
             />
+            </Link>
           );
         })}
       </div>

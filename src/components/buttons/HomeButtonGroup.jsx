@@ -13,7 +13,7 @@ const ButtonGroup = () => {
   }, [location.pathname]);
 
   return (
-    <ul className="w-full hidden lg:flex space-x-2 rounded-full bg-pink-100 p-1 justify-between gap-1 sm:gap-2 lg:gap-5 my-5">
+    <ul className="w-full flex space-x-2 rounded-full bg-pink-100 p-1 justify-between gap-1 sm:gap-2 lg:gap-5 my-5">
       <li
         className={
           path === "location"

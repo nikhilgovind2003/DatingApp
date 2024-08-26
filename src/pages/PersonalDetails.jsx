@@ -33,8 +33,9 @@ const schema = yup.object().shape({
         .required('Images are required')
         .test('fileSize', '3 images are required', (value) => value && value.length === 3),
     reel: yup.mixed().required('Reel is required')
-        .test('required', 'Provide a short reel', value => value && value.length === 1)
-        .test('fileFormat', 'Unsupported file format', value => value && value.length === 1 && SUPPORTED_REEL_FORMATS.includes(value[0].type)),
+    .test('required', 'Provide a short reel', value => value && value.length === 1)
+    .test('fileFormat', 'Unsupported file format', value => value && value.length === 1 && SUPPORTED_REEL_FORMATS.includes(value[0].type))
+    .test('fileSize', 'Reel must be less than 10MB', value => value && value.length === 1 && value[0].size <= 10 * 1024 * 1024), // 10 MB size limit
 });
 
 const PersonalDetails = () => {

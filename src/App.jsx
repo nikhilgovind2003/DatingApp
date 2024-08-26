@@ -96,7 +96,9 @@ function App() {
           <Route path='*' element={<Error404 />} />
           <Route path='groups' element={<Groups />} />
           <Route path='create_group' element={<CreateGroup />} />
-          
+          <Route path='/profile/:userId' element={<UsersProfile />} />
+
+
         </Route>
         <Route path='/job_status' element={<JobStatus />} />
         <Route path='/job_details' element={<JobDetails />} />
@@ -110,7 +112,6 @@ function App() {
         <Route path='/login' element={<LoginPage />} />
         <Route path='/sign_up' element={<SignUp />} />
         <Route path='/' element={<LandingPage />} />
-        <Route path='/profile/:userId' element={<UsersProfile />} />
       </Routes>
       <BottomNavbar show={true} hideOnRoutes={hideOnRoutes} />
     </BrowserRouter>

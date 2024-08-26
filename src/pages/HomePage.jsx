@@ -8,36 +8,7 @@ import Rightside from "../components/rightsidemenu/Rightside";
 import axios from "axios";
 
 const HomePage = () => {
-  useEffect(() => {
-    userByLocation();
-  }, []);
-
-
-  const userByLocation = () => {
-    try {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          const latitude = position.coords.latitude;
-          const longitude = position.coords.longitude;
-          fetchByLocation(latitude, longitude);
-        });
-      } else {
-        alert("Your browser is not supporting geolocation");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const fetchByLocation = async (latitude, longitude) => {
-    await axios
-      .post("http://localhost:5000/location", { latitude, longitude })
-      .then((res) => {
-        console.log(res.da);
-      })
-      .catch((error) => console.log(error));
-  };
-
+ 
  
   return (
     <section className="lg:w-full md:w-full sm: w-screen pt-5 px-5 pb-24 md:pb-5 h-screen overflow-y-auto overflow-x-hidden">
@@ -52,6 +23,7 @@ const HomePage = () => {
           </button>
           <div className="pt-3">
             <Rightside />
+
           </div>
         </div>
       </div>

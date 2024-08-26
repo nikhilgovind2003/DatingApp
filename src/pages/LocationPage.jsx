@@ -1,4 +1,6 @@
 import React from "react";
+import { useState,useEffect } from "react";
+import axios from 'axios'
 import {
   InteractionIcon,
   MatchCardComponent,
@@ -9,6 +11,72 @@ import {
 import { Userdata } from "../datas/Userdata";
 
 const LocationPage = () => {
+
+   const [location, setLocation] = useState(null);
+   const [locationError, setLocationError] = useState(null)
+   const [error, setError] = useState(null);
+   const [nearByUsers,setNearByUsers] = useState([])
+
+   const fetchLocation = () => {
+     navigator.geolocation.getCurrentPosition(
+       async (position) => {
+         const { latitude, longitude } = position.coords;
+         setLocation({ latitude, longitude });
+         console.log(latitude, longitude);
+
+         try {
+           await axios.post(
+             "http://localhost:5000/api/v1/users/getlocation",
+             { latitude, longitude },
+             { withCredentials: true }
+           );
+           const response = await axios.get(
+             `http://localhost:5000/api/v1/users/findNearByUsers?latitude=${latitude}&longitude=${longitude}`,
+             { withCredentials: true }
+           );
+           setNearByUsers(response.data);
+           console.log(response.data);
+         } catch (error) {
+           setError(error.message);
+         }
+       },
+       (error) => {
+         if (error.code === error.PERMISSION_DENIED) {
+           setLocationError(true);
+         }
+       }
+     );
+   };
+
+
+
+   useEffect(() => {
+     // Check if Geolocation is available in the browser
+     if (navigator.geolocation) {
+       
+       fetchLocation();
+     } else {
+       setError("Geolocation is not supported by this browser.");
+     }
+   },[]);
+
+
+   const handleEnableLocation = () => {
+    setLocationError(false);
+    fetchLocation();
+
+   }
+   if(locationError){
+    return (
+      <div>
+        <p>
+          Location services are disabled. Please enable location access to find
+          nearby users.
+        </p>
+      </div>
+    );
+   }
+
   return (
     <section className="w-full pt-5 px-5 pb-24 md:pb-5 h-screen overflow-y-auto">
       <div>

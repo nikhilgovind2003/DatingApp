@@ -71,7 +71,7 @@ const HomePage = () => {
       <ButtonGroup />
       <div className="grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-3 grid-cols-2 gap-5">
         {Userdata.map((user, i) => {
-          const name = user.firstName + " " + user.lastName;
+            const name = user.firstName + " " + user.lastName;
           return (
 
            <Link to={`/profile/${user.id}`}>

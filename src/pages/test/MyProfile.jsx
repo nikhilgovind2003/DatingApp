@@ -5,7 +5,7 @@ import Button from "../../components/buttons/InterestButton";
 import { useParams } from "react-router-dom";
 import { Userdata } from "../../datas/Userdata";
 import { useState } from "react";
-
+import { Link } from "react-router-dom";
 function MyProfile() {
   const { userId } = useParams();
 
@@ -25,13 +25,17 @@ function MyProfile() {
             // backgroundAttachment: 'fixed',
           }}
         >
+         
           <div className="topnavigation flex p-2 sticky top-6 justify-between">
-            <div className="rounded-full backdrop-filter backdrop-blur-sm bg-opacity-45 border-2 w-fit border-white p-2 text-white">
-              <ChevronLeft />
-            </div>
-            <div className="rounded-full flex border-2 w-fit backdrop-filter backdrop-blur-sm bg-opacity-45 border-white py-2 px-4 text-white">
-              <span>Edit</span>
-            </div>
+          <Link to="/home">    <div className="rounded-full backdrop-filter backdrop-blur-sm bg-opacity-45 border-2 w-fit border-white p-2 text-white">
+             
+             <ChevronLeft/> 
+              
+            </div></Link>
+        
+            <div className="rounded-full flex border-2 w-fit backdrop-filter backdrop-blur-sm bg-opacity-45 border-white p-2 text-white">
+      <Navigation /><span>{sinUser.distance}KM</span>
+    </div>
           </div>
 
           <div className="mt- absolute bottom-24 left-1/2 transform -translate-x-1/2 p-2 flex-wrap justify-center items-center">
@@ -45,9 +49,9 @@ function MyProfile() {
             <div className="text-white text-center py-2 mt-6">
               <span className="inline-flex items-center pl-1  bg-[#4b164c] py-2 rounded-full border-2 border-light-purple">
                 <span className="p-2 rounded-full border-4 border-light-purple ">
-                  80%
+                  {sinUser.match}%
                 </span>
-                <span className="px-2">Profile Complete</span>
+                <span className="px-2">Match</span>
               </span>
             </div>
           </div>
@@ -68,7 +72,7 @@ function MyProfile() {
             <div>
               <span className="text-gray-600">About</span>
               <p className="font-Roboto font-medium">
-         {sinUser.message}
+         {sinUser.bio}
               </p>
             </div>
             <div className="mt-4">
@@ -78,6 +82,11 @@ function MyProfile() {
                 <Button text={`${sinUser.interests}`}  selected={false} />
               </div>
             </div>
+            
+        {/* Profile Actionbar */}
+        <div className="fixed z-50 bottom-10 left-1/2 transform -translate-x-1/2">
+          <ProfileActionbar />
+          </div>
           </div>
         </div>
       </div>

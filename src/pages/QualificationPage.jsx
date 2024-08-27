@@ -23,9 +23,9 @@ useEffect(()=>{
 },[])
 
   return (
-    <section className='w-full pt-5 px-5 pb-24 md:pb-5 h-screen overflow-y-auto'>
+    <section className='sm: w-screen md:w-full overflow-x-hidden lg:w-full pt-5 px-5 pb-24 md:pb-5 h-screen overflow-y-auto'>
       <div>
-      <div className="lg:flex justify-between items-center gap-5 overflow-x-auto  lg:w-full sm: w-screen hidden ">
+      <div className="flex justify-between items-center gap-5 overflow-x-auto  lg:w-full sm: w-screen  ">
           <button>
             <UserIcon add={"purple"} />
             <p className="mt-0.5 text-[14px]">My Story</p>

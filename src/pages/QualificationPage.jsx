@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { ButtonGroup, InteractionIcon, MatchCardComponent, SubHeader, UserIcon } from '../Components'
 import { Userdata } from '../datas/Userdata'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 const QualificationPage = () => {
 
@@ -44,17 +45,19 @@ useEffect(()=>{
             </div>
 
             <div className='grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-3 grid-cols-2 gap-5'>
-            {dataqualification?.map((user, i) => (
+            {Userdata?.map((user, i) => (
+               <Link to={`/profile/${user.id}`} 
+               key={i} >
                 <MatchCardComponent 
-                key={i}
                 isNew={false}
-                img={user.profileImage.url}
+                img={user.img}
                 distance={user.distance}
                 name={user.name}
                 age={user.age}
                 place={user.place}
                 match={user.match}
                 />
+                </Link>
             ))}
         </div>
     </section>

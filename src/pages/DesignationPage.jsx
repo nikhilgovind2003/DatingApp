@@ -1,6 +1,7 @@
 import React from "react";
 import { ButtonGroup, InteractionIcon, MatchCardComponent, SubHeader, UserIcon } from "../Components";
 import { Userdata } from "../datas/Userdata";
+import { Link } from "react-router-dom";
 
 const DesignationPage = () => {
   return (
@@ -28,6 +29,8 @@ const DesignationPage = () => {
       </div>
       <div className="grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-3 grid-cols-2 gap-5">
         {Userdata?.map((user, i) => (
+           <Link to={`/profile/${user.id}`} 
+           key={i} >
           <MatchCardComponent
             key={i}
             isNew={false}
@@ -38,6 +41,7 @@ const DesignationPage = () => {
             place={user.place}
             match={user.match}
           />
+          </Link>
         ))}
       </div>
     </section>

@@ -20,7 +20,7 @@ const DesignationPage = () => {
   useEffect(()=>{
     featchDesignation();
   },[])
-  console.log(users)
+
   return (
     <section className="sm: w-screen md:w-full lg:w-full pt-5 px-5 pb-24 md:pb-5 h-screen overflow-y-auto overflow-x-hidden">
       <div>

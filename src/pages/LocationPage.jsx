@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useState,useEffect } from "react";
 import axios from 'axios'
 import {
@@ -15,9 +15,14 @@ const LocationPage = () => {
    const [location, setLocation] = useState(null);
    const [locationError, setLocationError] = useState(null)
    const [error, setError] = useState(null);
-   const [nearByUsers,setNearByUsers] = useState([])
+   const [nearByUsers,setNearByUsers] = useState([]);
+   const hasFetchedLocation = useRef()
 
    const fetchLocation = () => {
+    if(hasFetchedLocation.current) return;
+    hasFetchedLocation.current = true;
+    console.log("fetch location called");
+    
      navigator.geolocation.getCurrentPosition(
        async (position) => {
          const { latitude, longitude } = position.coords;
@@ -61,11 +66,6 @@ const LocationPage = () => {
    },[]);
 
 
-   const handleEnableLocation = () => {
-    setLocationError(false);
-    fetchLocation();
-
-   }
    if(locationError){
     return (
       <div>
@@ -101,16 +101,16 @@ const LocationPage = () => {
         </p>
       </div>
       <div className="grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-3 grid-cols-2 gap-5">
-        {Userdata?.map((user, i) => (
+        {nearByUsers?.map((user, i) => (
           <MatchCardComponent
             key={i}
             isNew={false}
-            img={user.img}
-            distance={user.distance}
-            name={user.firstName}
-            age={user.age}
-            place={user.place}
-            match={user.match}
+            img={user.profileImage.url}
+            distance=""
+            name=""
+            age=""
+            place=""
+            match=""
           />
         ))}
       </div>

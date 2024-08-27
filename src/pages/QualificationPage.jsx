@@ -1,8 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { ButtonGroup, InteractionIcon, MatchCardComponent, SubHeader, UserIcon } from '../Components'
 import { Userdata } from '../datas/Userdata'
+import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 const QualificationPage = () => {
+
+  const[dataqualification,setQualification]=useState([])
+
+const fetchQualificationMatches=async()=>{
+  try {
+    const response= await axios.get('http://localhost:5000/api/v1/users/profile/qualification',{ withCredentials: true })
+  console.log(response.data);
+  setQualification(response.data)
+  } catch (error) {
+    console.log(error);  
+  }  
+}
+
+useEffect(()=>{
+  fetchQualificationMatches()
+},[])
+
   return (
     <section className='w-full pt-5 px-5 pb-24 md:pb-5 h-screen overflow-y-auto'>
       <div>
@@ -27,16 +46,18 @@ const QualificationPage = () => {
 
             <div className='grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-3 grid-cols-2 gap-5'>
             {Userdata?.map((user, i) => (
+               <Link to={`/profile/${user.id}`} 
+               key={i} >
                 <MatchCardComponent 
-                key={i}
                 isNew={false}
                 img={user.img}
                 distance={user.distance}
-                name={user.firstName}
+                name={user.name}
                 age={user.age}
                 place={user.place}
                 match={user.match}
                 />
+                </Link>
             ))}
         </div>
     </section>

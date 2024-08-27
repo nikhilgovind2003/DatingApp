@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { LogOut } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { navData } from "../../datas/navData";
 import { Bell } from "lucide-react";
 import { MdInput } from "react-icons/md";
@@ -9,6 +10,18 @@ import { Button } from "@chakra-ui/react";
 
 const RightBar = () => {
   const [notification, setnotification] = useState(false)
+
+  const navigate = useNavigate()
+
+  const handleLogout = async () => {
+      try {
+        const res = await axios.post('http://localhost:5000/logout', null, { withCredentials: true})
+        console.log(res.data.message);
+        navigate('/')
+      } catch (err) {
+        console.log(err);
+      }
+  }
 
   return (
     <div className="w-full h-screen bg-hot-purple text-white text-lg sm:text-sm md:text-sm lg:text-lg pt-2">
@@ -50,10 +63,10 @@ const RightBar = () => {
           ))}
         </ul>
         <div className="hover:bg-dark-wine">
-        <Button cl variant={'none'}>
-                <MdInput className='text-lg text-white -rotate-180 ...'/>
-                <h3 className='text-white ml-4'>Logout</h3>
-                </Button>
+          <Button cl variant={'none'} onClick={handleLogout}>
+            <MdInput className='text-lg text-white -rotate-180 ...'/>
+            <h3 className='text-white ml-4'>Logout</h3>
+          </Button>
         </div>
        
       </div>

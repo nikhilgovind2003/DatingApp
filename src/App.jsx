@@ -1,4 +1,3 @@
-
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import { 
@@ -46,11 +45,12 @@ import SettingsPage from './pages/SettingsPage';
 import BottomNavbar from './components/BottomNavbar';
 import { SubHeader } from './Components';
 import SubscriptionPage from './pages/SubscriptionPage';
-import SortFilter from './pages/SortFilter'
+import SortFilter from './pages/SortFilter';
 import Messages from './pages/Messages';
-import Notification from "./components/NotificationBar/notificationBar"
+import Notification from "./components/NotificationBar/notificationBar";
 import CreateGroup from './pages/createGroup/CreateGroup';
 import DiscoverPage from './pages/DiscoverPage';
+import UsersProfile from './pages/test/MyProfile';
 
 function App() {
 
@@ -95,7 +95,7 @@ function App() {
           <Route path='*' element={<Error404 />} />
           <Route path='groups' element={<Groups />} />
           <Route path='create_group' element={<CreateGroup />} />
-          
+          <Route path='/profile/:userId' element={<UsersProfile />} />
         </Route>
         <Route path='/job_status' element={<JobStatus />} />
         <Route path='/job_details' element={<JobDetails />} />

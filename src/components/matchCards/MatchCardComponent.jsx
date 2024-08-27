@@ -14,7 +14,7 @@ const MatchCardComponent = (props) => {
          {isNew? "" :`${props.match}% Match`}
         </div>
 
-        <div className=" absolute text-primary bottom-[8%]  text-center w-full">
+        <div className=" absolute text-black bottom-[8%]  text-center w-full">
           <div className=" bg-primary w-[50%] mx-auto bg-opacity-[40%] backdrop-blur-md border-gray-400 border-2 text-sm py-1  my-1 font-semibold rounded-full">
             <p>{props.distance}km away</p>
           </div>

@@ -13,7 +13,13 @@ const SUPPORTED_REEL_FORMATS = ['video/mp4', 'video/ogg', 'video/webm', 'video/q
 const schema = yup.object().shape({
     
     bio: yup.string().required('Bio is required'),
-    dob: yup.date().required('Date of Birth is required'),
+    dob: yup.date().required('Date of Birth is required')
+        .test('age', 'You must be at least 18 years old', function(value) {
+            const cutoff = new Date();
+            cutoff.setFullYear(cutoff.getFullYear() - 18);
+            return value <= cutoff;
+        }),
+    location: yup.string().required('Location is required'),
     hobbies: yup.string().required('Hobbies are required'),
     interests: yup.string().required('Interests are required'),
     smoking: yup.string().required('Smoking habits are required'),
@@ -27,8 +33,9 @@ const schema = yup.object().shape({
         .required('Images are required')
         .test('fileSize', '3 images are required', (value) => value && value.length === 3),
     reel: yup.mixed().required('Reel is required')
-        .test('required', 'Provide a short reel', value => value && value.length === 1)
-        .test('fileFormat', 'Unsupported file format', value => value && value.length === 1 && SUPPORTED_REEL_FORMATS.includes(value[0].type)),
+    .test('required', 'Provide a short reel', value => value && value.length === 1)
+    .test('fileFormat', 'Unsupported file format', value => value && value.length === 1 && SUPPORTED_REEL_FORMATS.includes(value[0].type))
+    .test('fileSize', 'Reel must be less than 10MB', value => value && value.length === 1 && value[0].size <= 10 * 1024 * 1024), // 10 MB size limit
 });
 
 const PersonalDetails = () => {
@@ -44,6 +51,7 @@ const PersonalDetails = () => {
         
         formData.append('bio', data.bio);
         formData.append('dob', data.dob);
+        formData.append('location',data.location);
         formData.append('hobbies', data.hobbies);
         formData.append('interests', data.interests);
         formData.append('smoking', data.smoking);
@@ -108,6 +116,11 @@ const PersonalDetails = () => {
                             <label htmlFor="dob" className="block text-gray-700">DOB</label>
                             <input type="date" id="dob" {...register('dob')} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm" />
                             {errors.dob && <p className="text-red-600">{errors.dob.message}</p>}
+                        </div>
+                        <div className="mb-4">
+                            <label htmlFor="location" className="block text-gray-700">Location</label>
+                            <input type="text" id="location" {...register('location')} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm" />
+                            {errors.location && <p className="text-red-600">{errors.location.message}</p>}
                         </div>
                         <div className="mb-4">
                             <label htmlFor="hobbies" className="block text-gray-700">Hobbies</label>

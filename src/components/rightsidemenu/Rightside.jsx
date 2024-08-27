@@ -5,13 +5,14 @@ import { FaCrown } from "react-icons/fa";
 import { MdInput } from "react-icons/md";
 import UserIcon from '../usericons/UserIcon.JSX';
 import { navData } from '../../datas/navData';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 
 
 const Rightside = () => {
    
-        const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [placements, setPlacement] = useState('right');
 // Function to toggle the dropdown open/close state
 const toggleDropdown = () => {
@@ -36,6 +37,18 @@ const toggleDropdown = () => {
     };
   }, []);
   
+  const navigate = useNavigate()
+
+  const handleLogout = async () => {
+    try {
+      const res = await axios.post('http://localhost:5000/logout', null, { withCredentials: true})
+      console.log(res.data.message);
+      navigate('/')
+    } catch (err) {
+      console.log(err);
+    }
+}
+
 
   return (
     <div>
@@ -78,12 +91,12 @@ const toggleDropdown = () => {
           ))}
         </ul>
       </div>
-                <div className='flex flex-row  ml-7 mb-4'>
-                  <Button variant={'none'}>
-                <MdInput className='size-5 text-white -rotate-180 ...'/>
-                <h3 className='text-white ml-4'>Logout</h3>
-                </Button>
-                </div>
+        <div className='flex flex-row  ml-7 mb-4'>
+          <Button variant={'none'} onClick={handleLogout}>
+            <MdInput className='size-5 text-white -rotate-180 ...'/>
+            <h3 className='text-white ml-4'>Logout</h3>
+          </Button>
+        </div>
                 
             </DrawerBody>
           </DrawerContent>

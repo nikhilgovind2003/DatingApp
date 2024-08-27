@@ -5,8 +5,11 @@ import axios from "axios"
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch } from "react-redux";
+import { signup } from "../redux/features/auth/authSlice";
 
 const SignUp = () => {
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -109,7 +112,12 @@ const SignUp = () => {
         if (registrationResponse.data.success) {
           console.log("Registered successfully:", registrationResponse.data);
           toast.success(registrationResponse.data.message || "Registered successfully!"); // Display success toast
-         
+          dispatch(signup({
+            userInfo : registrationResponse.data.data,
+            isAuthenticated : registrationResponse.data.isAuthenticated,
+            token: registrationResponse.data.token,
+            tokenExpiry: registrationResponse.data.tokenExpiry,
+          }))
            // Delay navigation by 2 seconds (2000 milliseconds)
         setTimeout(() => {
           navigate('/personal_details');

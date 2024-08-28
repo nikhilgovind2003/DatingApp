@@ -17,7 +17,7 @@ const Interested = () => {
             </div>
         </div>
         </div>
-    );s
+    );
 }
 
 export default Interested;

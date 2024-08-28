@@ -1,6 +1,6 @@
 import { ArrowLeft, CircleX, MessageSquare, Pencil } from "lucide-react";
 import { useState } from "react";
-
+import axios from "axios";
 import Upgrade from './../components/upgrademore/Upgrade'
 import { UserIcon } from "../Components";
 import BottomNavbar from "../components/BottomNavbar";
@@ -8,6 +8,8 @@ import BottomNavbar from "../components/BottomNavbar";
 
 export default function Story() {
   const [clicked, setClicked] = useState(false);
+
+  
 
   return (
     <div

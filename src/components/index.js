@@ -11,7 +11,7 @@ import Sidemenu from "./SideMenu/Sidemenu";
 import ButtonGroup from "./buttons/HomeButtonGroup";
 import MatchCardComponent from "./matchCards/MatchCardComponent";
 import SubHeader from "./SubHeader";
-
+import StoryView from "./StoryView/storyView"
 export {
     LeftBar,
     RightBar,
@@ -25,5 +25,6 @@ export {
     Sidemenu,
     ButtonGroup,
     MatchCardComponent,
-    SubHeader
+    SubHeader,
+    StoryView
 };

@@ -55,7 +55,7 @@ const LocationPage = () => {
       </div>
       <div className="grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-3 grid-cols-2 gap-5">
         {nearByUsers?.map((user) => (
-          <Link to={`/profile/${user.id}`} key={nearByUsers.id}>
+          <Link to={`/profile/${user._id}`} key={nearByUsers.id}>
             <MatchCardComponent
               isNew={false}
               img={user.profileImage.url}

@@ -5,21 +5,36 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const DesignationPage = () => {
-  const[users,setUsers] = useState([]);
+  const [users, setUsers] = useState([]);
 
-  const count= users.length
-  const featchDesignation = async()=>{
+  const fetchDesignation = async () => {
     try {
-      const response= await axios.get('http://localhost:5000/api/v1/users/profile/designations',{ withCredentials: true })
-    console.log(response.data);
-    setUsers(response.data)
+      const designationResponse = await axios.get('http://localhost:5000/api/v1/users/profile/designations', { withCredentials: true });
+      const matchPercentageResponse = await axios.get('http://localhost:5000/api/v1/users/compare', { withCredentials: true });
+
+      // Assuming the matchPercentageResponse returns an array of objects with user IDs and match percentages
+      const matchPercentages = matchPercentageResponse.data.results;
+
+      // Combine designation data with match percentage data
+      const combinedData = designationResponse.data.map(user => {
+        const matchData = matchPercentages.find(match => match.userId === user.user_id);
+        return {
+          ...user,
+          matchPercentage: matchData ? matchData.matchPercentage : null
+        };
+      });
+
+      setUsers(combinedData);
     } catch (error) {
-      console.log(error);  
-    }  
-  }
-  useEffect(()=>{
-    featchDesignation();
-  },[])
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchDesignation();
+  }, []);
+
+  const count = users.length;
 
   return (
     <section className="sm: w-screen md:w-full lg:w-full pt-5 px-5 pb-24 md:pb-5 h-screen overflow-y-auto overflow-x-hidden">
@@ -56,7 +71,7 @@ const DesignationPage = () => {
             name={user.name}
             age={user.age}
             place={user.place}
-            match={user.match}
+            match={user.matchPercentage}
           />
           </Link>
         ))}

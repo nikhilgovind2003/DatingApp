@@ -22,15 +22,12 @@ function MyProfile() {
   return (
     <div>
       <div className="container relative h-screen overflow-y-auto w-full mx-auto">
-        <div
-          className="h-[75vh] overflow-hidden sticky top-0 "
-          style={{
-            background: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(128, 0, 128, 0.7)), url(${user?.profileImage?.url})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat"
-          }}
-        >
+      <div
+  className="h-[75vh] overflow-hidden sticky top-0"
+  style={{
+    background: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(128, 0, 128, 0.7)), url("${user?.profileImage?.url || 'fallbackImage.jpg'}") top / cover no-repeat`
+  }}
+>
 
           <div className="topnavigation flex p-2 sticky top-6 justify-between">
             <Link to="/home">    <div className="rounded-full backdrop-filter backdrop-blur-sm bg-opacity-45 border-2 w-fit border-white p-2 text-white">

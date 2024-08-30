@@ -1,6 +1,8 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 
 function EditProfile() {
+
   return (
     <div className="flex justify-center   items-center  bg-deep-plum">
       <div className="bg-white  rounded-t-3xl p-4 w-full ">

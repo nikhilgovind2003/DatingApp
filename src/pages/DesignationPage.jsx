@@ -15,15 +15,29 @@ const DesignationPage = () => {
       // Assuming the matchPercentageResponse returns an array of objects with user IDs and match percentages
       const matchPercentages = matchPercentageResponse.data.results;
 
-      // Combine designation data with match percentage data
-      const combinedData = designationResponse.data.map(user => {
-        const matchData = matchPercentages.find(match => match.userId === user.user_id);
-        return {
-          ...user,
-          matchPercentage: matchData ? matchData.matchPercentage : null
-        };
-      });
+      console.log("match percent:", matchPercentages);
+      console.log("qualification response:", designationResponse);
 
+      const combinedData = designationResponse.data.map(user => {
+        console.log("User data:", user);
+    
+        // Find match data by comparing user properties
+        const matchData = matchPercentages.find(match => {
+            return match.user === user.user;  // Ensure both match.user and user.user exist and are correct
+        });
+    
+        // Log matchData to see if the match was found
+        console.log("Match data found:", matchData);
+    
+        // Return the combined object
+        return {
+            ...user,
+            matchPercentage: matchData ? matchData.matchPercentage : null
+        };
+    });
+    
+    // Log the final combined data
+    console.log("Combined Data:", combinedData);
       setUsers(combinedData);
     } catch (error) {
       console.log(error);

@@ -16,11 +16,41 @@ const LocationPage = () => {
 
   const matchByLocation = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5000/api/v1/users/matchbylocation",{withCredentials: true}
+      // Fetch users by location
+      const locationResponse = await axios.get(
+        "http://localhost:5000/api/v1/users/matchbylocation",
+        { withCredentials: true }
       );
-      setNearByUsers(response.data);
-      console.log(response.data);
+
+      // Fetch match percentages
+      const matchPercentageResponse = await axios.get(
+        "http://localhost:5000/api/v1/users/compare",
+        { withCredentials: true }
+      );
+
+      // Assuming the matchPercentageResponse returns an array of objects with user IDs and match percentages
+      const matchPercentages = matchPercentageResponse.data.results;
+
+      console.log("Match percentages:", matchPercentages);
+      console.log("Location response:", locationResponse);
+
+      // Combine the location data with match percentages
+      const combinedData = locationResponse.data.map(user => {
+        // Find the matching match percentage for the current user
+        const matchData = matchPercentages.find(match => match.user === user.user);
+
+        // Return the combined object
+        return {
+          ...user,
+          matchPercentage: matchData ? matchData.matchPercentage : null,
+        };
+      });
+
+      // Log the final combined data
+      console.log("Combined Data:", combinedData);
+
+      // Set the state with the combined data
+      setNearByUsers(combinedData);
     } catch (error) {
       console.log(error);
     }
@@ -29,6 +59,7 @@ const LocationPage = () => {
   useEffect(() => {
     matchByLocation();
   }, []);
+
 
   return (
     <section className="sm: w-screen md:w-full lg:w-full pt-5 px-5 pb-24 md:pb-5 h-screen overflow-y-auto overflow-x-hidden">
@@ -63,7 +94,7 @@ const LocationPage = () => {
               name={user.name}
               age={user.age}
               place={user.location.place}
-              match="100"
+              match={user.matchPercentage}
             />
           </Link>
         ))}

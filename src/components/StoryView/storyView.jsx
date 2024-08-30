@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Userdata } from "../../datas/Userdata";
 import { UserIcon } from "../index";
-import { config } from "dotenv";
+// import { config } from "dotenv";
 import axios from "axios";
 import { Link } from "react-router-dom";
 

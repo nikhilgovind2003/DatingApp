@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from "react";
 import { ChevronLeft } from "lucide-react";
 import Button from "../../components/buttons/InterestButton";
@@ -10,9 +8,7 @@ function MyProfile() {
   const { userId } = useParams();
   const [users, setUsers] = useState([]);
   const [sinUser, setSinUser] = useState(null);
-  const navigate = useNavigate()
-
-  
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchUsers();
@@ -44,29 +40,8 @@ function MyProfile() {
   }
 
   const handleEdit = () => {
-    navigate(`/editprofile/${userId}`)
-  }
-
-import React, { useEffect } from "react";
-import { ChevronLeft, Navigation } from "lucide-react";
-import ProfileActionbar from "../../components/ProfileActionbar";
-import Button from "../../components/buttons/InterestButton";
-import { useParams } from "react-router-dom";
-import { Userdata } from "../../datas/Userdata";
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
-function MyProfile() {
-  const { userId } = useParams();
-  const [user, setUser] = useState();
-  // const [sinUser] = useState(Userdata.find((user) => user.id === userId));
-  useEffect(() => {
-    axios.get(`http://localhost:5000/api/v1/users/profile/${userId}`, { withCredentials: true })
-      .then(res => setUser(res.data))
-      .catch(err => console.log(err))
-  }, [])
-
-  console.log(user);
+    navigate(`/editprofile/${userId}`);
+  };
 
   return (
     <div>
@@ -79,54 +54,32 @@ function MyProfile() {
             backgroundPosition: "center",
           }}
         >
-
-      <div
-  className="h-[75vh] overflow-hidden sticky top-0"
-  style={{
-    background: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(128, 0, 128, 0.7)), url("${user?.profileImage?.url || 'fallbackImage.jpg'}") top / cover no-repeat`
-  }}
->
-
           <div className="topnavigation flex p-2 sticky top-6 justify-between">
-            <Link to="/home">    <div className="rounded-full backdrop-filter backdrop-blur-sm bg-opacity-45 border-2 w-fit border-white p-2 text-white">
-
+            <div className="rounded-full backdrop-filter backdrop-blur-sm bg-opacity-45 border-2 w-fit border-white p-2 text-white">
               <ChevronLeft />
             </div>
-            <div className="rounded-full flex border-2 w-fit backdrop-filter backdrop-blur-sm bg-opacity-45 border-white py-2 px-4 text-white cursor-pointer" onClick={handleEdit}>
+            <div
+              className="rounded-full flex border-2 w-fit backdrop-filter backdrop-blur-sm bg-opacity-45 border-white py-2 px-4 text-white cursor-pointer"
+              onClick={handleEdit}
+            >
               <span>Edit</span>
-
-
-            </div></Link>
-
-            <div className="rounded-full flex border-2 w-fit backdrop-filter backdrop-blur-sm bg-opacity-45 border-white p-2 text-white">
-              <Navigation /><span>{2}KM</span>
-
             </div>
           </div>
 
           <div className="mt- absolute bottom-24 left-1/2 transform -translate-x-1/2 p-2 flex-wrap justify-center items-center">
             <div className="text-center">
               <span className="text-3xl text-white text-center">
-
                 {sinUser.user?.firstName + " " + sinUser.user?.lastName}
-
-                {user?.user?.firstName + " " + user?.user?.lastName}
-
               </span>{" "}
               <br />
-              <span className="text-sm text-gray-300">{user?.place || 'usa'}</span>
+              <span className="text-sm text-gray-300">{sinUser.place}</span>
             </div>
             <div className="text-white text-center py-2 mt-6">
               <span className="inline-flex items-center pl-1 bg-[#4b164c] py-2 rounded-full border-2 border-light-purple">
                 <span className="p-2 rounded-full border-4 border-light-purple">
                   80%
-
-              <span className="inline-flex items-center pl-1  bg-[#4b164c] py-2 rounded-full border-2 border-light-purple">
-                <span className="p-2 rounded-full border-4 border-light-purple ">
-                  {user?.match || 90}%
-
                 </span>
-                <span className="px-2">Match</span>
+                <span className="px-2">Profile Complete</span>
               </span>
             </div>
           </div>
@@ -140,37 +93,23 @@ function MyProfile() {
             className="bg-gray-400 rounded-full mx-auto"
             style={{ width: "60px", padding: "2px" }}
           >
+            {/* Avatar or Profile Picture */}
           </div>
           <div className="overflow-y-auto pb-8">
             <div>
               <span className="text-gray-600">About</span>
               <p className="font-Roboto font-medium">{sinUser.message}</p>
-
-              <p className="font-Roboto font-medium">
-                {user?.bio}
-              </p>
-
             </div>
             <div className="mt-4">
               <span className="text-gray-600">Interest</span>
               <div className="flex gap-2 flex-wrap">
-
                 {/* Interests */}
                 {sinUser.interests.map((interest, index) => {
                   console.log("///////////////////", interest);
 
-                  return (
-                    <Button key={index} text={interest} selected={false} />
-                  );
+                  return <Button key={index} text={interest} selected={false} />;
                 })}
-
-                <Button text={`${user?.interests}`} selected={false} />
-
               </div>
-            </div>
-
-            <div className="fixed z-50 bottom-10 left-1/2 transform -translate-x-1/2">
-              <ProfileActionbar />
             </div>
           </div>
         </div>

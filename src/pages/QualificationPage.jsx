@@ -21,7 +21,7 @@ const QualificationPage = () => {
 
       // Combine qualification data with match percentage data
       const combinedData = qualificationResponse.data.map(user => {
-        const matchData = matchPercentages.find(match => match.profile.user === user.user._id)
+        const matchData = matchPercentages.find(match => match.user === user.user._id)
         console.log("match data:", matchData);
 
         return {
@@ -30,8 +30,6 @@ const QualificationPage = () => {
         }
       })
       console.log("combined data:", combinedData);
-
-
       setQualification(combinedData)
     } catch (error) {
       console.log(error)

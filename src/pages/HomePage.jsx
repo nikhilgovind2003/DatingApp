@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Userdata } from "../datas/Userdata";
-import { ButtonGroup, Sidemenu, UserIcon } from "../Components";
+import { ButtonGroup, Sidemenu, StoryView, UserIcon } from "../Components";
 import { HiOutlineBell } from "react-icons/hi";
 import HomeCardComponents from "../components/Homecards/HomeCardComponents";
 import { Link } from "react-router-dom";
@@ -8,6 +8,7 @@ import Rightside from "../components/rightsidemenu/Rightside";
 import axios from "axios";
 
 const HomePage = () => {
+
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -26,6 +27,20 @@ const HomePage = () => {
     }
   };
 
+
+ 
+  try {
+
+``    
+    console.log("Success");
+    
+  } catch (error) {
+    console.log(error.res.data);
+    
+  }
+
+ 
+
   return (
     <section className="lg:w-full md:w-full sm: w-screen pt-5 px-5 pb-24 md:pb-5 h-screen overflow-y-auto overflow-x-hidden">
       <div className="flex justify-between md:hidden gap-5">
@@ -43,6 +58,7 @@ const HomePage = () => {
         </div>
       </div>
       <div className="flex  justify-between items-center gap-5 overflow-x-auto  lg:w-full sm: w-screen ">
+
         <button>
           <UserIcon add={"purple"} />
           <p className="mt-0.5 text-[14px]">My Story</p>
@@ -58,6 +74,15 @@ const HomePage = () => {
       <div className="grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-3 grid-cols-2 gap-5">
         {users.map((user, i) => {
           const name = user.firstName + " " + user.lastName;
+
+     
+     <StoryView />
+      </div>
+      <ButtonGroup />
+      <div className="grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-3 grid-cols-2 gap-5">
+        {Userdata.map((user, i) => {
+            const name = user.firstName + " " + user.lastName;
+
           return (
             // <Link to={`/profile/${user.id}`}>
             <Link to={`/profile/${user.user._id}`}>

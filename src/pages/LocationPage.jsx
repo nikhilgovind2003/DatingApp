@@ -1,86 +1,70 @@
-import React from "react";
-import { useState,useEffect } from "react";
-import axios from 'axios'
+import React, { useRef } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import {
   InteractionIcon,
   MatchCardComponent,
   SubHeader,
   ButtonGroup,
-  UserIcon
+  UserIcon,
 } from "../Components";
 import { Userdata } from "../datas/Userdata";
+import { Link } from "react-router-dom";
 
 const LocationPage = () => {
+  const [nearByUsers, setNearByUsers] = useState([]);
 
-   const [location, setLocation] = useState(null);
-   const [locationError, setLocationError] = useState(null)
-   const [error, setError] = useState(null);
-   const [nearByUsers,setNearByUsers] = useState([])
+  const matchByLocation = async () => {
+    try {
+      // Fetch users by location
+      const locationResponse = await axios.get(
+        "http://localhost:5000/api/v1/users/matchbylocation",
+        { withCredentials: true }
+      );
 
-   const fetchLocation = () => {
-     navigator.geolocation.getCurrentPosition(
-       async (position) => {
-         const { latitude, longitude } = position.coords;
-         setLocation({ latitude, longitude });
-         console.log(latitude, longitude);
+      // Fetch match percentages
+      const matchPercentageResponse = await axios.get(
+        "http://localhost:5000/api/v1/users/compare",
+        { withCredentials: true }
+      );
 
-         try {
-           await axios.post(
-             "http://localhost:5000/api/v1/users/getlocation",
-             { latitude, longitude },
-             { withCredentials: true }
-           );
-           const response = await axios.get(
-             `http://localhost:5000/api/v1/users/findNearByUsers?latitude=${latitude}&longitude=${longitude}`,
-             { withCredentials: true }
-           );
-           setNearByUsers(response.data);
-           console.log(response.data);
-         } catch (error) {
-           setError(error.message);
-         }
-       },
-       (error) => {
-         if (error.code === error.PERMISSION_DENIED) {
-           setLocationError(true);
-         }
-       }
-     );
-   };
+      // Assuming the matchPercentageResponse returns an array of objects with user IDs and match percentages
+      const matchPercentages = matchPercentageResponse.data.results;
 
+      console.log("Match percentages:", matchPercentages);
+      console.log("Location response:", locationResponse);
 
+      // Combine the location data with match percentages
+      const combinedData = locationResponse.data.map(user => {
+        // Find the matching match percentage for the current user
+        const matchData = matchPercentages.find(match => match.user === user.user);
 
-   useEffect(() => {
-     // Check if Geolocation is available in the browser
-     if (navigator.geolocation) {
-       
-       fetchLocation();
-     } else {
-       setError("Geolocation is not supported by this browser.");
-     }
-   },[]);
+        // Return the combined object
+        return {
+          ...user,
+          matchPercentage: matchData ? matchData.matchPercentage : null,
+        };
+      });
 
+      // Log the final combined data
+      console.log("Combined Data:", combinedData);
 
-   const handleEnableLocation = () => {
-    setLocationError(false);
-    fetchLocation();
+      // Set the state with the combined data
+      setNearByUsers(combinedData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-   }
-   if(locationError){
-    return (
-      <div>
-        <p>
-          Location services are disabled. Please enable location access to find
-          nearby users.
-        </p>
-      </div>
-    );
-   }
+  useEffect(() => {
+    matchByLocation();
+  }, []);
+
 
   return (
-    <section className="w-full pt-5 px-5 pb-24 md:pb-5 h-screen overflow-y-auto">
+    <section className="sm: w-screen md:w-full lg:w-full pt-5 px-5 pb-24 md:pb-5 h-screen overflow-y-auto overflow-x-hidden">
       <div>
-        <div className="lg:flex justify-between items-center gap-5 overflow-x-auto  lg:w-full sm: w-screen hidden ">
+        <div className="flex justify-between items-center gap-5 overflow-x-auto  lg:w-full sm: w-screen  ">
           <button>
             <UserIcon add={"purple"} />
             <p className="mt-0.5 text-[14px]">My Story</p>
@@ -97,21 +81,22 @@ const LocationPage = () => {
         <SubHeader title="Location" />
         <InteractionIcon />
         <p className="text-text font-medium my-3 text-lg">
-          Your Matches <span className="text-light-purple">42</span>
+          Your Matches <span className="text-light-purple">{nearByUsers.length}</span>
         </p>
       </div>
       <div className="grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-3 grid-cols-2 gap-5">
-        {Userdata?.map((user, i) => (
-          <MatchCardComponent
-            key={i}
-            isNew={false}
-            img={user.img}
-            distance={user.distance}
-            name={user.firstName}
-            age={user.age}
-            place={user.place}
-            match={user.match}
-          />
+        {nearByUsers?.map((user) => (
+          <Link to={`/profile/${user._id}`} key={nearByUsers.id}>
+            <MatchCardComponent
+              isNew={false}
+              img={user.profileImage.url}
+              distance={user.distance.toFixed(2)}
+              name={user.name}
+              age={user.age}
+              place={user.location.place}
+              match={user.matchPercentage}
+            />
+          </Link>
         ))}
       </div>
     </section>

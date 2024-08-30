@@ -1,7 +1,8 @@
 import { Pencil } from 'lucide-react'
 import React from 'react'
 
-const UserIcon = ({ url, story, add, edit}) => {
+const UserIcon = ({ url, story, add, edit }) => {
+  
   return (
     <div
       className='relative w-16 h-16'>

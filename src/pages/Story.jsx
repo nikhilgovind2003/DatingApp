@@ -28,7 +28,7 @@ export default function Story() {
   }, [path]);
 
   const videoUrl = story?.reel?.url;
-  const profileImageUrl = story?.profileImage?.url; // Assuming profileImage is part of the response
+  const profileImageUrl = story?.profileImage?.url;
 
   const handleTimeUpdate = () => {
     if (videoRef.current) {
@@ -39,7 +39,11 @@ export default function Story() {
   };
 
   // Navigate to home page if progress bar is full
-  if (progress === 100) navigate("/home");
+  useEffect(() => {
+    if (progress === 100) {
+      setTimeout(() => navigate("/home"), 500); // Small delay for smoothness
+    }
+  }, [progress, navigate]);
 
   const handleLoadedMetadata = () => {
     if (videoRef.current) {
@@ -57,7 +61,7 @@ export default function Story() {
                 className="absolute top-0 left-0 h-1 bg-primary"
                 style={{
                   width: `${progress}%`,
-                  transition: "width 0.1s ease-in-out", // Smooth transition
+                  transition: "width 0.2s linear", // Smooth transition with linear effect
                 }}
               />
             </div>

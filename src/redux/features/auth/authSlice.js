@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// Initial state from sessionStorage or default values
 const initialState = {
-    isAuthenticated: sessionStorage.getItem('isAuthenticated') ? sessionStorage.getItem('isAuthenticated') : false,
+    isAuthenticated: sessionStorage.getItem('isAuthenticated') === 'true',
     userInfo: sessionStorage.getItem('userInfo') ? JSON.parse(sessionStorage.getItem('userInfo')) : null,
-    token: sessionStorage.getItem('token') ? sessionStorage.getItem('token') : null,
-    tokenExpiry: sessionStorage.getItem('tokenExpiry') ? sessionStorage.getItem('tokenExpiry') : null
-}
+    token: sessionStorage.getItem('token'),
+    tokenExpiry: sessionStorage.getItem('tokenExpiry')
+};
 
 const authSlice = createSlice({
     name: 'auth',
@@ -13,22 +14,22 @@ const authSlice = createSlice({
     reducers: {
         signup: (state, action) => {
             const { isAuthenticated, userInfo, token, tokenExpiry } = action.payload;
-            sessionStorage.setItem('isAuthenticated', isAuthenticated);
+            sessionStorage.setItem('isAuthenticated', String(isAuthenticated));
             sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
             sessionStorage.setItem('token', token);
             sessionStorage.setItem('tokenExpiry', tokenExpiry);
-            state.isAuthenticated = true;
+            state.isAuthenticated = isAuthenticated;
             state.userInfo = userInfo;
             state.token = token;
             state.tokenExpiry = tokenExpiry;
         },
         login: (state, action) => {
             const { isAuthenticated, userInfo, token, tokenExpiry } = action.payload;
-            sessionStorage.setItem('isAuthenticated', isAuthenticated);
+            sessionStorage.setItem('isAuthenticated', String(isAuthenticated));
             sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
             sessionStorage.setItem('token', token);
             sessionStorage.setItem('tokenExpiry', tokenExpiry);
-            state.isAuthenticated = true;
+            state.isAuthenticated = isAuthenticated;
             state.userInfo = userInfo;
             state.token = token;
             state.tokenExpiry = tokenExpiry;

@@ -6,17 +6,19 @@ import { navData } from "../../datas/navData";
 import { Bell } from "lucide-react";
 import { MdInput } from "react-icons/md";
 import { Button } from "@chakra-ui/react";
+import { logout } from "../../redux/features/auth/authSlice";
+import { useDispatch } from "react-redux";
 
 
 const RightBar = () => {
   const [notification, setnotification] = useState(false)
-
+  const dispatch = useDispatch();
   const navigate = useNavigate()
 
   const handleLogout = async () => {
       try {
         const res = await axios.post('http://localhost:5000/logout', null, { withCredentials: true})
-        console.log(res.data.message);
+        dispatch(logout())
         navigate('/')
       } catch (err) {
         console.log(err);

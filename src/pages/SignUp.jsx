@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from "react-redux";
-import { signup } from "../redux/features/auth/authSlice";
+import { login, signup } from "../redux/features/auth/authSlice";
 
 const SignUp = () => {
   const dispatch = useDispatch();
@@ -112,12 +112,22 @@ const SignUp = () => {
         if (registrationResponse.data.success) {
           console.log("Registered successfully:", registrationResponse.data);
           toast.success(registrationResponse.data.message || "Registered successfully!"); // Display success toast
-          dispatch(signup({
-            userInfo : registrationResponse.data.data,
-            isAuthenticated : registrationResponse.data.isAuthenticated,
-            token: registrationResponse.data.token,
-            tokenExpiry: registrationResponse.data.tokenExpiry,
-          }))
+          const userCookie = Cookies.get('user');
+                const token = Cookies.get('token');
+          if (userCookie && token) {
+            const decodedUserCookie = decodeURIComponent(userCookie);
+            const cleanedUserJson = decodedUserCookie.startsWith('j:') ? decodedUserCookie.slice(2) : decodedUserCookie;
+            const user = JSON.parse(cleanedUserJson);
+
+            const payload = {
+                userInfo: user,
+                isAuthenticated: true,
+                token
+            };
+            dispatch(login(payload));
+
+            navigate('/home');
+    } 
            // Delay navigation by 2 seconds (2000 milliseconds)
         setTimeout(() => {
           navigate('/personal_details');

@@ -1,10 +1,13 @@
 import { LuPhoneCall } from "react-icons/lu";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login } from "../redux/features/auth/authSlice";
 
 const LandingPage = () => {
+  const dispatch = useDispatch();
   const google = () => {
-    window.open("http://localhost:5000/auth/google/callback", "_self")
+    window.open("http://localhost:5000/auth/google/callback", "_self");
   }
 
   return (

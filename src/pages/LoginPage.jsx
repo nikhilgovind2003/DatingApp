@@ -1,10 +1,11 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { login } from '../redux/features/auth/authSlice';
+import { login, logout } from '../redux/features/auth/authSlice'; // Import logout action
 import { useDispatch } from 'react-redux';
+import Cookies from 'js-cookie';
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -46,6 +47,7 @@ const LoginPage = () => {
         });
     };
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (validate()) {
@@ -53,26 +55,36 @@ const LoginPage = () => {
             try {
                 const res = await axios.post('http://localhost:5000/login', formData, { withCredentials: true });
                 setLoading(false);
-                toast.success(res.data.message);
-                dispatch(login({
-                    userInfo : res.data.data,
-                    isAuthenticated : res.data.isAuthenticated,
-                    token: res.data.token,
-                    tokenExpiry: res.data.tokenExpiry,
-                  }))
-                setTimeout(()=> navigate('/home'),1000)
+                toast.success(res.data.message, {duration: 1000});
+    
+                const userCookie = Cookies.get('user');
+                const token = Cookies.get('token');
+                console.log(token)
+    
+                if (userCookie && token) {
+                        const decodedUserCookie = decodeURIComponent(userCookie);
+                        const cleanedUserJson = decodedUserCookie.startsWith('j:') ? decodedUserCookie.slice(2) : decodedUserCookie;
+                        const user = JSON.parse(cleanedUserJson);
+    
+                        const payload = {
+                            userInfo: user,
+                            isAuthenticated: true,
+                            token
+                        };
+                        dispatch(login(payload));
+    
+                        navigate('/home');
+                } 
             } catch (err) {
                 setLoading(false);
-                toast.error(err.response.data.message);
+                toast.error(err.response?.data?.message || 'An error occurred');
             }
-        } else {
-            console.log("Form has errors", errors);
         }
     };
-
+    
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100 bg-[url('LandingPagebackgroundblur.png')] bg-no-repeat bg-cover bg-fixed backdrop-blur-3xl">
-             <ToastContainer
+            <ToastContainer
                 position="top-right"
                 autoClose={5000}
                 hideProgressBar={false}
@@ -127,6 +139,6 @@ const LoginPage = () => {
             </div>
         </div>
     );
-}
+};
 
 export default LoginPage;

@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from "react-redux";
 import { login, signup } from "../redux/features/auth/authSlice";
+import Cookies from "js-cookie";
 
 const SignUp = () => {
   const dispatch = useDispatch();

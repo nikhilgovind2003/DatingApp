@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import Upgrade from "./../components/upgrademore/Upgrade";
 import { useLocation, useNavigate } from "react-router-dom";
-import UserIcon from "../components/usericons/UserIcon";
+import { UserIcon } from "../Components";
 
 export default function Story() {
   const [clicked, setClicked] = useState(false);
@@ -64,7 +64,7 @@ export default function Story() {
           </div>
           <video
             ref={videoRef}
-            className="flex-grow w-full h-screen"
+            className="flex-grow w-full h-screen object-cover"
             autoPlay
             onTimeUpdate={handleTimeUpdate}
             onLoadedMetadata={handleLoadedMetadata}

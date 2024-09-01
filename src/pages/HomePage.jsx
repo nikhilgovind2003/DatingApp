@@ -45,14 +45,16 @@ const HomePage = () => {
 
       <div className="flex justify-between items-center gap-5 overflow-x-auto lg:w-full sm:w-screen">
         <button>
-          <UserIcon add={"purple"} />
+          <UserIcon />
           <p className="mt-0.5 text-[14px]">My Story</p>
         </button>
         {users.map((user, i) => (
+         <Link to={`/story/${user._id}`}>
           <button key={i}>
             <UserIcon key={user.user._id} story={true} url={user.profileImage.url} />
             <p className="mt-0.5 text-[14px]">{user.user?.firstName}</p>
           </button>
+         </Link>
         ))}
       </div>
 

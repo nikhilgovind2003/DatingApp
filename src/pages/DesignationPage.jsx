@@ -11,42 +11,47 @@ const DesignationPage = () => {
     try {
       const designationResponse = await axios.get('http://localhost:5000/api/v1/users/profile/designations', { withCredentials: true });
       const matchPercentageResponse = await axios.get('http://localhost:5000/api/v1/users/compare', { withCredentials: true });
-
+  
       // Assuming the matchPercentageResponse returns an array of objects with user IDs and match percentages
       const matchPercentages = matchPercentageResponse.data.results;
-
+  
       console.log("match percent:", matchPercentages);
       console.log("qualification response:", designationResponse);
-
+  
       const combinedData = designationResponse.data.map(user => {
         console.log("User data:", user);
-    
+  
         // Find match data by comparing user properties
         const matchData = matchPercentages.find(match => {
-            return match.user === user.user;  // Ensure both match.user and user.user exist and are correct
+          return match.user.user === user.user;  // Ensure both match.user and user.user exist and are correct
         });
-    
+  
         // Log matchData to see if the match was found
         console.log("Match data found:", matchData);
-    
+  
         // Return the combined object
         return {
-            ...user,
-            matchPercentage: matchData ? matchData.matchPercentage : null
+          ...user,
+          matchPercentage: matchData ? matchData.matchPercentage : null
         };
-    });
-    
-    // Log the final combined data
-    console.log("Combined Data:", combinedData);
-      setUsers(combinedData);
+      });
+  
+      // Sort the combined data by matchPercentage from high to low
+      const sortedData = combinedData.sort((a, b) => b.matchPercentage - a.matchPercentage);
+  
+      // Log the final sorted data
+      console.log("Sorted Data:", sortedData);
+  
+      setUsers(sortedData);
     } catch (error) {
       console.log(error);
     }
   };
-
+  
   useEffect(() => {
     fetchDesignation();
   }, []);
+  
 
   const count = users.length;
 
@@ -75,7 +80,7 @@ const DesignationPage = () => {
       </div>
       <div className="grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-3 grid-cols-2 gap-5">
         {users?.map((user, i) => (
-           <Link to={`/profile/${user._id}`} 
+           <Link to={`/profile/${user._id}?%=${user.matchPercentage}`} 
            key={i} >
           <MatchCardComponent
             key={i}

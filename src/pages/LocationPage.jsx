@@ -38,7 +38,7 @@ const LocationPage = () => {
       // Combine the location data with match percentages
       const combinedData = locationResponse.data.map(user => {
         // Find the matching match percentage for the current user
-        const matchData = matchPercentages.find(match => match.user === user.user);
+        const matchData = matchPercentages.find(match => match.user.user === user.user);
 
         // Return the combined object
         return {
@@ -87,7 +87,7 @@ console.log(nearByUsers)
       </div>
       <div className="grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-3 grid-cols-2 gap-5">
         {nearByUsers?.map((user) => (
-          <Link to={`/profile/${user._id}`} key={nearByUsers.id}>
+          <Link to={`/profile/${user._id}?%=${user.matchPercentage}`} key={nearByUsers.id}>
             <MatchCardComponent
               isNew={false}
               img={user.profileImage.url}

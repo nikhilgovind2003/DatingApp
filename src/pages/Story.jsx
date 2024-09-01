@@ -64,7 +64,7 @@ export default function Story() {
           </div>
           <video
             ref={videoRef}
-            className="flex-grow w-full h-screen bg-red-300"
+            className="flex-grow w-full h-screen"
             autoPlay
             onTimeUpdate={handleTimeUpdate}
             onLoadedMetadata={handleLoadedMetadata}

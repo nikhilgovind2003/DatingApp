@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 const LocationPage = () => {
   const [nearByUsers, setNearByUsers] = useState([]);
 
+
   const matchByLocation = async () => {
     try {
       // Fetch users by location
@@ -59,7 +60,7 @@ const LocationPage = () => {
   useEffect(() => {
     matchByLocation();
   }, []);
-
+console.log(nearByUsers)
 
   return (
     <section className="sm: w-screen md:w-full lg:w-full pt-5 px-5 pb-24 md:pb-5 h-screen overflow-y-auto overflow-x-hidden">

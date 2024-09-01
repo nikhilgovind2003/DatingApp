@@ -68,7 +68,7 @@ function App() {
           <Route path='/profile' element={<MyProfile />} />
           <Route path='/paymentMethod' element={<PaymentMethods />} /> 
           <Route path='/change-password' element={<ChangePwdPage />} />
-          <Route path='/editprofile' element={<EditprofilePage />} />
+          <Route path='/editprofile/:userId' element={<EditprofilePage />} />
           <Route path='/privacyandsetting' element={<PrivacyandSettingspage />} />
           <Route path='/settings' element={<SettingsPage />} />
           <Route path='/location' element={<LocationPage />} />

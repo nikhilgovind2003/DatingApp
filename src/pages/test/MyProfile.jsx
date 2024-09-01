@@ -1,114 +1,80 @@
-import React, { useEffect } from "react";
-import { ChevronLeft, Navigation } from "lucide-react";
-import ProfileActionbar from "../../components/ProfileActionbar";
-import Button from "../../components/buttons/InterestButton";
-import { useParams } from "react-router-dom";
-import { Userdata } from "../../datas/Userdata";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Userdata } from "../datas/Userdata";
+import { ButtonGroup, Sidemenu, StoryView, UserIcon } from "../Components";
+import { HiOutlineBell } from "react-icons/hi";
+import HomeCardComponents from "../components/Homecards/HomeCardComponents";
 import { Link } from "react-router-dom";
+import Rightside from "../components/rightsidemenu/Rightside";
 import axios from "axios";
-function MyProfile() {
-  const { userId } = useParams();
-  const [user, setUser] = useState();
-  const [matchPercentage, setMatchPercentage] = useState(null);
-  // const [sinUser] = useState(Userdata.find((user) => user.id === userId));
-  useEffect(() => {
-    axios.get(`http://localhost:5000/api/v1/users/profile/${userId}`, { withCredentials: true })
-      .then(res => setUser(res.data))
-      .catch(err => console.log(err))
-  }, [])
 
-  console.log(user);
+const HomePage = () => {
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/v1/users/compare", { withCredentials: true }) // Adjust the URL accordingly
-      .then(res => {
-        console.log(res.data);
+    fetchUsers();
+  }, []);
 
-        const matchData = res.data.results.find(match => match.user._id === userId);
-        console.log(matchData);
-
-        if (matchData) {
-          setMatchPercentage(matchData.matchPercentage);
-        }
-      })
-      .catch(err => console.log(err));
-  }, [userId]);
+  const fetchUsers = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5000/api/v1/users/users"
+      ); // Fetch all users from your backend
+      setUsers(response.data); // Store fetched users in state
+      console.log("Fetched Data:", response.data);
+    } catch (error) {
+      console.log("Error fetching users:", error);
+    }
+  };
 
   return (
-    <div>
-      <div className="container relative h-screen overflow-y-auto w-full mx-auto">
-        <div
-          className="h-[75vh] overflow-hidden sticky top-0"
-          style={{
-            background: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(128, 0, 128, 0.7)), url("${user?.profileImage?.url || 'fallbackImage.jpg'}") top / cover no-repeat`
-          }}
-        >
-
-          <div className="topnavigation flex p-2 sticky top-6 justify-between">
-            <Link to="/home">    <div className="rounded-full backdrop-filter backdrop-blur-sm bg-opacity-45 border-2 w-fit border-white p-2 text-white">
-
-              <ChevronLeft />
-
-            </div></Link>
-
-            <div className="rounded-full flex border-2 w-fit backdrop-filter backdrop-blur-sm bg-opacity-45 border-white p-2 text-white">
-              <Navigation /><span>{2}KM</span>
-            </div>
-          </div>
-
-          <div className="mt- absolute bottom-24 left-1/2 transform -translate-x-1/2 p-2 flex-wrap justify-center items-center">
-            <div className="text-center">
-              <span className="text-3xl text-white text-center">
-                {user?.user?.firstName + " " + user?.user?.lastName}
-              </span>{" "}
-              <br />
-              <span className="text-sm text-gray-300">
-                {user?.location?.place ?? 'usa'}
-              </span>
-            </div>
-            <div className="text-white text-center py-2 mt-3">
-              <span className="inline-flex items-center pl-1  bg-[#4b164c] py-2 rounded-full border-2 border-light-purple">
-                <span className="p-2 rounded-full border-4 border-light-purple ">
-                  {matchPercentage || 0}%
-                </span>
-                <span className="px-2">Match</span>
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <div
-          className="profiledetails  cursor-pointer h-full shadow-md p-4 bg-white rounded-t-3xl relative"
-          style={{ marginTop: "-100px", zIndex: "50" }}
-        >
-          <div
-            className="bg-gray-400 rounded-full mx-auto"
-            style={{ width: "60px", padding: "2px" }}
-          >
-          </div>
-          <div className="overflow-y-auto pb-8">
-            <div>
-              <span className="text-gray-600">About</span>
-              <p className="font-Roboto font-medium">
-                {user?.bio}
-              </p>
-            </div>
-            <div className="mt-4">
-              <span className="text-gray-600">Interest</span>
-              <div className="flex gap-2 flex-wrap">
-                <Button text={`${user?.interests}`} selected={false} />
-              </div>
-            </div>
-
-            <div className="fixed z-50 bottom-10 left-1/2 transform -translate-x-1/2">
-              <ProfileActionbar />
-            </div>
+    <section className="lg:w-full md:w-full sm:w-screen pt-5 px-5 pb-24 md:pb-5 h-screen overflow-y-auto overflow-x-hidden">
+      <div className="flex justify-between md:hidden gap-5">
+        <Sidemenu />
+        <div className="flex gap-3">
+          <button className="relative p-2 flex items-center rounded-full border-2 w-16 h-16">
+            <Link to="/notification">
+              <HiOutlineBell className="w-9 h-9 text-text ms-1" />
+            </Link>
+            <div className="bg-light-purple border border-primary absolute top-[16.5px] right-[19.5px] rounded-full w-[8px] h-[8px]"></div>
+          </button>
+          <div className="pt-3">
+            <Rightside />
           </div>
         </div>
       </div>
-    </div>
-  );
-}
 
-export default MyProfile;
+      <div className="flex justify-between items-center gap-5 overflow-x-auto lg:w-full sm:w-screen">
+        <button>
+          <UserIcon add={"purple"} />
+          <p className="mt-0.5 text-[14px]">My Story</p>
+        </button>
+        {users.map((user, i) => (
+          <button key={i}>
+            <UserIcon key={user.user._id} story={true} url={user.profileImage.url} />
+            <p className="mt-0.5 text-[14px]">{user.user?.firstName}</p>
+          </button>
+        ))}
+      </div>
+
+      <ButtonGroup />
+
+      <div className="grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-3 grid-cols-2 gap-5">
+        {users.map((user, i) => (
+          <Link to={`/profile/${user.user._id}`} key={i}>
+            <HomeCardComponents
+              img={user.profileImage.url}
+              name={`${user.user?.firstName} ${user.user?.lastName}`}
+              sex={user.gender}
+              job={user.qualification}
+              age={user.age}
+              place={user.place}
+              isActive={user.user?.isActive}
+            />
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+export default HomePage;

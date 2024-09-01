@@ -4,6 +4,7 @@ import { UserIcon } from "../index";
 // import { config } from "dotenv";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { config } from "dotenv";
 
 const storyView = () => {
   const [stories, setStories] = useState([]);

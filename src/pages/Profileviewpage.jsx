@@ -63,8 +63,13 @@ function Profileviewpage() {
 
         {/* Profile Actionbar */}
         <div className="fixed z-50 bottom-10 left-1/2 transform -translate-x-1/2">
-          <ProfileActionbar />
-        </div>
+        <ProfileActionbar 
+             userId={currentUserId} 
+             from={friendRequestFromId} 
+             to={friendRequestToId} 
+        />
+
+         </div>
       </div>
     </div>
   );

@@ -7,13 +7,15 @@ import { Bell } from "lucide-react";
 import { MdInput } from "react-icons/md";
 import { Button } from "@chakra-ui/react";
 import { logout } from "../../redux/features/auth/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 
 const RightBar = () => {
   const [notification, setnotification] = useState(false)
   const dispatch = useDispatch();
   const navigate = useNavigate()
+
+  const userInfo = useSelector(state => state.userAuth.userInfo)
 
   const handleLogout = async () => {
       try {
@@ -41,7 +43,7 @@ const RightBar = () => {
             <span className="absolute bottom-0 right-0 w-4 h-4 bg-green-500 rounded-full border-2 border-hot-purple"></span>
           </div>
           <div className="text-center ">
-            <h2 className="font-bold text-lg">Stone Stellar</h2>
+            <h2 className="font-bold text-lg">{userInfo?.firstName + " " + userInfo?.lastName || "User Name"}</h2>
             <p className="text-sm text-green-300">Prime Member</p>
             <p className="text-sm text-green-300">Online</p>
           </div>

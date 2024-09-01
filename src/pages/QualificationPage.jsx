@@ -6,39 +6,43 @@ import { Userdata } from "../datas/Userdata";
 
 
 const QualificationPage = () => {
-  const [dataqualification, setQualification] = useState([])
+  const [dataqualification, setQualification] = useState([]);
 
   const fetchQualificationMatches = async () => {
     try {
-      const qualificationResponse = await axios.get('http://localhost:5000/api/v1/users/profile/qualification', { withCredentials: true })
-      const matchPercentageResponse = await axios.get('http://localhost:5000/api/v1/users/compare', { withCredentials: true })
-
+      const qualificationResponse = await axios.get('http://localhost:5000/api/v1/users/profile/qualification', { withCredentials: true });
+      const matchPercentageResponse = await axios.get('http://localhost:5000/api/v1/users/compare', { withCredentials: true });
+  
       // Assuming the matchPercentageResponse returns an array of objects with user IDs and match percentages
-      const matchPercentages = matchPercentageResponse.data.results
+      const matchPercentages = matchPercentageResponse.data.results;
       console.log("match percent:", matchPercentages);
       console.log("qualification response:", qualificationResponse);
-
-
+  
       // Combine qualification data with match percentage data
       const combinedData = qualificationResponse.data.map(user => {
-        const matchData = matchPercentages.find(match => match.user === user.user._id)
+        const matchData = matchPercentages.find(match => match.user.user === user.user._id);
         console.log("match data:", matchData);
-
+  
         return {
           ...user,
           matchPercentage: matchData ? matchData.matchPercentage : null
-        }
-      })
-      console.log("combined data:", combinedData);
-      setQualification(combinedData)
+        };
+      });
+  
+      // Sort the combined data by matchPercentage from high to low
+      const sortedData = combinedData.sort((a, b) => b.matchPercentage - a.matchPercentage);
+  
+      console.log("sorted data:", sortedData);
+      setQualification(sortedData);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-
+  };
+  
   useEffect(() => {
-    fetchQualificationMatches()
-  }, [])
+    fetchQualificationMatches();
+  }, []);
+  
 
   return (
     <section className='sm: w-screen md:w-full overflow-x-hidden lg:w-full pt-5 px-5 pb-24 md:pb-5 h-screen overflow-y-auto'>
@@ -70,7 +74,7 @@ const QualificationPage = () => {
               distance={user.distance}
               name={user.name}
               age={user.age}
-              place={user.place}
+              place={user.location.place}
               match={user.matchPercentage}  // Pass the matchPercentage to the MatchCardComponent
             />
           </Link>

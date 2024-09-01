@@ -37,7 +37,7 @@ const LocationPage = () => {
       // Combine the location data with match percentages
       const combinedData = locationResponse.data.map(user => {
         // Find the matching match percentage for the current user
-        const matchData = matchPercentages.find(match => match.user === user.user);
+        const matchData = matchPercentages.find(match => match.user.user === user.user);
 
         // Return the combined object
         return {

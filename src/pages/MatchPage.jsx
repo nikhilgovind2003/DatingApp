@@ -16,7 +16,7 @@ const MatchPage = () => {
           const response = await axios.get('http://localhost:5000/api/v1/users/compare', { withCredentials: true });
     
           // Filter users with matchPercentage greater than 70%
-          const filteredUsers = response.data.results.filter(user => user.matchPercentage > 50);
+          const filteredUsers = response.data.results.filter(user => user.matchPercentage > 10);
     
           // Sort the filtered users by matchPercentage from high to low
           const sortedUsers = filteredUsers.sort((a, b) => b.matchPercentage - a.matchPercentage);
@@ -41,7 +41,7 @@ const MatchPage = () => {
             </div>
             <div className='grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-3 grid-cols-2 gap-5'>
                 {user?.map((user, i) => (
-                    <Link to={`/profile/${user.user._id}`} key={i}>
+                    <Link to={`/profile/${user.user._id}?%=${user.matchPercentage}`} key={i}>
                     <MatchCardComponent
                         key={i}
                         isNew={false}

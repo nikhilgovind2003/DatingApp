@@ -3,6 +3,7 @@ import { ButtonGroup, InteractionIcon, MatchCardComponent, SubHeader, UserIcon }
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { Userdata } from "../datas/Userdata";
+import { User } from 'lucide-react';
 
 
 const QualificationPage = () => {
@@ -53,10 +54,12 @@ const QualificationPage = () => {
             <p className="mt-0.5 text-[14px]">My Story</p>
           </button>
           {Userdata?.map((user, i) => (
+              <Link to={`/story/${user._id}`}>
             <button key={i}>
               <UserIcon key={user.id} story={true} url={user.img} />
               <p className="mt-0.5 text-[14px]">{user.firstName}</p>
             </button>
+            </Link>
           ))}
         </div>
         <ButtonGroup />
@@ -67,7 +70,7 @@ const QualificationPage = () => {
 
       <div className='grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-3 grid-cols-2 gap-5'>
         {dataqualification?.map((user, i) => (
-          <Link to={`/profile/${user._id}`} key={i} >
+          <Link to={`/profile/${user._id}?%=${user.matchPercentage}`} key={i} >
             <MatchCardComponent
               isNew={false}
               img={user.profileImage.url}

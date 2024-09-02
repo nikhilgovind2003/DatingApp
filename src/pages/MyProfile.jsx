@@ -2,9 +2,15 @@ import React from 'react';
 import { ChevronLeft, Navigation } from 'lucide-react';
 import ProfileActionbar from '../components/ProfileActionbar';
 import Button from '../components/buttons/InterestButton';
+import { useSelector } from 'react-redux';
 
 
 function MyProfile() {
+
+  const userInfo = useSelector(state => state.userAuth.userInfo)
+  console.log(userInfo);
+  
+
   return (
     <div>
       <div className="container relative h-screen overflow-y-auto w-full mx-auto">
@@ -28,7 +34,7 @@ function MyProfile() {
 
   <div className="mt- absolute bottom-24 left-1/2 transform -translate-x-1/2 p-2 flex-wrap justify-center items-center">
     <div className="text-center">
-      <span className="text-3xl text-white text-center">Alfredo Calzoni, 20</span> <br />
+      <span className="text-3xl text-white text-center">{ userInfo?.firstName + " " + userInfo?.lastName }, 22</span> <br />
       <span className="text-sm text-gray-300">HAMBURG, GERMANY</span>
     </div>
     <div className="text-white text-center py-2 mt-6">

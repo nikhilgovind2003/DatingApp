@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ButtonGroup, InteractionIcon, MatchCardComponent, SubHeader, UserIcon } from "../Components";
+import { ButtonGroup, InteractionIcon, MatchCardComponent, StoryView, SubHeader, UserIcon } from "../Components";
 import { Userdata } from "../datas/Userdata";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -59,16 +59,8 @@ const DesignationPage = () => {
     <section className="sm: w-screen md:w-full lg:w-full pt-5 px-5 pb-24 md:pb-5 h-screen overflow-y-auto overflow-x-hidden">
       <div>
         <div className="flex justify-between items-center gap-5 overflow-x-auto  lg:w-full sm: w-screen  ">
-          <button>
-            <UserIcon add={"purple"} />
-            <p className="mt-0.5 text-[14px]">My Story</p>
-          </button>
-          {Userdata?.map((user, i) => (
-            <button key={i}>
-              <UserIcon key={user.id} story={true} url={user.img} />
-              <p className="mt-0.5 text-[14px]">{user.firstName}</p>
-            </button>
-          ))}
+        <StoryView />
+
         </div>
         <ButtonGroup />
 

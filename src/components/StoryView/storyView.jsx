@@ -1,40 +1,32 @@
-import React, { useEffect, useState } from "react";
-import { Userdata } from "../../datas/Userdata";
+import { useEffect, useState } from "react";
 import { UserIcon } from "../index";
 // import { config } from "dotenv";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { Userdata } from "../../datas/Userdata";
 // import { config } from "dotenv";
 
-const storyView = () => {
-  const [stories, setStories] = useState([]);
+const StoryView = () => {
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    const getStories = async () => {
+    const fetchUsers = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/story", config);
-        let userData = res.data.userStories;
-        setStories(
-          userData.map((user) => ({
-            id: user._id,
-            profileImage: user.profileImage.url,
-          }))
-        );
-        console.log("Successfully fetched stories");
+        const response = await axios.get(
+          "http://localhost:5000/api/v1/users/users"
+        ); // Fetch all users from your backend
+        setUsers(response.data); // Store fetched users in state
+        console.log("Fetched Data:", response.data);
       } catch (error) {
-        console.error("Error fetching stories:", error);
+        console.log("Error fetching users:", error);
       }
     };
-
-    getStories();
+    fetchUsers();
   }, []);
 
+  // console.log(users);
 
-  stories.map(U => {
-    console.log(U.profileImage);
-
-  })
-
+  
 
 
 
@@ -42,20 +34,20 @@ const storyView = () => {
 
   return (
     <div className=" flex gap-4">
-      <button>
-        <UserIcon add={"purple"} />
-        <p className="mt-0.5 text-[14px]">My Story</p>
-      </button>
-      {stories?.map((user, i) => (
-        <button key={i}>
-          <Link to={`/story/${user.id}`}>
-            <UserIcon key={user.id} story={true} url={user.profileImage} />
-            <p className="mt-0.5 text-[14px]">Arjun</p>
-          </Link>
+        <button>
+          <UserIcon />
+          <p className="mt-0.5 text-[14px]">My Story</p>
         </button>
-      ))}
+        {users.map((user, i) => (
+         <Link key={i} to={`/story/${user._id}`}>
+          <button>
+            <UserIcon key={user.user._id} story={true} url={user.profileImage.url} />
+            <p className="mt-0.5 text-[14px]">{user.user?.firstName}</p>
+          </button>
+         </Link>
+        ))}
     </div>
   );
 };
 
-export default storyView;
+export default StoryView;

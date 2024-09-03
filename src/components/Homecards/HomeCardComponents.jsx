@@ -1,12 +1,21 @@
 import { IoMdThumbsUp } from "react-icons/io";
 import { BiSolidMessageRounded } from "react-icons/bi";
 import { TbDots } from "react-icons/tb";
-
+import { Heart, Star, Check, X } from "lucide-react";
+import { useState } from "react";
 const HomeCardComponents = (props) => {
+
+
+  const [hover, setHover] = useState(false)
+
+
+
   return (
     <>
       {props.isActive && (
         <div
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={()=> setHover(false)}
           style={{
             backgroundImage: `url("${props.img}")`,
           }}
@@ -28,15 +37,18 @@ const HomeCardComponents = (props) => {
             </p>
           </div>
 
-          <div className="absolute top-[20%] bg-primary bg-opacity-[40%] right-0 text-white rounded-tl-lg rounded-bl-lg outline outline-transparent p-[5px] border-[1px] border-gray-100">
+          <div className={hover?"absolute top-[18%] bg-primary bg-opacity-[40%] right-0 text-white rounded-tl-lg rounded-bl-lg outline outline-transparent p-[5px] border-[1px] border-gray-100 ease-in-out duration-300": "fixed left-[-100%]"}>
             <div className="bg-[#FFFFFF] bg-opacity-[20%] p-1 w-[18.4px] h-[14px] flex items-center justify-center rounded-full">
-              <IoMdThumbsUp size={10} />
+              <Heart size={10} />
             </div>
             <div className="bg-[#FFFFFF] bg-opacity-[20%] p-1 w-[18.4px] h-[14px] flex items-center justify-center rounded-full my-1">
-              <BiSolidMessageRounded size={10} />
+              <Star size={10} />
             </div>
             <div className="bg-[#FFFFFF] bg-opacity-[20%] p-1 w-[18.4px] h-[14px] flex items-center justify-center rounded-full">
-              <TbDots size={10} />
+              <Check size={10} />
+            </div>
+            <div className="bg-[#FFFFFF] bg-opacity-[20%] p-1 mt-1 w-[18.4px] h-[14px] flex items-center justify-center rounded-full">
+              <X size={10} />
             </div>
           </div>
         </div>

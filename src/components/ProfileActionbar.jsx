@@ -1,13 +1,18 @@
 import React from 'react';
 import axios from 'axios';
 import { X, Star, Heart, MessageCircle } from 'lucide-react';
+import { useParams } from 'react-router-dom';
 
 function ProfileActionbar({ userId, from, to }) {
 
+  const userid=useParams()
+console.log(userid.userId);
+
   const handleSendRequest = async () => {
     try {
-      await axios.post('/api/friendRequests/send', { from, to });
+      await axios.patch(`http://localhost:5000/api/v1/users/send/${userid.userId}`, { from, to },{ withCredentials: true });
       alert('Friend request sent!');
+      console.log(userid.userId);
     } catch (error) {
       console.error('Error sending friend request', error);
     }

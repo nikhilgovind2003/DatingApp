@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { X, Star, Heart, MessageCircle } from 'lucide-react';
 import { useParams } from 'react-router-dom';
+import { SiTicktick } from "react-icons/si";
 
 function ProfileActionbar({ userId, from, to }) {
 
@@ -61,6 +62,12 @@ console.log(userid.userId);
         
         <div className='p-3 cursor-pointer bg-[#e7a5dc] rounded-full'>
           <MessageCircle fill='white' strokeWidth={0} />      
+        </div>
+
+        <div className='p-3 cursor-pointer bg-[#4414b2] rounded-full'
+        onClick={handleAcceptRequest}
+        >
+        <SiTicktick fill='white' strokeWidth={0} />      
         </div>
         
       </div>

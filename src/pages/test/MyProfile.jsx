@@ -11,7 +11,7 @@ function MyProfile() {
   const { userId } = useParams();
   const [user, setUser] = useState();
   const queryParams = new URLSearchParams(location.search);
-  const matchPercentage = queryParams.get('%');
+  const matchPercentage = queryParams.get('match');
   // const [sinUser] = useState(Userdata.find((user) => user.id === userId));
   useEffect(() => {
     axios.get(`http://localhost:5000/api/v1/users/profile/${userId}`, { withCredentials: true })

@@ -36,6 +36,11 @@ export default function Story() {
       const duration = videoRef.current.duration;
       setProgress((currentTime / duration) * 100);
     }
+
+    if (progress >= 50) {
+      setClicked(true);
+      videoRef.current.pause();
+    }
   };
 
   // Navigate to home page if progress bar is full
@@ -51,6 +56,9 @@ export default function Story() {
     }
   };
 
+
+  console.log(profileImageUrl);
+  
   return (
     <div className="relative flex flex-col h-screen bg-cover bg-center w-full mx-auto items-center">
       {videoUrl ? (
@@ -114,7 +122,11 @@ export default function Story() {
       </footer>
 
       {/* Modal */}
-      {clicked && <Upgrade />}
+      {clicked && (
+        <div className=" absolute top-0 left-0 w-full h-full backdrop-blur-lg flex items-center justify-center">
+          <Upgrade />
+        </div>
+      )}
     </div>
   );
 }

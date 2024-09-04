@@ -17,14 +17,11 @@ const SUPPORTED_REEL_FORMATS = [
 
 const schema = yup.object().shape({
   bio: yup.string().required("Bio is required"),
-  dob: yup
-    .date()
-    .required("Date of Birth is required")
-    .test("age", "You must be at least 18 years old", function (value) {
-      const cutoff = new Date();
-      cutoff.setFullYear(cutoff.getFullYear() - 18);
-      return value <= cutoff;
-    }), 
+  age: yup
+    .number()
+    .required("Age is required")
+    .min(18, "You must be at least 18 years old")
+    .max(100, "Please enter a valid age"),
   /* location: yup.string().required("Location is required"), */
   hobbies: yup.string().required("Hobbies are required"),
   interests: yup.string().required("Interests are required"),
@@ -139,7 +136,7 @@ const PersonalDetails = () => {
     const formData = new FormData();
 
     formData.append("bio", data.bio);
-    formData.append("dob", data.dob);
+    formData.append("age", data.age);
     formData.append("lat", selectLocation?.lat || '');
     formData.append("lon", selectLocation?.lon || '');
     formData.append("city", selectLocation?.city || '');
@@ -219,17 +216,17 @@ const PersonalDetails = () => {
               )}
             </div>
             <div className="mb-4">
-              <label htmlFor="dob" className="block text-gray-700">
-                DOB
+              <label htmlFor="age" className="block text-gray-700">
+                Age
               </label>
               <input
-                type="date"
-                id="dob"
-                {...register("dob")}
+                type="number"
+                id="age"
+                {...register("age")}
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
               />
-              {errors.dob && (
-                <p className="text-red-600">{errors.dob.message}</p>
+              {errors.age && (
+                <p className="text-red-600">{errors.age.message}</p>
               )}
             </div>
             <div className="mb-4">

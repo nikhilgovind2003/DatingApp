@@ -15,7 +15,7 @@ const HomeCardComponents = (props) => {
           style={{
             backgroundImage: `url("${props.img}")`,
           }}
-          className="w-full h-[120.03px] rounded-2xl bg-cover bg-left relative"
+          className="w-full h-[120px] rounded-2xl bg-cover object-contain relative"
         >
           <div className="bg-gray-500 bg-opacity-[20%] text-white backdrop-blur-lg top-2 left-4 absolute text-[10px] px-2 rounded-full">
             <p>Online</p>

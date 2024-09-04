@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { Userdata } from "../datas/Userdata";
 import { ButtonGroup, Sidemenu, StoryView, UserIcon } from "../Components";
@@ -87,7 +88,7 @@ const HomePage = () => {
             <HomeCardComponents
               img={user.profileImage.url}
               name={`${user.user?.firstName} ${user.user?.lastName}`}
-              sex={user.gender}
+              gender={user.gender}
               job={user.qualification}
               age={user.age}
               place={user.place}

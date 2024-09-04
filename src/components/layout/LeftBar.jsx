@@ -1,5 +1,5 @@
 import React from 'react'
-import { House } from 'lucide-react';
+import { House, Link } from 'lucide-react';
 import { Heart } from 'lucide-react';
 import { MessageCircle } from 'lucide-react';
 import { Star } from 'lucide-react';
@@ -28,12 +28,12 @@ const LeftBar = () => {
           </a>
         </li>
         <li className="hover:bg-dark-wine">
-          <a href="#" className=" px-4 py-2 flex items-center">
+          <a href="favourites" className=" px-4 py-2 flex items-center">
             <span className="mr-2"><Star /></span>Favourites
           </a>
         </li>
         <li className="hover:bg-dark-wine">
-          <a href="#" className=" px-4 py-2 flex items-center">
+          <a href="/search" className=" px-4 py-2 flex items-center">
             <span className="mr-2"><Search /></span>Search
           </a>
         </li>

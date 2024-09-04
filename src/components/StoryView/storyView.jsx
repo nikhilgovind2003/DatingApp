@@ -24,7 +24,6 @@ const StoryView = () => {
     fetchUsers();
   }, []);
 
-  // console.log(users);
 
   
 
@@ -40,7 +39,7 @@ const StoryView = () => {
         </button>
         {users.map((user, i) => (
          <Link key={i} to={`/story/${user._id}`}>
-          <button>
+          <button className="flex flex-col items-center">
             <UserIcon key={user.user._id} story={true} url={user.profileImage.url} />
             <p className="mt-0.5 text-[14px]">{user.user?.firstName}</p>
           </button>

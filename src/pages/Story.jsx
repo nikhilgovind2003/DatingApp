@@ -14,7 +14,6 @@ export default function Story() {
   const navigate = useNavigate();
   const location = useLocation();
   const path = location.pathname.split("/")[2];
-
   useEffect(() => {
     const getStory = async () => {
       try {
@@ -96,7 +95,7 @@ export default function Story() {
         onClick={() => setClicked(true)}
         className="absolute top-0 left-0 ml-5 flex items-center w-full md:w-1/3 bg-opacity-50 text-white py-4 z-10 cursor-pointer"
       >
-        <ArrowLeft />
+        <ArrowLeft onClick={()=> navigate("/home")} />
         <UserIcon url={profileImageUrl} story={true} />
       </header>
 

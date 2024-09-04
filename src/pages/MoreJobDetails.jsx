@@ -1,13 +1,15 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const MoreJobDetails = () => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation();
+    const jobStatus = location.state?.jobStatus;
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {

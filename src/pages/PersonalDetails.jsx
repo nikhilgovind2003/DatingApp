@@ -290,34 +290,41 @@ const PersonalDetails = () => {
               )}
             </div>
             <div className="mb-4">
-              <label htmlFor="smoking" className="block text-gray-700">
-                Smoking Habits
-              </label>
-              <input
-                type="text"
-                id="smoking"
-                {...register("smoking")}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
-              />
-              {errors.smoking && (
-                <p className="text-red-600">{errors.smoking.message}</p>
-              )}
-            </div>
-            <div className="mb-4">
-              <label htmlFor="drinking" className="block text-gray-700">
-                Drinking Habits
-              </label>
-              <input
-                type="text"
-                id="drinking"
-                {...register("drinking")}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
-              />
-              {errors.drinking && (
-                <p className="text-red-600">{errors.drinking.message}</p>
-              )}
-            </div>
-            <div className="mb-4">
+  <label htmlFor="smoking" className="block text-gray-700">
+    Smoking Habits
+  </label>
+  <select
+    id="smoking"
+    {...register("smoking")}
+    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
+  >
+    <option value="">Select Smoking Habit</option>
+    <option value="Never">Never</option>
+    <option value="Occasionally">Occasionally</option>
+    <option value="Regularly">Regularly</option>
+    <option value="Quitting">Quitting</option>
+  </select>
+  {errors.smoking && <p className="text-red-600">{errors.smoking.message}</p>}
+</div>
+
+<div className="mb-4">
+  <label htmlFor="drinking" className="block text-gray-700">
+    Drinking Habits
+  </label>
+  <select
+    id="drinking"
+    {...register("drinking")}
+    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
+  >
+    <option value="">Select Drinking Habit</option>
+    <option value="Never">Never</option>
+    <option value="Occasionally">Occasionally</option>
+    <option value="Regularly">Regularly</option>
+    <option value="Quitting">Quitting</option>
+  </select>
+  {errors.drinking && <p className="text-red-600">{errors.drinking.message}</p>}
+</div>
+  <div className="mb-4">
               <label htmlFor="qualifications" className="block text-gray-700">
                 Qualifications
               </label>

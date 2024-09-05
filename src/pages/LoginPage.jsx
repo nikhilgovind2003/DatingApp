@@ -83,7 +83,7 @@ const LoginPage = () => {
                             token
                         };
                         console.log(payload)
-                        dispatch(login(payload));
+                        dispatch(login((payload)));
                         
                         navigate('/home');
                 } 

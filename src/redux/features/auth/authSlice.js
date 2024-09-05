@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     isAuthenticated: sessionStorage.getItem('isAuthenticated') === 'true',
     userInfo: sessionStorage.getItem('userInfo') ? JSON.parse(sessionStorage.getItem('userInfo')) : null,
-    myProfile: sessionStorage.getItem('myProfile') ? JSON.parse(sessionStorage.getItem('myProfile')) : null,
+    myProfile: null,
     token: sessionStorage.getItem('token'),
 };
 

@@ -11,8 +11,8 @@ function MyProfile() {
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState(null);
 
-  const userInfo = useSelector(state => state.userAuth.userInfo);
-  console.log(userInfo);
+  const userInfo = useSelector(state => state.userAuth.myProfile);
+  console.log('redux---->', userInfo);
   
   useEffect(() => {
     const fetchUsers = async () => {

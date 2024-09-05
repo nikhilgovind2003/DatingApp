@@ -15,7 +15,7 @@ const ShortlistPage = () => {
       try {
         const response = await axios.get('http://localhost:5000/api/v1/users/user', { withCredentials: true });
         setShortLists(response.data[0].shortlistedProfiles);
-        console.log(response.data[0].shortlistedProfiles);
+        console.log(response.data);
       } catch (error) {
         console.log(error);
       }

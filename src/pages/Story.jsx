@@ -59,7 +59,7 @@ export default function Story() {
   console.log(profileImageUrl);
   
   return (
-    <div className="relative flex flex-col h-screen bg-cover bg-center w-full mx-auto items-center">
+    <div className="relative flex flex-col h-screen bg-cover bg-center w-full mx-auto items-center z-10">
       {videoUrl ? (
         <>
           <div className="w-full px-4 absolute top-10">

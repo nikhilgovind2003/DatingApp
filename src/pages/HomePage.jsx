@@ -52,15 +52,18 @@ const HomePage = () => {
         const response = await axios.get(
           "http://localhost:5000/api/v1/users/users"
         ); // Fetch all users from your backend
-        setUsers(response.data); // Store fetched users in state
-        console.log("Fetched Data:", response.data);
+        const activeUsers = response.data.filter((user) => user.user.isActive); // Filter users where isActive is true
+        setUsers(activeUsers); // Store filtered users in state
+        console.log("Fetched Active Users:", activeUsers);
       } catch (error) {
         console.log("Error fetching users:", error);
       }
     };
+    
     fetchUsers();
     handleAuthentication();
-  }, [dispatch]);
+    }, [dispatch]);
+    
 
 
 

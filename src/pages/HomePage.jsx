@@ -9,10 +9,14 @@ import Rightside from "../components/rightsidemenu/Rightside";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { login, logout } from "../redux/features/auth/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import MyProfile from "./MyProfile";
 
 const HomePage = () => {
   const dispatch = useDispatch();
+  const userInfo = useSelector(state => state.userAuth)
+  console.log(userInfo);
+  
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -26,6 +30,7 @@ const HomePage = () => {
           const decodedUserCookie = decodeURIComponent(userCookie);
           const cleanedUserJson = decodedUserCookie.startsWith('j:') ? decodedUserCookie.slice(2) : decodedUserCookie;
           const user = JSON.parse(cleanedUserJson);
+          console.log(user);
           
           // Dispatch login action with user and token
           const payload = {

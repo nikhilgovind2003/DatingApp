@@ -1,14 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ChevronLeft, Navigation } from 'lucide-react';
 import ProfileActionbar from '../components/ProfileActionbar';
 import Button from '../components/buttons/InterestButton';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 
 function MyProfile() {
 
-  const userInfo = useSelector(state => state.userAuth.userInfo)
+  const [users, setUsers] = useState([]);
+  const [user, setUser] = useState(null);
+
+  const userInfo = useSelector(state => state.userAuth.userInfo);
   console.log(userInfo);
+  
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/v1/users/users"); // Fetch all users from your backend
+        const allUsers = response.data;
+        setUsers(allUsers); // Store fetched users in state
+        console.log("Fetched Data:", allUsers);
+        
+        // Find the user that matches the current user ID
+        const currentUser = allUsers.find(user => user.user._id === userInfo._id);
+        setUser(currentUser);
+        console.log("Current User:", currentUser);
+        
+      } catch (error) {
+        console.log("Error fetching users:", error);
+      }
+    };
+    if (userInfo && userInfo._id) {
+      fetchUsers();
+    }
+  }, [userInfo]);
   
 
   return (

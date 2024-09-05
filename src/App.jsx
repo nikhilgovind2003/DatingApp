@@ -52,10 +52,11 @@ import CreateGroup from './pages/createGroup/CreateGroup';
 import DiscoverPage from './pages/DiscoverPage';
 import UsersProfile from './pages/test/MyProfile';
 import SearchPage from './pages/search/SearchPage';
+import Chat from './pages/chat/Chat';
 
 function App() {
 
-  const hideOnRoutes = ['/credit','/subscription', `/story/1`,'/spin','/create_group','/notification']; 
+  const hideOnRoutes = ['/credit','/subscription',`/chat/:id`, `/story/1`,'/spin','/create_group','/notification']; 
 
   return (
     <BrowserRouter>
@@ -98,6 +99,7 @@ function App() {
           <Route path='create_group' element={<CreateGroup />} />
           <Route path='/profile/:userId' element={<UsersProfile />} />
           <Route path='/search' element={<SearchPage />} />
+          <Route path='/chat/:id' element={<Chat />} />
           
         </Route>
         <Route path='/job_status' element={<JobStatus />} />

@@ -4,7 +4,7 @@ import { House, Compass, MessageCircle, Users } from 'lucide-react';
 
 function BottomNavbar({ show, hideOnRoutes = [] }) {
   const Menus = [
-    { name: "Home", icon: <House />, activeIcon: <House className="text-white" />, path: "/" },
+    { name: "Home", icon: <House />, activeIcon: <House className="text-white" />, path: "/home" },
     { name: "Discovery", icon: <Compass />, activeIcon: <Compass className="text-white" />, path: "/discover" },
     { name: "Message", icon: <img src='https://upload.wikimedia.org/wikipedia/commons/9/98/Color_circle_%28RGB%29.png' className='rounded-full '  width={30} />, activeIcon: <img src='https://upload.wikimedia.org/wikipedia/commons/9/98/Color_circle_%28RGB%29.png' className='rounded-full bg-white '  width={30} />, path: "/spin" },
     { name: "Photos", icon: <Users />, activeIcon: <Users className="text-white" />, path: "/groups" },

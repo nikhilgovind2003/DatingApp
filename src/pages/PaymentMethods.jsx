@@ -4,7 +4,7 @@ const PaymentMethods = () => {
   return (
     <div
       className="bg-white p-6 h-screen  mx-auto rounded-lg "
-     
+
     >
       {/* Header */}
       <div className="flex justify-between items-center mb-2 sm:mb-3">
@@ -33,12 +33,12 @@ const PaymentMethods = () => {
         </div>
 
         <div className="border border-gray-200 rounded-lg p-2 sm:p-3 flex items-center space-x-2 sm:space-x-3" >
-  <img src="/IMAGES/images-removebg-preview (33) 2.png" alt="Visa" className="sm:w-8 opacity-100 shadow-xs w-16 h-8 sm:ms-8" />
-  <div className="flex-1">
-    <p className="font-semibold  sm:ms-10">************3343</p>
-    <p className="text-gray-500 text-xs sm:ms-10">Expires 09/25</p>
-  </div>
-</div>
+          <img src="/IMAGES/images-removebg-preview (33) 2.png" alt="Visa" className="sm:w-8 opacity-100 shadow-xs w-16 h-8 sm:ms-8" />
+          <div className="flex-1">
+            <p className="font-semibold  sm:ms-10">************3343</p>
+            <p className="text-gray-500 text-xs sm:ms-10">Expires 09/25</p>
+          </div>
+        </div>
         <div className="border border-gray-200 rounded-lg p-2 sm:p-3 flex items-center space-x-2 sm:space-x-3">
           <img src="/IMAGES/images-removebg-preview (33) 3.png" alt="PayPal" className="w-6 sm:w-8 w-12 h-10 sm:ms-7" />
           <div className="flex-1">
@@ -51,23 +51,26 @@ const PaymentMethods = () => {
       <div className="mt-4 sm:mt-6">
         <p className="text-gray-700 font-semibold ">CURRENT METHOD</p>
         <div className="border border-gray-200 rounded-lg p-2 sm:p-3 flex items-center space-x-2 sm:space-x-3 mt-1">
-        <div className="relative w-6 sm:w-8 bg-cover bg-center  sm:ms-7">
-  <img src="/IMAGES/images-removebg-preview (33) 4.png" alt="Background" className="w-full" />
-  <img src="/IMAGES/fffff-removebg-preview 1.png" alt="Cash Payment" className="absolute inset-0 m-auto w-3/5 sm:w-4/5" />
-</div>
+          <div className="relative w-6 sm:w-8 bg-cover bg-center  sm:ms-7">
+            <img src="/IMAGES/images-removebg-preview (33) 4.png" alt="Background" className="w-full" />
+            <img src="/IMAGES/fffff-removebg-preview 1.png" alt="Cash Payment" className="absolute inset-0 m-auto w-3/5 sm:w-4/5" />
+          </div>
           <div className="flex-1">
             <p className="font-semibold  sm:ms-11">Cash payment</p>
             <p className="text-gray-500 text-xs sm:ms-11">Default method</p>
           </div>
-          
+
 
         </div>
       </div>
 
       {/* Add Payment Method Button */}
-      <button className="text-white w- py-4 px-4 mt-4  rounded-lg font-semibold w-full " style={{backgroundColor:"#4b164c"}}>
-  ADD PAYMENT METHOD
-</button>
+      <div className=" mt-8">
+      <a href="/credit" className="text-white  py-4 px-4 mt-4   rounded-lg font-semibold w-full " style={{ backgroundColor: "#4b164c" }}>
+        ADD PAYMENT METHOD
+      </a>
+      </div>
+      
 
 
     </div>

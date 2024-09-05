@@ -70,7 +70,7 @@ const Chat = () => {
         </div>
 
       </div>
-        <div className=" lg:w-[700px] fixed flex items-center justify-between rounded-full bottom-4 left-1/2 transform -translate-x-1/2 bg-blue-50 border-[2px] border-blue-100 text-center px-2">
+        <div className=" w-[350px] lg:w-[700px] fixed flex items-center justify-between rounded-full bottom-4 left-1/2 transform -translate-x-1/2 bg-blue-50 border-[2px] border-blue-100 text-center px-2">
           <input
             type="text"
             name="message"

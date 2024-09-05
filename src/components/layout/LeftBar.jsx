@@ -23,7 +23,7 @@ const LeftBar = () => {
           </a>
         </li>
         <li className="hover:bg-dark-wine">
-          <a href="/message" className=" px-4 py-2 flex items-center">
+          <a href="/chat" className=" px-4 py-2 flex items-center">
             <span className="mr-2"><MessageCircle /></span>Messages
           </a>
         </li>

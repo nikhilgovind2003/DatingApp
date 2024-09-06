@@ -20,7 +20,11 @@ const passwordSchema = yup.object().shape({
 
 const ChangePassword = () => {
   const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState({
+    current: false,
+    new: false,
+    confirm: false,
+  });
   const navigate = useNavigate();
   const {
     register,
@@ -30,8 +34,11 @@ const ChangePassword = () => {
     resolver: yupResolver(passwordSchema),
   });
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+  const togglePasswordVisibility = (field) => {
+    setShowPassword((prevState) => ({
+      ...prevState,
+      [field]: !prevState[field],
+    }));
   };
 
   const onSubmit = (data) => {
@@ -66,12 +73,12 @@ const ChangePassword = () => {
           <label className="block text-gray-700 mb-2">Current Password</label>
           <div className="relative">
             <input
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword.current ? 'text' : 'password'}
               {...register('currentPassword')}
               className="w-full px-4 py-2 border-b-2 border-purple-800 text-gray-700 focus:outline-none"
             />
             {errors.currentPassword && <p className="text-red-600 text-sm">{errors.currentPassword.message}</p>}
-            <span onClick={togglePasswordVisibility} className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer">
+            <span onClick={() => togglePasswordVisibility('current')} className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer">
             <svg
                 className="h-5 w-5 text-gray-700"
                 fill="none"
@@ -84,7 +91,7 @@ const ChangePassword = () => {
                   strokeLinejoin="round"
                   strokeWidth="2"
                   d={
-                    showPassword
+                    showPassword.current
                       ? 'M15 12m-3 0a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm1.5-6l-.992 1.168m0 9.664L12 18m8.485-8.485C21.345 9.68 23 12 23 12s-1.655 2.32-2.515 3.485m-5.045-5.045C15 9 12 9 12 9s-3 0-3.939 1.94M12 21l-.992-1.168m-7.05-7.05C2.655 14.32 1 12 1 12s1.655-2.32 2.515-3.485'
                       : 'M12 19c3.866 0 7-4.478 7-7s-3.134-7-7-7S5 8.478 5 11s3.134 7 7 7z'
                   }
@@ -99,13 +106,13 @@ const ChangePassword = () => {
           <label className="block text-gray-700 mb-2">New Password</label>
           <div className="relative">
             <input
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword.new ? 'text' : 'password'}
               {...register('newPassword')}
               className="w-full px-4 py-2 border-b-2 border-purple-800 text-gray-700 focus:outline-none"
             />
             {errors.newPassword && <p className="text-red-600 text-sm">{errors.newPassword.message}</p>}
-            <span onClick={togglePasswordVisibility} className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer">
-            <svg
+            <span onClick={() => togglePasswordVisibility('new')} className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer">
+              <svg
                 className="h-5 w-5 text-gray-700"
                 fill="none"
                 stroke="currentColor"
@@ -117,7 +124,7 @@ const ChangePassword = () => {
                   strokeLinejoin="round"
                   strokeWidth="2"
                   d={
-                    showPassword
+                    showPassword.new
                       ? 'M15 12m-3 0a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm1.5-6l-.992 1.168m0 9.664L12 18m8.485-8.485C21.345 9.68 23 12 23 12s-1.655 2.32-2.515 3.485m-5.045-5.045C15 9 12 9 12 9s-3 0-3.939 1.94M12 21l-.992-1.168m-7.05-7.05C2.655 14.32 1 12 1 12s1.655-2.32 2.515-3.485'
                       : 'M12 19c3.866 0 7-4.478 7-7s-3.134-7-7-7S5 8.478 5 11s3.134 7 7 7z'
                   }
@@ -132,13 +139,13 @@ const ChangePassword = () => {
           <label className="block text-gray-700 mb-2">Confirm Password</label>
           <div className="relative">
             <input
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword.confirm ? 'text' : 'password'}
               {...register('confirmPassword')}
               className="w-full px-4 py-2 border-b-2 border-purple-800 text-gray-700 focus:outline-none"
             />
             {errors.confirmPassword && <p className="text-red-600 text-sm">{errors.confirmPassword.message}</p>}
-            <span onClick={togglePasswordVisibility} className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer">
-            <svg
+            <span onClick={() => togglePasswordVisibility('confirm')} className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer">
+              <svg
                 className="h-5 w-5 text-gray-700"
                 fill="none"
                 stroke="currentColor"
@@ -150,7 +157,7 @@ const ChangePassword = () => {
                   strokeLinejoin="round"
                   strokeWidth="2"
                   d={
-                    showPassword
+                    showPassword.confirm
                       ? 'M15 12m-3 0a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm1.5-6l-.992 1.168m0 9.664L12 18m8.485-8.485C21.345 9.68 23 12 23 12s-1.655 2.32-2.515 3.485m-5.045-5.045C15 9 12 9 12 9s-3 0-3.939 1.94M12 21l-.992-1.168m-7.05-7.05C2.655 14.32 1 12 1 12s1.655-2.32 2.515-3.485'
                       : 'M12 19c3.866 0 7-4.478 7-7s-3.134-7-7-7S5 8.478 5 11s3.134 7 7 7z'
                   }

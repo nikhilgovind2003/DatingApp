@@ -17,7 +17,7 @@ const MatchPage = () => {
           const response = await axios.get('http://localhost:5000/api/v1/users/compare', { withCredentials: true });
     
           // Filter users with matchPercentage greater than 10%
-          const filteredUsers = response.data.results.filter(user => user.matchPercentage > 10);
+          const filteredUsers = response.data.results.filter(user => user.matchPercentage >= 50);
     
           // Sort the filtered users by matchPercentage from high to low
           const sortedUsers = filteredUsers.sort((a, b) => b.matchPercentage - a.matchPercentage);

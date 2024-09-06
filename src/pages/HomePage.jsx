@@ -50,7 +50,8 @@ const HomePage = () => {
     const fetchUsers = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/v1/users/users"
+          "http://localhost:5000/api/v1/users/userdetails",
+          { withCredentials: true }
         ); // Fetch all users from your backend
         const activeUsers = response.data.filter((user) => user.user.isActive); // Filter users where isActive is true
         setUsers(activeUsers); // Store filtered users in state

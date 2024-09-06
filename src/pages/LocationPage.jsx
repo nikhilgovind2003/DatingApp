@@ -84,7 +84,7 @@ console.log(nearByUsers)
               isNew={false}
               img={user.profileImage.url}
               distance={user.distance.toFixed(2)}
-              name={user.name}
+              name={user.firstName}
               age={user.age}
               place={user.location.place}
               match={user.matchPercentage}

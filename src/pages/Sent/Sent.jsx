@@ -12,7 +12,7 @@ const RejectPage = () => {
     const fetchRequestedLists = async () => {
       try {
         const response = await axios.get('http://localhost:5000/api/v1/users/user', { withCredentials: true });
-        setRequestedLists(response.data[0].requestedLists);
+        setRequestedLists(response.data[0]?.requestedLists || []);
       } catch (error) {
         console.log(error);
       }
@@ -35,19 +35,28 @@ const RejectPage = () => {
       }
     };
 
-    fetchUserData();
+    if (requestedLists.length > 0) {
+      fetchUserData();
+    }
   }, [requestedLists]);
 
   console.log(frdreqData);
   
-  // Function to handle removing a friend request
   const handleRemoveRequest = async (userId) => {
+    if (!userId) {
+      console.log('Invalid userId');
+      return; // Exit if userId is null or undefined
+    }
   
     try {
-      
+      // Make the DELETE request
       await axios.delete(`http://localhost:5000/api/v1/users/friend-request/${userId}`, { withCredentials: true });
+  
+      // Update the requested lists safely
       setRequestedLists(prev => prev.filter(id => id !== userId));
-      setFrdreqData(prev => prev.filter(user => user.user._id !== userId));
+  
+      // Safely update the frdreqData
+      setFrdreqData(prev => prev.filter(user => user?.user?._id !== userId));
     } catch (error) {
       console.log('Failed to remove friend request:', error);
     }
@@ -55,8 +64,9 @@ const RejectPage = () => {
 
   // Group users by the first letter of their first name
   const groupedUsers = frdreqData.reduce((acc, user) => {
-    if (user && typeof user.user.firstName === 'string' && user.user.firstName) {
-      const firstLetter = user.user.firstName.charAt(0).toUpperCase();
+    const firstName = user?.user?.firstName;
+    if (firstName) {
+      const firstLetter = firstName.charAt(0).toUpperCase();
       if (!acc[firstLetter]) {
         acc[firstLetter] = [];
       }
@@ -76,14 +86,14 @@ const RejectPage = () => {
           <div key={letter}>
             <h1 className="text-xl font-semibold mt-6 ms-10 sm:ms-7">{letter}</h1>
             {groupedUsers[letter].map(user => {
-              const name = `${user.user.firstName} ${user.user.lastName}`;
+              const name = `${user?.user?.firstName || ''} ${user?.user?.lastName || ''}`;
               return (
                 <UserPreview
-                  key={user.user._id}
-                  userId={user.user._id}
+                  key={user?.user?._id}
+                  userId={user?.user?._id}
                   name={name}
-                  url={user.profileImage.url}
-                  bio={user.bio}
+                  url={user?.profileImage?.url || '/default-image-url.jpg'}
+                  bio={user?.bio || ''}
                   close={handleRemoveRequest}
                 />
               );

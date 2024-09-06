@@ -12,6 +12,7 @@ import ButtonGroup from "./buttons/HomeButtonGroup";
 import MatchCardComponent from "./matchCards/MatchCardComponent";
 import SubHeader from "./SubHeader";
 import StoryView from "./StoryView/storyView"
+import UserContactedPreview from "./usericons/UserContactedPreview";
 export {
     LeftBar,
     RightBar,
@@ -26,5 +27,6 @@ export {
     ButtonGroup,
     MatchCardComponent,
     SubHeader,
-    StoryView
+    StoryView,
+    UserContactedPreview
 };

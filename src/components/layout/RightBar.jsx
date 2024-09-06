@@ -42,7 +42,7 @@ const RightBar = () => {
           <div className="relative">
             {/* Profile Picture */}
             <img
-              src= {myProfile?.profileImage?.url || "https://images.pexels.com/photos/13704184/pexels-photo-13704184.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"} // Replace with the actual profile picture URL
+              src= {myProfile?.profileImage?.url} // Replace with the actual profile picture URL
               alt="Profile"
               className="rounded-full w-12 h-12 object-cover"
             />

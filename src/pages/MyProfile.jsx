@@ -13,7 +13,7 @@ function MyProfile() {
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState(null);
 
-  const userInfo = useSelector(state => state.userAuth.myProfile);
+  const userInfo = useSelector(state => state.userAuth.userInfo);
   console.log('redux---->', userInfo);
   
   const myProfileCookie = Cookies.get('myProfile');

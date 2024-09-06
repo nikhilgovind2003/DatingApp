@@ -8,6 +8,7 @@ import { navData } from '../../datas/navData';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import Cookies from 'js-cookie'
 
 const Rightside = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,6 +16,12 @@ const Rightside = () => {
   
   const userInfo = useSelector((state) => state.userAuth.userInfo);
   console.log(userInfo);
+
+  const myProfileCookie = Cookies.get('myProfile');
+  const decodedMyProfileCookie = decodeURIComponent(myProfileCookie);
+  const cleanedMyProfileJson = decodedMyProfileCookie.startsWith('j:') ? decodedMyProfileCookie.slice(2) : decodedMyProfileCookie;
+  const myProfile = JSON.parse(cleanedMyProfileJson);
+  console.log(myProfile);
   
 
   const toggleDropdown = () => {
@@ -60,7 +67,7 @@ const Rightside = () => {
             <div className="flex flex-row items-center ml-3">
               <div className="relative border-[3px] border-light-purple rounded-full">
                 <img
-                  src={userInfo?.profilePicture || "https://images.pexels.com/photos/13704184/pexels-photo-13704184.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"} // Replace with user's profile picture URL
+                  src={myProfile?.profileImage?.url || "https://images.pexels.com/photos/13704184/pexels-photo-13704184.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"} // Replace with user's profile picture URL
                   alt="Profile"
                   className="rounded-full w-12 h-12 object-cover"
                 />

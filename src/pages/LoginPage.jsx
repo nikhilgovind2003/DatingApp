@@ -62,11 +62,11 @@ const LoginPage = () => {
     
                 const userCookie = Cookies.get('user');
                 const token = Cookies.get('token');
+                const myProfileCookie = Cookies.get('myProfile');
                 console.log(token)
                 
 
-                const myProfile = res.data.myprofile
-                console.log(myProfile);
+                
 
                 if (userCookie && token) {
                     
@@ -75,6 +75,10 @@ const LoginPage = () => {
                         const user = JSON.parse(cleanedUserJson);
                         console.log(user);
                         
+                        const decodedMyProfileCookie = decodeURIComponent(myProfileCookie);
+                        const cleanedMyProfileJson = decodedMyProfileCookie.startsWith('j:') ? decodedMyProfileCookie.slice(2) : decodedMyProfileCookie;
+                        const myProfile = JSON.parse(cleanedMyProfileJson);
+                        console.log(myProfile);
     
                         const payload = {
                             userInfo: user._doc,

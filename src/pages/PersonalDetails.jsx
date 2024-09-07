@@ -17,12 +17,15 @@ const SUPPORTED_REEL_FORMATS = [
 
 const schema = yup.object().shape({
   bio: yup.string().required("Bio is required"),
-  age: yup
-    .number()
-    .required("Age is required")
-    .min(18, "You must be at least 18 years old")
-    .max(100, "Please enter a valid age"),
-  /* location: yup.string().required("Location is required"), */
+  dob: yup
+    .date()
+    .required("Date of Birth is required")
+    .test("age", "You must be at least 18 years old", function (value) {
+      const cutoff = new Date();
+      cutoff.setFullYear(cutoff.getFullYear() - 18);
+      return value <= cutoff;
+    }),
+  location: yup.string().required("Location is required"),
   hobbies: yup.string().required("Hobbies are required"),
   interests: yup.string().required("Interests are required"),
   smoking: yup.string().required("Smoking habits are required"),
@@ -72,15 +75,12 @@ const schema = yup.object().shape({
       "Reel must be less than 10MB",
       (value) =>
         value && value.length === 1 && value[0].size <= 10 * 1024 * 1024
-    ), // 10 MB size limit
+    ),
 });
 
 const PersonalDetails = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [location, setLocation] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
-  const [selectLocation,setSelectLocation] = useState(null)
   const {
     register,
     handleSubmit,
@@ -89,57 +89,13 @@ const PersonalDetails = () => {
     resolver: yupResolver(schema),
   });
 
-  const handleLocation = async(e) => {
-    const value = e.target.value;
-    setLocation(value);
-
-    if (value.length > 2) {
-      try {
-        const {data} = await axios.get(
-          `https://us1.locationiq.com/v1/search?key=pk.59d2e76f1cb59d35b1601bedd9ece934&q=${value}&format=json&accept-language=en&countrycodes=in&`
-        );
-        setSuggestions(data);
-        
-        
-        
-      } catch (error) {
-        console.error("Error fetching location data", error);
-        setSuggestions([]);
-        console.log("error");
-        
-      }
-    } else {
-      setSuggestions([]);
-      console.log("welse case");
-      
-    }
-  };
-
-  const handleSelect = (suggestion) => {
-    setLocation(suggestion.display_name);
-    const displayName = suggestion.display_name;
-    const parts = displayName.split(',');
-    const cityName = parts[0].trim()
-    console.log(cityName);
-    
-    setSuggestions([]);
-    setSelectLocation({
-      lat: suggestion.lat,
-      lon: suggestion.lon,
-      city: cityName
-    });
-    
-  };
-
   const onSubmit = async (data) => {
     setLoading(true);
     const formData = new FormData();
 
     formData.append("bio", data.bio);
-    formData.append("age", data.age);
-    formData.append("lat", selectLocation?.lat || '');
-    formData.append("lon", selectLocation?.lon || '');
-    formData.append("city", selectLocation?.city || '');
+    formData.append("dob", data.dob);
+    formData.append("location", data.location);
     formData.append("hobbies", data.hobbies);
     formData.append("interests", data.interests);
     formData.append("smoking", data.smoking);
@@ -160,8 +116,6 @@ const PersonalDetails = () => {
     if (data.reel && data.reel.length > 0) {
       formData.append("reel", data.reel[0]);
     }
-
-    console.log([...formData]);
 
     axios
       .post("http://localhost:5000/api/v1/users/profile-details", formData, {
@@ -216,17 +170,17 @@ const PersonalDetails = () => {
               )}
             </div>
             <div className="mb-4">
-              <label htmlFor="age" className="block text-gray-700">
-                Age
+              <label htmlFor="dob" className="block text-gray-700">
+                Date of Birth
               </label>
               <input
-                type="number"
-                id="age"
-                {...register("age")}
+                type="date"
+                id="dob"
+                {...register("dob")}
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
               />
-              {errors.age && (
-                <p className="text-red-600">{errors.age.message}</p>
+              {errors.dob && (
+                <p className="text-red-600">{errors.dob.message}</p>
               )}
             </div>
             <div className="mb-4">
@@ -236,31 +190,13 @@ const PersonalDetails = () => {
               <input
                 type="text"
                 id="location"
-                value={location}
-                onChange={handleLocation}
+                {...register("location")}
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
-                required
               />
               {errors.location && (
                 <p className="text-red-600">{errors.location.message}</p>
               )}
             </div>
-            {suggestions.length > 0 && (
-              <ul className="absolute bg-white border border-gray-300 mt-1  z-10 w-1/4">
-                {suggestions.map((suggestion) => {
-                  return(
-                     <li
-                    key={suggestion.place_id}
-                    onClick={() => handleSelect(suggestion)}
-                    className="cursor-pointer  hover:bg-gray-100"
-                  >
-                    {suggestion.display_name}
-                  </li>
-                  )
-                 
-                })}
-              </ul>
-            )}
             <div className="mb-4">
               <label htmlFor="hobbies" className="block text-gray-700">
                 Hobbies
@@ -290,47 +226,49 @@ const PersonalDetails = () => {
               )}
             </div>
             <div className="mb-4">
-  <label htmlFor="smoking" className="block text-gray-700">
-    Smoking Habits
-  </label>
-  <select
-    id="smoking"
-    {...register("smoking")}
-    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
-  >
-    <option value="">Select Smoking Habit</option>
-    <option value="Never">Never</option>
-    <option value="Occasionally">Occasionally</option>
-    <option value="Regularly">Regularly</option>
-    <option value="Quitting">Quitting</option>
-  </select>
-  {errors.smoking && <p className="text-red-600">{errors.smoking.message}</p>}
-</div>
-
-<div className="mb-4">
-  <label htmlFor="drinking" className="block text-gray-700">
-    Drinking Habits
-  </label>
-  <select
-    id="drinking"
-    {...register("drinking")}
-    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
-  >
-    <option value="">Select Drinking Habit</option>
-    <option value="Never">Never</option>
-    <option value="Occasionally">Occasionally</option>
-    <option value="Regularly">Regularly</option>
-    <option value="Quitting">Quitting</option>
-  </select>
-  {errors.drinking && <p className="text-red-600">{errors.drinking.message}</p>}
-</div>
-  <div className="mb-4">
-              <label htmlFor="qualifications" className="block text-gray-700">
-                Qualifications
+              <label htmlFor="smoking" className="block text-gray-700">
+                Smoking Habits
+              </label>
+              <select
+                id="smoking"
+                {...register("smoking")}
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
+              >
+                <option value="">Select Smoking Habit</option>
+                <option value="Never">Never</option>
+                <option value="Occasionally">Occasionally</option>
+                <option value="Regularly">Regularly</option>
+                <option value="Quit">Quit</option>
+              </select>
+              {errors.smoking && (
+                <p className="text-red-600">{errors.smoking.message}</p>
+              )}
+            </div>
+            <div className="mb-4">
+              <label htmlFor="drinking" className="block text-gray-700">
+                Drinking Habits
+              </label>
+              <select
+                id="drinking"
+                {...register("drinking")}
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
+              >
+                <option value="">Select Drinking Habit</option>
+                <option value="Never">Never</option>
+                <option value="Occasionally">Occasionally</option>
+                <option value="Regularly">Regularly</option>
+              </select>
+              {errors.drinking && (
+                <p className="text-red-600">{errors.drinking.message}</p>
+              )}
+            </div>
+            <div className="mb-4">
+              <label htmlFor="qualification" className="block text-gray-700">
+                Qualification
               </label>
               <input
                 type="text"
-                id="qualifications"
+                id="qualification"
                 {...register("qualification")}
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
               />
@@ -350,6 +288,7 @@ const PersonalDetails = () => {
                 <option value="">Select Gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
+                <option value="Other">Other</option>
               </select>
               {errors.gender && (
                 <p className="text-red-600">{errors.gender.message}</p>
@@ -363,8 +302,7 @@ const PersonalDetails = () => {
                 type="file"
                 id="profile"
                 {...register("profile")}
-                accept="image/*"
-                className="mt-1 block w-full text-gray-700"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
               />
               {errors.profile && (
                 <p className="text-red-600">{errors.profile.message}</p>
@@ -376,11 +314,10 @@ const PersonalDetails = () => {
               </label>
               <input
                 type="file"
+                multiple
                 id="additionalImg"
                 {...register("additionalImg")}
-                accept="image/*"
-                multiple
-                className="mt-1 block w-full text-gray-700"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
               />
               {errors.additionalImg && (
                 <p className="text-red-600">{errors.additionalImg.message}</p>
@@ -388,14 +325,13 @@ const PersonalDetails = () => {
             </div>
             <div className="mb-4">
               <label htmlFor="reel" className="block text-gray-700">
-                Upload Reel
+                Short Reel
               </label>
               <input
                 type="file"
                 id="reel"
                 {...register("reel")}
-                accept="video/*"
-                className="mt-1 block w-full text-gray-700"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
               />
               {errors.reel && (
                 <p className="text-red-600">{errors.reel.message}</p>
@@ -403,12 +339,10 @@ const PersonalDetails = () => {
             </div>
             <button
               type="submit"
+              className="w-full bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               disabled={loading}
-              className={`w-full py-2 bg-black hover:bg-gray-800 text-white px-4 rounded-md transition-colors duration-300 ease-in-out ${
-                loading ? "opacity-50 cursor-not-allowed" : ""
-              }`}
             >
-              {loading ? "Loading..." : "Submit"}
+              {loading ? "Submitting..." : "Submit"}
             </button>
           </form>
         </div>

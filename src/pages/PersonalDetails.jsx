@@ -24,7 +24,7 @@ const schema = yup.object().shape({
       const cutoff = new Date();
       cutoff.setFullYear(cutoff.getFullYear() - 18);
       return value <= cutoff;
-    }), 
+    }),
   location: yup.string().required("Location is required"),
   hobbies: yup.string().required("Hobbies are required"),
   interests: yup.string().required("Interests are required"),
@@ -75,7 +75,7 @@ const schema = yup.object().shape({
       "Reel must be less than 10MB",
       (value) =>
         value && value.length === 1 && value[0].size <= 10 * 1024 * 1024
-    ), // 10 MB size limit
+    ),
 });
 
 const PersonalDetails = () => {
@@ -89,15 +89,13 @@ const PersonalDetails = () => {
     resolver: yupResolver(schema),
   });
 
- 
-
   const onSubmit = async (data) => {
     setLoading(true);
     const formData = new FormData();
 
     formData.append("bio", data.bio);
     formData.append("dob", data.dob);
-    formData.append("location", selectLocation?.lat || '');
+    formData.append("location", data.location);
     formData.append("hobbies", data.hobbies);
     formData.append("interests", data.interests);
     formData.append("smoking", data.smoking);
@@ -118,8 +116,6 @@ const PersonalDetails = () => {
     if (data.reel && data.reel.length > 0) {
       formData.append("reel", data.reel[0]);
     }
-
-    console.log([...formData]);
 
     axios
       .post("http://localhost:5000/api/v1/users/profile-details", formData, {
@@ -175,7 +171,7 @@ const PersonalDetails = () => {
             </div>
             <div className="mb-4">
               <label htmlFor="dob" className="block text-gray-700">
-                DOB
+                Date of Birth
               </label>
               <input
                 type="date"
@@ -196,7 +192,6 @@ const PersonalDetails = () => {
                 id="location"
                 {...register("location")}
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
-                required
               />
               {errors.location && (
                 <p className="text-red-600">{errors.location.message}</p>
@@ -234,12 +229,17 @@ const PersonalDetails = () => {
               <label htmlFor="smoking" className="block text-gray-700">
                 Smoking Habits
               </label>
-              <input
-                type="text"
+              <select
                 id="smoking"
                 {...register("smoking")}
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
-              />
+              >
+                <option value="">Select Smoking Habit</option>
+                <option value="Never">Never</option>
+                <option value="Occasionally">Occasionally</option>
+                <option value="Regularly">Regularly</option>
+                <option value="Quit">Quit</option>
+              </select>
               {errors.smoking && (
                 <p className="text-red-600">{errors.smoking.message}</p>
               )}
@@ -248,23 +248,27 @@ const PersonalDetails = () => {
               <label htmlFor="drinking" className="block text-gray-700">
                 Drinking Habits
               </label>
-              <input
-                type="text"
+              <select
                 id="drinking"
                 {...register("drinking")}
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
-              />
+              >
+                <option value="">Select Drinking Habit</option>
+                <option value="Never">Never</option>
+                <option value="Occasionally">Occasionally</option>
+                <option value="Regularly">Regularly</option>
+              </select>
               {errors.drinking && (
                 <p className="text-red-600">{errors.drinking.message}</p>
               )}
             </div>
             <div className="mb-4">
-              <label htmlFor="qualifications" className="block text-gray-700">
-                Qualifications
+              <label htmlFor="qualification" className="block text-gray-700">
+                Qualification
               </label>
               <input
                 type="text"
-                id="qualifications"
+                id="qualification"
                 {...register("qualification")}
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
               />
@@ -284,6 +288,7 @@ const PersonalDetails = () => {
                 <option value="">Select Gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
+                <option value="Other">Other</option>
               </select>
               {errors.gender && (
                 <p className="text-red-600">{errors.gender.message}</p>
@@ -297,8 +302,7 @@ const PersonalDetails = () => {
                 type="file"
                 id="profile"
                 {...register("profile")}
-                accept="image/*"
-                className="mt-1 block w-full text-gray-700"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
               />
               {errors.profile && (
                 <p className="text-red-600">{errors.profile.message}</p>
@@ -310,11 +314,10 @@ const PersonalDetails = () => {
               </label>
               <input
                 type="file"
+                multiple
                 id="additionalImg"
                 {...register("additionalImg")}
-                accept="image/*"
-                multiple
-                className="mt-1 block w-full text-gray-700"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
               />
               {errors.additionalImg && (
                 <p className="text-red-600">{errors.additionalImg.message}</p>
@@ -322,14 +325,13 @@ const PersonalDetails = () => {
             </div>
             <div className="mb-4">
               <label htmlFor="reel" className="block text-gray-700">
-                Upload Reel
+                Short Reel
               </label>
               <input
                 type="file"
                 id="reel"
                 {...register("reel")}
-                accept="video/*"
-                className="mt-1 block w-full text-gray-700"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
               />
               {errors.reel && (
                 <p className="text-red-600">{errors.reel.message}</p>
@@ -337,12 +339,10 @@ const PersonalDetails = () => {
             </div>
             <button
               type="submit"
+              className="w-full bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               disabled={loading}
-              className={`w-full py-2 bg-black hover:bg-gray-800 text-white px-4 rounded-md transition-colors duration-300 ease-in-out ${
-                loading ? "opacity-50 cursor-not-allowed" : ""
-              }`}
             >
-              {loading ? "Loading..." : "Submit"}
+              {loading ? "Submitting..." : "Submit"}
             </button>
           </form>
         </div>

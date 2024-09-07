@@ -79,12 +79,12 @@ console.log(nearByUsers)
       </div>
       <div className="grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-3 grid-cols-2 gap-5">
         {nearByUsers?.map((user) => (
-          <Link to={`/profile/${user._id}?%=${user.matchPercentage}`} key={nearByUsers.id}>
+          <Link to={`/profile/${user.user}?match=${user.matchPercentage}`} key={nearByUsers.id}>
             <MatchCardComponent
               isNew={false}
               img={user.profileImage.url}
               distance={user.distance.toFixed(2)}
-              name={user.name}
+              name={user.firstName}
               age={user.age}
               place={user.location.place}
               match={user.matchPercentage}

@@ -1,14 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ChevronLeft, Navigation } from 'lucide-react';
 import ProfileActionbar from '../components/ProfileActionbar';
 import Button from '../components/buttons/InterestButton';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
+import Cookies from 'js-cookie'
+import { Link } from 'react-router-dom';
 
 
 function MyProfile() {
 
-  const userInfo = useSelector(state => state.userAuth.userInfo)
-  console.log(userInfo);
+  const [users, setUsers] = useState([]);
+  const [user, setUser] = useState(null);
+
+  const userInfo = useSelector(state => state.userAuth.userInfo);
+  console.log('redux---->', userInfo);
+  
+  const myProfileCookie = Cookies.get('myProfile');
+  const decodedMyProfileCookie = decodeURIComponent(myProfileCookie);
+  const cleanedMyProfileJson = decodedMyProfileCookie.startsWith('j:') ? decodedMyProfileCookie.slice(2) : decodedMyProfileCookie;
+  const myProfile = JSON.parse(cleanedMyProfileJson);
+  console.log(myProfile);
   
 
   return (
@@ -17,16 +29,16 @@ function MyProfile() {
       <div
   className="h-[75vh] overflow-hidden sticky top-0 "
   style={{
-    background: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(128, 0, 128, 0.7)), url(https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?q=80&w=1856&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D) `,
+    background: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(128, 0, 128, 0.7)), url("${myProfile?.profileImage?.url || 'fallbackImage.jpg'}") `,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     // backgroundAttachment: 'fixed',
   }}
 >
   <div className="topnavigation flex p-2 sticky top-6 justify-between">
-    <div className="rounded-full backdrop-filter backdrop-blur-sm bg-opacity-45 border-2 w-fit border-white p-2 text-white">
+    <Link to="/home"><div className="rounded-full backdrop-filter backdrop-blur-sm bg-opacity-45 border-2 w-fit border-white p-2 text-white">
       <ChevronLeft />
-    </div>
+    </div> </Link>
     <div className="rounded-full flex border-2 w-fit backdrop-filter backdrop-blur-sm bg-opacity-45 border-white py-2 px-4 text-white">
       <span>Edit</span>
     </div>
@@ -34,8 +46,8 @@ function MyProfile() {
 
   <div className="mt- absolute bottom-24 left-1/2 transform -translate-x-1/2 p-2 flex-wrap justify-center items-center">
     <div className="text-center">
-      <span className="text-3xl text-white text-center">{ userInfo?.firstName + " " + userInfo?.lastName }, 22</span> <br />
-      <span className="text-sm text-gray-300">HAMBURG, GERMANY</span>
+      <span className="text-3xl text-white text-center">{ userInfo?.firstName + " " + userInfo?.lastName }, {myProfile.age}</span> <br />
+      <span className="text-md text-gray-300">{myProfile?.location?.place}</span>
     </div>
     <div className="text-white text-center py-2 mt-6">
   <span className="inline-flex items-center pl-1  bg-[#4b164c] py-2 rounded-full border-2 border-light-purple">
@@ -57,7 +69,7 @@ function MyProfile() {
           <div className="overflow-y-auto pb-8">
             <div>
               <span className="text-gray-600">About</span>
-              <p className="font-Roboto font-medium">A good listener. I love having a good talk to know each other’s side 😍.</p>
+              <p className="font-Roboto font-medium">{myProfile.bio}</p>
             </div>
             <div className="mt-4">
               <span className="text-gray-600">Interest</span>

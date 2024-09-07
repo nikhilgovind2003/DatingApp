@@ -32,7 +32,7 @@ import {
   AddCreditCard,
   PartnerPreferances,
   ForgotPasswordPage,
-  ResetPasswordPage
+  ResetPasswordPage,
 } from './pages';
 import DesktopLayout from './layout/DesktopLayout';
 import Profileviewpage from './pages/Profileviewpage';
@@ -51,10 +51,12 @@ import Notification from "./components/NotificationBar/notificationBar";
 import CreateGroup from './pages/createGroup/CreateGroup';
 import DiscoverPage from './pages/DiscoverPage';
 import UsersProfile from './pages/test/MyProfile';
+import SearchPage from './pages/search/SearchPage';
+import Chat from './pages/chat/Chat';
 
 function App() {
 
-  const hideOnRoutes = ['/credit','/subscription', `/story/1`,'/spin','/create_group','/notification']; 
+  const hideOnRoutes = ['/credit','/subscription',`/chat`, `/story/1`,'/spin','/create_group','/notification','/partener_preferences']; 
 
   return (
     <BrowserRouter>
@@ -96,6 +98,9 @@ function App() {
           <Route path='groups' element={<Groups />} />
           <Route path='create_group' element={<CreateGroup />} />
           <Route path='/profile/:userId' element={<UsersProfile />} />
+          <Route path='/search' element={<SearchPage />} />
+          <Route path='/chat' element={<Chat />} />
+          
         </Route>
         <Route path='/job_status' element={<JobStatus />} />
         <Route path='/job_details' element={<JobDetails />} />

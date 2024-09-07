@@ -2,30 +2,36 @@ export const settingData = [
     {
         "title": "Account",
         "setting": "Privacy, security, change number",
-        "icon": "key"
+        "icon": "key",
+        "link": "/change-password"
     },
     {
         "title": "Chats",
         "setting": "Chat history, theme, wallpapers",
-        "icon": "chat"
+        "icon": "chat",
+        "link": "/message"
     },
     {
         "title": "Notifications",
         "setting": "Messages, group and others",
-        "icon": "bell"
+        "icon": "bell",
+        "link": "/notification"
     },
     {
         "title": "Help",
         "setting": "Help center, contact us, privacy and policy",
-        "icon": "info"
+        "icon": "info",
+        "link": "/settings"
     },
     {
         "title": "Storage and data",
         "setting": "Network usage, storage usage",
-        "icon": "database"
+        "icon": "database",
+        "link": "/storage-data"
     },
     {
         "title": "Invite a friend",
-        "icon": "share"
+        "icon": "share",
+        "link": "/invite-friend"
     }
 ]

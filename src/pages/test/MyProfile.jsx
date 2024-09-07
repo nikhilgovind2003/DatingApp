@@ -11,7 +11,7 @@ function MyProfile() {
   const { userId } = useParams();
   const [user, setUser] = useState();
   const queryParams = new URLSearchParams(location.search);
-  const matchPercentage = queryParams.get('%');
+  const matchPercentage = queryParams.get('match');
   // const [sinUser] = useState(Userdata.find((user) => user.id === userId));
   useEffect(() => {
     axios.get(`http://localhost:5000/api/v1/users/profile/${userId}`, { withCredentials: true })
@@ -49,7 +49,7 @@ function MyProfile() {
                 {user?.user?.firstName + " " + user?.user?.lastName}
               </span>{" "}
               <br />
-              <span className="text-sm text-gray-300">{user?.place || 'usa'}</span>
+              <span className="text-sm text-gray-300">{user?.location?.place || 'usa'}</span>
             </div>
             <div className="text-white text-center py-2 mt-2">
               <span className="inline-flex items-center pl-1  bg-[#4b164c] py-2 rounded-full border-2 border-light-purple">

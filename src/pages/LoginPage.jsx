@@ -50,29 +50,45 @@ const LoginPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         if (validate()) {
             setLoading(true);
             try {
                 const res = await axios.post('http://localhost:5000/login', formData, { withCredentials: true });
+                
+                
                 setLoading(false);
                 toast.success(res.data.message, {duration: 1000});
     
                 const userCookie = Cookies.get('user');
                 const token = Cookies.get('token');
+                const myProfileCookie = Cookies.get('myProfile');
                 console.log(token)
-    
+                
+
+                
+
                 if (userCookie && token) {
+                    
                         const decodedUserCookie = decodeURIComponent(userCookie);
                         const cleanedUserJson = decodedUserCookie.startsWith('j:') ? decodedUserCookie.slice(2) : decodedUserCookie;
                         const user = JSON.parse(cleanedUserJson);
+                        console.log(user);
+                        
+                        const decodedMyProfileCookie = decodeURIComponent(myProfileCookie);
+                        const cleanedMyProfileJson = decodedMyProfileCookie.startsWith('j:') ? decodedMyProfileCookie.slice(2) : decodedMyProfileCookie;
+                        const myProfile = JSON.parse(cleanedMyProfileJson);
+                        console.log(myProfile);
     
                         const payload = {
-                            userInfo: user,
+                            userInfo: user._doc,
+                            myProfile,
                             isAuthenticated: true,
                             token
                         };
-                        dispatch(login(payload));
-    
+                        console.log(payload)
+                        dispatch(login((payload)));
+                        
                         navigate('/home');
                 } 
             } catch (err) {

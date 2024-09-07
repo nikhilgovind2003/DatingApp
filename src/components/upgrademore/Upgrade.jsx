@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Upgrade = () => {
     return (
@@ -6,8 +7,9 @@ const Upgrade = () => {
             <h1 className='text-[2.5rem] mt-0 flex flex-col justify-center items-center font-Play font-normal tracking-wide leading-none py-[2rem] '>
                 Upgrade to<br/> view more
             </h1>
-            <button className='bg-deep-plum shadow-lg rounded-3xl text-white font-bold py-[1rem] w-[60%] '>Upgrade</button>
-          
+            <Link to={'/subscription'}>
+            <a className='bg-deep-plum shadow-lg py-4 px-8 rounded-3xl text-white font-bold  w-[60%] '>Upgrade</a>
+            </Link>
         </div>
     );
 };

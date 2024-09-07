@@ -72,7 +72,7 @@ const DesignationPage = () => {
       </div>
       <div className="grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-3 grid-cols-2 gap-5">
         {users?.map((user, i) => (
-           <Link to={`/profile/${user._id}?%=${user.matchPercentage}`} 
+           <Link to={`/profile/${user.user}?match=${user.matchPercentage}`} 
            key={i} >
           <MatchCardComponent
             key={i}

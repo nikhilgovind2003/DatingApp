@@ -1,135 +1,220 @@
-import React from 'react';
-import {
-  ChakraProvider,
-  Slider,
-  SliderTrack,
-  SliderFilledTrack,
-  SliderThumb,
-} from '@chakra-ui/react';
-import PageTitle from '../components/PageTitle/PageTitle';
-import { Search } from 'lucide-react';
+import React, { useState } from "react";
+import { RangeSlider, RangeSliderTrack, RangeSliderFilledTrack, RangeSliderThumb, ChakraProvider } from "@chakra-ui/react";
+import PageTitle from "../components/PageTitle/PageTitle";
+import { Search } from "lucide-react";
+import Autocomplete from "react-google-autocomplete"; // Import the Autocomplete component
+import axios from "axios";
 
 function PartnerPreferances() {
+  const [gender, setGender] = useState("Both");
+  const [educationLevel, setEducationLevel] = useState("High School");
+  const [lifestyleChoices, setLifestyleChoice] = useState("");
+  const [religion, setReligion] = useState("");
+  const [occupation, setOccupation] = useState("");
+  const [height, setHeight] = useState([100, 220]);
+  const [weightRange, setWeightRange] = useState([40, 150]);
+  const [ageRange, setAgeRange] = useState([18, 35]);
+  const [selectedLocation, setSelectedLocation] = useState("");
 
+  console.log("selectedLocation" + selectedLocation);
+
+  // Handle the place selection from Autocomplete
+  const handlePlaceSelected = (place) => {
+    setSelectedLocation(place.formatted_address); // Set the selected place address
+    console.log("Selected Place:", place); // Log the entire place object for reference
+  };
+
+  const body = { gender, occupation, educationLevel, ageRange, height, weightRange, lifestyleChoices, religion, selectedLocation };
+  const userinfo = JSON.parse(sessionStorage.getItem('userInfo')); // Parse the string into an object
+  const userId = userinfo._id; // Access the _id property
+  console.log(userId);
+
+  const storePreference = async () => {
+    try {
+      const response = await axios.post(`http://localhost:5000/api/v1/users/preferences/${userId}`, body);
+      console.log(response);
+    } catch (error) {
+      console.error("Error saving preferences:", error);
+    }
+  };
 
   return (
-    <div className=" bg-deep-plum  pt-2 h-screen   overflow-scroll   ">
-      <PageTitle icon={Search} pageTitle={'Privacy & Settings  '} />
-      <div className='bg-white rounded-t-3xl px-8 h-screen py-6 overflow-y-auto'>
-        <div className='text-2xl mb-2 font-semibold'><h1></h1>Partner Preference</div>
+    <div className="bg-deep-plum pt-2 h-screen overflow-scroll">
+      <PageTitle icon={Search} pageTitle={"Privacy & Settings  "} />
+      <div className="bg-white rounded-t-3xl px-8 h-screen py-6 overflow-y-auto">
+        <div className="text-2xl mb-2 font-semibold">Partner Preference</div>
 
-        <div className=''> <h1>Age</h1><h1>18-35</h1></div>
+        <div>
+         
+          <h1>Age Range: {ageRange[0]} - {ageRange[1]}</h1>
+        </div>
         <ChakraProvider>
-          <Slider defaultValue={18} width="100%"
-            aria-label='Age' min={18} max={35}
+          <RangeSlider
+            value={ageRange}
+            onChange={(val) => setAgeRange(val)}
+            width="100%"
+            aria-label={["Min Age", "Max Age"]}
+            min={18}
+            max={35}
           >
-            <SliderTrack>
-              <SliderFilledTrack />
-            </SliderTrack>
-            <SliderThumb />
-          </Slider>
+            <RangeSliderTrack>
+              <RangeSliderFilledTrack />
+            </RangeSliderTrack>
+            <RangeSliderThumb index={0} />
+            <RangeSliderThumb index={1} />
+          </RangeSlider>
         </ChakraProvider>
 
         <h1>Gender</h1>
-        <select className="mt-2 mb-4  rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <option value="option2" selected>Select (default)</option>
-
-          <option value="option1">Male</option>
-          <option value="option3">Female</option>
-          <option value="option3">Other</option>
+        <select
+          value={gender}
+          onChange={(e) => setGender(e.target.value)}
+          className="mt-2 mb-4 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+        >
+            <option  value="Both">select</option> 
+          <option  value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
         </select>
 
-        <br />
-        <div><h1>Locations</h1>
-          <br />
-          <button className='bg-gray-500 hover:bg-blue-700 text-white  px-4 rounded mx-2'>Kochi</button>
-          <button className='bg-gray-500 hover:bg-blue-700 text-white  px-4 rounded mx 4'>Kollam</button >
-          <button className='bg-gray-500 hover:bg-blue-700 text-white  px-4 rounded mx-2'>Aluva</button >
+        <div>
+          <h1>Locations</h1>
         </div>
-        <br />
-        <div><h1>Intrests&Hobbies</h1>
-          <br />
-          <button className='bg-gray-500 hover:bg-blue-700 text-white  px-4 rounded mx-2'>Yoga</button>
-          <button className='bg-gray-500 hover:bg-blue-700 text-white  px-4 rounded mx 4'>Jazz</button >
-          <button className='bg-gray-500 hover:bg-blue-700 text-white  px-4 rounded mx-2'>Reading</button >
+        <div className="mt-2 mb-4">
+          <Autocomplete
+            apiKey="AIzaSyDKAcz-mKypU_dwlJfuGd_WJ6urLA66NIU" // Replace with your new API key
+            onPlaceSelected={handlePlaceSelected}
+            placeholder="Start typing your place"
+            options={{
+              types: ["(cities)"],
+              componentRestrictions: { country: "us" },
+            }}
+            style={{
+              width: "100%",
+              height: "40px",
+              padding: "0 12px",
+              borderRadius: "3px",
+              fontSize: "14px",
+              outline: "none",
+            }}
+          />
         </div>
 
-        <br />
+        <div>
+          <h1>Interests & Hobbies</h1>
+        </div>
+        <button className="bg-gray-500 hover:bg-blue-700 text-white px-4 rounded mx-2">
+          Yoga
+        </button>
+        <button className="bg-gray-500 hover:bg-blue-700 text-white px-4 rounded mx-4">
+          Jazz
+        </button>
+        <button className="bg-gray-500 hover:bg-blue-700 text-white px-4 rounded mx-2">
+          Reading
+        </button>
+
         <h1>Education Level</h1>
-        <select className="mt-2 mb-6  rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <option value="option2" selected>Select (default)</option>
-
-          <option value="option1">Higher secondory</option>
-          <option value="option3">Graduation</option>
-          <option value="option3">Masters</option>
+        <select
+          value={educationLevel}
+          onChange={(e) => setEducationLevel(e.target.value)}
+          className="mt-2 mb-6 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+        >
+          <option  value="High School">High School</option>
+          <option value="Bachelor">Bachelor</option>
+          <option value="Masters">Masters</option>
         </select>
 
-        <div className=''> <h1>Height</h1><h1>cm100-220</h1></div>
+        <div>
+        <h1>height Range: {height[0]} - {height[1]}</h1>
+        </div>
         <ChakraProvider>
-          <Slider defaultValue={100} width="100%"
-            aria-label='Height' min={100} max={220}
-
+          <RangeSlider
+            value={height}
+            onChange={(val) => setHeight(val)} // Update height range on slider change
+            width="100%"
+            aria-label={["Min Height", "Max Height"]}
+            min={100}
+            max={220}
           >
-            <SliderTrack>
-              <SliderFilledTrack />
-            </SliderTrack>
-            <SliderThumb />
-          </Slider>
+            <RangeSliderTrack>
+              <RangeSliderFilledTrack />
+            </RangeSliderTrack>
+            <RangeSliderThumb index={0} />
+            <RangeSliderThumb index={1} />
+          </RangeSlider>
         </ChakraProvider>
-        <br />
 
-        <div className=''> <h1>Weight</h1><h1>kg40-150</h1></div>
+        <div>
+          <h1>Weight-{weightRange}</h1>
+          <h1>kg40-150</h1>
+        </div>
         <ChakraProvider>
-          <Slider defaultValue={40} width="100%"
-            aria-label='Height' min={40} max={150}
-
+          <RangeSlider
+            value={weightRange}
+            onChange={(val) => setWeightRange(val)} // Update weight range on slider change
+            width="100%"
+            aria-label={["Min Weight", "Max Weight"]}
+            min={40}
+            max={150}
           >
-            <SliderTrack>
-              <SliderFilledTrack />
-            </SliderTrack>
-            <SliderThumb />
-          </Slider>
+            <RangeSliderTrack>
+              <RangeSliderFilledTrack />
+            </RangeSliderTrack>
+            <RangeSliderThumb index={0} />
+            <RangeSliderThumb index={1} />
+          </RangeSlider>
         </ChakraProvider>
-        <br />
+
         <h1>Lifestyle Choices</h1>
-        <select className="mt-2  rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <option value="option2" selected>Select (default)</option>
-
-
-          <option value="option1">Social activities</option>
-          <option value="option3">Arts and culture</option>
-          <option value="option3">Indoor activities</option>
-          <option value="option4">Indoor activities</option>
+        <select
+          value={lifestyleChoices}
+          onChange={(e) => setLifestyleChoice(e.target.value)}
+          className="mt-2 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+        >
+          <option selected disabled value="">Select (default)</option>
+          <option value="Social activities">Social activities</option>
+          <option value="Arts and culture">Arts and culture</option>
+          <option value="Indoor activities">Indoor activities</option>
         </select>
 
-        <br /><br />
         <h1>Religion</h1>
-        <select className="mt-2  rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <option value="option2" selected>Select (default)</option>
-
-
-          <option value="option1">Christian</option>
-          <option value="option3">Muslim</option>
-          <option value="option3">Hindhu</option>
-          <option value="option4">Jain</option>
-          <option value="option5">Sikh</option>
-          <option value="option6">Other</option>
+        <select
+          value={religion}
+          onChange={(e) => setReligion(e.target.value)}
+          className="mt-2 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+        >
+          <option selected disabled value="">Select (default)</option>
+          <option value="Christian">Christian</option>
+          <option value="Muslim">Muslim</option>
+          <option value="Hindu">Hindu</option>
+          <option value="Jain">Jain</option>
+          <option value="Sikh">Sikh</option>
+          <option value="Other">Other</option>
         </select>
 
-        <br /><br />
         <h1>Occupation</h1>
-        <select className="mt-2  rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <option value="option2" selected>Select (default)</option>
-
-
-          <option value="option1">Student</option>
-          <option value="option3">Business</option>
-          <option value="option3">Healthcare</option>
-          <option value="option4">Construction</option>
-          <option value="option5">Retail</option>
-          <option value="option6">Other</option>
+        <select
+          value={occupation}
+          onChange={(e) => setOccupation(e.target.value)}
+          className="mt-2 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+        >
+          <option selected  value=" ">Select (default)</option>
+          <option value="Student">Student</option>
+          <option value="Business">Business</option>
+          <option value="Healthcare">Healthcare</option>
+          <option value="Construction">Construction</option>
+          <option value="Retail">Retail</option>
+          <option value="Other">Other</option>
         </select>
 
+        <div className="mt-4">
+          <button
+            onClick={storePreference} // Trigger the function when clicked
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Save Preferences
+          </button>
+        </div>
       </div>
     </div>
   );

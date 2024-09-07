@@ -126,13 +126,13 @@ const HomePage = () => {
           </Link>
         ))}
       </div>
-      {location.lat && location.lng ? (
+      {/* {location.lat && location.lng ? (
         <p>Your location: Latitude: {location.lat}, Longitude: {location.lng}</p>
       ) : error ? (
         <p>Error getting location: {error}</p>
       ) : (
         <p>Fetching location...</p>
-      )}
+      )} */}
     </section>
   );
 };

@@ -66,7 +66,7 @@ const QualificationPage = () => {
               distance={user.distance}
               name={user.name}
               age={user.age}
-              place={user.location.place}
+              place={user?.location?.place}
               match={user.matchPercentage}  // Pass the matchPercentage to the MatchCardComponent
             />
           </Link>

@@ -1,11 +1,11 @@
 import { CheckCheck, ChevronLeft  } from 'lucide-react';
+import '../SpinPage/SpinPage.css'
 
 const SpinPage = () => {
   return (
     <div className=" relative  bg-deep-plum min-h-screen">
-
-      <div className=' p-2 border-[1px] relative top-[24px] left-[24px] border-gray-400 w-[40px] h-[40px] flex items-center justify-center rounded-full'>
-        < ChevronLeft  className=' text-gray-400 mt4'/>
+      <div className=" p-2 border-[1px] relative top-[24px] left-[24px] border-gray-400 w-[40px] h-[40px] flex items-center justify-center rounded-full">
+        <ChevronLeft className=" text-gray-400 mt4" />
       </div>
 
       <div className=" flex items-center pt-24 text-primary flex-col justify-center">
@@ -19,10 +19,9 @@ const SpinPage = () => {
         </div>
       </div>
 
-
-      <div className=' text-center mt-12 text-primary flex flex-col items-center gap-4'>
+      <div className=" text-center mt-12 text-primary flex flex-col items-center gap-4">
         <p>Sona - 27</p>
-        <div className=' w-[90px] rounded-full bg-light-purple px-4 flex items-center gap-2'>
+        <div className=" w-[90px] rounded-full bg-light-purple px-4 flex items-center gap-2">
           <CheckCheck />
           Like
         </div>
@@ -30,7 +29,7 @@ const SpinPage = () => {
 
       <div className="absolute bottom-0 flex items-end justify-center w-full">
         <svg
-          className=""
+          className="loading-spinner"
           width="375"
           height="272"
           viewBox="0 0 375 272"
@@ -40,7 +39,7 @@ const SpinPage = () => {
           <g opacity="0.2">
             <path
               d="M301.044 38.2586L299.624 40.1158C267.18 15.4042 228.421 2.33824 187.521 2.33824C124.162 2.33824 65.8715 34.2164 31.5919 87.6162L29.6255 86.3489C64.3202 32.2718 123.354 0.000350952 187.521 0.000350952C228.924 0.000350952 268.185 13.2411 301.044 38.2586Z"
-              fill="white"
+              fill="yellow"
             />
             <path
               d="M375 187.489C375 290.88 290.885 375 187.5 375C84.115 375 0 290.88 0 187.489H2.33773C2.33773 289.591 85.404 372.64 187.478 372.64C289.574 372.64 372.619 289.569 372.619 187.489C372.619 156.638 364.885 126.092 350.246 99.174L352.3 98.0597C367.179 125.328 375 156.266 375 187.489Z"

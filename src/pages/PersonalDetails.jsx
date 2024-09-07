@@ -25,7 +25,7 @@ const schema = yup.object().shape({
       cutoff.setFullYear(cutoff.getFullYear() - 18);
       return value <= cutoff;
     }), 
-  /* location: yup.string().required("Location is required"), */
+  location: yup.string().required("Location is required"),
   hobbies: yup.string().required("Hobbies are required"),
   interests: yup.string().required("Interests are required"),
   smoking: yup.string().required("Smoking habits are required"),
@@ -81,9 +81,6 @@ const schema = yup.object().shape({
 const PersonalDetails = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [location, setLocation] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
-  const [selectLocation,setSelectLocation] = useState(null)
   const {
     register,
     handleSubmit,
@@ -92,47 +89,7 @@ const PersonalDetails = () => {
     resolver: yupResolver(schema),
   });
 
-  const handleLocation = async(e) => {
-    const value = e.target.value;
-    setLocation(value);
-
-    if (value.length > 2) {
-      try {
-        const {data} = await axios.get(
-          `https://us1.locationiq.com/v1/search?key=pk.59d2e76f1cb59d35b1601bedd9ece934&q=${value}&format=json&accept-language=en&countrycodes=in&`
-        );
-        setSuggestions(data);
-        
-        
-        
-      } catch (error) {
-        console.error("Error fetching location data", error);
-        setSuggestions([]);
-        console.log("error");
-        
-      }
-    } else {
-      setSuggestions([]);
-      console.log("welse case");
-      
-    }
-  };
-
-  const handleSelect = (suggestion) => {
-    setLocation(suggestion.display_name);
-    const displayName = suggestion.display_name;
-    const parts = displayName.split(',');
-    const cityName = parts[0].trim()
-    console.log(cityName);
-    
-    setSuggestions([]);
-    setSelectLocation({
-      lat: suggestion.lat,
-      lon: suggestion.lon,
-      city: cityName
-    });
-    
-  };
+ 
 
   const onSubmit = async (data) => {
     setLoading(true);
@@ -140,9 +97,7 @@ const PersonalDetails = () => {
 
     formData.append("bio", data.bio);
     formData.append("dob", data.dob);
-    formData.append("lat", selectLocation?.lat || '');
-    formData.append("lon", selectLocation?.lon || '');
-    formData.append("city", selectLocation?.city || '');
+    formData.append("location", selectLocation?.lat || '');
     formData.append("hobbies", data.hobbies);
     formData.append("interests", data.interests);
     formData.append("smoking", data.smoking);
@@ -239,8 +194,7 @@ const PersonalDetails = () => {
               <input
                 type="text"
                 id="location"
-                value={location}
-                onChange={handleLocation}
+                {...register("location")}
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
                 required
               />
@@ -248,22 +202,6 @@ const PersonalDetails = () => {
                 <p className="text-red-600">{errors.location.message}</p>
               )}
             </div>
-            {suggestions.length > 0 && (
-              <ul className="absolute bg-white border border-gray-300 mt-1  z-10 w-1/4">
-                {suggestions.map((suggestion) => {
-                  return(
-                     <li
-                    key={suggestion.place_id}
-                    onClick={() => handleSelect(suggestion)}
-                    className="cursor-pointer  hover:bg-gray-100"
-                  >
-                    {suggestion.display_name}
-                  </li>
-                  )
-                 
-                })}
-              </ul>
-            )}
             <div className="mb-4">
               <label htmlFor="hobbies" className="block text-gray-700">
                 Hobbies

@@ -52,6 +52,24 @@ const HomePage = () => {
         console.log("Error fetching users:", error);
       }
     };
+
+    const getLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            setLocation({
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            });
+          },
+          (error) => {
+            setError(error.message);
+          }
+        );
+      } else {
+        setError("Geolocation is not supported by this browser.");
+      }
+    };
     fetchUsers();
     handleAuthentication();
   }, [dispatch]);

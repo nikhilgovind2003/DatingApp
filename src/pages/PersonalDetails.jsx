@@ -17,14 +17,10 @@ const SUPPORTED_REEL_FORMATS = [
 
 const schema = yup.object().shape({
   bio: yup.string().required("Bio is required"),
-  dob: yup
-    .date()
-    .required("Date of Birth is required")
-    .test("age", "You must be at least 18 years old", function (value) {
-      const cutoff = new Date();
-      cutoff.setFullYear(cutoff.getFullYear() - 18);
-      return value <= cutoff;
-    }),
+  age: yup
+    .number()
+    .required("Age is required")
+    .min(18, "You must be at least 18 years old"),
   location: yup.string().required("Location is required"),
   hobbies: yup.string().required("Hobbies are required"),
   interests: yup.string().required("Interests are required"),
@@ -170,19 +166,18 @@ const PersonalDetails = () => {
               )}
             </div>
             <div className="mb-4">
-              <label htmlFor="dob" className="block text-gray-700">
-                Date of Birth
-              </label>
-              <input
-                type="date"
-                id="dob"
-                {...register("dob")}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
-              />
-              {errors.dob && (
-                <p className="text-red-600">{errors.dob.message}</p>
-              )}
-            </div>
+  <label htmlFor="age" className="block text-gray-700">
+    Age
+  </label>
+  <input
+    type="number"
+    id="age"
+    {...register("age")}
+    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
+  />
+  {errors.age && <p className="text-red-600">{errors.age.message}</p>}
+</div>
+
             <div className="mb-4">
               <label htmlFor="location" className="block text-gray-700">
                 Location

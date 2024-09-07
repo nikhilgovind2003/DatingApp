@@ -90,7 +90,7 @@ const PersonalDetails = () => {
     const formData = new FormData();
 
     formData.append("bio", data.bio);
-    formData.append("dob", data.dob);
+    formData.append("age", data.age);
     formData.append("location", data.location);
     formData.append("hobbies", data.hobbies);
     formData.append("interests", data.interests);

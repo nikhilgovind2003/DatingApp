@@ -11,19 +11,20 @@ const socket = io.connect("http://localhost:5000");
 const Chat = () => {
   const [value, setValue] = useState("");
   const [messages, setMessages] = useState([]);
-  const [send, setSend] = useState("");
   const [messageReceived, setMessageReceived] = useState("");
 
   const sendMessage = async () => {
     try {
       // Emit message to server via socket
-      socket.emit("send_message", { value });
-
+      socket.emit("sendMessage", { value });
       // Call the API to send the message (if applicable)
-      // const res = await axios.post(
-      //   `http://localhost:5000/api/v1/users/messages/send`
-      // );
-      // setSend(res.data);
+      await axios.post(
+        `http://localhost:5000/api/v1/users/messages/send`, {
+          message: value
+        }
+      );
+
+      
     } catch (error) {
       console.log(error.messages);
     }
@@ -43,7 +44,7 @@ const Chat = () => {
 
   useEffect(() => {
     // Listen for incoming messages
-    socket.on("recieve_message", (data) => {
+    socket.on("getMessage", (data) => {
       setMessageReceived(data.value);
 
       // Add the received message to the messages list (with "received" status)
@@ -52,11 +53,7 @@ const Chat = () => {
         { text: data.value, time: new Date().toLocaleTimeString(), sent: false },
       ]);
     });
-
-    // Cleanup listener when component unmounts
-    return () => {
-      socket.off("recieve_message");
-    };
+    
   }, [socket]);
 
   return (
@@ -81,8 +78,8 @@ const Chat = () => {
             key={index}
             className={`relative p-4 rounded-xl mt-4 w-3/4 ${
               msg.sent
-                ? "bg-deep-plum bg-opacity-60 text-black font-bold ml-[100px] lg:ml-[190px] rounded-l-xl"
-                : "bg-green-200 text-white font-bold mr-[100px] lg:mr-[190px] rounded-r-xl"
+                ? "bg-blue-400   text-white font-bold ml-[100px] lg:ml-[190px] rounded-l-xl"
+                : "bg-deep-plum bg-opacity-60 text-black font-bold mr-[100px] lg:mr-[190px] rounded-r-xl"
             }`}
           >
             <p className="mb-4">{msg.text}</p>

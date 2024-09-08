@@ -8,7 +8,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 export default function Messages() {
-  const [user, setUser] = useState([]);
+  const [contacts, setContacts] = useState([])
+
   // const { onlineUsers } = useSocketContext
   // const isOnline = onlineUsers.include(conversation._id)
   useEffect(() => {
@@ -17,7 +18,7 @@ export default function Messages() {
         const response = await axios.get(
           "http://localhost:5000/api/v1/users/users"
         );
-        setUser(response.data);
+        setContacts(response.data);
       } catch (error) {
         console.log("Error fetching users:", error);
       }
@@ -56,7 +57,7 @@ export default function Messages() {
 
       {/* Messages Section */}
       <div className="rounded-t-4xl bg-white pt-5 px-5 pb-24 md:pb-5 sm:border-2 border-deep-plum mt-6">
-        {user.map((u) => {
+        {contacts.map((u) => {
           const name = `${u.user.firstName} ${u.user.lastName}`;
           return (
             <Link key={u._id} to={`/chat/${u._id}`}>

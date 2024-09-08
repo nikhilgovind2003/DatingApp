@@ -27,7 +27,7 @@ const StoryView = () => {
   }, []);
 
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-4 items-center ">
       <button>
         <UserIcon url={myProfile?.profileImage?.url} />
         <p className="mt-0.5 text-[14px]">My Story</p>

@@ -4,10 +4,10 @@
 const interestIcons = {
     travel: "✈️",
     running: "🏃‍♂️",
-    swimming: "🏊‍♂️",
+    swim: "🏊‍♂️",
     football: "⚽",
     music: "🎵",
-    reading: "📚",
+    read: "📚",
     hiking: "🥾",
     cooking: "🍳",
     movie: "🎬",

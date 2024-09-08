@@ -56,7 +56,8 @@ import Chat from './pages/chat/Chat';
 
 function App() {
 
-  const hideOnRoutes = ['/credit','/subscription',`/chat/:id`, `/story/1`,'/spin','/create_group','/notification']; 
+  const hideOnRoutes = ['/credit','/subscription',`/chat`, `/story/1`,'/spin','/create_group','/notification','/partener_preferences']; 
+
   return (
     <BrowserRouter>
       <Routes>
@@ -98,7 +99,7 @@ function App() {
           <Route path='create_group' element={<CreateGroup />} />
           <Route path='/profile/:userId' element={<UsersProfile />} />
           <Route path='/search' element={<SearchPage />} />
-          <Route path='/chat/:id' element={<Chat />} />
+          <Route path='/chat' element={<Chat />} />
           
         </Route>
         <Route path='/job_status' element={<JobStatus />} />

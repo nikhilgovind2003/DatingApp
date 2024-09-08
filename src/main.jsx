@@ -4,14 +4,15 @@ import "./index.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import { Provider } from "react-redux";
 import store from "./redux/store.js";
-import React from "react";
-
+import { SocketProvider } from "./context/SocketContext.jsx";
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <ChakraProvider>
-      <React.StrictMode>
+      {/* <React.StrictMode> */}
+      <SocketProvider>
         <App />
-      </React.StrictMode>
+      </SocketProvider>
+      {/* </React.StrictMode> */}
     </ChakraProvider>
   </Provider>
 );

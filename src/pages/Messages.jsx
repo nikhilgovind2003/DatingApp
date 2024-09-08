@@ -8,7 +8,30 @@ import { LiaHeartSolid } from "react-icons/lia";
 
 
 export default function Messages() {
+<<<<<<< HEAD
 return (
+=======
+  const [contacts, setContacts] = useState([])
+
+  // const { onlineUsers } = useSocketContext
+  // const isOnline = onlineUsers.include(conversation._id)
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/api/v1/users/users"
+        );
+        setContacts(response.data);
+      } catch (error) {
+        console.log("Error fetching users:", error);
+      }
+    };
+    fetchUsers();
+  }, []);
+
+
+  return (
+>>>>>>> feature/nikhil
     <div className="bg-deep-plum h-screen overflow-y-auto">
       <PageTitle icon={ChevronLeft} pageTitle={"Messages"} />
       
@@ -34,8 +57,13 @@ return (
       
       {/* Messages Section */}
       <div className="rounded-t-4xl bg-white pt-5 px-5 pb-24 md:pb-5 sm:border-2 border-deep-plum mt-6">
+<<<<<<< HEAD
         {Userdata.filter(user => user.message).map(user => {
           const name = `${user.firstName} ${user.lastName}`;
+=======
+        {contacts.map((u) => {
+          const name = `${u.user.firstName} ${u.user.lastName}`;
+>>>>>>> feature/nikhil
           return (
             <UserPreview 
               key={user.id} 

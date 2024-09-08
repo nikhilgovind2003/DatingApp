@@ -89,7 +89,7 @@ const HomePage = () => {
   }, [dispatch]);
 
   return (
-    <section className="lg:w-full md:w-full sm:w-screen pt-5 px-5 pb-24 md:pb-5 h-screen overflow-y-auto overflow-x-hidden">
+    <section className=" sm: w-screen md:w-full lg:w-full pt-5 px-5 pb-24 md:pb-5 h-screen overflow-y-auto overflow-x-hidden">
       <div className="flex justify-between md:hidden gap-5">
         <Sidemenu />
         <div className="flex gap-3">
@@ -126,13 +126,13 @@ const HomePage = () => {
           </Link>
         ))}
       </div>
-      {location.lat && location.lng ? (
+      {/* {location.lat && location.lng ? (
         <p>Your location: Latitude: {location.lat}, Longitude: {location.lng}</p>
       ) : error ? (
         <p>Error getting location: {error}</p>
       ) : (
         <p>Fetching location...</p>
-      )}
+      )} */}
     </section>
   );
 };

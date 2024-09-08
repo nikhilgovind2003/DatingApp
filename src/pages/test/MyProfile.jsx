@@ -27,7 +27,7 @@ function MyProfile() {
         <div
           className="h-[75vh] overflow-hidden sticky top-0"
           style={{
-            background: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(128, 0, 128, 0.7)), url("${user?.profileImage?.url || 'fallbackImage.jpg'}") top / cover no-repeat`
+            background: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(128, 0, 128, 0.7)), url("${user?.profileImage?.url || 'fallbackImage.jpg'}") center / cover no-repeat`
           }}
         >
           <div className="topnavigation flex p-2 sticky top-6 justify-between">
@@ -75,7 +75,7 @@ function MyProfile() {
             {/* Dynamic Interests */}
             <div className="mt-4">
               <span className="text-gray-600">Interest</span>
-              <div className="flex gap-2 flex-wrap">
+              <div className="flex gap-2 justify-center flex-wrap">
                 {user?.interests?.[0]?.split(',').map((interest, index) => (
                   <Button
                     key={index}

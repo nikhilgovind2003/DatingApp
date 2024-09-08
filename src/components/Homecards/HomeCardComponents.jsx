@@ -14,6 +14,8 @@ const HomeCardComponents = (props) => {
           onMouseLeave={() => setHover(false)}
           style={{
             backgroundImage: `url("${props.img}")`,
+            backgroundPosition:'top',
+            backgroundSize:'cover'
           }}
           className="w-full h-[120px] rounded-2xl bg-cover object-contain relative"
         >

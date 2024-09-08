@@ -2,12 +2,13 @@ import { ArrowLeft, CircleX, MessageSquare, Plus } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import Upgrade from "./../components/upgrademore/Upgrade";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { UserIcon } from "../Components";
 
 export default function Story() {
   const [clicked, setClicked] = useState(false);
   const [story, setStory] = useState({});
+  const [users, setUsers] = useState([])
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const videoRef = useRef(null);
@@ -24,10 +25,29 @@ export default function Story() {
       }
     };
     getStory();
+
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/v1/users/users"); // Fetch all users from your backend
+        setUsers(response.data); // Store fetched users in state
+        console.log("Fetched Data:", response.data);
+      } catch (error) {
+        console.log("Error fetching users:", error);
+      }
+    };
+    fetchUsers();
   }, [path]);
 
   const videoUrl = story?.reel?.url;
-  const profileImageUrl = story?.profileImage?.url;
+
+  const storyUser = useParams()
+
+  const currentStoryUser = users.find(user => user._id == storyUser.id)
+  console.log(currentStoryUser);
+  
+  
+  
+  //const storyUser = story?._id;
 
   const handleTimeUpdate = () => {
     if (videoRef.current) {
@@ -56,7 +76,6 @@ export default function Story() {
   };
 
 
-  console.log(profileImageUrl);
   
   return (
     <div className="relative flex flex-col h-screen bg-cover bg-center w-full mx-auto items-center z-10">
@@ -96,7 +115,7 @@ export default function Story() {
         className="absolute top-0 left-0 ml-5 flex items-center w-full md:w-1/3 bg-opacity-50 text-white py-4 z-10 cursor-pointer"
       >
         <ArrowLeft onClick={()=> navigate("/home")} />
-        <UserIcon url={profileImageUrl} story={true} />
+        <UserIcon story={true} url={currentStoryUser?.profileImage?.url}/>
       </header>
 
       {/* Footer */}

@@ -55,7 +55,7 @@ const Rightside = () => {
   return (
     <div>
       <Button variant={'none'} className='flex items-center gap-2 ' onClick={toggleDropdown}>
-        <UserIcon />
+        <UserIcon url={myProfile?.profileImage?.url}/>
       </Button>
 
       <Drawer placement={placements} isOpen={isOpen} onClose={!isOpen}>

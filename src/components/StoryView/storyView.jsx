@@ -33,11 +33,11 @@ const StoryView = () => {
         <p className="mt-0.5 text-[14px]">My Story</p>
       </button>
       {users
-        .filter(user => myProfile.user !== user._id) // Filter out the current user's story
+        .filter(user => myProfile.user !== user.user._id) // Filter out the current user's story
         .map((user, i) => (
           <Link key={user._id} to={`/story/${user._id}`}>
             <button className="flex flex-col items-center">
-              <UserIcon story={true} url={user.profileImage.url} />
+              <UserIcon story={true} url={user.profileImage.url} user={user._id} />
               <p className="mt-0.5 text-[14px]">{user.user?.firstName}</p>
             </button>
           </Link>

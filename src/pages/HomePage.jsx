@@ -1,6 +1,4 @@
-
 import { useEffect, useState } from "react";
-import { Userdata } from "../datas/Userdata";
 import { ButtonGroup, Sidemenu, StoryView, UserIcon } from "../Components";
 import { HiOutlineBell } from "react-icons/hi";
 import HomeCardComponents from "../components/Homecards/HomeCardComponents";
@@ -10,14 +8,15 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { login, logout } from "../redux/features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import MyProfile from "./MyProfile";
 
 const HomePage = () => {
   const dispatch = useDispatch();
-  const userInfo = useSelector(state => state.userAuth)
+  const userInfo = useSelector(state => state.userAuth);
   console.log(userInfo);
-  
+
   const [users, setUsers] = useState([]);
+  const [location, setLocation] = useState({ lat: null, lng: null });
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     // Function to check cookie and dispatch login or logout
@@ -28,25 +27,29 @@ const HomePage = () => {
       if (userCookie && token) {
         try {
           const decodedUserCookie = decodeURIComponent(userCookie);
-          const cleanedUserJson = decodedUserCookie.startsWith('j:') ? decodedUserCookie.slice(2) : decodedUserCookie;
+          const cleanedUserJson = decodedUserCookie.startsWith('j:')
+            ? decodedUserCookie.slice(2)
+            : decodedUserCookie;
           const user = JSON.parse(cleanedUserJson);
           console.log(user);
-          
+
           // Dispatch login action with user and token
           const payload = {
             userInfo: user._doc,
             isAuthenticated: user.isAuthenticated,
-            token
+            token,
           };
           dispatch(login(payload));
         } catch (error) {
-          console.error('Error parsing user data or dispatching login:', error);
+          console.error("Error parsing user data or dispatching login:", error);
           dispatch(logout()); // Log out if there's an issue parsing data
         }
       } else {
         dispatch(logout()); // Log out if cookies are not present
       }
     };
+
+    // Fetch users
     const fetchUsers = async () => {
       try {
         const response = await axios.get(
@@ -60,13 +63,30 @@ const HomePage = () => {
         console.log("Error fetching users:", error);
       }
     };
-    
+
+    // Get current location
+    const getLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            setLocation({
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            });
+          },
+          (error) => {
+            setError(error.message);
+          }
+        );
+      } else {
+        setError("Geolocation is not supported by this browser.");
+      }
+    };
+
     fetchUsers();
     handleAuthentication();
-    }, [dispatch]);
-    
-
-
+    getLocation();
+  }, [dispatch]);
 
   return (
     <section className="lg:w-full md:w-full sm:w-screen pt-5 px-5 pb-24 md:pb-5 h-screen overflow-y-auto overflow-x-hidden">
@@ -86,7 +106,7 @@ const HomePage = () => {
       </div>
 
       <div className="flex justify-between items-center gap-5 overflow-x-auto lg:w-full sm:w-screen">
-    <StoryView />
+        <StoryView />
       </div>
 
       <ButtonGroup />
@@ -106,6 +126,13 @@ const HomePage = () => {
           </Link>
         ))}
       </div>
+      {location.lat && location.lng ? (
+        <p>Your location: Latitude: {location.lat}, Longitude: {location.lng}</p>
+      ) : error ? (
+        <p>Error getting location: {error}</p>
+      ) : (
+        <p>Fetching location...</p>
+      )}
     </section>
   );
 };

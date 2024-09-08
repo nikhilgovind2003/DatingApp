@@ -57,7 +57,6 @@ import Chat from './pages/chat/Chat';
 function App() {
 
   const hideOnRoutes = ['/credit','/subscription',`/chat/:id`, `/story/1`,'/spin','/create_group','/notification']; 
-
   return (
     <BrowserRouter>
       <Routes>

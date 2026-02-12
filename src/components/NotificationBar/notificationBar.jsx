@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import { API_URL } from "../../apiConfig";
 
 
 
@@ -12,7 +13,7 @@ const notificationBar = (prop) => {
   const userInfo = useSelector(state => state.userAuth.userInfo)
   console.log(`Inside Notification ${userInfo?._id}`)
   const [notifications, setNotifications] = useState([]);
-  
+
 
   useEffect(() => {
 
@@ -20,14 +21,14 @@ const notificationBar = (prop) => {
     // .then((res) => res.json())
     // .then((data) => setNotifications(data));
 
-    axios.get(`http://localhost:5000/api/v1/users/notifications`, { withCredentials: true })
-     .then((res) => {
-          console.log(`Fetched Notifications::${res.data} `)
-          setNotifications(res.data);  // Access the parsed JSON directly using res.data
-       })
+    axios.get(`${API_URL}/users/notifications`, { withCredentials: true })
+      .then((res) => {
+        console.log(`Fetched Notifications::${res.data} `)
+        setNotifications(res.data);  // Access the parsed JSON directly using res.data
+      })
       .catch((error) => {
-              console.error('Error fetching notifications:', error);
-        });
+        console.error('Error fetching notifications:', error);
+      });
 
     console.log(userInfo?._id)
     // Join room specific to the user
@@ -53,9 +54,9 @@ const notificationBar = (prop) => {
       </nav>
 
       <div className="flex flex-col items-center gap-4 justify-center w-full mt-16">
-      {notifications.map((notification) => (
-                  <NotificationComponent key={socket.id}  notification={notification}/>
-      ))}
+        {notifications.map((notification) => (
+          <NotificationComponent key={socket.id} notification={notification} />
+        ))}
 
         {/* <NotificationComponent
           message="news" logo={<></>}
@@ -71,8 +72,8 @@ const notificationBar = (prop) => {
         <NotificationComponent
           message="Error" color={"text-red-500"} logo={<CircleX/>}
           /> */}
-        
-        
+
+
       </div>
     </div>
   );

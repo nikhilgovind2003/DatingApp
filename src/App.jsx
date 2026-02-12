@@ -1,32 +1,32 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import { 
-  Accept, 
-  DesignationPage, 
-  Groups, 
-  LocationPage, 
-  MatchPage, 
-  QualificationPage, 
-  Sent, 
-  ViewedMyProfilePage, 
-  HomePage, 
-  JobDetails, 
-  JobStatus, 
-  MoreJobDetails, 
-  RelationShipGoals, 
-  PersonalDetails, 
-  Interested, 
-  DatingInterest, 
-  LoginPage, 
-  SignUp, 
-  LandingPage, 
-  RejectPage, 
-  ReceivePage, 
-  ShortlistPage, 
-  ShortlistByPage, 
-  ContactedPage, 
-  Error404, 
-  Error403, 
+import {
+  Accept,
+  DesignationPage,
+  Groups,
+  LocationPage,
+  MatchPage,
+  QualificationPage,
+  Sent,
+  ViewedMyProfilePage,
+  HomePage,
+  JobDetails,
+  JobStatus,
+  MoreJobDetails,
+  RelationShipGoals,
+  PersonalDetails,
+  Interested,
+  DatingInterest,
+  LoginPage,
+  SignUp,
+  LandingPage,
+  RejectPage,
+  ReceivePage,
+  ShortlistPage,
+  ShortlistByPage,
+  ContactedPage,
+  Error404,
+  Error403,
   Story,
   SpinPage,
   AddCreditCard,
@@ -37,7 +37,7 @@ import {
 import DesktopLayout from './layout/DesktopLayout';
 import Profileviewpage from './pages/Profileviewpage';
 import MyProfile from './pages/MyProfile';
-import PaymentMethods from './pages/PaymentMethods'; 
+import PaymentMethods from './pages/PaymentMethods';
 import ChangePwdPage from './pages/ChangePwdPage';
 import EditprofilePage from './pages/EditprofilePage';
 import PrivacyandSettingspage from './pages/PrivacyandSettingspage';
@@ -57,26 +57,27 @@ import ProtectedRouter from './utils/ProtectedRouter';
 import ProtectedPrimeRouter from './utils/ProtectedPrimeRouter';
 import { useSelector } from 'react-redux';
 import io from 'socket.io-client';
+import { SOCKET_URL } from './apiConfig';
 
-const socket = io('http://localhost:8800');
+const socket = io(SOCKET_URL);
 
 function App() {
   const isAuthenticated = useSelector(state => state.userAuth.isAuthenticated);
-  const isPrime = useSelector(state => state.userAuth.userInfo?.isPrime?true:true);
+  const isPrime = useSelector(state => state.userAuth.userInfo?.isPrime ? true : true);
   console.log(isPrime, 'prime')
-  const hideOnRoutes = ['/credit','/subscription',`/chat`, `/story/1`,'/spin','/create_group','/notification','/partener_preferences','/','/login','/sign_up','/personal_details','/interested','/dating_interest','/job_status','/job_details','/editprofile']; 
+  const hideOnRoutes = ['/credit', '/subscription', `/chat`, `/story/1`, '/spin', '/create_group', '/notification', '/partener_preferences', '/', '/login', '/sign_up', '/personal_details', '/interested', '/dating_interest', '/job_status', '/job_details', '/editprofile'];
 
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<DesktopLayout />}>
-          <Route path='/home' element={<ProtectedRouter isAuthenticated={isAuthenticated}><HomePage/></ProtectedRouter>} />
+          <Route path='/home' element={<ProtectedRouter isAuthenticated={isAuthenticated}><HomePage /></ProtectedRouter>} />
           <Route path='/discover' element={<ProtectedRouter isAuthenticated={isAuthenticated}><DiscoverPage /></ProtectedRouter>} />
-          <Route path='/notification' element={<ProtectedRouter isAuthenticated={isAuthenticated}><Notification socket={socket}/></ProtectedRouter>} />
+          <Route path='/notification' element={<ProtectedRouter isAuthenticated={isAuthenticated}><Notification socket={socket} /></ProtectedRouter>} />
           <Route path='/qualification' element={<ProtectedRouter isAuthenticated={isAuthenticated}><QualificationPage /></ProtectedRouter>} />
           <Route path='/profileview' element={<ProtectedRouter isAuthenticated={isAuthenticated}><Profileviewpage /></ProtectedRouter>} />
           <Route path='/profile' element={<ProtectedRouter isAuthenticated={isAuthenticated}><MyProfile /></ProtectedRouter>} />
-          <Route path='/paymentMethod' element={<ProtectedRouter isAuthenticated={isAuthenticated}><PaymentMethods /></ProtectedRouter>} /> 
+          <Route path='/paymentMethod' element={<ProtectedRouter isAuthenticated={isAuthenticated}><PaymentMethods /></ProtectedRouter>} />
           <Route path='/change-password' element={<ProtectedRouter isAuthenticated={isAuthenticated}><ChangePwdPage /></ProtectedRouter>} />
           <Route path='/editprofile' element={<ProtectedRouter isAuthenticated={isAuthenticated}><EditprofilePage /></ProtectedRouter>} />
           <Route path='/privacyandsetting' element={<ProtectedRouter isAuthenticated={isAuthenticated}><PrivacyandSettingspage /></ProtectedRouter>} />
@@ -127,4 +128,4 @@ function App() {
   );
 }
 
-export {App,socket};
+export { App, socket };

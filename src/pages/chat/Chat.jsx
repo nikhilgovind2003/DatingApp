@@ -3,33 +3,42 @@ import { ArrowLeft, Mic, Paperclip, Send } from "lucide-react";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import { MdCall } from "react-icons/md";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import io from "socket.io-client";
-const socket = io('http://localhost:8800');
+import { API_URL, SOCKET_URL } from "../../apiConfig";
+
+const socket = io(SOCKET_URL);
 
 const Chat = () => {
   const [value, setValue] = useState("");
   const [messages, setMessages] = useState([]);
-  const [messageReceived, setMessageReceived] = useState("");
+  const { id: receiverId } = useParams();
 
   // Function to save messages to localStorage
   const saveMessagesToLocalStorage = (messages) => {
-    localStorage.setItem("chatMessages", JSON.stringify(messages));
+    localStorage.setItem(`chatMessages_${receiverId}`, JSON.stringify(messages));
   };
+
 
   const sendMessage = async () => {
     try {
       // Emit message to server via socket
-      socket.emit("sendMessage", { value });
+      socket.emit("send-message", { value, receiverId });
       // Call the API to send the message (if applicable)
       await axios.post(
-        `http://localhost:5000/api/v1/users/messages/send`,
+        `${API_URL}/users/messages/send/${receiverId}`,
         {
           message: value
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('jwtToken')}`
+          }
         }
       );
     } catch (error) {
-      console.log(error.messages);
+      console.log(error.message);
     }
 
     if (value.trim()) {
@@ -51,11 +60,11 @@ const Chat = () => {
 
   useEffect(() => {
     // Retrieve messages from localStorage on component mount
-    const storedMessages = localStorage.getItem("chatMessages");
+    const storedMessages = localStorage.getItem(`chatMessages_${receiverId}`);
     if (storedMessages) {
       setMessages(JSON.parse(storedMessages));
     }
-  
+
     // Listen for incoming messages
     const handleMessage = (data) => {
       setMessages((prevMessages) => {
@@ -63,22 +72,22 @@ const Chat = () => {
           ...prevMessages,
           { text: data.value, time: new Date().toLocaleTimeString(), sent: false }
         ];
-        
+
         // Save the received messages to localStorage
         saveMessagesToLocalStorage(updatedMessages);
-        
+
         return updatedMessages;
       });
     };
-  
-    socket.on("getMessage", handleMessage);
-  
+
+    socket.on("recieve-message", handleMessage);
+
     // Cleanup the listener when the component unmounts
     return () => {
-      socket.off("getMessage", handleMessage);
+      socket.off("recieve-message", handleMessage);
     };
   }, []);
-  
+
 
   return (
     <div className="relative bg-deep-plum h-screen overflow-y-auto">
@@ -100,11 +109,10 @@ const Chat = () => {
         {messages.map((msg, index) => (
           <div
             key={index}
-            className={`relative p-4 rounded-xl mt-4 w-3/4 ${
-              msg.sent
-                ? "bg-blue-400   text-white font-bold ml-[100px] lg:ml-[190px] rounded-l-xl"
-                : "bg-deep-plum bg-opacity-60 text-black font-bold mr-[100px] lg:mr-[190px] rounded-r-xl"
-            }`}
+            className={`relative p-4 rounded-xl mt-4 w-3/4 ${msg.sent
+              ? "bg-blue-400   text-white font-bold ml-[100px] lg:ml-[190px] rounded-l-xl"
+              : "bg-deep-plum bg-opacity-60 text-black font-bold mr-[100px] lg:mr-[190px] rounded-r-xl"
+              }`}
           >
             <p className="mb-4">{msg.text}</p>
             <p className="absolute bottom-2 right-4 text-xs mt-4 lg:text-sm">

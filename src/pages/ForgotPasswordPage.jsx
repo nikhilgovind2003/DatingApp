@@ -4,27 +4,32 @@ import { useForm } from 'react-hook-form';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { zodResolver } from '@hookform/resolvers/zod';
+import { forgotPasswordSchema } from '../utils/validationSchemas';
+
 const ForgotPasswordPage = () => {
     const [loading, setLoading] = useState(false);
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        resolver: zodResolver(forgotPasswordSchema)
+    });
 
     const onSubmit = (data) => {
         setLoading(true);
         // console.log(data);
         axios.post('http://localhost:5000/forgot-password', data)
-        .then(res => {
-            setLoading(false);
-            toast.success(res.data.message, { duration: 1000 })
-        })
-        .catch(err => {
-            setLoading(false);
-            toast.error(err.response.data.message || err, { duration: 1000 })
-        })
+            .then(res => {
+                setLoading(false);
+                toast.success(res.data.message, { duration: 1000 })
+            })
+            .catch(err => {
+                setLoading(false);
+                toast.error(err.response.data.message || err, { duration: 1000 })
+            })
     };
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100 bg-[url('LandingPagebackgroundblur.png')] bg-no-repeat bg-cover bg-fixed backdrop-blur-3xl">
-             <ToastContainer
+            <ToastContainer
                 position="top-right"
                 autoClose={5000}
                 hideProgressBar={false}
@@ -47,9 +52,8 @@ const ForgotPasswordPage = () => {
                             type="email"
                             id="email"
                             {...register('email', { required: 'email is required' })}
-                            className={`mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
-                                errors.email ? 'border-red-500' : ''
-                            }`}
+                            className={`mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${errors.email ? 'border-red-500' : ''
+                                }`}
                         />
                         {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
                     </div>

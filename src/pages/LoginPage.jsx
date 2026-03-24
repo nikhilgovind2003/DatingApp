@@ -7,6 +7,8 @@ import { login, logout } from '../redux/features/auth/authSlice'; // Import logo
 import { useDispatch } from 'react-redux';
 import Cookies from 'js-cookie';
 
+import { loginSchema } from '../utils/validationSchemas';
+
 const LoginPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -19,32 +21,25 @@ const LoginPage = () => {
     const [loading, setLoading] = useState(false);
 
     const validate = () => {
-        const newErrors = {};
-
-        // Email/Mobile validation
-        if (!formData.email.trim()) {
-            newErrors.email = "Email or mobile is required.";
-        } else if (!/\S+@\S+\.\S+/.test(formData.email) && !/^\d{10}$/.test(formData.email)) {
-            newErrors.email = "Enter a valid email or 10-digit mobile number.";
+        const result = loginSchema.safeParse(formData);
+        if (!result.success) {
+            const fieldErrors = {};
+            result.error.errors.forEach((err) => {
+                fieldErrors[err.path[0]] = err.message;
+            });
+            setErrors(fieldErrors);
+            return false;
         }
-
-        // Password validation
-        if (!formData.password.trim()) {
-            newErrors.password = "Password is required.";
-        } else if (formData.password.length < 6) {
-            newErrors.password = "Password must be at least 6 characters long.";
-        }
-
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
+        setErrors({});
+        return true;
     };
 
     const handleChange = (e) => {
         const { id, value } = e.target;
-        setFormData({
-            ...formData,
+        setFormData((prev) => ({
+            ...prev,
             [id]: value,
-        });
+        }));
     };
 
 
@@ -55,49 +50,39 @@ const LoginPage = () => {
             setLoading(true);
             try {
                 const res = await axios.post('http://localhost:5000/login', formData, { withCredentials: true });
-                
-                
+
                 setLoading(false);
-                toast.success(res.data.message, {duration: 1000});
-    
+                toast.success(res.data.message);
+
                 const userCookie = Cookies.get('user');
                 const token = Cookies.get('token');
                 const myProfileCookie = Cookies.get('myProfile');
-                console.log(token)
-                
-
-                
 
                 if (userCookie && token) {
-                    
-                        const decodedUserCookie = decodeURIComponent(userCookie);
-                        const cleanedUserJson = decodedUserCookie.startsWith('j:') ? decodedUserCookie.slice(2) : decodedUserCookie;
-                        const user = JSON.parse(cleanedUserJson);
-                        console.log(user);
-                        
-                        const decodedMyProfileCookie = decodeURIComponent(myProfileCookie);
-                        const cleanedMyProfileJson = decodedMyProfileCookie.startsWith('j:') ? decodedMyProfileCookie.slice(2) : decodedMyProfileCookie;
-                        const myProfile = JSON.parse(cleanedMyProfileJson);
-                        console.log(myProfile);
-    
-                        const payload = {
-                            userInfo: user._doc,
-                            myProfile,
-                            isAuthenticated: true,
-                            token
-                        };
-                        console.log(payload)
-                        dispatch(login((payload)));
-                        
-                        navigate('/home');
-                } 
+                    const decodedUserCookie = decodeURIComponent(userCookie);
+                    const cleanedUserJson = decodedUserCookie.startsWith('j:') ? decodedUserCookie.slice(2) : decodedUserCookie;
+                    const user = JSON.parse(cleanedUserJson);
+
+                    const decodedMyProfileCookie = decodeURIComponent(myProfileCookie);
+                    const cleanedMyProfileJson = decodedMyProfileCookie.startsWith('j:') ? decodedMyProfileCookie.slice(2) : decodedMyProfileCookie;
+                    const myProfile = JSON.parse(cleanedMyProfileJson);
+
+                    const payload = {
+                        userInfo: user._doc,
+                        myProfile,
+                        isAuthenticated: true,
+                        token
+                    };
+                    dispatch(login(payload));
+                    navigate('/home');
+                }
             } catch (err) {
                 setLoading(false);
                 toast.error(err.response?.data?.message || 'An error occurred');
             }
         }
     };
-    
+
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100 bg-[url('LandingPagebackgroundblur.png')] bg-no-repeat bg-cover bg-fixed backdrop-blur-3xl">
             <ToastContainer

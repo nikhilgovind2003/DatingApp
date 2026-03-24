@@ -5,26 +5,13 @@ import { useForm } from 'react-hook-form';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-
-// Validation schema
-const schema = yup.object().shape({
-    password: yup
-        .string()
-        .required('Password is required')
-        .min(8, 'Password must be at least 8 characters long'),
-    confirmPassword: yup
-        .string()
-        .oneOf([yup.ref('password'), null], 'Passwords must match')
-        .required('Please confirm your password'),
-});
+import { zodResolver } from '@hookform/resolvers/zod';
+import { resetPasswordSchema } from '../utils/validationSchemas';
 
 const ResetPasswordPage = () => {
     const [searchParams] = useSearchParams();
     const user = searchParams.get('user');
     const token = searchParams.get('token');
-    console.log(user, token);
 
     const [loading, setLoading] = useState(false);
     const [visible, setVisible] = useState(false);
@@ -32,7 +19,7 @@ const ResetPasswordPage = () => {
     const navigate = useNavigate();
 
     const { register, handleSubmit, formState: { errors } } = useForm({
-        resolver: yupResolver(schema),
+        resolver: zodResolver(resetPasswordSchema),
     });
 
     const togglePasswordVisibility = () => setVisible(!visible);

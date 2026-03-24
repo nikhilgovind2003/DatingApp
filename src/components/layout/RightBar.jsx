@@ -17,6 +17,9 @@ const RightBar = () => {
 
   const userInfo = useSelector((state) => state.userAuth.userInfo);
 
+
+  console.log(userInfo)
+
   const myProfileCookie = Cookies.get("myProfile");
   const decodedMyProfileCookie = decodeURIComponent(myProfileCookie);
   const cleanedMyProfileJson = decodedMyProfileCookie.startsWith("j:")

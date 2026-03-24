@@ -8,6 +8,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from "react-redux";
 import { login, signup } from "../redux/features/auth/authSlice";
 import Cookies from "js-cookie";
+import { API_URL } from "../apiConfig";
+
+
+import { signUpSchema } from "../utils/validationSchemas";
 
 const SignUp = () => {
   const dispatch = useDispatch();
@@ -18,11 +22,10 @@ const SignUp = () => {
     mobile: "",
     password: "",
     confirmPassword: "",
+    otp: "",
   });
 
   const [errors, setErrors] = useState({});
-  const [otp, setOtpSent] = useState('');
-  const [userId, setUserId] = useState(null); // Store the registered user ID
   const navigate = useNavigate();
 
   const google = () => {
@@ -30,70 +33,41 @@ const SignUp = () => {
   };
 
   const validate = () => {
-    const newErrors = {};
-
-    if (!formData.firstName.trim()) {
-      newErrors.firstName = "FirstName is required.";
+    const result = signUpSchema.safeParse(formData);
+    if (!result.success) {
+      const fieldErrors = {};
+      result.error.errors.forEach((err) => {
+        fieldErrors[err.path[0]] = err.message;
+      });
+      setErrors(fieldErrors);
+      return false;
     }
-
-    if (!formData.lastName.trim()) {
-      newErrors.lastName = "FirstName is required.";
-    }
-
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required.";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Email is invalid.";
-    }
-
-    if (!formData.mobile.trim()) {
-      newErrors.mobile = "Mobile number is required.";
-    } else if (!/^\d{10}$/.test(formData.mobile)) {
-      newErrors.mobile = "Mobile number is invalid. It should be 10 digits.";
-    }
-
-    if (!formData.password.trim()) {
-      newErrors.password = "Password is required.";
-    } else if (formData.password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters long.";
-    }
-
-    if (!formData.confirmPassword.trim()) {
-      newErrors.confirmPassword = "Confirm Password is required.";
-    } else if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = "Passwords do not match.";
-    }
-
-    if (otp.trim() === '') {
-      newErrors.otp = "OTP is required.";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    setErrors({});
+    return true;
   };
 
   const handleChange = (e) => {
     const { id, value } = e.target;
-    setFormData({
-      ...formData,
+    setFormData((prev) => ({
+      ...prev,
       [id]: value,
-    });
+    }));
   };
 
   const handleOtpGeneration = async () => {
+    if (!formData.email) {
+      toast.error("Please enter email first");
+      return;
+    }
     try {
-      console.log({formData, userId});
-      
-      const response = await axios.post("http://localhost:5000/api/v1/users/generateotp", {
+      const response = await axios.post(`${API_URL}/users/generateotp`, {
         email: formData.email,
       });
       if (response.data.success) {
         toast.success(response.data.message || "OTP sent successfully.");
-        console.log("OTP sent successfully.");
       }
     } catch (error) {
-      toast.error(error.response?.data?.message || "Error generating OTP:"); // Display error toast
-      console.error("Error generating OTP:", error.response.data.message);
+      toast.error(error.response?.data?.message || "Error generating OTP");
     }
   };
 
@@ -101,51 +75,37 @@ const SignUp = () => {
     e.preventDefault();
     if (validate()) {
       try {
-       
-        const registrationResponse = await axios.post("http://localhost:5000/api/v1/users/register", {
-          firstName:formData.firstName,
-          lastName:formData.lastName, // Joins the rest as lastName
-          email: formData.email,
-          mobile: formData.mobile,
-          password: formData.password,
-          otp
-        }, {withCredentials: true});
+        const registrationResponse = await axios.post(`${API_URL}/users/register`, {
+          ...formData
+        }, { withCredentials: true });
+
         if (registrationResponse.data.success) {
-          console.log("Registered successfully:", registrationResponse.data);
-          toast.success(registrationResponse.data.message || "Registered successfully!"); // Display success toast
+          toast.success(registrationResponse.data.message || "Registered successfully!");
           const userCookie = Cookies.get('user');
-                const token = Cookies.get('token');
+          const token = Cookies.get('token');
           if (userCookie && token) {
             const decodedUserCookie = decodeURIComponent(userCookie);
             const cleanedUserJson = decodedUserCookie.startsWith('j:') ? decodedUserCookie.slice(2) : decodedUserCookie;
             const user = JSON.parse(cleanedUserJson);
 
             const payload = {
-                userInfo: user,
-                isAuthenticated: true,
-                token
+              userInfo: user,
+              isAuthenticated: true,
+              token
             };
             dispatch(login(payload));
-
-            navigate('/home');
-    } 
-           // Delay navigation by 2 seconds (2000 milliseconds)
-        setTimeout(() => {
-          navigate('/personal_details');
-        }, 2000);
-
-          return;
+          }
+          setTimeout(() => {
+            navigate('/personal_details');
+          }, 2000);
         }
       } catch (error) {
-        console.error("Error during submission:", error.response?.data?.message || error.message);
-        toast.error(error.response?.data?.message || "An error occurred during registration."); // Display error toast
+        toast.error(error.response?.data?.message || "An error occurred during registration.");
       }
-    } else {
-      console.log("Form has errors", errors);
     }
   };
 
- return (
+  return (
     <>
       <div className="flex items-center justify-center min-h-screen bg-gray-100 bg-[url('LandingPagebackgroundblur.png')] bg-no-repeat bg-cover bg-fixed backdrop-blur-3xl">
 
@@ -260,7 +220,7 @@ const SignUp = () => {
                   type="text"
                   id="otp"
                   value={formData.otp}
-                  onChange={(e) => setOtpSent(e.target.value)}
+                  onChange={handleChange}
                   placeholder="Value"
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
                 />

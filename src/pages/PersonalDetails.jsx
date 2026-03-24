@@ -1,78 +1,11 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import axios from "axios";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-
-const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png", "image/gif"];
-const SUPPORTED_REEL_FORMATS = [
-  "video/mp4",
-  "video/ogg",
-  "video/webm",
-  "video/quicktime",
-];
-
-const schema = yup.object().shape({
-  bio: yup.string().required("Bio is required"),
-  age: yup
-    .number()
-    .required("Age is required")
-    .min(18, "You must be at least 18 years old"),
-  location: yup.string().required("Location is required"),
-  hobbies: yup.string().required("Hobbies are required"),
-  interests: yup.string().required("Interests are required"),
-  smoking: yup.string().required("Smoking habits are required"),
-  drinking: yup.string().required("Drinking habits are required"),
-  qualification: yup.string().required("Qualifications are required"),
-  gender: yup.string().required("Gender is required"),
-  profile: yup
-    .mixed()
-    .required("Image is required")
-    .test(
-      "required",
-      "Provide one profile pic",
-      (value) => value && value.length === 1
-    )
-    .test(
-      "fileFormat",
-      "Unsupported file format",
-      (value) =>
-        value && value.length === 1 && SUPPORTED_FORMATS.includes(value[0].type)
-    ),
-  additionalImg: yup
-    .mixed()
-    .required("Images are required")
-    .test(
-      "fileSize",
-      "3 images are required",
-      (value) => value && value.length === 3
-    ),
-  reel: yup
-    .mixed()
-    .required("Reel is required")
-    .test(
-      "required",
-      "Provide a short reel",
-      (value) => value && value.length === 1
-    )
-    .test(
-      "fileFormat",
-      "Unsupported file format",
-      (value) =>
-        value &&
-        value.length === 1 &&
-        SUPPORTED_REEL_FORMATS.includes(value[0].type)
-    )
-    .test(
-      "fileSize",
-      "Reel must be less than 10MB",
-      (value) =>
-        value && value.length === 1 && value[0].size <= 10 * 1024 * 1024
-    ),
-});
+import { zodResolver } from "@hookform/resolvers/zod";
+import { personalDetailsSchema } from "../utils/validationSchemas";
 
 const PersonalDetails = () => {
   const navigate = useNavigate();
@@ -82,7 +15,7 @@ const PersonalDetails = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: zodResolver(personalDetailsSchema),
   });
 
   const onSubmit = async (data) => {
@@ -166,17 +99,17 @@ const PersonalDetails = () => {
               )}
             </div>
             <div className="mb-4">
-  <label htmlFor="age" className="block text-gray-700">
-    Age
-  </label>
-  <input
-    type="number"
-    id="age"
-    {...register("age")}
-    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
-  />
-  {errors.age && <p className="text-red-600">{errors.age.message}</p>}
-</div>
+              <label htmlFor="age" className="block text-gray-700">
+                Age
+              </label>
+              <input
+                type="number"
+                id="age"
+                {...register("age")}
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
+              />
+              {errors.age && <p className="text-red-600">{errors.age.message}</p>}
+            </div>
 
             <div className="mb-4">
               <label htmlFor="location" className="block text-gray-700">

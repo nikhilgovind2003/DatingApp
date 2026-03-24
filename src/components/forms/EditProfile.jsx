@@ -24,6 +24,11 @@ function EditProfile() {
     const { name, files } = e.target;
 
     if (name === "additionalImages") {
+      if (files.length > 3) {
+        alert("You can upload up to 3 additional images only.");
+        e.target.value = "";
+        return;
+      }
       setData((prevData) => ({
         ...prevData,
         additionalImages: Array.from(files),
@@ -45,6 +50,11 @@ function EditProfile() {
     const { name, value, files } = e.target;
 
     if (name === "additionalImages") {
+      if (files.length > 3) {
+        alert("You can upload up to 3 additional images only.");
+        e.target.value = "";
+        return;
+      }
       setUpdatedData((prevData) => ({
         ...prevData,
         additionalImages: Array.from(files),
@@ -74,7 +84,7 @@ function EditProfile() {
 
     Object.keys(updateData).forEach((key) => {
       if (key === "additionalImages") {
-        updateData[key].forEach((file) =>
+        updateData[key].slice(0, 3).forEach((file) =>
           formData.append("additionalImg", file)
         );
       } else if (key === "reel") {
@@ -194,10 +204,11 @@ function EditProfile() {
               className="w-full p-3 border border-gray-300 rounded-lg"
             />
           </label>
-          <label htmlFor="AdditionalImages"> Additional images <input
+          <label htmlFor="AdditionalImages"> Additional images (up to 3) <input
             type="file"
             name="additionalImages"
             multiple
+            accept="image/*"
             onChange={handleChange}
             className="w-full p-3 border border-gray-300 rounded-lg"
           /></label>

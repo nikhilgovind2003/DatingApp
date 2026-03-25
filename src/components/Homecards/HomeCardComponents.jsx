@@ -1,3 +1,4 @@
+import { toast } from 'sonner';
 import { IoMdThumbsUp } from "react-icons/io";
 import { BiSolidMessageRounded } from "react-icons/bi";
 import { TbDots } from "react-icons/tb";
@@ -19,7 +20,7 @@ const HomeCardComponents = (props, from, to) => {
   const handleSendRequest = async () => {
     try {
       await axios.patch(`http://localhost:5000/api/v1/users/send/${props.userId}`, { from, to }, { withCredentials: true });
-      alert('Friend request sent!');
+      toast('Friend request sent!');
       console.log(props.userId);
     } catch (error) {
       console.error('Error sending friend request', error);
@@ -29,7 +30,7 @@ const HomeCardComponents = (props, from, to) => {
   const handleShortlistRequest = async () => {
     try {
       await axios.post(`http://localhost:5000/api/v1/users/shortlist/${props.userId}`, { from, to }, { withCredentials: true });
-      alert('Shortlisted!');
+      toast('Shortlisted!');
       console.log(props.userId);
     } catch (error) {
       console.error('Error shortlisting', error);

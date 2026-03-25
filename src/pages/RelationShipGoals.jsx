@@ -1,28 +1,42 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { toast } from 'sonner';
 
 const RelationshipGoals = () => {
     const [selectedGoal, setSelectedGoal] = useState(""); // State to track selected option
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate(); // Hook to navigate to different routes
 
     const handleNext = async (e) => {
         e.preventDefault();
+        
+        if (!selectedGoal) {
+            toast.warning("Please select a relationship goal.");
+            return;
+        }
 
         try {
-            const response = await axios.patch('http://localhost:5000/api/v1/users/relationship-goals', { relationshipGoal: selectedGoal })
-            const json = response.data
-            console.log(json);
-            
-          } catch (err) {
-            console.log(err)
-          }
+            setLoading(true);
+            const response = await axios.patch(
+                'http://localhost:5000/api/v1/users/relationship-goals', 
+                { relationshipGoal: selectedGoal },
+                { withCredentials: true }
+            );
 
-        if (selectedGoal === "short-term") {
-            navigate('/interested');
-        } else if (selectedGoal === "long-term") {
-            navigate('/matrimony');
-        } else {
-            alert("Please select a relationship goal.");
+            if (response.data.success) {
+                toast.success(response.data.message);
+                if (selectedGoal === "short-term") {
+                    navigate('/interested');
+                } else if (selectedGoal === "long-term") {
+                    navigate('/matrimony');
+                }
+            }
+        } catch (err) {
+            console.error(err);
+            toast.error(err.response?.data?.message || "Failed to update relationship goal");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -60,8 +74,8 @@ const RelationshipGoals = () => {
                         </div>
 
                         <div className="flex justify-center">
-                            <button type="submit" className="w-full py-2 bg-black text-white rounded-lg hover:bg-gray-800 text-center">
-                                Next
+                            <button type="submit" disabled={loading} className="w-full py-2 bg-black text-white rounded-lg hover:bg-gray-800 text-center">
+                                {loading ? 'processing...' : 'Next'}
                             </button>
                         </div>
                     </form>

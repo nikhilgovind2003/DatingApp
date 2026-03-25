@@ -1,3 +1,4 @@
+import { toast } from 'sonner';
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useState } from "react";
@@ -25,7 +26,7 @@ function EditProfile() {
 
     if (name === "additionalImages") {
       if (files.length > 3) {
-        alert("You can upload up to 3 additional images only.");
+        toast("You can upload up to 3 additional images only.");
         e.target.value = "";
         return;
       }
@@ -51,7 +52,7 @@ function EditProfile() {
 
     if (name === "additionalImages") {
       if (files.length > 3) {
-        alert("You can upload up to 3 additional images only.");
+        toast("You can upload up to 3 additional images only.");
         e.target.value = "";
         return;
       }
@@ -78,7 +79,7 @@ function EditProfile() {
   };
 
   const handleSubmit = async (e) => {
-    alert("Submitted");
+    toast("Submitted");
     e.preventDefault();
     const formData = new FormData();
 
@@ -108,7 +109,7 @@ function EditProfile() {
         }
       );
       getProfile();
-      alert("Profile updated successfully");
+      toast("Profile updated successfully");
     } catch (error) {
       console.error("Error updating profile:", error);
     }

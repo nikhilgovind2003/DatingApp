@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { KeyRound, Lock, Mail, Phone, User, Loader2 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'sonner';
+
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -109,7 +109,7 @@ const SignUp = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-transparent bg-[url('LandingPagebackgroundblur.png')] bg-no-repeat bg-cover bg-fixed">
       <div className="absolute inset-0 bg-black/10 backdrop-blur-2xl -z-10" />
-      <ToastContainer position="top-right" autoClose={3000} />
+      
       
       <div className="flex flex-col min-h-screen p-4 lg:w-2/5 z-0 justify-center">
         <div className="bg-white/70 backdrop-blur-md border border-white/40 p-8 rounded-2xl shadow-2xl w-full max-w-md mx-auto transition-all hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)]">

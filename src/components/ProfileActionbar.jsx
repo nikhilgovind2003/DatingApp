@@ -1,3 +1,4 @@
+import { toast } from 'sonner';
 import React from 'react';
 import axios from 'axios';
 import { X, Star, Heart, MessageCircle } from 'lucide-react';
@@ -12,7 +13,7 @@ function ProfileActionbar({ userId, from, to }) {
   const handleSendRequest = async () => {
     try {
       await axios.patch(`http://localhost:5000/api/v1/users/send/${userid.userId}`, { from, to }, { withCredentials: true });
-      alert('Friend request sent!');
+      toast('Friend request sent!');
       console.log(userid.userId);
     } catch (error) {
       console.error('Error sending friend request', error);
@@ -22,7 +23,7 @@ function ProfileActionbar({ userId, from, to }) {
   const handleAcceptRequest = async () => {
     try {
       await axios.put(`/api/friendRequests/accept/${userId}`, { from });
-      alert('Friend request accepted!');
+      toast('Friend request accepted!');
     } catch (error) {
       console.error('Error accepting friend request', error);
     }
@@ -33,7 +34,7 @@ function ProfileActionbar({ userId, from, to }) {
       console.log(userid.userId);
       console.log(from, to);
       await axios.post(`http://localhost:5000/api/v1/users/shortlist/${userid.userId}`, { from, to }, { withCredentials: true });
-      alert('Shortlisted!');
+      toast('Shortlisted!');
       console.log(userid.userId);
     } catch (error) {
       console.error('Error shortlisting', error);

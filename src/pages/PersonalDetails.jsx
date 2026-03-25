@@ -6,6 +6,18 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { cn } from "@/lib/utils";
+
+// shadcn components
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import {
+  FormItem,
+  FormLabel,
+  FormMessage,
+  FormDescription,
+} from "@/components/ui/form";
 
 // ─── Zod Schema ───────────────────────────────────────────────────────────────
 const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png", "image/gif"];
@@ -29,7 +41,8 @@ const personalDetailsSchema = z.object({
     .or(z.number())
     .transform((val) => Number(val))
     .pipe(
-      z.number()
+      z
+        .number()
         .min(18, "You must be at least 18 years old")
         .max(100, "Please enter a valid age")
     ),
@@ -129,6 +142,16 @@ const personalDetailsSchema = z.object({
     ),
 });
 
+// ─── Styled form input (shadcn-style) ─────────────────────────────────────────
+const inputClasses =
+  "flex h-9 w-full rounded-lg border border-input bg-transparent px-3 py-2 text-sm transition-colors outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20";
+
+const selectClasses =
+  "flex h-9 w-full rounded-lg border border-input bg-transparent px-3 py-2 text-sm transition-colors outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20";
+
+const fileInputClasses =
+  "flex w-full rounded-lg border border-input bg-transparent px-3 py-2 text-sm transition-colors outline-none file:mr-3 file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20";
+
 // ─── Component ────────────────────────────────────────────────────────────────
 const PersonalDetails = () => {
   const navigate = useNavigate();
@@ -140,7 +163,7 @@ const PersonalDetails = () => {
     formState: { errors },
   } = useForm({
     resolver: zodResolver(personalDetailsSchema),
-    mode: "onChange",
+    mode: "onTouched",
     reValidateMode: "onChange",
   });
 
@@ -175,7 +198,8 @@ const PersonalDetails = () => {
         formData.append("profile", data.profile[0]);
       }
 
-      if (data.additionalImg?.length > 0) {
+      // Send exactly 3 additional images
+      if (data.additionalImg?.length === 3) {
         data.additionalImg.forEach((img) => {
           formData.append("additionalImg", img);
         });
@@ -243,7 +267,8 @@ const PersonalDetails = () => {
     fieldError?.message || fieldError?.root?.message || "";
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 bg-[url('LandingPagebackgroundblur.png')] bg-no-repeat bg-cover bg-fixed backdrop-blur-3xl">
+    <div className="flex items-center justify-center min-h-screen bg-transparent bg-[url('LandingPagebackgroundblur.png')] bg-no-repeat bg-cover bg-fixed">
+      <div className="absolute inset-0 bg-black/10 backdrop-blur-2xl -z-10" />
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -257,239 +282,267 @@ const PersonalDetails = () => {
         theme="light"
         transition={Bounce}
       />
-      <div className="flex flex-col min-h-screen p-4 lg:w-2/5">
-        <div className="bg-white p-6 mt-14 mb-10 rounded-lg shadow-lg w-full max-w-md mx-auto">
-          <h2 className="mb-5 text-2xl font-bold text-center">
+      <div className="flex flex-col min-h-screen p-4 lg:w-2/5 z-0">
+        <div className="bg-white/70 backdrop-blur-md border border-white/40 p-8 mt-14 mb-10 rounded-2xl shadow-2xl w-full max-w-md mx-auto transition-all hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)]">
+          <h2 className="mb-8 text-3xl font-extrabold text-center text-deep-plum tracking-tight">
             Personal Details
           </h2>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
 
             {/* Bio */}
-            <div className="mb-4">
-              <label htmlFor="bio" className="block text-gray-700">
+            <FormItem className="animate-in fade-in slide-in-from-bottom-2 duration-300">
+              <FormLabel htmlFor="bio" error={!!errors.bio}>
                 Bio
-              </label>
-              <input
-                type="text"
+              </FormLabel>
+              <Textarea
                 id="bio"
+                placeholder="Tell us about yourself (min 20 characters)"
+                aria-invalid={!!errors.bio}
+                className="bg-white/50 backdrop-blur-sm focus:bg-white transition-all min-h-[100px]"
                 {...register("bio")}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
               />
-              {errors.bio && (
-                <p className="text-red-600">{errors.bio.message}</p>
-              )}
-            </div>
+              <div className="h-4">
+                <FormMessage className="animate-in fade-in duration-200">
+                  {errors.bio?.message}
+                </FormMessage>
+              </div>
+            </FormItem>
 
-            {/* Age */}
-            <div className="mb-4">
-              <label htmlFor="age" className="block text-gray-700">
-                Age
-              </label>
-              <input
-                type="number"
-                id="age"
-                {...register("age")}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
-              />
-              {errors.age && (
-                <p className="text-red-600">{errors.age.message}</p>
-              )}
+            {/* Age & Gender Row */}
+            <div className="grid grid-cols-2 gap-4 animate-in fade-in slide-in-from-bottom-2 duration-400">
+              <FormItem>
+                <FormLabel htmlFor="age" error={!!errors.age}>
+                  Age
+                </FormLabel>
+                <input
+                  type="number"
+                  id="age"
+                  placeholder="18+"
+                  aria-invalid={!!errors.age}
+                  className={cn(inputClasses, "bg-white/50 backdrop-blur-sm focus:bg-white transition-all")}
+                  {...register("age")}
+                />
+                <FormMessage className="animate-in fade-in duration-200">
+                  {errors.age?.message}
+                </FormMessage>
+              </FormItem>
+
+              <FormItem>
+                <FormLabel htmlFor="gender" error={!!errors.gender}>
+                  Gender
+                </FormLabel>
+                <select
+                  id="gender"
+                  aria-invalid={!!errors.gender}
+                  className={cn(selectClasses, "bg-white/50 backdrop-blur-sm focus:bg-white transition-all appearance-none")}
+                  {...register("gender")}
+                >
+                  <option value="">Select</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+                <FormMessage className="animate-in fade-in duration-200">
+                  {errors.gender?.message}
+                </FormMessage>
+              </FormItem>
             </div>
 
             {/* Location */}
-            <div className="mb-4">
-              <label htmlFor="location" className="block text-gray-700">
+            <FormItem className="animate-in fade-in slide-in-from-bottom-2 duration-500">
+              <FormLabel htmlFor="location" error={!!errors.location}>
                 Location
-              </label>
+              </FormLabel>
               <input
                 type="text"
                 id="location"
+                placeholder="Where do you live?"
+                aria-invalid={!!errors.location}
+                className={cn(inputClasses, "bg-white/50 backdrop-blur-sm focus:bg-white transition-all")}
                 {...register("location")}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
               />
-              {errors.location && (
-                <p className="text-red-600">{errors.location.message}</p>
-              )}
+              <FormMessage className="animate-in fade-in duration-200">
+                {errors.location?.message}
+              </FormMessage>
+            </FormItem>
+
+            {/* Hobbies & Interests */}
+            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-700">
+              <FormItem>
+                <FormLabel htmlFor="hobbies" error={!!errors.hobbies}>
+                  Hobbies
+                </FormLabel>
+                <input
+                  type="text"
+                  id="hobbies"
+                  placeholder="Hiking, Reading, Cooking..."
+                  aria-invalid={!!errors.hobbies}
+                  className={cn(inputClasses, "bg-white/50 backdrop-blur-sm focus:bg-white transition-all")}
+                  {...register("hobbies")}
+                />
+                <FormMessage className="animate-in fade-in duration-200">
+                  {errors.hobbies?.message}
+                </FormMessage>
+              </FormItem>
+
+              <FormItem>
+                <FormLabel htmlFor="interests" error={!!errors.interests}>
+                  Interests
+                </FormLabel>
+                <input
+                  type="text"
+                  id="interests"
+                  placeholder="Music, Tech, Travel..."
+                  aria-invalid={!!errors.interests}
+                  className={cn(inputClasses, "bg-white/50 backdrop-blur-sm focus:bg-white transition-all")}
+                  {...register("interests")}
+                />
+                <FormMessage className="animate-in fade-in duration-200">
+                  {errors.interests?.message}
+                </FormMessage>
+              </FormItem>
             </div>
 
-            {/* Hobbies */}
-            <div className="mb-4">
-              <label htmlFor="hobbies" className="block text-gray-700">
-                Hobbies
-              </label>
-              <input
-                type="text"
-                id="hobbies"
-                {...register("hobbies")}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
-              />
-              {errors.hobbies && (
-                <p className="text-red-600">{errors.hobbies.message}</p>
-              )}
-            </div>
+            {/* Habits Row */}
+            <div className="grid grid-cols-2 gap-4 animate-in fade-in slide-in-from-bottom-2 duration-800">
+              <FormItem>
+                <FormLabel htmlFor="smoking" error={!!errors.smoking}>
+                  Smoking
+                </FormLabel>
+                <select
+                  id="smoking"
+                  aria-invalid={!!errors.smoking}
+                  className={cn(selectClasses, "bg-white/50 backdrop-blur-sm focus:bg-white transition-all appearance-none")}
+                  {...register("smoking")}
+                >
+                  <option value="">Select</option>
+                  <option value="Never">Never</option>
+                  <option value="Occasionally">Occasionally</option>
+                  <option value="Regularly">Regularly</option>
+                  <option value="Quit">Quit</option>
+                </select>
+                <FormMessage className="animate-in fade-in duration-200">
+                  {errors.smoking?.message}
+                </FormMessage>
+              </FormItem>
 
-            {/* Interests */}
-            <div className="mb-4">
-              <label htmlFor="interests" className="block text-gray-700">
-                Interests
-              </label>
-              <input
-                type="text"
-                id="interests"
-                {...register("interests")}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
-              />
-              {errors.interests && (
-                <p className="text-red-600">{errors.interests.message}</p>
-              )}
-            </div>
-
-            {/* Smoking */}
-            <div className="mb-4">
-              <label htmlFor="smoking" className="block text-gray-700">
-                Smoking Habits
-              </label>
-              <select
-                id="smoking"
-                {...register("smoking")}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
-              >
-                <option value="">Select Smoking Habit</option>
-                <option value="Never">Never</option>
-                <option value="Occasionally">Occasionally</option>
-                <option value="Regularly">Regularly</option>
-                <option value="Quit">Quit</option>
-              </select>
-              {errors.smoking && (
-                <p className="text-red-600">{errors.smoking.message}</p>
-              )}
-            </div>
-
-            {/* Drinking */}
-            <div className="mb-4">
-              <label htmlFor="drinking" className="block text-gray-700">
-                Drinking Habits
-              </label>
-              <select
-                id="drinking"
-                {...register("drinking")}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
-              >
-                <option value="">Select Drinking Habit</option>
-                <option value="Never">Never</option>
-                <option value="Occasionally">Occasionally</option>
-                <option value="Regularly">Regularly</option>
-              </select>
-              {errors.drinking && (
-                <p className="text-red-600">{errors.drinking.message}</p>
-              )}
+              <FormItem>
+                <FormLabel htmlFor="drinking" error={!!errors.drinking}>
+                  Drinking
+                </FormLabel>
+                <select
+                  id="drinking"
+                  aria-invalid={!!errors.drinking}
+                  className={cn(selectClasses, "bg-white/50 backdrop-blur-sm focus:bg-white transition-all appearance-none")}
+                  {...register("drinking")}
+                >
+                  <option value="">Select</option>
+                  <option value="Never">Never</option>
+                  <option value="Occasionally">Occasionally</option>
+                  <option value="Regularly">Regularly</option>
+                </select>
+                <FormMessage className="animate-in fade-in duration-200">
+                  {errors.drinking?.message}
+                </FormMessage>
+              </FormItem>
             </div>
 
             {/* Qualification */}
-            <div className="mb-4">
-              <label htmlFor="qualification" className="block text-gray-700">
+            <FormItem className="animate-in fade-in slide-in-from-bottom-2 duration-1000">
+              <FormLabel htmlFor="qualification" error={!!errors.qualification}>
                 Qualification
-              </label>
+              </FormLabel>
               <input
                 type="text"
                 id="qualification"
+                placeholder="Your education level"
+                aria-invalid={!!errors.qualification}
+                className={cn(inputClasses, "bg-white/50 backdrop-blur-sm focus:bg-white transition-all")}
                 {...register("qualification")}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
               />
-              {errors.qualification && (
-                <p className="text-red-600">{errors.qualification.message}</p>
-              )}
-            </div>
+              <FormMessage className="animate-in fade-in duration-200">
+                {errors.qualification?.message}
+              </FormMessage>
+            </FormItem>
 
-            {/* Gender */}
-            <div className="mb-4">
-              <label htmlFor="gender" className="block text-gray-700">
-                Gender
-              </label>
-              <select
-                id="gender"
-                {...register("gender")}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
-              >
-                <option value="">Select Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-              </select>
-              {errors.gender && (
-                <p className="text-red-600">{errors.gender.message}</p>
-              )}
-            </div>
+            <hr className="border-gray-300/50" />
 
             {/* Profile Picture */}
-            <div className="mb-4">
-              <label htmlFor="profile" className="block text-gray-700">
+            <FormItem className="animate-in fade-in slide-in-from-bottom-2 duration-1000">
+              <FormLabel error={!!errors.profile} className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-deep-plum animate-pulse" />
                 Profile Picture
-              </label>
-              <input
-                type="file"
-                id="profile"
-                accept="image/jpg,image/jpeg,image/png,image/gif"
-                name={profileRegister.name}
-                ref={profileRegister.ref}
-                onBlur={profileRegister.onBlur}
-                onChange={(e) => {
-                  profileRegister.onChange(e);
-                  const file = e.target.files?.[0];
-                  if (!file) {
+              </FormLabel>
+              <div className="group relative">
+                <input
+                  type="file"
+                  id="profile"
+                  accept="image/jpg,image/jpeg,image/png,image/gif"
+                  aria-invalid={!!errors.profile}
+                  name={profileRegister.name}
+                  ref={profileRegister.ref}
+                  onBlur={profileRegister.onBlur}
+                  onChange={(e) => {
+                    profileRegister.onChange(e);
+                    const file = e.target.files?.[0];
+                    if (!file) {
+                      if (profilePreview) URL.revokeObjectURL(profilePreview);
+                      setProfilePreview("");
+                      setValue("profile", [], {
+                        shouldValidate: true,
+                        shouldDirty: true,
+                        shouldTouch: true,
+                      });
+                      return;
+                    }
                     if (profilePreview) URL.revokeObjectURL(profilePreview);
-                    setProfilePreview("");
-                    setValue("profile", [], {
+                    setProfilePreview(URL.createObjectURL(file));
+                    setValue("profile", [file], {
                       shouldValidate: true,
                       shouldDirty: true,
                       shouldTouch: true,
                     });
-                    return;
-                  }
-                  if (profilePreview) URL.revokeObjectURL(profilePreview);
-                  setProfilePreview(URL.createObjectURL(file));
-                  setValue("profile", [file], {
-                    shouldValidate: true,
-                    shouldDirty: true,
-                    shouldTouch: true,
-                  });
-                }}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
-              />
-              {errors.profile && (
-                <p className="text-red-600">
-                  {getFieldErrorMessage(errors.profile)}
-                </p>
-              )}
+                  }}
+                  className={cn(fileInputClasses, "bg-white/30 hover:bg-white/50 transition-colors")}
+                />
+              </div>
+              <FormMessage>{getFieldErrorMessage(errors.profile)}</FormMessage>
               {profilePreview && (
-                <div className="relative w-20 h-20 mt-2">
+                <div className="relative w-24 h-24 mt-4 animate-in zoom-in-75 duration-300">
                   <img
                     src={profilePreview}
                     alt="Profile preview"
-                    className="w-20 h-20 object-cover rounded-md border"
+                    className="w-full h-full object-cover rounded-xl border-2 border-white shadow-md"
                   />
                   <button
                     type="button"
                     onClick={removeProfileImage}
-                    className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-red-600 text-white text-xs flex items-center justify-center"
-                    aria-label="Remove profile image"
+                    className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-destructive text-white text-xs flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all"
                   >
-                    X
+                    ✕
                   </button>
                 </div>
               )}
-            </div>
+            </FormItem>
 
             {/* Additional Images */}
-            <div className="mb-4">
-              <label htmlFor="additionalImg" className="block text-gray-700">
-                Additional Images (up to 3)
-              </label>
+            <FormItem className="animate-in fade-in slide-in-from-bottom-2 duration-1000">
+              <FormLabel error={!!errors.additionalImg} className="flex justify-between items-center">
+                <span>Additional Images</span>
+                <span className={cn(
+                  "text-[10px] px-2 py-0.5 rounded-full",
+                  previewImages.length === 3 ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-600"
+                )}>
+                  {previewImages.length}/3 uploaded
+                </span>
+              </FormLabel>
+              <FormDescription>Exactly 3 high-quality photos required.</FormDescription>
               <input
                 type="file"
                 multiple
                 id="additionalImg"
                 accept="image/jpg,image/jpeg,image/png,image/gif"
+                aria-invalid={!!errors.additionalImg}
                 name={additionalImgRegister.name}
                 ref={additionalImgRegister.ref}
                 onBlur={additionalImgRegister.onBlur}
@@ -522,45 +575,43 @@ const PersonalDetails = () => {
                   });
                   e.target.value = "";
                 }}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
+                className={cn(fileInputClasses, "bg-white/30 hover:bg-white/50 transition-colors")}
               />
-              {errors.additionalImg && (
-                <p className="text-red-600">
-                  {getFieldErrorMessage(errors.additionalImg)}
-                </p>
-              )}
-            </div>
+              <FormMessage>{getFieldErrorMessage(errors.additionalImg)}</FormMessage>
 
-            {/* Additional Images Previews */}
-            <div className="flex gap-3 mt-3">
-              {previewImages.map((img, index) => (
-                <div key={index} className="relative">
-                  <img
-                    src={img.url}
-                    alt="preview"
-                    className="w-20 h-20 object-cover rounded-md border"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => removeAdditionalImage(index)}
-                    className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-red-600 text-white text-xs flex items-center justify-center"
-                    aria-label="Remove image"
-                  >
-                    X
-                  </button>
+              {previewImages.length > 0 && (
+                <div className="grid grid-cols-3 gap-3 mt-4">
+                  {previewImages.map((img, index) => (
+                    <div key={index} className="relative aspect-square animate-in zoom-in-75 duration-300" style={{ animationDelay: `${index * 100}ms` }}>
+                      <img
+                        src={img.url}
+                        alt={`Additional ${index + 1}`}
+                        className="w-full h-full object-cover rounded-xl border-2 border-white shadow-sm"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => removeAdditionalImage(index)}
+                        className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-destructive text-white text-xs flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              )}
+            </FormItem>
 
             {/* Reel */}
-            <div className="mb-4">
-              <label htmlFor="reel" className="block text-gray-700">
+            <FormItem className="animate-in fade-in slide-in-from-bottom-3 duration-1000">
+              <FormLabel error={!!errors.reel} className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
                 Short Reel
-              </label>
+              </FormLabel>
               <input
                 type="file"
                 id="reel"
                 accept="video/mp4,video/ogg,video/webm,video/quicktime"
+                aria-invalid={!!errors.reel}
                 name={reelRegister.name}
                 ref={reelRegister.ref}
                 onBlur={reelRegister.onBlur}
@@ -585,40 +636,45 @@ const PersonalDetails = () => {
                     shouldTouch: true,
                   });
                 }}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-black sm:text-sm"
+                className={cn(fileInputClasses, "bg-white/30 hover:bg-white/50 transition-colors")}
               />
-              {errors.reel && (
-                <p className="text-red-600">
-                  {getFieldErrorMessage(errors.reel)}
-                </p>
-              )}
+              <FormMessage>{getFieldErrorMessage(errors.reel)}</FormMessage>
               {reelPreview && (
-                <div className="relative w-32 h-24 mt-2">
+                <div className="relative w-full aspect-video mt-4 animate-in zoom-in-75 duration-300">
                   <video
                     src={reelPreview}
                     controls
-                    className="w-32 h-24 object-cover rounded-md border"
+                    className="w-full h-full object-cover rounded-xl border-2 border-white shadow-md bg-black"
                   />
                   <button
                     type="button"
                     onClick={removeReel}
-                    className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-red-600 text-white text-xs flex items-center justify-center"
-                    aria-label="Remove reel"
+                    className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-destructive text-white text-base flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all"
                   >
-                    X
+                    ✕
                   </button>
                 </div>
               )}
-            </div>
+            </FormItem>
 
             {/* Submit */}
-            <button
+            <Button
               type="submit"
-              className="w-full bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="w-full h-12 bg-deep-plum hover:bg-hot-purple text-white font-bold text-lg rounded-xl shadow-lg transition-all active:scale-[0.98] disabled:opacity-70 disabled:active:scale-100"
               disabled={loading}
             >
-              {loading ? "Submitting..." : "Submit"}
-            </button>
+              {loading ? (
+                <span className="flex items-center gap-3">
+                  <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                  </svg>
+                  Processing...
+                </span>
+              ) : (
+                "Save Profile Details"
+              )}
+            </Button>
 
           </form>
         </div>

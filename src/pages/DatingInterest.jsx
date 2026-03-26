@@ -1,19 +1,32 @@
 import axios from "axios";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from 'sonner';
 
 const DatingInterest = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const onHandleSubmit = async (e) => {
     let interest = e.target.value;
-    await axios
-      .patch("http://localhost:5000/api/v1/users/set-interest", { interest }, { withCredentials: true })
-      .then(() => {
-       navigate("/home");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    try {
+      setLoading(true);
+      const res = await axios.patch(
+        "http://localhost:5000/api/v1/users/set-interest", 
+        { interest }, 
+        { withCredentials: true }
+      );
+      
+      if (res.data.success) {
+        toast.success(res.data.message);
+        navigate("/home");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(error.response?.data?.message || "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -26,7 +39,8 @@ const DatingInterest = () => {
             <button
               onClick={onHandleSubmit}
               value="MEN"
-              className="w-full py-2 mb-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+              disabled={loading}
+              className="w-full py-2 mb-2 bg-red-500 text-white rounded-lg hover:bg-red-600 disabled:opacity-50"
             >
               MEN
             </button>
@@ -35,7 +49,8 @@ const DatingInterest = () => {
             <button
               onClick={onHandleSubmit}
               value="WOMEN"
-              className="w-full py-2 mb-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600"
+              disabled={loading}
+              className="w-full py-2 mb-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 disabled:opacity-50"
             >
               WOMEN
             </button>
@@ -44,7 +59,8 @@ const DatingInterest = () => {
             <button
               onClick={onHandleSubmit}
               value="BOTH"
-              className="w-full py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+              disabled={loading}
+              className="w-full py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:opacity-50"
             >
               BOTH
             </button>

@@ -1,3 +1,4 @@
+import { toast } from 'sonner';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
@@ -12,7 +13,7 @@ const JobStatus = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!Jobstatus) {
-            alert("Job status required");
+            toast("Job status required");
             return;
         }
 

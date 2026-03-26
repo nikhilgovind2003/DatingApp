@@ -1,3 +1,4 @@
+import { toast } from 'sonner';
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useState } from "react";
@@ -24,6 +25,11 @@ function EditProfile() {
     const { name, files } = e.target;
 
     if (name === "additionalImages") {
+      if (files.length > 3) {
+        toast("You can upload up to 3 additional images only.");
+        e.target.value = "";
+        return;
+      }
       setData((prevData) => ({
         ...prevData,
         additionalImages: Array.from(files),
@@ -45,6 +51,11 @@ function EditProfile() {
     const { name, value, files } = e.target;
 
     if (name === "additionalImages") {
+      if (files.length > 3) {
+        toast("You can upload up to 3 additional images only.");
+        e.target.value = "";
+        return;
+      }
       setUpdatedData((prevData) => ({
         ...prevData,
         additionalImages: Array.from(files),
@@ -68,13 +79,13 @@ function EditProfile() {
   };
 
   const handleSubmit = async (e) => {
-    alert("Submitted");
+    toast("Submitted");
     e.preventDefault();
     const formData = new FormData();
 
     Object.keys(updateData).forEach((key) => {
       if (key === "additionalImages") {
-        updateData[key].forEach((file) =>
+        updateData[key].slice(0, 3).forEach((file) =>
           formData.append("additionalImg", file)
         );
       } else if (key === "reel") {
@@ -98,7 +109,7 @@ function EditProfile() {
         }
       );
       getProfile();
-      alert("Profile updated successfully");
+      toast("Profile updated successfully");
     } catch (error) {
       console.error("Error updating profile:", error);
     }
@@ -157,7 +168,7 @@ function EditProfile() {
             type="email"
             placeholder="Email"
             name="email"
-            value={updateData?.email != null ? updateData.email : data.email}
+            value={updateData?.email != null ? updateData.email : data.email || ""}
             onChange={handleChange}
             className="w-full p-3 border border-gray-300 rounded-lg"
           />
@@ -194,10 +205,11 @@ function EditProfile() {
               className="w-full p-3 border border-gray-300 rounded-lg"
             />
           </label>
-          <label htmlFor="AdditionalImages"> Additional images <input
+          <label htmlFor="AdditionalImages"> Additional images (up to 3) <input
             type="file"
             name="additionalImages"
             multiple
+            accept="image/*"
             onChange={handleChange}
             className="w-full p-3 border border-gray-300 rounded-lg"
           /></label>

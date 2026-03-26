@@ -5,10 +5,12 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { Provider } from "react-redux";
 import store from "./redux/store.js";
 import React from "react";
+import { Toaster } from "sonner";
 
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <ChakraProvider>
+      <Toaster position="top-right" richColors />
       <App/>
     </ChakraProvider>
   </Provider>

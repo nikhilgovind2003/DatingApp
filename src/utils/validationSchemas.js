@@ -33,8 +33,8 @@ export const resetPasswordSchema = z.object({
   path: ["confirmPassword"],
 });
 
-const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png", "image/gif"];
-const SUPPORTED_REEL_FORMATS = [
+export const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png", "image/gif"];
+export const SUPPORTED_REEL_FORMATS = [
   "video/mp4",
   "video/ogg",
   "video/webm",
@@ -42,22 +42,134 @@ const SUPPORTED_REEL_FORMATS = [
 ];
 
 export const personalDetailsSchema = z.object({
-  bio: z.string().min(1, "Bio is required"),
-  age: z.string().or(z.number()).transform((val) => Number(val)).pipe(
-    z.number().min(18, "You must be at least 18 years old")
-  ),
-  location: z.string().min(1, "Location is required"),
-  hobbies: z.string().min(1, "Hobbies are required"),
-  interests: z.string().min(1, "Interests are required"),
-  smoking: z.string().min(1, "Smoking habits are required"),
-  drinking: z.string().min(1, "Drinking habits are required"),
-  qualification: z.string().min(1, "Qualifications are required"),
-  gender: z.string().min(1, "Gender is required"),
-  profile: z.any().refine((files) => files?.length === 1, "Provide one profile pic")
-    .refine((files) => !files?.[0] || SUPPORTED_FORMATS.includes(files[0]?.type), "Unsupported image format"),
-  additionalImg: z.any().refine((files) => files?.length === 3, "Exactly 3 images are required"),
-  reel: z.any()
-    .refine((files) => files?.length === 1, "Provide a short reel")
-    .refine((files) => !files?.[0] || SUPPORTED_REEL_FORMATS.includes(files[0]?.type), "Unsupported video format")
-    .refine((files) => !files?.[0] || files[0]?.size <= 10 * 1024 * 1024, "Reel must be less than 10MB"),
+  bio: z
+    .string()
+    .min(1, "Bio is required")
+    .min(20, "Bio must be at least 20 characters")
+    .max(300, "Bio cannot exceed 300 characters"),
+
+  age: z
+    .string()
+    .min(1, "Age is required")
+    .or(z.number())
+    .transform((val) => Number(val))
+    .pipe(
+      z
+        .number()
+        .min(18, "You must be at least 18 years old")
+        .max(100, "Please enter a valid age")
+    ),
+
+  location: z
+    .string()
+    .min(1, "Location is required")
+    .min(2, "Location must be at least 2 characters"),
+
+  hobbies: z
+    .string()
+    .min(1, "Hobbies are required")
+    .min(3, "Please describe your hobbies in more detail"),
+
+  interests: z
+    .string()
+    .min(1, "Interests are required")
+    .min(3, "Please describe your interests in more detail"),
+
+  smoking: z
+    .string()
+    .min(1, "Please select your smoking habit")
+    .refine(
+      (val) => ["Never", "Occasionally", "Regularly", "Quit"].includes(val),
+      { message: "Please select a valid smoking option" }
+    ),
+
+  drinking: z
+    .string()
+    .min(1, "Please select your drinking habit")
+    .refine(
+      (val) => ["Never", "Occasionally", "Regularly", "Quit"].includes(val),
+      { message: "Please select a valid drinking option" }
+    ),
+
+  qualification: z
+    .string()
+    .min(1, "Qualification is required")
+    .min(2, "Please enter your qualification"),
+
+  gender: z
+    .string()
+    .min(1, "Please select your gender")
+    .refine(
+      (val) => ["Male", "Female", "Other"].includes(val),
+      { message: "Please select a valid gender" }
+    ),
+
+  profile: z
+    .any()
+    .transform((val) => {
+      if (val instanceof (typeof FileList !== "undefined" ? FileList : Array)) return Array.from(val);
+      if (Array.isArray(val)) return val;
+      if (val && typeof val === "object") return [val];
+      return [];
+    })
+    .refine((files) => files.length > 0, "Profile picture is required")
+    .refine((files) => {
+      const file = files[0];
+      if (!file) return true;
+      if (file.url) return true;
+      return !file.type || SUPPORTED_FORMATS.includes(file.type);
+    }, "Only JPG, JPEG, PNG, or GIF formats are supported")
+    .refine((files) => {
+      const file = files[0];
+      if (!file) return true;
+      if (file.url) return true;
+      return !file.size || file.size <= 5 * 1024 * 1024;
+    }, "Profile picture must be less than 5MB"),
+
+  additionalImg: z
+    .any()
+    .transform((val) => {
+      if (val instanceof (typeof FileList !== "undefined" ? FileList : Array)) return Array.from(val);
+      if (Array.isArray(val)) return val;
+      if (val && typeof val === "object") return [val];
+      return [];
+    })
+    .refine((files) => files.length >= 1, "Please upload at least one image")
+    .refine((files) => files.length <= 3, "Please upload at most 3 images")
+    .refine((files) => {
+      return files.every((f) => {
+        if (!f) return true;
+        if (f.url) return true;
+        return !f.type || SUPPORTED_FORMATS.includes(f.type);
+      });
+    }, "All images must be JPG, JPEG, PNG, or GIF")
+    .refine((files) => {
+      return files.every((f) => {
+        if (!f) return true;
+        if (f.url) return true;
+        return !f.size || f.size <= 5 * 1024 * 1024;
+      });
+    }, "Each image must be less than 5MB"),
+
+  reel: z
+    .any()
+    .transform((val) => {
+      if (val instanceof (typeof FileList !== "undefined" ? FileList : Array)) return Array.from(val);
+      if (Array.isArray(val)) return val;
+      if (val && typeof val === "object") return [val];
+      return [];
+    })
+    .refine((files) => files.length > 0, "Short reel is required")
+    .refine((files) => {
+      const file = files[0];
+      if (!file) return true;
+      if (file.url) return true;
+      return !file.type || SUPPORTED_REEL_FORMATS.includes(file.type);
+    }, "Supported formats: MP4, OGG, WebM, QuickTime")
+    .refine((files) => {
+      const file = files[0];
+      if (!file) return true;
+      if (file.url) return true;
+      return !file.size || file.size <= 10 * 1024 * 1024;
+    }, "Reel must be less than 10MB"),
 });

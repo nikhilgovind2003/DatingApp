@@ -3,8 +3,8 @@ import { RangeSlider, RangeSliderTrack, RangeSliderFilledTrack, RangeSliderThumb
 import PageTitle from "../components/PageTitle/PageTitle";
 import { Search } from "lucide-react";
 import axios from "axios";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'sonner';
+
 import { useNavigate } from 'react-router-dom';
 import debounce from 'lodash.debounce'; // Import debounce from lodash for debouncing saves
 
@@ -111,7 +111,7 @@ function PartnerPreferences() {
     <div className="bg-deep-plum pt-2 h-screen overflow-scroll">
       <PageTitle icon={Search} pageTitle={"Privacy & Settings"} />
       <div className="bg-white rounded-t-3xl px-8 h-screen py-6 overflow-y-auto">
-        <ToastContainer />
+        
         <div className="text-2xl mb-2 font-semibold">Partner Preference</div>
 
         {/* Age Range */}

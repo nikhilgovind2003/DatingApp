@@ -3,12 +3,12 @@ import { Button, Drawer, DrawerBody, DrawerContent, DrawerOverlay } from "@chakr
 import { CiCircleRemove } from "react-icons/ci";
 import { FaCrown } from "react-icons/fa";
 import { MdInput } from "react-icons/md";
-import UserIcon from '../usericons/UserIcon.JSX';
 import { navData } from '../../datas/navData';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import Cookies from 'js-cookie'
+import { UserIcon } from '..';
 
 const Rightside = () => {
   const [isOpen, setIsOpen] = useState(false);

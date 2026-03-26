@@ -43,7 +43,7 @@ import EditprofilePage from './pages/EditprofilePage';
 import PrivacyandSettingspage from './pages/PrivacyandSettingspage';
 import SettingsPage from './pages/SettingsPage';
 import BottomNavbar from './components/BottomNavbar';
-import { SubHeader } from './Components';
+import { SubHeader } from './components/SubHeader';
 import SubscriptionPage from './pages/SubscriptionPage';
 import SortFilter from './pages/SortFilter';
 import Messages from './pages/Messages';

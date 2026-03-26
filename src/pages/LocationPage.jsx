@@ -8,7 +8,7 @@ import {
   ButtonGroup,
   UserIcon,
   StoryView,
-} from "../Components";
+} from "../components";
 import { Userdata } from "../datas/Userdata";
 import { Link } from "react-router-dom";
 
@@ -23,8 +23,8 @@ const LocationPage = () => {
         "http://localhost:5000/api/v1/users/matchbylocation",
         { withCredentials: true }
       );
-      
-      
+
+
 
       // Fetch match percentages
       const matchPercentageResponse = await axios.get(
@@ -63,13 +63,13 @@ const LocationPage = () => {
   useEffect(() => {
     matchByLocation();
   }, []);
-console.log(nearByUsers)
+  console.log(nearByUsers)
 
   return (
     <section className="sm: w-screen md:w-full lg:w-full pt-5 px-5 pb-24 md:pb-5 h-screen overflow-y-auto overflow-x-hidden">
       <div>
         <div className="flex justify-between items-center gap-5 overflow-x-auto  lg:w-full sm: w-screen  ">
-        <StoryView />
+          <StoryView />
         </div>
         <ButtonGroup />
 

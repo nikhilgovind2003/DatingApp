@@ -3,7 +3,7 @@
 import { BellPlus, MoveLeft } from "lucide-react";
 import React from "react";
 import "./CreateGroup.css";
-import { UserIcon } from "../../Components";
+import { UserIcon } from "../../components";
 
 function CreateGroup() {
   return (
@@ -41,13 +41,13 @@ function CreateGroup() {
           <h6 className="headMake2 mt-5">Invited Members</h6>
           <div className="grid gap-4 grid-cols-4 p-3 h-auto">
             <UserIcon />
-            <UserIcon add={'light'}/>
-            <UserIcon add={'light'}/>
-            <UserIcon add={'light'}/>
-            <UserIcon add={'light'}/>
-            <UserIcon add={'light'}/>
-            <UserIcon add={'light'}/>
-            <UserIcon add={'light'}/>
+            <UserIcon add={'light'} />
+            <UserIcon add={'light'} />
+            <UserIcon add={'light'} />
+            <UserIcon add={'light'} />
+            <UserIcon add={'light'} />
+            <UserIcon add={'light'} />
+            <UserIcon add={'light'} />
           </div>
 
           {/* Create Button */}

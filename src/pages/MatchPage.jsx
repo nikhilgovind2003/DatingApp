@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { InteractionIcon, MatchCardComponent, SubHeader } from '../Components'
+import { InteractionIcon, MatchCardComponent, SubHeader } from '../components'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -26,7 +26,7 @@ const MatchPage = () => {
         const sortedUsers = filteredUsers.sort((a, b) => b.matchPercentage - a.matchPercentage);
         setUser(sortedUsers);
         console.log(sortedUsers);
-        
+
       } catch (error) {
         console.log(error);
       }
@@ -35,10 +35,10 @@ const MatchPage = () => {
     const getPartnerPreference = async () => {
       try {
         const response = await axios.post(`http://localhost:5000/api/v1/users/sortfilter/${userID}`, filterSort);
-        console.log('length',response.data);
+        console.log('length', response.data);
         if (response.data.length === 0) {
-          console.log('length',response.data);
-          
+          console.log('length', response.data);
+
           setHasPartnerPreference(false); // Set to false if no partner preferences are found
         } else {
           setsortedUser(response.data);

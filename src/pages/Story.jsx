@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import Upgrade from "./../components/upgrademore/Upgrade";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { UserIcon } from "../Components";
+import { UserIcon } from "../components";
 
 export default function Story() {
   const [clicked, setClicked] = useState(false);
@@ -44,9 +44,9 @@ export default function Story() {
 
   const currentStoryUser = users.find(user => user._id == storyUser.id)
   console.log(currentStoryUser);
-  
-  
-  
+
+
+
   //const storyUser = story?._id;
 
   const handleTimeUpdate = () => {
@@ -76,7 +76,7 @@ export default function Story() {
   };
 
 
-  
+
   return (
     <div className="relative flex flex-col h-screen bg-cover bg-center w-full mx-auto items-center z-10">
       {videoUrl ? (
@@ -114,8 +114,8 @@ export default function Story() {
         onClick={() => setClicked(true)}
         className="absolute top-0 left-0 ml-5 flex items-center w-full md:w-1/3 bg-opacity-50 text-white py-4 z-10 cursor-pointer"
       >
-        <ArrowLeft onClick={()=> navigate("/home")} />
-        <UserIcon story={true} url={currentStoryUser?.profileImage?.url}/>
+        <ArrowLeft onClick={() => navigate("/home")} />
+        <UserIcon story={true} url={currentStoryUser?.profileImage?.url} />
       </header>
 
       {/* Footer */}

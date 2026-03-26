@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PageTitle from "../components/PageTitle/PageTitle";
 import { ChevronLeft } from "lucide-react";
 import { Userdata } from "../datas/Userdata";
-import { UserPreview } from "../Components";
+import { UserPreview } from "../components";
 import { LiaHeartSolid } from "react-icons/lia";
 import { Link } from "react-router-dom";
 import axios from "axios";

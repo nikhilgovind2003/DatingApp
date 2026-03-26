@@ -2,7 +2,7 @@ import React from 'react'
 import PageTitle from '../components/PageTitle/PageTitle'
 import { Search, SearchIcon } from "lucide-react";
 import BottomNavbar from '../components/BottomNavbar';
-import { UserPreview, UserSetting } from '../Components';
+import { UserPreview, UserSetting } from '../components';
 import Cookies from 'js-cookie'
 import { useSelector } from 'react-redux';
 
@@ -26,16 +26,16 @@ function SettingsPage() {
         <div className="bg-deep-plum h-screen overflow-y-auto">
             <PageTitle icon={Search} pageTitle={"Settings"} />
             <div className="rounded-t-4xl bg-white pt-5 pb-24 md:pb-5 sm:border-2 ">
-             <div className='px-5'>
-             <UserPreview 
-                qr={true}
-                name={userInfo?.firstName + " " + userInfo?.lastName}
-                bio={myProfile?.bio}
-                url={myProfile?.profileImage?.url}/>
-             </div>
+                <div className='px-5'>
+                    <UserPreview
+                        qr={true}
+                        name={userInfo?.firstName + " " + userInfo?.lastName}
+                        bio={myProfile?.bio}
+                        url={myProfile?.profileImage?.url} />
+                </div>
                 <hr />
                 <div className='mt-5  px-5'>
-                <UserSetting />
+                    <UserSetting />
                 </div>
             </div>
         </div>

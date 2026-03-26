@@ -42,7 +42,7 @@ function Profileviewpage() {
 
   <div className="mt- absolute bottom-24 left-1/2 transform -translate-x-1/2 p-2 flex-wrap justify-center items-center">
     <div className="text-center">
-      <span className="text-3xl text-white text-center">{sinUser.firstName+" "+lastName}</span> <br />
+      <span className="text-3xl text-white text-center">{sinUser.firstName+" "+sinUser.lastName}</span> <br />
       <span className="text-sm text-gray-300">{sinUser.place}</span>
     </div>
     <div className="text-white text-center mt-6">

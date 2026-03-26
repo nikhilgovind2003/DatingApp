@@ -168,7 +168,7 @@ function EditProfile() {
             type="email"
             placeholder="Email"
             name="email"
-            value={updateData?.email != null ? updateData.email : data.email}
+            value={updateData?.email != null ? updateData.email : data.email || ""}
             onChange={handleChange}
             className="w-full p-3 border border-gray-300 rounded-lg"
           />

@@ -1,10 +1,12 @@
 import React from 'react'
-import { House, Link } from 'lucide-react';
+import { House, Link as LinkIcon } from 'lucide-react';
 import { Heart } from 'lucide-react';
 import { MessageCircle } from 'lucide-react';
 import { Star } from 'lucide-react';
 import { Search } from 'lucide-react';
 import Sidemenu from '../SideMenu/Sidemenu';
+import { Link } from 'react-router-dom';
+
 const LeftBar = () => {
   return (
     <div className='w-full h-full bg-hot-purple text-white text-lg sm:text-sm md:text-sm lg:text-lg pt-5'>
@@ -13,29 +15,29 @@ const LeftBar = () => {
       </div>
       <ul className='space-y-2'>
        <li className="hover:bg-dark-wine">
-          <a href="/home" className=" px-4 py-2 flex items-center">
+          <Link to="/home" className=" px-4 py-2 flex items-center">
         <span className="mr-2"><House /></span>Home
-          </a>
+          </Link>
         </li>
         <li className="hover:bg-dark-wine">
-          <a href="#" className=" px-4 py-2 flex items-center">
+          <Link to="/shortlisted" className=" px-4 py-2 flex items-center">
             <span className="mr-2"><Heart /></span>Likes
-          </a>
+          </Link>
         </li>
         <li className="hover:bg-dark-wine">
-          <a href="/chat" className=" px-4 py-2 flex items-center">
+          <Link to="/message" className=" px-4 py-2 flex items-center">
             <span className="mr-2"><MessageCircle /></span>Messages
-          </a>
+          </Link>
         </li>
         <li className="hover:bg-dark-wine">
-          <a href="favourites" className=" px-4 py-2 flex items-center">
+          <Link to="/favourites" className=" px-4 py-2 flex items-center">
             <span className="mr-2"><Star /></span>Favourites
-          </a>
+          </Link>
         </li>
         <li className="hover:bg-dark-wine">
-          <a href="/search" className=" px-4 py-2 flex items-center">
+          <Link to="/search" className=" px-4 py-2 flex items-center">
             <span className="mr-2"><Search /></span>Search
-          </a>
+          </Link>
         </li>
       </ul>
     </div>

@@ -8,7 +8,7 @@ import {
   ButtonGroup,
   UserIcon,
   StoryView,
-} from "../Components";
+} from "../components";
 import { Userdata } from "../datas/Userdata";
 import { Link } from "react-router-dom";
 

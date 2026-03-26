@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import Upgrade from "./../components/upgrademore/Upgrade";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { UserIcon } from "../Components";
+import { UserIcon } from "../components";
 
 export default function Story() {
   const [clicked, setClicked] = useState(false);

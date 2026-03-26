@@ -3,7 +3,7 @@
 import { BellPlus, MoveLeft } from "lucide-react";
 import React from "react";
 import "./CreateGroup.css";
-import { UserIcon } from "../../Components";
+import { UserIcon } from "../../components";
 
 function CreateGroup() {
   return (

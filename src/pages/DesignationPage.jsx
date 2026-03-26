@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ButtonGroup, InteractionIcon, MatchCardComponent, StoryView, SubHeader, UserIcon } from "../Components";
+import { ButtonGroup, InteractionIcon, MatchCardComponent, StoryView, SubHeader, UserIcon } from "../components";
 import { Userdata } from "../datas/Userdata";
 import { Link } from "react-router-dom";
 import axios from "axios";

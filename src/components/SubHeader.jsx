@@ -20,4 +20,4 @@ const SubHeader = ({title = ''}) => {
   )
 }
 
-export default SubHeader
+export { SubHeader }

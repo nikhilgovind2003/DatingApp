@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ButtonGroup, Sidemenu, StoryView, UserIcon } from "../Components";
+import { ButtonGroup, Sidemenu, StoryView, UserIcon } from "../components";
 import { HiOutlineBell } from "react-icons/hi";
 import HomeCardComponents from "../components/Homecards/HomeCardComponents";
 import { Link } from "react-router-dom";

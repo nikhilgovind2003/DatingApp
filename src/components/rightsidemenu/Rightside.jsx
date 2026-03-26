@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import React, { useState, useEffect } from 'react';
 import { Button, Drawer, DrawerBody, DrawerContent, DrawerOverlay } from "@chakra-ui/react";
 import { CiCircleRemove } from "react-icons/ci";
@@ -44,7 +45,7 @@ const Rightside = () => {
 
   const handleLogout = async () => {
     try {
-      const res = await axios.post('http://localhost:5000/logout', null, { withCredentials: true });
+      const res = await axios.post(`${SOCKET_URL}/logout`, null, { withCredentials: true });
       console.log(res.data.message);
       navigate('/');
     } catch (err) {
@@ -109,3 +110,6 @@ const Rightside = () => {
 }
 
 export default Rightside;
+
+
+

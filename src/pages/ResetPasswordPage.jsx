@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import axios from 'axios';
 import { Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
@@ -28,7 +29,7 @@ const ResetPasswordPage = () => {
     const onSubmit = (data) => {
         setLoading(true);
         console.log(data);
-        axios.patch(`http://localhost:5000/reset-password?user=${user}&token=${token}`, data)
+        axios.patch(`${SOCKET_URL}/reset-password?user=${user}&token=${token}`, data)
             .then(res => {
                 setLoading(false);
                 toast.success(res.data.message, { duration: 1000 });
@@ -103,3 +104,6 @@ const ResetPasswordPage = () => {
 };
 
 export default ResetPasswordPage;
+
+
+

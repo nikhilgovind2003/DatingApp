@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import { toast } from 'sonner';
 import { IoMdThumbsUp } from "react-icons/io";
 import { BiSolidMessageRounded } from "react-icons/bi";
@@ -19,7 +20,7 @@ const HomeCardComponents = (props, from, to) => {
 
   const handleSendRequest = async () => {
     try {
-      await axios.patch(`http://localhost:5000/api/v1/users/send/${props.userId}`, { from, to }, { withCredentials: true });
+      await axios.patch(`${API_URL}/users/send/${props.userId}`, { from, to }, { withCredentials: true });
       toast('Friend request sent!');
       console.log(props.userId);
     } catch (error) {
@@ -29,7 +30,7 @@ const HomeCardComponents = (props, from, to) => {
 
   const handleShortlistRequest = async () => {
     try {
-      await axios.post(`http://localhost:5000/api/v1/users/shortlist/${props.userId}`, { from, to }, { withCredentials: true });
+      await axios.post(`${API_URL}/users/shortlist/${props.userId}`, { from, to }, { withCredentials: true });
       toast('Shortlisted!');
       console.log(props.userId);
     } catch (error) {
@@ -105,3 +106,6 @@ const HomeCardComponents = (props, from, to) => {
 };
 
 export default HomeCardComponents;
+
+
+

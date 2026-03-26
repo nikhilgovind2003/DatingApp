@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import React, { useEffect, useState } from 'react';
 import { Userdata } from '../datas/Userdata';
 import { UserPreview } from '../components';
@@ -13,7 +14,7 @@ const ShortlistByPage = () => {
   useEffect(() => {
     const fetchRequestedLists = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/v1/users/user', { withCredentials: true });
+        const response = await axios.get(`${API_URL}/users/user`, { withCredentials: true });
         setShortLists(response.data[0].shortListedBy);
 console.log(response.data[0].shortListedBy);
       } catch (error) {
@@ -28,7 +29,7 @@ console.log(response.data[0].shortListedBy);
     const fetchUserData = async () => {
       try {
         const requests = shortLists.map(userId =>
-          axios.get(`http://localhost:5000/api/v1/users/profile/${userId}`)
+          axios.get(`${API_URL}/users/profile/${userId}`)
         );
         const responses = await Promise.all(requests);
         const allUserData = responses.map(response => response.data);
@@ -80,3 +81,6 @@ console.log(response.data[0].shortListedBy);
 };
 
 export default ShortlistByPage;
+
+
+

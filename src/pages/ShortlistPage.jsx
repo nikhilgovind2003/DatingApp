@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import React, { useEffect, useState } from 'react';
 import { Userdata } from '../datas/Userdata';
 import { UserPreview } from '../components';
@@ -13,7 +14,7 @@ const ShortlistPage = () => {
   useEffect(() => {
     const fetchRequestedLists = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/v1/users/user', { withCredentials: true });
+        const response = await axios.get(`${API_URL}/users/user`, { withCredentials: true });
         setShortLists(response.data[0]?.shortlistedProfiles || []);
         console.log(response.data);
       } catch (error) {
@@ -29,7 +30,7 @@ const ShortlistPage = () => {
       try {
         if (shortLists.length > 0) {
           const requests = shortLists.map(userId =>
-            axios.get(`http://localhost:5000/api/v1/users/profile/${userId}`)
+            axios.get(`${API_URL}/users/profile/${userId}`)
           );
           const responses = await Promise.all(requests);
           const allUserData = responses.map(response => response.data);
@@ -51,7 +52,7 @@ const ShortlistPage = () => {
     }
 
     try {
-      await axios.delete(`http://localhost:5000/api/v1/users/delete-shortlist/${userId}`, { withCredentials: true });
+      await axios.delete(`${API_URL}/users/delete-shortlist/${userId}`, { withCredentials: true });
       setShortLists(prev => prev.filter(id => id !== userId));
       setShortlistData(prev => prev.filter(user => user?.user?._id !== userId));
     } catch (error) {
@@ -99,3 +100,6 @@ const ShortlistPage = () => {
 };
 
 export default ShortlistPage;
+
+
+

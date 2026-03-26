@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import io from "socket.io-client";
-import { API_URL, SOCKET_URL } from "../../apiConfig";
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 
 const socket = io(SOCKET_URL);
 
@@ -148,3 +148,5 @@ const Chat = () => {
 };
 
 export default Chat;
+
+

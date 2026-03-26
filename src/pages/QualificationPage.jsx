@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import React, { useEffect, useState } from 'react'
 import { ButtonGroup, InteractionIcon, MatchCardComponent, StoryView, SubHeader, UserIcon } from '../components'
 import axios from 'axios'
@@ -11,8 +12,8 @@ const QualificationPage = () => {
 
   const fetchQualificationMatches = async () => {
     try {
-      const qualificationResponse = await axios.get('http://localhost:5000/api/v1/users/profile/qualification', { withCredentials: true });
-      const matchPercentageResponse = await axios.get('http://localhost:5000/api/v1/users/compare', { withCredentials: true });
+      const qualificationResponse = await axios.get(`${API_URL}/users/profile/qualification`, { withCredentials: true });
+      const matchPercentageResponse = await axios.get(`${API_URL}/users/compare`, { withCredentials: true });
 
       // Assuming the matchPercentageResponse returns an array of objects with user IDs and match percentages
       const matchPercentages = matchPercentageResponse.data.results;
@@ -77,3 +78,6 @@ const QualificationPage = () => {
 }
 
 export default QualificationPage
+
+
+

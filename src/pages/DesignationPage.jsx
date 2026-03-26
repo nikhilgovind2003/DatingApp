@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import React, { useEffect, useState } from "react";
 import { ButtonGroup, InteractionIcon, MatchCardComponent, StoryView, SubHeader, UserIcon } from "../components";
 import { Userdata } from "../datas/Userdata";
@@ -9,8 +10,8 @@ const DesignationPage = () => {
 
   const fetchDesignation = async () => {
     try {
-      const designationResponse = await axios.get('http://localhost:5000/api/v1/users/profile/designations', { withCredentials: true });
-      const matchPercentageResponse = await axios.get('http://localhost:5000/api/v1/users/compare', { withCredentials: true });
+      const designationResponse = await axios.get(`${API_URL}/users/profile/designations`, { withCredentials: true });
+      const matchPercentageResponse = await axios.get(`${API_URL}/users/compare`, { withCredentials: true });
 
       // Assuming the matchPercentageResponse returns an array of objects with user IDs and match percentages
       const matchPercentages = matchPercentageResponse.data.results;
@@ -92,3 +93,6 @@ const DesignationPage = () => {
 };
 
 export default DesignationPage;
+
+
+

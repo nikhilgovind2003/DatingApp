@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import { useEffect, useState } from "react";
 import { UserIcon } from "../index"; // Importing UserIcon component
 import axios from "axios";
@@ -17,7 +18,7 @@ const StoryView = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/v1/users/users"); // Fetch all users from your backend
+        const response = await axios.get(`${API_URL}/users/users`); // Fetch all users from your backend
         setUsers(response.data); // Store fetched users in state
         console.log("Fetched Data:", response.data);
         setLoading(false); // Stop loading once data is fetched
@@ -75,3 +76,6 @@ const StoryView = () => {
 };
 
 export default StoryView;
+
+
+

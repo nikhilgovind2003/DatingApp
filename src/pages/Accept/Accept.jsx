@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import React,{ useEffect, useState }  from 'react'
 import PageTitle from "../../components/PageTitle/PageTitle";
 import { Search } from "lucide-react";
@@ -11,7 +12,7 @@ function Accept() {
     useEffect(() => {
       const fetchRequestedLists = async () => {
         try {
-          const response = await axios.get('http://localhost:5000/api/v1/users/user', { withCredentials: true });
+          const response = await axios.get(`${API_URL}/users/user`, { withCredentials: true });
 
           const acceptedRequests = response.data[0].friends;
           setAcceptRequests(acceptedRequests);
@@ -29,7 +30,7 @@ useEffect(()=>{
   const resposeData=async()=>{
     try{
    const users = acceptrequests.map(userId =>
-    axios.get(`http://localhost:5000/api/v1/users/profile/${userId}`)
+    axios.get(`${API_URL}/users/profile/${userId}`)
    )
    const respostedata = await Promise.all(users)
    const allRequestedData = respostedata.map(data =>data.data)
@@ -67,3 +68,6 @@ useEffect(()=>{
 }
 
 export default Accept;
+
+
+

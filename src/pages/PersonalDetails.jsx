@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
@@ -85,7 +86,7 @@ const PersonalDetails = () => {
       }
 
       const res = await axios.post(
-        "http://localhost:5000/api/v1/users/profile-details",
+        `${API_URL}/users/profile-details`,
         formData,
         { withCredentials: true }
       );
@@ -360,3 +361,5 @@ const PersonalDetails = () => {
 };
 
 export default PersonalDetails;
+
+

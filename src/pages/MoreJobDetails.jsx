@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import axios from 'axios';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -15,7 +16,7 @@ const MoreJobDetails = () => {
     const onSubmit = (data) => {
         setLoading(true);
         console.log(data);
-        axios.patch('http://localhost:5000/api/v1/users/more_job_details', data, {withCredentials: true})
+        axios.patch(`${API_URL}/users/more_job_details`, data, {withCredentials: true})
         .then(res => {
             setLoading(false);
             toast.success(res.data.message, { duration: 1000 })
@@ -76,3 +77,6 @@ const MoreJobDetails = () => {
 };
 
 export default MoreJobDetails;
+
+
+

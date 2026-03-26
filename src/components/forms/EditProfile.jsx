@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import { toast } from 'sonner';
 import axios from "axios";
 import React, { useEffect } from "react";
@@ -9,7 +10,7 @@ function EditProfile() {
 
   const getProfile = async () => {
     const profileDetails = await axios.get(
-      "http://localhost:5000/api/v1/users/get-profile",
+      `${API_URL}/users/get-profile`,
       {
         withCredentials: true,
       }
@@ -99,7 +100,7 @@ function EditProfile() {
 
     try {
       await axios.post(
-        "http://localhost:5000/api/v1/users/update-profile",
+        `${API_URL}/users/update-profile`,
         formData,
         {
           headers: {
@@ -265,3 +266,6 @@ function EditProfile() {
 }
 
 export default EditProfile;
+
+
+

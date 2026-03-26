@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import { ArrowLeft, CircleX, MessageSquare, Plus } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
@@ -18,7 +19,7 @@ export default function Story() {
   useEffect(() => {
     const getStory = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/story/${path}`);
+        const res = await axios.get(`${SOCKET_URL}/story/${path}`);
         setStory(res.data);
       } catch (error) {
         console.error("Failed to load story:", error);
@@ -28,7 +29,7 @@ export default function Story() {
 
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/v1/users/users"); // Fetch all users from your backend
+        const response = await axios.get(`${API_URL}/users/users`); // Fetch all users from your backend
         setUsers(response.data); // Store fetched users in state
         console.log("Fetched Data:", response.data);
       } catch (error) {
@@ -148,3 +149,6 @@ export default function Story() {
     </div>
   );
 }
+
+
+

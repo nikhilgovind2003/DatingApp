@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -49,7 +50,7 @@ const LoginPage = () => {
         if (validate()) {
             setLoading(true);
             try {
-                const res = await axios.post('http://localhost:5000/login', formData, { withCredentials: true });
+                const res = await axios.post(`${API_URL}/login`, formData, { withCredentials: true });
 
                 setLoading(false);
                 toast.success(res.data.message);
@@ -131,3 +132,6 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
+
+

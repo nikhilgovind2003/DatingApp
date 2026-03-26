@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import React, { useEffect, useState } from 'react'
 import { InteractionIcon, MatchCardComponent, SubHeader } from '../components'
 import axios from 'axios'
@@ -21,7 +22,7 @@ const MatchPage = () => {
   useEffect(() => {
     const getMatchPercent = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/v1/users/compare', { withCredentials: true });
+        const response = await axios.get(`${API_URL}/users/compare`, { withCredentials: true });
         const filteredUsers = response.data.results.filter(user => user.matchPercentage >= 0);
         const sortedUsers = filteredUsers.sort((a, b) => b.matchPercentage - a.matchPercentage);
         setUser(sortedUsers);
@@ -34,7 +35,7 @@ const MatchPage = () => {
 
     const getPartnerPreference = async () => {
       try {
-        const response = await axios.post(`http://localhost:5000/api/v1/users/sortfilter/${userID}`, filterSort);
+        const response = await axios.post(`${API_URL}/users/sortfilter/${userID}`, filterSort);
         console.log('length', response.data);
         if (response.data.length === 0) {
           console.log('length', response.data);
@@ -107,3 +108,6 @@ const MatchPage = () => {
 }
 
 export default MatchPage
+
+
+

@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import React, { useEffect, useState } from "react";
 import { Search } from "lucide-react";
 import PageTitle from "../../components/PageTitle/PageTitle";
@@ -11,7 +12,7 @@ const RejectPage = () => {
   useEffect(() => {
     const fetchRequestedLists = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/v1/users/user', { withCredentials: true });
+        const response = await axios.get(`${API_URL}/users/user`, { withCredentials: true });
         setRequestedLists(response.data[0]?.requestedLists || []);
       } catch (error) {
         console.log(error);
@@ -25,7 +26,7 @@ const RejectPage = () => {
     const fetchUserData = async () => {
       try {
         const requests = requestedLists.map(userId => 
-          axios.get(`http://localhost:5000/api/v1/users/profile/${userId}`)
+          axios.get(`${API_URL}/users/profile/${userId}`)
         );
         const responses = await Promise.all(requests);
         const allUserData = responses.map(response => response.data);
@@ -50,7 +51,7 @@ const RejectPage = () => {
   
     try {
       // Make the DELETE request
-      await axios.delete(`http://localhost:5000/api/v1/users/friend-request/${userId}`, { withCredentials: true });
+      await axios.delete(`${API_URL}/users/friend-request/${userId}`, { withCredentials: true });
   
       // Update the requested lists safely
       setRequestedLists(prev => prev.filter(id => id !== userId));
@@ -106,3 +107,6 @@ const RejectPage = () => {
 };
 
 export default RejectPage;
+
+
+

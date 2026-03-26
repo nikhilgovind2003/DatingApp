@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import React, { useRef } from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -20,7 +21,7 @@ const LocationPage = () => {
     try {
       // Fetch users by location
       const locationResponse = await axios.get(
-        "http://localhost:5000/api/v1/users/matchbylocation",
+        `${API_URL}/users/matchbylocation`,
         { withCredentials: true }
       );
 
@@ -28,7 +29,7 @@ const LocationPage = () => {
 
       // Fetch match percentages
       const matchPercentageResponse = await axios.get(
-        "http://localhost:5000/api/v1/users/compare",
+        `${API_URL}/users/compare`,
         { withCredentials: true }
       );
 
@@ -99,3 +100,6 @@ const LocationPage = () => {
 };
 
 export default LocationPage;
+
+
+

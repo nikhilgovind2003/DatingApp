@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import axios from 'axios';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -16,7 +17,7 @@ const ForgotPasswordPage = () => {
     const onSubmit = (data) => {
         setLoading(true);
         // console.log(data);
-        axios.post('http://localhost:5000/forgot-password', data)
+        axios.post(`${SOCKET_URL}/forgot-password`, data)
             .then(res => {
                 setLoading(false);
                 toast.success(res.data.message, { duration: 1000 })
@@ -56,3 +57,6 @@ const ForgotPasswordPage = () => {
 };
 
 export default ForgotPasswordPage;
+
+
+

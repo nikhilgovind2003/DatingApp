@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import { useEffect, useRef, useState } from "react";
 import { ButtonGroup, Sidemenu, StoryView, UserIcon } from "../components";
 import { HiOutlineBell } from "react-icons/hi";
@@ -58,7 +59,7 @@ const HomePage = () => {
     const fetchUsers = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/v1/users/userdetails",
+          `${API_URL}/users/userdetails`,
           { withCredentials: true }
         ); // Fetch all users from your backend
         const activeUsers = response.data.filter((user) => user.user.isActive); // Filter users where isActive is true
@@ -128,7 +129,7 @@ const HomePage = () => {
 
   const sendLocation = async (latitude, longitude) => {
     try {
-      await axios.post("http://localhost:5000/api/v1/users/getlocation", { latitude, longitude }, { withCredentials: true });
+      await axios.post(`${API_URL}/users/getlocation`, { latitude, longitude }, { withCredentials: true });
     } catch (error) {
       console.error("error sending location", error)
     }
@@ -179,3 +180,6 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
+
+

@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import { AlertCircle, Bell, CircleX, CircleCheckBig } from "lucide-react";
 import NotificationComponent from "./notificationComponent";
 import { Link } from "react-router-dom";
@@ -17,7 +18,7 @@ const notificationBar = (prop) => {
 
   useEffect(() => {
 
-    // axios.get(`http://localhost:5000/api/v1/users/notifications`,{ withCredentials: true })
+    // axios.get(`${API_URL}/users/notifications`,{ withCredentials: true })
     // .then((res) => res.json())
     // .then((data) => setNotifications(data));
 
@@ -80,3 +81,6 @@ const notificationBar = (prop) => {
 };
 
 export default notificationBar;
+
+
+

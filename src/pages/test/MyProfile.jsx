@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import React, { useEffect, useState } from "react";
 import {GraduationCap, Cigarette,Beer,ChevronLeft, Navigation,Heart } from "lucide-react";
 import ProfileActionbar from "../../components/ProfileActionbar";
@@ -14,7 +15,7 @@ function MyProfile() {
   const matchPercentage = queryParams.get('match');
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/v1/users/profile/${userId}`, { withCredentials: true })
+    axios.get(`${API_URL}/users/profile/${userId}`, { withCredentials: true })
       .then(res => setUser(res.data))
       .catch(err => console.log(err));
   }, [userId]);
@@ -119,3 +120,5 @@ function MyProfile() {
 }
 
 export default MyProfile;
+
+

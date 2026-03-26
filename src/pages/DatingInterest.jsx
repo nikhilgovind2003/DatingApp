@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +13,7 @@ const DatingInterest = () => {
     try {
       setLoading(true);
       const res = await axios.patch(
-        "http://localhost:5000/api/v1/users/set-interest", 
+        `${API_URL}/users/set-interest`, 
         { interest }, 
         { withCredentials: true }
       );
@@ -71,3 +72,6 @@ const DatingInterest = () => {
   );
 };
 export default DatingInterest;
+
+
+

@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { LogOut, Bell, AlertCircle } from "lucide-react";
@@ -31,7 +32,7 @@ const RightBar = () => {
   useEffect(() => {
     // Fetch notifications from the backend
     axios
-      .get(`http://localhost:5000/api/v1/users/notifications`, { withCredentials: true })
+      .get(`${API_URL}/users/notifications`, { withCredentials: true })
       .then((res) => {
         console.log(`Fetched Notifications::${res.data}`);
         const unreadNotifications = res.data.filter((notification) => !notification.viewed); // Filter unread notifications
@@ -44,7 +45,7 @@ const RightBar = () => {
 
   const handleLogout = async () => {
     try {
-      const res = await axios.post("http://localhost:5000/logout", null, { withCredentials: true });
+      const res = await axios.post(`${SOCKET_URL}/logout`, null, { withCredentials: true });
       dispatch(logout());
       navigate("/home");
     } catch (err) {
@@ -109,3 +110,6 @@ const RightBar = () => {
 };
 
 export default RightBar;
+
+
+

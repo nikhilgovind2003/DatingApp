@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import axios from 'axios';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -14,7 +15,7 @@ const JobDetails = () => {
 
     const onSubmit = (data) => {
         setLoading(true);
-        axios.post('http://localhost:5000/api/v1/users/job_details', data, { withCredentials: true })
+        axios.post(`${API_URL}/users/job_details`, data, { withCredentials: true })
             .then(res => {
                 setLoading(false);
                 toast.success(res.data.message, { duration: 1000 });
@@ -76,3 +77,6 @@ const JobDetails = () => {
 };
 
 export default JobDetails;
+
+
+

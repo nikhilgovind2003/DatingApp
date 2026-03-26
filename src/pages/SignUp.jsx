@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import React, { useState } from "react";
 import { KeyRound, Lock, Mail, Phone, User, Loader2 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
@@ -40,7 +41,7 @@ const SignUp = () => {
   });
 
   const google = () => {
-    window.open("http://localhost:5000/auth/google/callback", "_self");
+    window.open(`${SOCKET_URL}/auth/google/callback`, "_self");
   };
 
   const handleOtpGeneration = async () => {
@@ -302,3 +303,6 @@ const SignUp = () => {
 };
 
 export default SignUp;
+
+
+

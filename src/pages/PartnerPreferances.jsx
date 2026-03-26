@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import React, { useEffect, useState } from "react";
 import { RangeSlider, RangeSliderTrack, RangeSliderFilledTrack, RangeSliderThumb, ChakraProvider } from "@chakra-ui/react";
 import PageTitle from "../components/PageTitle/PageTitle";
@@ -30,7 +31,7 @@ function PartnerPreferences() {
   useEffect(() => {
     const getPreferenceData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/v1/users/preferences/${userId}`);
+        const response = await axios.get(`${API_URL}/users/preferences/${userId}`);
         const data = response.data;
         setPrefData(data);
         setGender(data.gender || 'Male');
@@ -89,7 +90,7 @@ function PartnerPreferences() {
   // Debounced save function
   const debouncedSave = debounce(async () => {
     try {
-      const response = await axios.post(`http://localhost:5000/api/v1/users/preferences/${userId}`, body);
+      const response = await axios.post(`${API_URL}/users/preferences/${userId}`, body);
       console.log(response);
       
     } catch (error) {
@@ -327,3 +328,6 @@ function PartnerPreferences() {
 ); }
 
 export default PartnerPreferences;
+
+
+

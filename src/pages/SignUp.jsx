@@ -107,7 +107,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-transparent bg-[url('LandingPagebackgroundblur.png')] bg-no-repeat bg-cover bg-fixed">
+    <div className="flex items-center justify-center min-h-screen bg-transparent bg-[url('/LandingPagebackgroundblur.png')] bg-no-repeat bg-cover bg-fixed">
       <div className="absolute inset-0 bg-black/10 backdrop-blur-2xl -z-10" />
       
       

@@ -84,7 +84,7 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100 bg-[url('LandingPagebackgroundblur.png')] bg-no-repeat bg-cover bg-fixed backdrop-blur-3xl">
+        <div className="flex items-center justify-center min-h-screen bg-gray-100 bg-[url('/LandingPagebackgroundblur.png')] bg-no-repeat bg-cover bg-fixed backdrop-blur-3xl">
             
             <div className="flex items-center justify-center min-h-screen lg:w-2/5">
                 <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">

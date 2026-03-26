@@ -103,7 +103,7 @@ const PersonalDetails = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-transparent bg-[url('LandingPagebackgroundblur.png')] bg-no-repeat bg-cover bg-fixed">
+    <div className="flex items-center justify-center min-h-screen bg-transparent bg-[url('/LandingPagebackgroundblur.png')] bg-no-repeat bg-cover bg-fixed">
       <div className="absolute inset-0 bg-black/10 backdrop-blur-2xl -z-10" />
       
       <div className="flex flex-col min-h-screen p-4 lg:w-2/5 z-0">

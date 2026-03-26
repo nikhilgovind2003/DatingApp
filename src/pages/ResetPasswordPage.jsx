@@ -43,7 +43,7 @@ const ResetPasswordPage = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100 bg-[url('LandingPagebackgroundblur.png')] bg-no-repeat bg-cover bg-fixed backdrop-blur-3xl">
+        <div className="flex items-center justify-center min-h-screen bg-gray-100 bg-[url('/LandingPagebackgroundblur.png')] bg-no-repeat bg-cover bg-fixed backdrop-blur-3xl">
             
             <div className="flex justify-center items-center min-h-screen p-4 lg:w-2/5">
                 <form onSubmit={handleSubmit(onSubmit)} className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">

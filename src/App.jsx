@@ -10,7 +10,7 @@ const Profileviewpage = lazy(() => import('./pages/Profileviewpage'));
 const MyProfile = lazy(() => import('./pages/MyProfile'));
 const PaymentMethods = lazy(() => import('./pages/PaymentMethods'));
 const ChangePwdPage = lazy(() => import('./pages/ChangePwdPage'));
-const EditprofilePage = lazy(() => import('./pages/EditprofilePage'));
+const EditProfilePage = lazy(() => import('./pages/EditProfilePage'));
 const PrivacyandSettingspage = lazy(() => import('./pages/PrivacyandSettingspage'));
 const SettingsPage = lazy(() => import('./pages/SettingsPage'));
 const LocationPage = lazy(() => import('./pages/LocationPage'));
@@ -81,7 +81,7 @@ function App() {
             <Route path='/profile' element={<ProtectedRouter isAuthenticated={isAuthenticated}><MyProfile /></ProtectedRouter>} />
             <Route path='/paymentMethod' element={<ProtectedRouter isAuthenticated={isAuthenticated}><PaymentMethods /></ProtectedRouter>} />
             <Route path='/change-password' element={<ProtectedRouter isAuthenticated={isAuthenticated}><ChangePwdPage /></ProtectedRouter>} />
-            <Route path='/editprofile' element={<ProtectedRouter isAuthenticated={isAuthenticated}><EditprofilePage /></ProtectedRouter>} />
+            <Route path='/editprofile' element={<ProtectedRouter isAuthenticated={isAuthenticated}><EditProfilePage /></ProtectedRouter>} />
             <Route path='/privacyandsetting' element={<ProtectedRouter isAuthenticated={isAuthenticated}><PrivacyandSettingspage /></ProtectedRouter>} />
             <Route path='/settings' element={<ProtectedRouter isAuthenticated={isAuthenticated}><SettingsPage /></ProtectedRouter>} />
             <Route path='/location' element={<ProtectedRouter isAuthenticated={isAuthenticated}><LocationPage /></ProtectedRouter>} />

@@ -11,7 +11,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Cookies from "js-cookie";
 
 import { login } from "../redux/features/auth/authSlice";
-import { API_URL } from "../apiConfig";
 import { signUpSchema } from "../utils/validationSchemas";
 
 // shadcn components
@@ -37,7 +36,7 @@ const SignUp = () => {
     formState: { errors },
   } = useForm({
     resolver: zodResolver(signUpSchema),
-    mode: "onTouched",
+    mode: "onChange",
   });
 
   const google = () => {

@@ -22,11 +22,18 @@ const RightBar = () => {
   console.log(userInfo)
 
   const myProfileCookie = Cookies.get("myProfile");
-  const decodedMyProfileCookie = decodeURIComponent(myProfileCookie);
-  const cleanedMyProfileJson = decodedMyProfileCookie.startsWith("j:")
-    ? decodedMyProfileCookie.slice(2)
-    : decodedMyProfileCookie;
-  const myProfile = cleanedMyProfileJson ? JSON.parse(cleanedMyProfileJson) : null;
+  let myProfile = null;
+  if (myProfileCookie) {
+    try {
+      const decodedMyProfileCookie = decodeURIComponent(myProfileCookie);
+      const cleanedMyProfileJson = decodedMyProfileCookie.startsWith("j:")
+        ? decodedMyProfileCookie.slice(2)
+        : decodedMyProfileCookie;
+      myProfile = cleanedMyProfileJson ? JSON.parse(cleanedMyProfileJson) : null;
+    } catch (error) {
+      console.error("Error parsing myProfile cookie:", error);
+    }
+  }
   console.log(myProfile);
 
   useEffect(() => {

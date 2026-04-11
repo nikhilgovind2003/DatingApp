@@ -3,9 +3,7 @@ import { AlertCircle, Bell, CircleX, CircleCheckBig } from "lucide-react";
 import NotificationComponent from "./notificationComponent";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from 'react';
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { API_URL } from "../../apiConfig";
 
 
 

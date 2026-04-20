@@ -1,51 +1,90 @@
-import React, { createContext, useEffect, useRef, useState } from 'react';
+import React, { createContext, useEffect, useRef, useState, useContext } from 'react';
 import { io } from 'socket.io-client';
-import { API_URL, SOCKET_URL } from '../apiConfig';
-
+import { SOCKET_URL } from '../apiConfig';
+import { useSelector } from 'react-redux';
+import { toast } from 'sonner';
 
 const SocketContext = createContext();
 
+export const useSocket = () => {
+    const context = useContext(SocketContext);
+    if (!context) {
+        throw new Error('useSocket must be used within a SocketProvider');
+    }
+    return context;
+};
+
 const SocketProvider = ({ children }) => {
     const socket = useRef(null);
-    const [onlineUsers, setOnlineUsers] = useState([])
-    const [istrue, setIsTrue] = useState(false)
-    useEffect(() => {
-        if (localStorage.getItem('jwtToken')) {
-            socket.current = io(SOCKET_URL);
+    const [onlineUsers, setOnlineUsers] = useState(new Set());
+    const { isAuthenticated, userInfo } = useSelector(state => state.userAuth);
 
-            socket.current.on('connect', async () => {
-                console.log('Connected to socket server');
-                const userId = await getUserIdFromToken(localStorage.getItem('jwtToken'));
-                socket.current.emit('new-user-add', userId);
-                socket.current.on("get-users", users => {
-                    console.log(users)
-                    setOnlineUsers(users)
-                })
+    useEffect(() => {
+        if (isAuthenticated && userInfo?._id) {
+            // Initialize socket connection
+            socket.current = io(SOCKET_URL, {
+                withCredentials: true,
+                transports: ['websocket', 'polling']
             });
 
-        }
+            socket.current.on('connect', () => {
+                console.log('Connected to socket server');
+                // Identify the user to the server
+                socket.current.emit('joinRoom', userInfo._id);
+            });
 
-    }, [istrue]);
+            // Listen for status changes of other users
+            socket.current.on('userStatusChange', ({ userId, isActive }) => {
+                setOnlineUsers(prev => {
+                    const newSet = new Set(prev);
+                    if (isActive) {
+                        newSet.add(userId);
+                    } else {
+                        newSet.delete(userId);
+                    }
+                    return newSet;
+                });
+            });
 
-    const getUserIdFromToken = async (token) => {
-        const response = await fetch(`${API_URL}/users/user`, {
-            headers: {
-                'Content-type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`
-            }
-        })
-        const data = await response.json()
-        if (response.ok && data.length > 0) {
-            return data[0]._id
+            // Listen for real-time notifications
+            socket.current.on('newNotification', (data) => {
+                console.log('New notification received:', data);
+                // You could trigger a global sound or toast here
+                toast.info(`New ${data.type.replace('_', ' ')} from ${data.sender?.firstName || 'someone'}`);
+            });
+
+            // Listen for real-time status responses (for initial check)
+            socket.current.on('statusResponse', ({ userId, isActive }) => {
+                setOnlineUsers(prev => {
+                    const newSet = new Set(prev);
+                    if (isActive) newSet.add(userId);
+                    else newSet.delete(userId);
+                    return newSet;
+                });
+            });
+
+            return () => {
+                if (socket.current) {
+                    socket.current.disconnect();
+                    socket.current = null;
+                }
+            };
         }
+    }, [isAuthenticated, userInfo?._id]);
+
+    const isOnline = (userId) => {
+        return onlineUsers.has(String(userId));
     };
+
     return (
-        <SocketContext.Provider value={{ socket, onlineUsers, setIsTrue }}>
+        <SocketContext.Provider value={{ socket: socket.current, onlineUsers, isOnline }}>
             {children}
         </SocketContext.Provider>
     );
 };
+
 export {
     SocketProvider,
     SocketContext
 }
+

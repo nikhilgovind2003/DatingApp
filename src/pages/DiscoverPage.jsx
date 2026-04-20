@@ -1,7 +1,7 @@
 import React from 'react'
-import { MatchCardComponent } from '../Components'
+import { MatchCardComponent } from '../components'
 import { Userdata } from '../datas/Userdata'
-import { ChevronDown,MapPin, Search, SlidersHorizontal } from 'lucide-react';
+import { ChevronDown, MapPin, Search, SlidersHorizontal } from 'lucide-react';
 import Button from '../components/buttons/InterestButton';
 
 function DiscoverPage() {
@@ -51,7 +51,7 @@ function DiscoverPage() {
           </div>
           <div className="flex gap-2 flex-wrap">
             {/* Interests */}
-            <Button text="Music" icon="🎵"  selected={true} />
+            <Button text="Music" icon="🎵" selected={true} />
           </div>
         </div>
 

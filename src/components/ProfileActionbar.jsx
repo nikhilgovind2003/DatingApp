@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import { toast } from 'sonner';
 import React from 'react';
 import axios from 'axios';
@@ -12,7 +13,7 @@ function ProfileActionbar({ userId, from, to }) {
 
   const handleSendRequest = async () => {
     try {
-      await axios.patch(`http://localhost:5000/api/v1/users/send/${userid.userId}`, { from, to }, { withCredentials: true });
+      await axios.patch(`${API_URL}/users/send/${userid.userId}`, { from, to }, { withCredentials: true });
       toast('Friend request sent!');
       console.log(userid.userId);
     } catch (error) {
@@ -33,7 +34,7 @@ function ProfileActionbar({ userId, from, to }) {
     try {
       console.log(userid.userId);
       console.log(from, to);
-      await axios.post(`http://localhost:5000/api/v1/users/shortlist/${userid.userId}`, { from, to }, { withCredentials: true });
+      await axios.post(`${API_URL}/users/shortlist/${userid.userId}`, { from, to }, { withCredentials: true });
       toast('Shortlisted!');
       console.log(userid.userId);
     } catch (error) {
@@ -87,3 +88,6 @@ function ProfileActionbar({ userId, from, to }) {
 }
 
 export default ProfileActionbar;
+
+
+

@@ -1,6 +1,7 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { LogOut, Bell, AlertCircle } from "lucide-react";
+import { Bell} from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { navData } from "../../datas/navData";
 import { MdInput } from "react-icons/md";
@@ -8,30 +9,36 @@ import { Button } from "@chakra-ui/react";
 import { logout } from "../../redux/features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Cookies from 'js-cookie';
+import { FaUserCircle } from "react-icons/fa";
 
 const RightBar = () => {
-  const [notification, setNotification] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0); // For storing the number of unread notifications
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const userInfo = useSelector((state) => state.userAuth.userInfo);
-
-
-  console.log(userInfo)
+  const {userInfo, myProfile} = useSelector((state) => state.userAuth);
 
   const myProfileCookie = Cookies.get("myProfile");
-  const decodedMyProfileCookie = decodeURIComponent(myProfileCookie);
-  const cleanedMyProfileJson = decodedMyProfileCookie.startsWith("j:")
-    ? decodedMyProfileCookie.slice(2)
-    : decodedMyProfileCookie;
-  const myProfile = cleanedMyProfileJson ? JSON.parse(cleanedMyProfileJson) : null;
-  console.log(myProfile);
+
+  console.log("data",myProfile )
+
+  // let myProfile = null;
+  // if (myProfileCookie) {
+  //   try {
+  //     const decodedMyProfileCookie = decodeURIComponent(myProfileCookie);
+  //     const cleanedMyProfileJson = decodedMyProfileCookie.startsWith("j:")
+  //       ? decodedMyProfileCookie.slice(2)
+  //       : decodedMyProfileCookie;
+  //     myProfile = cleanedMyProfileJson ? JSON.parse(cleanedMyProfileJson) : null;
+  //   } catch (error) {
+  //     console.error("Error parsing myProfile cookie:", error);
+  //   }
+  // }
 
   useEffect(() => {
     // Fetch notifications from the backend
     axios
-      .get(`http://localhost:5000/api/v1/users/notifications`, { withCredentials: true })
+      .get(`${API_URL}/users/notifications`, { withCredentials: true })
       .then((res) => {
         console.log(`Fetched Notifications::${res.data}`);
         const unreadNotifications = res.data.filter((notification) => !notification.viewed); // Filter unread notifications
@@ -44,7 +51,7 @@ const RightBar = () => {
 
   const handleLogout = async () => {
     try {
-      const res = await axios.post("http://localhost:5000/logout", null, { withCredentials: true });
+      const res = await axios.post(`${SOCKET_URL}/logout`, null, { withCredentials: true });
       dispatch(logout());
       navigate("/home");
     } catch (err) {
@@ -59,11 +66,16 @@ const RightBar = () => {
         <div className="flex  gap-2 items-center ">
           <div className="relative">
             {/* Profile Picture */}
+          
+          {myProfile?.profileImage?.url ? (
             <img
               src={myProfile?.profileImage?.url} // Replace with the actual profile picture URL
               alt="Profile"
               className="rounded-full w-12 h-12 object-cover"
             />
+          ) : (
+          <FaUserCircle className="rounded-full w-12 h-12 object-cover" />
+          )}
             {/* Online Indicator */}
             <span className="absolute bottom-0 right-0 w-4 h-4 bg-green-500 rounded-full border-2 border-hot-purple"></span>
           </div>
@@ -98,7 +110,7 @@ const RightBar = () => {
           ))}
         </ul>
         <div className="hover:bg-dark-wine">
-          <Button cl variant={"none"} onClick={handleLogout}>
+          <Button variant={"none"} onClick={handleLogout}>
             <MdInput className="text-lg text-white -rotate-180 ..." />
             <h3 className="text-white ml-4">Logout</h3>
           </Button>
@@ -109,3 +121,6 @@ const RightBar = () => {
 };
 
 export default RightBar;
+
+
+

@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import { CheckCheck, ChevronLeft  } from 'lucide-react';
 import '../SpinPage/SpinPage.css'
 import { useEffect, useState } from 'react';
@@ -16,7 +17,7 @@ const SpinPage = () => {
       const spin = setTimeout(async() => {
           try {
         const response = await axios.get(
-          "http://localhost:5000/api/v1/users/matchbyspin",
+          `${API_URL}/users/matchbyspin`,
           { withCredentials: true }
         );
          if (response.data && response.data.user) {
@@ -160,3 +161,6 @@ const SpinPage = () => {
 };
 
 export default SpinPage;
+
+
+

@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import React,{ useEffect, useState }  from 'react'
 import { UserContactedPreview } from '../components';
 import PageTitle from '../components/PageTitle/PageTitle';
@@ -11,7 +12,7 @@ const ContactedPage = () => {
     useEffect(() => {
       const fetchRequestedLists = async () => {
         try {
-          const response = await axios.get('http://localhost:5000/api/v1/users/user', { withCredentials: true });
+          const response = await axios.get(`${API_URL}/users/user`, { withCredentials: true });
 
           const friendRequests = response.data[0].friendRequests;
            // get pending requestonly
@@ -34,7 +35,7 @@ useEffect(()=>{
   const resposeData=async()=>{
     try{
    const profiles = requestsId.map(from =>
-    axios.get(`http://localhost:5000/api/v1/users/profile/${from}`)
+    axios.get(`${API_URL}/users/profile/${from}`)
    )
    const respostedata = await Promise.all(profiles)
    const allRequestedData = respostedata.map(data =>data.data)
@@ -52,7 +53,7 @@ const handleAcceptRequest = async (userId) => {
   
   try {
     
-    await axios.patch(`http://localhost:5000/api/v1/users/accept/${userId}`,{}, { withCredentials: true });
+    await axios.patch(`${API_URL}/users/accept/${userId}`,{}, { withCredentials: true });
      // Update the requestedId safely
      setRequestsId(prev => prev.filter(id => id !== userId));
   
@@ -67,7 +68,7 @@ const handleRejectRequest = async (userId) => {
   
   try {
     
-    await axios.patch(`http://localhost:5000/api/v1/users/reject/${userId}`,{}, { withCredentials: true });
+    await axios.patch(`${API_URL}/users/reject/${userId}`,{}, { withCredentials: true });
        // Update the requestedId safely
        setRequestsId(prev => prev.filter(id => id !== userId));
   
@@ -122,3 +123,6 @@ const handleRejectRequest = async (userId) => {
 };
 
 export default ContactedPage;
+
+
+

@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -19,7 +20,7 @@ const RelationshipGoals = () => {
         try {
             setLoading(true);
             const response = await axios.patch(
-                'http://localhost:5000/api/v1/users/relationship-goals', 
+                `${API_URL}/users/relationship-goals`, 
                 { relationshipGoal: selectedGoal },
                 { withCredentials: true }
             );
@@ -41,7 +42,7 @@ const RelationshipGoals = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100 bg-[url('LandingPagebackgroundblur.png')] bg-no-repeat bg-cover bg-fixed backdrop-blur-3xl">
+        <div className="flex items-center justify-center min-h-screen bg-gray-100 bg-[url('/LandingPagebackgroundblur.png')] bg-no-repeat bg-cover bg-fixed backdrop-blur-3xl">
             <div className="flex justify-center items-center min-h-screen bg-opacity-50 p-4 lg:w-2/5">
                 <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
                     <h2 className="mb-5 text-2xl font-bold text-center">Relationship Goals</h2>

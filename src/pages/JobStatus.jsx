@@ -25,7 +25,7 @@ const JobStatus = () => {
     }
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100 bg-[url('LandingPagebackgroundblur.png')] bg-no-repeat bg-cover bg-fixed backdrop-blur-3xl">
+        <div className="flex items-center justify-center min-h-screen bg-gray-100 bg-[url('/LandingPagebackgroundblur.png')] bg-no-repeat bg-cover bg-fixed backdrop-blur-3xl">
             <div className="flex justify-center items-center min-h-screen lg:w-2/5">
                 <form className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl" onSubmit={handleSubmit}>
                     <h2 className="mb-5 text-2xl font-bold text-center">Job Status</h2>

@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import axios from 'axios';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -15,7 +16,7 @@ const MoreJobDetails = () => {
     const onSubmit = (data) => {
         setLoading(true);
         console.log(data);
-        axios.patch('http://localhost:5000/api/v1/users/more_job_details', data, {withCredentials: true})
+        axios.patch(`${API_URL}/users/more_job_details`, data, {withCredentials: true})
         .then(res => {
             setLoading(false);
             toast.success(res.data.message, { duration: 1000 })
@@ -30,7 +31,7 @@ const MoreJobDetails = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100 bg-[url('LandingPagebackgroundblur.png')] bg-no-repeat bg-cover bg-fixed backdrop-blur-3xl">
+        <div className="flex items-center justify-center min-h-screen bg-gray-100 bg-[url('/LandingPagebackgroundblur.png')] bg-no-repeat bg-cover bg-fixed backdrop-blur-3xl">
              
             <div className="flex justify-center items-center min-h-screen p-4 lg:w-2/5">
                 <form onSubmit={handleSubmit(onSubmit)} className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
@@ -76,3 +77,6 @@ const MoreJobDetails = () => {
 };
 
 export default MoreJobDetails;
+
+
+

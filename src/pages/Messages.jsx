@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import React, { useEffect, useState } from "react";
 import PageTitle from "../components/PageTitle/PageTitle";
 import { ChevronLeft } from "lucide-react";
@@ -15,7 +16,7 @@ export default function Messages() {
     const fetchUsers = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/v1/users/users"
+          `${API_URL}/users/users`
         );
         console.log(response.data);
         
@@ -70,3 +71,6 @@ export default function Messages() {
     </div>
   );
 }
+
+
+

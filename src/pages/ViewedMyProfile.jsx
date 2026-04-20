@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import React, { useEffect, useState } from 'react';
 import { UserPreview } from '../components';
 import PageTitle from '../components/PageTitle/PageTitle';
@@ -11,7 +12,7 @@ const ViewedMyProfilePage = () => {
   useEffect(() => {
     const fetchRequestedLists = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/v1/users/user', { withCredentials: true });
+        const response = await axios.get(`${API_URL}/users/user`, { withCredentials: true });
         setViewedBy(response.data[0].viewedBy);
         console.log(response.data);
       } catch (error) {
@@ -26,7 +27,7 @@ const ViewedMyProfilePage = () => {
     const fetchUserData = async () => {
       try {
         const requests = viewedBy.map(userId =>
-          axios.get(`http://localhost:5000/api/v1/users/profile/${userId}`)
+          axios.get(`${API_URL}/users/profile/${userId}`)
         );
         const responses = await Promise.all(requests);
         const allUserData = responses.map(response => response.data);
@@ -44,7 +45,7 @@ const ViewedMyProfilePage = () => {
 
     try {
 
-      await axios.delete(`http://localhost:5000/api/v1/users/delete-shortlist/${userId}`, { withCredentials: true });
+      await axios.delete(`${API_URL}/users/delete-shortlist/${userId}`, { withCredentials: true });
       setViewedBy(prev => prev.filter(id => id !== userId));
       setViewedByData(prev => prev.filter(user => user.user._id !== userId));
     } catch (error) {
@@ -91,3 +92,6 @@ const ViewedMyProfilePage = () => {
 };
 
 export default ViewedMyProfilePage;
+
+
+

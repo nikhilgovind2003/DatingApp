@@ -5,13 +5,34 @@ import Button from '../components/buttons/InterestButton';
 
 
 function Profileviewpage() {
+
+
+const [data, setData] = useState(null);
+
+    const getProfile = async () => {
+    const profileDetails = await axios.get(
+      `${API_URL}/users/get-profile`,
+      {
+        withCredentials: true,
+      }
+    );
+    setData(profileDetails.data);
+  };
+
+  useEffect(() => {
+    getProfile();
+  }, []);
+
+
+  console.log(data, 'data');
+
   return (
     <div>
       <div className="container relative h-screen overflow-y-auto w-full mx-auto">
       <div
   className="h-[75vh] overflow-hidden sticky top-0 "
   style={{
-    background: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(128, 0, 128, 0.7)), url(https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?q=80&w=1856&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D) `,
+    background: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(128, 0, 128, 0.7)), url(${data?.profileDetails?.profileImage?.url}) `,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     // backgroundAttachment: 'fixed',

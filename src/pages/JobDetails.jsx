@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import axios from 'axios';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -14,7 +15,7 @@ const JobDetails = () => {
 
     const onSubmit = (data) => {
         setLoading(true);
-        axios.post('http://localhost:5000/api/v1/users/job_details', data, { withCredentials: true })
+        axios.post(`${API_URL}/users/job_details`, data, { withCredentials: true })
             .then(res => {
                 setLoading(false);
                 toast.success(res.data.message, { duration: 1000 });
@@ -31,7 +32,7 @@ const JobDetails = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100 bg-[url('LandingPagebackgroundblur.png')] bg-no-repeat bg-cover bg-fixed backdrop-blur-3xl">
+        <div className="flex items-center justify-center min-h-screen bg-gray-100 bg-[url('/LandingPagebackgroundblur.png')] bg-no-repeat bg-cover bg-fixed backdrop-blur-3xl">
             <div className="flex justify-center items-center min-h-screen lg:w-2/5">
                 
                 <form onSubmit={handleSubmit(onSubmit)} className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
@@ -76,3 +77,6 @@ const JobDetails = () => {
 };
 
 export default JobDetails;
+
+
+

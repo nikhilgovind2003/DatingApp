@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import React, { useRef } from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -20,15 +21,15 @@ const LocationPage = () => {
     try {
       // Fetch users by location
       const locationResponse = await axios.get(
-        "http://localhost:5000/api/v1/users/matchbylocation",
+        `${API_URL}/users/matchbylocation`,
         { withCredentials: true }
       );
-      
-      
+
+
 
       // Fetch match percentages
       const matchPercentageResponse = await axios.get(
-        "http://localhost:5000/api/v1/users/compare",
+        `${API_URL}/users/compare`,
         { withCredentials: true }
       );
 
@@ -63,13 +64,13 @@ const LocationPage = () => {
   useEffect(() => {
     matchByLocation();
   }, []);
-console.log(nearByUsers)
+  console.log(nearByUsers)
 
   return (
     <section className="sm: w-screen md:w-full lg:w-full pt-5 px-5 pb-24 md:pb-5 h-screen overflow-y-auto overflow-x-hidden">
       <div>
         <div className="flex justify-between items-center gap-5 overflow-x-auto  lg:w-full sm: w-screen  ">
-        <StoryView />
+          <StoryView />
         </div>
         <ButtonGroup />
 
@@ -99,3 +100,6 @@ console.log(nearByUsers)
 };
 
 export default LocationPage;
+
+
+

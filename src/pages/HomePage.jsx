@@ -1,76 +1,40 @@
+import { API_URL } from "@/apiConfig";
 import { useEffect, useRef, useState } from "react";
-import { ButtonGroup, Sidemenu, StoryView, UserIcon } from "../components";
+import Sidemenu from "../components/SideMenu/Sidemenu";
+import StoryView from "../components/StoryView/storyView";
+import ButtonGroup from "../components/buttons/HomeButtonGroup";
 import { HiOutlineBell } from "react-icons/hi";
 import HomeCardComponents from "../components/Homecards/HomeCardComponents";
 import { Link } from "react-router-dom";
 import Rightside from "../components/rightsidemenu/Rightside";
 import axios from "axios";
-import Cookies from "js-cookie";
-import { login, logout } from "../redux/features/auth/authSlice";
-import { useDispatch, useSelector } from "react-redux";
-import {socket} from "../App"
-
+import { useDispatch } from "react-redux";
 
 const HomePage = () => {
   const dispatch = useDispatch();
-  const userInfo = useSelector(state => state.userAuth);
-  console.log(userInfo);
 
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(null);
-  const locationSent = useRef(false)
+  const locationSent = useRef(false);
 
   useEffect(() => {
-    // Function to check cookie and dispatch login or logout
-    const handleAuthentication = () => {
-      const userCookie = Cookies.get('user');
-      const token = Cookies.get('token');
-
-      if (userCookie && token) {
-        try {
-          const decodedUserCookie = decodeURIComponent(userCookie);
-          const cleanedUserJson = decodedUserCookie.startsWith('j:')
-            ? decodedUserCookie.slice(2)
-            : decodedUserCookie;
-          const user = JSON.parse(cleanedUserJson);
-          console.log(user);
-
-          // Dispatch login action with user and token
-          const payload = {
-            userInfo: user._doc,
-            isAuthenticated: user.isAuthenticated,
-            token,
-          };
-          dispatch(login(payload));
-        } catch (error) {
-          console.error("Error parsing user data or dispatching login:", error);
-          dispatch(logout()); // Log out if there's an issue parsing data
-        }
-
-        
-
-      } else {
-        dispatch(logout()); // Log out if cookies are not present
-      }
-    };
-
     // Fetch users
     const fetchUsers = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/v1/users/userdetails",
+          `${API_URL}/users/userdetails`,
           { withCredentials: true }
         ); // Fetch all users from your backend
-        const activeUsers = response.data.filter((user) => user.user.isActive); // Filter users where isActive is true
+        const activeUsers = response.data.filter((user) => user?.user?.isActive); // Filter users where isActive is true
         setUsers(activeUsers); // Store filtered users in state
-        
+
       } catch (error) {
         console.log("Error fetching users:", error);
       }
     };
 
     // Get current location
-    const getLocation = async() => {
+    const getLocation = async () => {
       if (locationSent.current) return;
       else {
         if (navigator.geolocation) {
@@ -99,36 +63,15 @@ const HomePage = () => {
         }
       }
     }
-      
-
 
     fetchUsers();
-    handleAuthentication();
     getLocation();
-
-          // Emit 'joinRoom' when the socket connects
-          console.log(`id: ${JSON.stringify(userInfo)}`)
-          console.log(`id: ${userInfo.userInfo._id}`)
-          socket.on('connect', () => {
-            socket.emit('joinRoom', userInfo.userInfo._id);
-            console.log(`User joined room with ID: ${userInfo.userInfo._id}`);
-          });
-    
-          // Optionally handle disconnection/reconnection
-          socket.on('disconnect', () => {
-            console.log('Disconnected from the socket server');
-          });
-    
-          // return () => {
-          //   socket.disconnect(); // Clean up when the component unmounts
-          // };
-
 
   }, [dispatch]);
 
   const sendLocation = async (latitude, longitude) => {
     try {
-      await axios.post("http://localhost:5000/api/v1/users/getlocation", {latitude, longitude}, {withCredentials: true});
+      await axios.post(`${API_URL}/users/getlocation`, { latitude, longitude }, { withCredentials: true });
     } catch (error) {
       console.error("error sending location", error)
     }
@@ -159,23 +102,26 @@ const HomePage = () => {
       <ButtonGroup />
 
       <div className="grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-3 grid-cols-2 gap-5">
-  {users.map((user, i) => (
-    <HomeCardComponents
-      key={i}
-      img={user.profileImage.url}
-      name={`${user.user?.firstName} ${user.user?.lastName}`}
-      userId={user.user._id}  // Pass userId as prop
-      gender={user.gender}
-      job={user.qualification}
-      age={user.age}
-      place={user.place}
-      isActive={user.user?.isActive}
-    />
-  ))}
-</div>
+        {users.map((user, i) => (
+          <HomeCardComponents
+            key={user.user?._id || i}
+            img={user.profileImage?.url}
+            name={user.user ? `${user.user.firstName} ${user.user.lastName}` : "Unknown User"}
+            userId={user.user?._id}  // Pass userId as prop
+            gender={user.gender}
+            job={user.qualification}
+            age={user.age}
+            place={user.place}
+            isActive={user.user?.isActive}
+          />
+        ))}
+      </div>
 
     </section>
   );
 };
 
 export default HomePage;
+
+
+

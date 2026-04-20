@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -43,7 +44,7 @@ const ChangePassword = () => {
 
   const onSubmit = (data) => {
     setLoading(true);
-    axios.patch('http://localhost:5000/change-password', {
+    axios.patch(`${SOCKET_URL}/change-password`, {
       password: data.currentPassword,
       newPassword: data.newPassword
     }, {
@@ -181,3 +182,6 @@ const ChangePassword = () => {
 };
 
 export default ChangePassword;
+
+
+

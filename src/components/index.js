@@ -1,6 +1,6 @@
 import LeftBar from "./layout/LeftBar";
 import NavBar from "./layout/NavBar";
-import HomeCard from "../components/Homecards/HomeCard";
+import HomeCard from "./Homecards/HomeCard";
 import RightBar from "./layout/RightBar";
 import UserIcon from "./usericons/UserIcon";
 import InteractionIcon from "./usericons/InteractionIcon";

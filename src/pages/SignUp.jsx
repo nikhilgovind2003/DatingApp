@@ -1,3 +1,4 @@
+import { API_URL, SOCKET_URL } from "@/apiConfig";
 import React, { useState } from "react";
 import { KeyRound, Lock, Mail, Phone, User, Loader2 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,7 +11,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Cookies from "js-cookie";
 
 import { login } from "../redux/features/auth/authSlice";
-import { API_URL } from "../apiConfig";
 import { signUpSchema } from "../utils/validationSchemas";
 
 // shadcn components
@@ -36,11 +36,11 @@ const SignUp = () => {
     formState: { errors },
   } = useForm({
     resolver: zodResolver(signUpSchema),
-    mode: "onTouched",
+    mode: "onChange",
   });
 
   const google = () => {
-    window.open("http://localhost:5000/auth/google/callback", "_self");
+    window.open(`${SOCKET_URL}/auth/google/callback`, "_self");
   };
 
   const handleOtpGeneration = async () => {
@@ -107,7 +107,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-transparent bg-[url('LandingPagebackgroundblur.png')] bg-no-repeat bg-cover bg-fixed">
+    <div className="flex items-center justify-center min-h-screen bg-transparent bg-[url('/LandingPagebackgroundblur.png')] bg-no-repeat bg-cover bg-fixed">
       <div className="absolute inset-0 bg-black/10 backdrop-blur-2xl -z-10" />
       
       
@@ -302,3 +302,6 @@ const SignUp = () => {
 };
 
 export default SignUp;
+
+
+

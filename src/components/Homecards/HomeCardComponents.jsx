@@ -1,16 +1,16 @@
-import { API_URL, SOCKET_URL } from "@/apiConfig";
+import { API_URL } from "@/apiConfig";
 import { toast } from 'sonner';
-import { IoMdThumbsUp } from "react-icons/io";
-import { BiSolidMessageRounded } from "react-icons/bi";
-import { TbDots } from "react-icons/tb";
 import { Heart, Star, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useSocket } from "@/context/SocketContext";
 
-const HomeCardComponents = (props, from, to) => {
+const HomeCardComponents = (props) => {
+  const { isOnline } = useSocket();
+  const online = isOnline(props.userId);
   const [hover, setHover] = useState(false);
-  const [loading, setLoading] = useState(true);  // Loading state for wireframe
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Simulate loading time before showing the actual content
@@ -20,7 +20,7 @@ const HomeCardComponents = (props, from, to) => {
 
   const handleSendRequest = async () => {
     try {
-      await axios.patch(`${API_URL}/users/send/${props.userId}`, { from, to }, { withCredentials: true });
+      await axios.patch(`${API_URL}/users/send/${props.userId}`, { }, { withCredentials: true });
       toast('Friend request sent!');
       console.log(props.userId);
     } catch (error) {
@@ -30,7 +30,7 @@ const HomeCardComponents = (props, from, to) => {
 
   const handleShortlistRequest = async () => {
     try {
-      await axios.post(`${API_URL}/users/shortlist/${props.userId}`, { from, to }, { withCredentials: true });
+      await axios.post(`${API_URL}/users/shortlist/${props.userId}`, { }, { withCredentials: true });
       toast('Shortlisted!');
       console.log(props.userId);
     } catch (error) {
@@ -55,9 +55,12 @@ const HomeCardComponents = (props, from, to) => {
             <div className="h-full w-full bg-gray-200 rounded-2xl"></div> // Wireframe placeholder
           ) : (
             <>
-              <div className="bg-gray-500 bg-opacity-[20%] text-white backdrop-blur-lg top-2 left-4 absolute text-[10px] px-2 rounded-full">
-                <p>Online</p>
-              </div>
+              {online && (
+                <div className="bg-gray-500 bg-opacity-[20%] text-white backdrop-blur-lg top-2 left-4 absolute text-[10px] px-2 py-0.5 flex items-center gap-1 rounded-full border border-white/20 shadow-sm transition-all duration-300">
+                  <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]" />
+                  <p className="font-medium tracking-wide">Online</p>
+                </div>
+              )}
 
               {/* Only the name is clickable */}
               <Link to={`/profile/${props.userId}`}>

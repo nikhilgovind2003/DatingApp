@@ -1,146 +1,189 @@
-
 import { ArrowLeft, Mic, Paperclip, Send } from "lucide-react";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import { MdCall } from "react-icons/md";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState, useRef } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import io from "socket.io-client";
-import { API_URL, SOCKET_URL } from "@/apiConfig";
-
-const socket = io(SOCKET_URL);
+import { API_URL } from "@/apiConfig";
+import { useSocket } from "@/context/SocketContext";
+import { useSelector } from "react-redux";
 
 const Chat = () => {
   const [value, setValue] = useState("");
   const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { id: receiverId } = useParams();
+  const { socket, isOnline } = useSocket();
+  const { userInfo } = useSelector(state => state.userAuth);
+  const navigate = useNavigate();
+  const messagesEndRef = useRef(null);
 
-  // Function to save messages to localStorage
-  const saveMessagesToLocalStorage = (messages) => {
-    localStorage.setItem(`chatMessages_${receiverId}`, JSON.stringify(messages));
+  const online = isOnline(receiverId);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  // Fetch message history from DB
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        setLoading(true);
+        const res = await axios.get(`${API_URL}/api/v1/users/messages/${receiverId}`, { withCredentials: true });
+        // Assuming res.data is an array of messages from the controller
+        const formattedMessages = res.data.map(msg => ({
+          text: msg.message,
+          time: new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          sent: msg.senderId === userInfo?._id
+        }));
+        setMessages(formattedMessages);
+      } catch (error) {
+        console.error("Error fetching messages:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const sendMessage = async () => {
-    try {
-      // Emit message to server via socket
-      socket.emit("send-message", { value, receiverId });
-      // Call the API to send the message (if applicable)
-      await axios.post(
-        `${API_URL}/users/messages/send/${receiverId}`,
-        {
-          message: value
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('jwtToken')}`
-          }
-        }
-      );
-    } catch (error) {
-      console.log(error.message);
+    if (userInfo?._id && receiverId) {
+      fetchMessages();
     }
-
-    if (value.trim()) {
-      // Add the new message to the messages list (with "sent" status)
-      const updatedMessages = [
-        ...messages,
-        { text: value, time: new Date().toLocaleTimeString(), sent: true }
-      ];
-      setMessages(updatedMessages);
-
-      // Save the updated messages to localStorage
-      saveMessagesToLocalStorage(updatedMessages);
-
-      // Clear the input field
-      setValue("");
-      console.log("Message sent:", value);
-    }
-  };
+  }, [receiverId, userInfo?._id]);
 
   useEffect(() => {
-    // Retrieve messages from localStorage on component mount
-    const storedMessages = localStorage.getItem(`chatMessages_${receiverId}`);
-    if (storedMessages) {
-      setMessages(JSON.parse(storedMessages));
-    }
+    scrollToBottom();
+  }, [messages]);
 
-    // Listen for incoming messages
-    const handleMessage = (data) => {
-      setMessages((prevMessages) => {
-        const updatedMessages = [
-          ...prevMessages,
-          { text: data.value, time: new Date().toLocaleTimeString(), sent: false }
-        ];
+  // Listen for real-time messages
+  useEffect(() => {
+    if (!socket) return;
 
-        // Save the received messages to localStorage
-        saveMessagesToLocalStorage(updatedMessages);
-
-        return updatedMessages;
-      });
+    const handleReceiveMessage = (data) => {
+      // Only add message if it's from the person we're currently chatting with
+      if (data.senderId === receiverId) {
+        setMessages((prev) => [
+          ...prev,
+          {
+            text: data.message,
+            time: new Date(data.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            sent: false
+          }
+        ]);
+      }
     };
 
-    socket.on("recieve-message", handleMessage);
+    socket.on("receiveMessage", handleReceiveMessage);
 
-    // Cleanup the listener when the component unmounts
     return () => {
-      socket.off("recieve-message", handleMessage);
+      socket.off("receiveMessage", handleReceiveMessage);
     };
-  }, []);
+  }, [socket, receiverId]);
 
+  const sendMessage = async () => {
+    if (!value.trim()) return;
+
+    const messageToSend = value;
+    setValue("");
+
+    try {
+      // Optimistic update
+      const newMessage = {
+        text: messageToSend,
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        sent: true
+      };
+      setMessages(prev => [...prev, newMessage]);
+
+      // Call the API to save and broadcast
+      await axios.post(
+        `${API_URL}/api/v1/users/messages/send/${receiverId}`,
+        { message: messageToSend },
+        { withCredentials: true }
+      );
+    } catch (error) {
+      console.error("Error sending message:", error);
+    }
+  };
 
   return (
-    <div className="relative bg-deep-plum h-screen overflow-y-auto">
-      <PageTitle icon={ArrowLeft} pageTitle={"Name"} />
-      <div className="h-9 w-9 absolute right-10 bg-light-purple top-14 flex justify-center items-center rounded-full text-white border-2 border-white">
-        <MdCall size={20} />
+    <div className="relative bg-deep-plum h-screen flex flex-col">
+      <div className="flex items-center px-4 py-3 bg-deep-plum text-white">
+          <ArrowLeft className="cursor-pointer mr-4" onClick={() => navigate(-1)} />
+          <div className="flex-1 flex items-center gap-3">
+              <div className="relative">
+                  <div className="w-10 h-10 bg-light-purple rounded-full flex items-center justify-center font-bold">
+                      {/* Name placeholder or logic */}
+                      U
+                  </div>
+                  {online && (
+                      <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-deep-plum rounded-full"></span>
+                  )}
+              </div>
+              <div>
+                  <h3 className="font-bold leading-tight">Buddy</h3>
+                  <p className="text-xs opacity-80">{online ? 'Online' : 'Offline'}</p>
+              </div>
+          </div>
+          <MdCall size={24} className="cursor-pointer" />
       </div>
 
       {/* Chat Messages */}
-      <div
-        className="overflow-y-auto rounded-t-4xl bg-white w-full px-0 md:pb-5 sm:border-2 h-full border-deep-plum"
-        style={{ paddingBottom: "100px" }}
-      >
-        <button className="bg-blue-100 border-[2px] border-gray-300 border-t-0 mx-auto px-6 py-1 translate-x-[-50%] font-semibold rounded-b-md ml-[50%]">
-          Today
-        </button>
-
-        {/* Display messages dynamically */}
-        {messages.map((msg, index) => (
-          <div
-            key={index}
-            className={`relative p-4 rounded-xl mt-4 w-3/4 ${msg.sent
-              ? "bg-blue-400   text-white font-bold ml-[100px] lg:ml-[190px] rounded-l-xl"
-              : "bg-deep-plum bg-opacity-60 text-black font-bold mr-[100px] lg:mr-[190px] rounded-r-xl"
-              }`}
-          >
-            <p className="mb-4">{msg.text}</p>
-            <p className="absolute bottom-2 right-4 text-xs mt-4 lg:text-sm">
-              {msg.time}
-            </p>
+      <div className="flex-1 overflow-y-auto bg-white rounded-t-[40px] px-4 pt-6 pb-24">
+        {loading ? (
+          <div className="flex justify-center items-center h-full text-gray-400 italic">
+            Loading conversation...
           </div>
-        ))}
-
-        {/* Added space at the bottom */}
-        <div className="h-24"></div>
+        ) : messages.length === 0 ? (
+          <div className="flex justify-center items-center h-full text-gray-400 italic">
+            No messages yet. Say hi!
+          </div>
+        ) : (
+          messages.map((msg, index) => (
+            <div
+              key={index}
+              className={`flex mb-4 ${msg.sent ? "justify-end" : "justify-start"}`}
+            >
+              <div
+                className={`max-w-[75%] p-3 rounded-2xl shadow-sm text-sm font-medium ${
+                  msg.sent
+                    ? "bg-blue-500 text-white rounded-br-none"
+                    : "bg-gray-100 text-gray-800 rounded-bl-none"
+                }`}
+              >
+                <p>{msg.text}</p>
+                <p className={`text-[10px] mt-1 text-right opacity-70`}>
+                  {msg.time}
+                </p>
+              </div>
+            </div>
+          ))
+        )}
+        <div ref={messagesEndRef} />
       </div>
 
       {/* Input Field */}
-      <div className="w-[350px] lg:w-[700px] fixed flex items-center justify-between rounded-full bottom-4 left-1/2 transform -translate-x-1/2 bg-blue-50 border-[2px] border-blue-100 text-center px-2">
-        <input
-          type="text"
-          name="message"
-          onChange={(e) => setValue(e.target.value)}
-          value={value}
-          placeholder="Message..."
-          className="w-full bg-blue-50 outline-none h-10"
-        />
-        <Paperclip />
-        <div className="ml-2 bg-blue-500 p-1 mx-4 rounded-full">
-          <Mic />
-        </div>
-        <div className="cursor-pointer" onClick={sendMessage}>
-          <Send />
+      <div className="fixed bottom-6 left-0 right-0 px-4 max-w-2xl mx-auto">
+        <div className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-full px-4 py-2 shadow-lg">
+          <Paperclip className="text-gray-400 cursor-pointer hover:text-gray-600 transition-colors" size={20} />
+          <input
+            type="text"
+            className="flex-1 bg-transparent outline-none py-2 text-sm text-gray-700"
+            placeholder="Type a message..."
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+          />
+          <div className="flex items-center gap-3">
+            <Mic className="text-blue-500 cursor-pointer" size={20} />
+            <button 
+              onClick={sendMessage}
+              disabled={!value.trim()}
+              className={`p-2 rounded-full transition-all ${
+                value.trim() ? "bg-blue-500 text-white shadow-md scale-105" : "bg-gray-200 text-gray-400"
+              }`}
+            >
+              <Send size={18} />
+            </button>
+          </div>
         </div>
       </div>
     </div>

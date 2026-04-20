@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, Drawer, DrawerBody, DrawerContent, DrawerOverlay, } from "@chakra-ui/react";
 import { CiCircleRemove } from "react-icons/ci";
 import { AlignJustify } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 function Sidemenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,10 +13,12 @@ function Sidemenu() {
 
   return (
     <div>
+       <Link to="/home">
       <Button variant={'none'} className='  md:text-white text-text text-xl font-bold mb-4 flex items-center gap-2 pt-5' onClick={onOpen}>
         <AlignJustify className='right-5 space-x-3 border-s-dark-wine w-6 h-6' /><span className='font-medium md:text-white text-text text-2xl'>BuddyPair</span>
       </Button>
-
+       </Link>
+{/* 
       <Drawer placement={placement} isOpen={isOpen} onClose={onClose}>
         <DrawerOverlay />
         <DrawerContent className='h-fit'>
@@ -28,7 +31,7 @@ function Sidemenu() {
 
           </DrawerBody>
         </DrawerContent>
-      </Drawer>
+      </Drawer> */}
     </div>
   );
 }

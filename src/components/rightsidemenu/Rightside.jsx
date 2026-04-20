@@ -8,21 +8,16 @@ import { navData } from '../../datas/navData';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import Cookies from 'js-cookie'
 import { UserIcon } from '..';
+import { getSafeCookie } from '../../utils/cookieHelper';
 
 const Rightside = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [placements, setPlacement] = useState('right');
   
   const userInfo = useSelector((state) => state.userAuth.userInfo);
-  console.log(userInfo);
 
-  const myProfileCookie = Cookies.get('myProfile');
-  const decodedMyProfileCookie = decodeURIComponent(myProfileCookie);
-  const cleanedMyProfileJson = decodedMyProfileCookie.startsWith('j:') ? decodedMyProfileCookie.slice(2) : decodedMyProfileCookie;
-  const myProfile = JSON.parse(cleanedMyProfileJson);
-  console.log(myProfile);
+  const myProfile = getSafeCookie('myProfile') || { _id: null, profileImage: { url: null } };
   
 
   const toggleDropdown = () => {
@@ -68,20 +63,19 @@ const Rightside = () => {
             <div className="flex flex-row items-center ml-3">
               <div className="relative border-[3px] border-light-purple rounded-full">
                 <img
-                  src={myProfile?.profileImage?.url || "https://images.pexels.com/photos/13704184/pexels-photo-13704184.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"} // Replace with user's profile picture URL
-                  alt="Profile"
+                  src={myProfile?.profileImage?.url ?? 'image/profiles.jpeg' }
                   className="rounded-full w-12 h-12 object-cover"
                 />
                 <span className="absolute top-0 right-0 w-4 h-4 bg-green-500 rounded-full border-2 border-hot-purple"></span>
               </div>
               <div className="text-center mt-3 ml-3">
                 <h2 className="font-bold text-lg text-light-purple">{userInfo?.firstName + " " + userInfo?.lastName || "User Name"}</h2>
-                <p className="text-sm text-yellow-300">
+                <div className="text-sm text-yellow-300">
                   <div className='flex flex-row '>
                     <FaCrown className='m-[.2rem]'/>
                     {userInfo?.membershipStatus || "Prime Member"}
                   </div>
-                </p>
+                </div>
                 <p className="text-sm text-green-600 text-center ml-2">Online</p>
               </div>
             </div>
@@ -110,6 +104,3 @@ const Rightside = () => {
 }
 
 export default Rightside;
-
-
-

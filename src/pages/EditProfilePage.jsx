@@ -6,11 +6,10 @@ import { useParams } from 'react-router-dom';
 
 function EditprofilePage() {
     const { userId } = useParams();
-    console.log('////////////////////////////////',userId);
     
     return (
         <div>
-            <PageTitle icon={ArrowLeft} pageTitle="Edit Profile" />
+            <PageTitle icon={ArrowLeft} pageTitle="Edit Profile" linkTo={'/profile'} />
             <EditProfile />
         </div>
     )

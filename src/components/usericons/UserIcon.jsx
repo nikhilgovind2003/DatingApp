@@ -1,5 +1,6 @@
 import { Pencil } from 'lucide-react'
 import React from 'react'
+import { FaUserCircle } from 'react-icons/fa'
 
 const UserIcon = ({ url, story, add, edit }) => {
   
@@ -7,11 +8,16 @@ const UserIcon = ({ url, story, add, edit }) => {
     <div
       className='relative w-16 h-16'>
         <div className={`inline-block h-16 w-16 rounded-full ring-2 ring-white object-center ${story ? "border-[3px] border-light-purple p-0.5" : ""}`}>
+    
+    {url  ? (
   <img
-    src={url ? url : "https://www.ommel.fi/content/uploads/2019/03/dummy-profile-image-male.jpg"}
+    src={url}
     alt="user icon"
     className="h-full w-full rounded-full object-cover"
   />
+) : (
+  <FaUserCircle className="rounded-full w-full h-full text-gray-400" />
+)}
 </div>
 
       {add === "purple" ? (

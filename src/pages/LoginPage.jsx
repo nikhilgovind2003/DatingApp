@@ -36,7 +36,7 @@ const LoginPage = () => {
     const onSubmit = async (data) => {
         try {
             setLoading(true);
-            const res = await axios.post(`${API_URL}/login`, data, { withCredentials: true });
+            const res = await axios.post(`${API_URL}/users/login`, data, { withCredentials: true });
 
             toast.success(res.data.message);
 

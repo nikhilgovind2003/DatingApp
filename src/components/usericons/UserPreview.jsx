@@ -26,7 +26,7 @@ const UserPreview = ({ url, name, bio, message, edit, qr, close, fav, phonecall,
       </div>
       <div className="flex gap-5">
         {qr && <QrCode className="w-6 h-6 text-[#24786d]" />}
-        {fav && <Heart className="w-6 h-6 text-text-light" />}
+        {fav && <Heart className="w-6 h-6 text-red-500" />}
         {close && <X className="w-6 h-6 text-text-light cursor-pointer" onClick={handleCloseClick} />}
         {phonecall && <PhoneCall className="w-6 h-6 text-text-light" />}
         {video && <Video className="w-6 h-6 text-text-light" />}

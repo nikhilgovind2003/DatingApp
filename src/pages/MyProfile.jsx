@@ -28,7 +28,7 @@ function MyProfile() {
   const userInfo = authState.userInfo;
   console.log("userInfo", userInfo)
   const reduxProfile = authState.myProfile;
-  const [fetchedLocation, setFetchedLocation] = useState(null);
+  const currentLocation = authState.currentLocation;
 
   useEffect(() => {
     const fetchLatestProfile = async () => {
@@ -61,35 +61,14 @@ function MyProfile() {
   });
 
 
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        async (position) => {
-          const { latitude, longitude } = position.coords;
-          try {
-            const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`);
-            const data = await response.json();
-            if (data && data.address) {
-              const city = data.address.city || data.address.town || data.address.state || "Current Location";
-              setFetchedLocation(city);
-            }
-          } catch (error) {
-            console.error("Error fetching location:", error);
-          }
-        },
-        (error) => {
-          console.error("Geolocation error:", error);
-        }
-      );
-    }
-  }, []);
+
 
   // Address location possibly being an object or string
   const displayLocation = typeof myProfile?.location === 'object' 
     ? myProfile?.location?.place 
     : myProfile?.location;
 
-  const finalLocation = displayLocation || fetchedLocation || 'Location not set';
+  const finalLocation = currentLocation || displayLocation || 'Location not set';
 
   // Calculate Profile Completion
   const completionFields = [

@@ -3,15 +3,18 @@ import { MatchCardComponent } from '../components'
 import { Userdata } from '../datas/Userdata'
 import { ChevronDown, MapPin, Search, SlidersHorizontal } from 'lucide-react';
 import Button from '../components/buttons/InterestButton';
+import { useSelector } from 'react-redux';
 
 function DiscoverPage() {
+  const currentLocation = useSelector(state => state.userAuth?.currentLocation);
+
   return (
     <div>
       <div className='p-2 lg:w-full sm: w-screen h-screen overflow-y-auto'>
         {/* Top Navbar */}
         <div className='top-nav flex justify-between items-center'>
           <div>
-            <span className='flex'> Germany <ChevronDown /></span>
+            <span className='flex'> {currentLocation || "Location not set"} <ChevronDown /></span>
             <h3 className='text-2xl font-semibold'>Discover</h3>
           </div>
           <div className='flex gap-4'>

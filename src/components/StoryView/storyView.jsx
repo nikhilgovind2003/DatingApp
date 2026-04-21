@@ -1,20 +1,23 @@
 import { API_URL, SOCKET_URL } from "@/apiConfig";
 import { useEffect, useState } from "react";
-import UserIcon from "../usericons/UserIcon"; 
+import UserIcon from "../usericons/UserIcon";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { getSafeCookie } from "../../utils/cookieHelper";
+import { useSelector } from "react-redux";
 
 const StoryView = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const myProfile = getSafeCookie('myProfile') || { _id: null, user: null };
+  const myProfile = getSafeCookie('myProfile') || useSelector(state => state?.userAuth?.myProfile) || { _id: null, user: null };
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get(`${API_URL}/users/users`);
+        const response = await axios.get(`${API_URL}/users/users`,
+          { withCredentials: true }
+        );
         setUsers(response.data);
         setLoading(false);
       } catch (error) {

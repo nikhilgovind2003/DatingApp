@@ -15,7 +15,6 @@ const HomePage = () => {
 
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(null);
-  const locationSent = useRef(false);
 
   useEffect(() => {
     // Fetch users
@@ -33,49 +32,10 @@ const HomePage = () => {
       }
     };
 
-    // Get current location
-    const getLocation = async () => {
-      if (locationSent.current) return;
-      else {
-        if (navigator.geolocation) {
-          try {
-            //  Fetch the location using navigator.geolocation
-            const position = await new Promise((resolve, reject) => {
-              navigator.geolocation.getCurrentPosition(resolve, reject);
-            });
-
-            const { latitude, longitude } = position.coords;
-            console.log("Location fetched successfully:", {
-              latitude,
-              longitude,
-            });
-
-            // Send the location after it has been fetched
-            await sendLocation(latitude, longitude);
-            locationSent.current = true; // Mark that the location has been fetched and sent
-            console.log("Location sent successfully");
-          } catch (error) {
-            setError(error.message); // Handle any errors during fetching or sending location
-            console.error("Error fetching or sending location:", error);
-          }
-        } else {
-          setError("Geolocation is not supported by this browser.");
-        }
-      }
-    }
-
     fetchUsers();
-    getLocation();
 
   }, [dispatch]);
 
-  const sendLocation = async (latitude, longitude) => {
-    try {
-      await axios.post(`${API_URL}/users/getlocation`, { latitude, longitude }, { withCredentials: true });
-    } catch (error) {
-      console.error("error sending location", error)
-    }
-  }
 
 
   return (

@@ -58,6 +58,7 @@ import ProtectedRouter from './utils/ProtectedRouter';
 import ProtectedPrimeRouter from './utils/ProtectedPrimeRouter';
 import { useSelector } from 'react-redux';
 import { SocketProvider } from './context/SocketContext';
+import GlobalLocationHandler from './components/GlobalLocationHandler';
 
 function App() {
   const isAuthenticated = useSelector(state => state.userAuth.isAuthenticated);
@@ -67,6 +68,7 @@ function App() {
 
   return (
     <SocketProvider>
+       <GlobalLocationHandler />
       <BrowserRouter>
         <Suspense fallback={<div className="flex items-center justify-center h-screen">Loading...</div>}>
           <Routes>

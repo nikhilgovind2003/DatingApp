@@ -37,6 +37,8 @@ const getInitialState = () => {
         userInfo: user,
         myProfile,
         token,
+        currentLocation: null,
+        coords: null,
     };
 };
 
@@ -81,11 +83,15 @@ const authSlice = createSlice({
         setProfileData: (state, action) => {
             state.myProfile = action.payload;
             sessionStorage.setItem('myProfile', JSON.stringify(action.payload));
+        },
+        setCurrentLocation: (state, action) => {
+            state.currentLocation = action.payload.location;
+            state.coords = action.payload.coords;
         }
     }
 });
 
 
-export const { signup, login, logout, setProfileData } = authSlice.actions;
+export const { signup, login, logout, setProfileData, setCurrentLocation } = authSlice.actions;
 
 export default authSlice.reducer;

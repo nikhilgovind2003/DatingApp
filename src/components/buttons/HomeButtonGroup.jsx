@@ -9,45 +9,43 @@ const ButtonGroup = () => {
   const [path, setPath] = useState("");
 
   useEffect(() => {
-    setPath(location.pathname.substring(1)); // Remove leading slash
+    setPath(location.pathname);
   }, [location.pathname]);
 
-  return (
-    <ul className="w-full flex rounded-full bg-pink-100 p-1 justify-between gap-1 sm:gap-2 lg:gap-5 my-5">
-      <li
-        className={
-          path === "location"
-            ? `${style} bg-primary text-blue-500`
-            : `${style} bg-none text-gray-600`
-        }
-      >
-        <Link to="/location" onClick={() => setPath("location")}>
-          Location
-        </Link>
-      </li>
 
-      <li
-        className={
-          path === "designation"
-            ? `${style} bg-primary text-blue-500`
-            : `${style} bg-none text-gray-600`
-        }
+
+  const designations =[
+    {
+      label: "Location",
+      path: "/location"
+    },
+    {
+      label: "Designation",
+      path: "/designation"
+    },
+    {
+      label: "Qualification",
+      path: "/qualification"
+    }
+  ]
+
+
+  return (
+    <ul className="w-full flex rounded-full bg-pink-200 p-1 justify-between gap-1 sm:gap-2 lg:gap-5 my-5">
+      {designations.map((designation, index) => (
+        <li
+          key={index}
+          className={
+            path === designation.path
+              ? `${style} bg-white text-black-500`
+              : `${style} bg-none text-gray-600`
+          }
       >
-        <Link to="/designation" onClick={() => setPath("designation")}>
-          Designation
+        <Link to={designation.path}>
+          {designation.label}
         </Link>
-      </li>
-      <li
-        className={
-          path === "qualification"
-            ? `${style} bg-primary text-blue-500`
-            : `${style} bg-none text-gray-600`
-        }
-      >
-        <Link to="/qualification" onClick={() => setPath("qualification")}>
-          Qualification
-        </Link>
-      </li>
+      </li> 
+      ))}
     </ul>
   );
 };

@@ -77,6 +77,18 @@ const RejectPage = () => {
   }, {});
 
   console.log(groupedUsers);
+
+
+  if(frdreqData.length === 0){
+    return (
+      <div className="bg-deep-plum h-screen overflow-y-auto">
+        <PageTitle icon={Search} pageTitle={"Sent"} />
+        <div className="rounded-t-4xl bg-white h-[600px] overflow-y-auto pt-5 px-5 pb-24 md:pb-5 sm:border-2 border-deep-plum flex items-center justify-center">
+          <p className="text-center text-gray-500 mt-10">No sent requests</p>
+        </div>
+      </div>
+    );
+  }
   
 
   return (

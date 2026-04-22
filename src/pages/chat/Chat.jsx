@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 const Chat = () => {
   const [value, setValue] = useState("");
   const [messages, setMessages] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [receiverData, setReceiverData] = useState(null);
   const { id: receiverId } = useParams();
   const { socket, isOnline } = useSocket();
   const { userInfo } = useSelector(state => state.userAuth);
@@ -24,13 +24,20 @@ const Chat = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Fetch message history from DB
+  // Fetch receiver details and messages
   useEffect(() => {
-    const fetchMessages = async () => {
+    const fetchChatData = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`${API_URL}/api/v1/users/messages/${receiverId}`, { withCredentials: true });
-        // Assuming res.data is an array of messages from the controller
+        // Fetch receiver's basic profile for the header
+        const userRes = await axios.get(`${API_URL}/users/profile/${receiverId}`, { withCredentials: true });
+        setReceiverData(userRes.data);
+
+        // Mark messages as read
+        await axios.patch(`${API_URL}/messages/read/${receiverId}`, {}, { withCredentials: true });
+
+        // Fetch messages
+        const res = await axios.get(`${API_URL}/messages/${receiverId}`, { withCredentials: true });
         const formattedMessages = res.data.map(msg => ({
           text: msg.message,
           time: new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
@@ -38,14 +45,14 @@ const Chat = () => {
         }));
         setMessages(formattedMessages);
       } catch (error) {
-        console.error("Error fetching messages:", error);
+        console.error("Error fetching chat data:", error);
       } finally {
         setLoading(false);
       }
     };
 
     if (userInfo?._id && receiverId) {
-      fetchMessages();
+      fetchChatData();
     }
   }, [receiverId, userInfo?._id]);
 
@@ -95,7 +102,7 @@ const Chat = () => {
 
       // Call the API to save and broadcast
       await axios.post(
-        `${API_URL}/api/v1/users/messages/send/${receiverId}`,
+        `${API_URL}/messages/send/${receiverId}`,
         { message: messageToSend },
         { withCredentials: true }
       );
@@ -110,16 +117,25 @@ const Chat = () => {
           <ArrowLeft className="cursor-pointer mr-4" onClick={() => navigate(-1)} />
           <div className="flex-1 flex items-center gap-3">
               <div className="relative">
-                  <div className="w-10 h-10 bg-light-purple rounded-full flex items-center justify-center font-bold">
-                      {/* Name placeholder or logic */}
-                      U
-                  </div>
+                  {receiverData?.profileImage?.url ? (
+                      <img 
+                        src={receiverData.profileImage.url} 
+                        alt="Profile" 
+                        className="w-10 h-10 rounded-full object-cover border border-white/20"
+                      />
+                  ) : (
+                      <div className="w-10 h-10 bg-light-purple rounded-full flex items-center justify-center font-bold text-white uppercase">
+                          {receiverData?.user?.firstName?.[0] || 'U'}
+                      </div>
+                  )}
                   {online && (
                       <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-deep-plum rounded-full"></span>
                   )}
               </div>
               <div>
-                  <h3 className="font-bold leading-tight">Buddy</h3>
+                  <h3 className="font-bold leading-tight">
+                    {receiverData?.user ? `${receiverData.user.firstName} ${receiverData.user.lastName}` : 'Loading...'}
+                  </h3>
                   <p className="text-xs opacity-80">{online ? 'Online' : 'Offline'}</p>
               </div>
           </div>

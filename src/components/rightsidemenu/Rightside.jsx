@@ -41,10 +41,12 @@ const Rightside = () => {
   const handleLogout = async () => {
     try {
       const res = await axios.post(`${SOCKET_URL}/logout`, null, { withCredentials: true });
-      console.log(res.data.message);
+      setTimeout(() => {
+        toast.success(res.data.message);
+      }, 1000);
       navigate('/');
     } catch (err) {
-      console.log(err);
+      toast.error(err.response.data.message);
     }
   };
 
@@ -73,7 +75,7 @@ const Rightside = () => {
                 <div className="text-sm text-yellow-300">
                   <div className='flex flex-row '>
                     <FaCrown className='m-[.2rem]'/>
-                    {userInfo?.membershipStatus || "Prime Member"}
+                    {userInfo?.membershipStatus}
                   </div>
                 </div>
                 <p className="text-sm text-green-600 text-center ml-2">Online</p>

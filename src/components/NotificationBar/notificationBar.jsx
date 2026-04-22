@@ -1,5 +1,5 @@
 import { API_URL } from "@/apiConfig";
-import { Bell } from "lucide-react";
+import { Bell, Home } from "lucide-react";
 import NotificationComponent from "./notificationComponent";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from 'react';
@@ -15,7 +15,8 @@ const NotificationBar = () => {
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const res = await axios.get(`${API_URL}/api/v1/users/notifications`, { withCredentials: true });
+        const res = await axios.get(`${API_URL}/users/notifications`, { withCredentials: true });
+        console.log("notifications", res.data)
         setNotifications(res.data);
       } catch (error) {
         console.error('Error fetching notifications:', error);
@@ -38,14 +39,38 @@ const NotificationBar = () => {
     }
   }, [socket]);
 
+  const handleReadOne = (id) => {
+    setNotifications((prev) => prev.filter((n) => n._id !== id));
+  };
+
+
+  console.log("notifications", notifications)
+
   return (
     <div className="w-full p-4 backdrop-blur-lg h-full z-10 overflow-y-auto">
       <nav className="flex justify-between items-center mb-8">
         <h1 className="text-2xl font-bold text-deep-plum">Notifications</h1>
-        <div className="border-2 border-gray-300 rounded-full p-2 hover:bg-gray-100 transition-colors">
-          <Link to="/home">
-            <Bell size={24} className="text-deep-plum" />
-          </Link>
+        <div className="flex items-center gap-3">
+          {notifications.length > 0 && (
+            <button 
+              onClick={async () => {
+                try {
+                  await axios.patch(`${API_URL}/notifications/read-all`, {}, { withCredentials: true });
+                  setNotifications([]);
+                } catch (error) {
+                  console.error('Error marking all as read:', error);
+                }
+              }}
+              className="text-xs font-semibold text-deep-plum hover:underline bg-deep-plum/5 px-3 py-1.5 rounded-full transition-all"
+            >
+              Mark all as read
+            </button>
+          )}
+          <div className="border-2 border-gray-300 rounded-full p-2 hover:bg-gray-100 transition-colors">
+            <Link to="/home">
+              <Home size={24} className="text-deep-plum" />
+            </Link>
+          </div>
         </div>
       </nav>
 
@@ -60,6 +85,7 @@ const NotificationBar = () => {
             <NotificationComponent 
               key={notification._id || index} 
               notification={notification} 
+              onRead={handleReadOne}
             />
           ))
         )}

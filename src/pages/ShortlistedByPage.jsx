@@ -43,6 +43,29 @@ console.log(response.data[0].shortListedBy);
   }, [shortLists]);
 
 
+  const handleFav = async (targetUserId) => {
+    try {
+      await axios.post(`${API_URL}/users/shortlist/${targetUserId}`, {}, { withCredentials: true });
+      // You might want to show a toast message here
+      alert("Profile shortlisted back!");
+    } catch (error) {
+      console.error("Error shortlisting profile:", error);
+      alert(error.response?.data?.message || "Failed to shortlist profile");
+    }
+  };
+
+  const handleClose = async (targetUserId) => {
+    try {
+      await axios.delete(`${API_URL}/users/delete-shortlist/${targetUserId}`, { withCredentials: true });
+      // Update UI by removing the user from shortlistData
+      setShortlistData(prev => prev.filter(u => u.user.id !== targetUserId));
+      alert("User removed from list");
+    } catch (error) {
+      console.error("Error removing shortlisted profile:", error);
+      alert(error.response?.data?.message || "Failed to remove user");
+    }
+  };
+
   // Group users by the first letter of their first name
   const groupedUsers = shortlistData.reduce((acc, user) => {
     const firstLetter = user.user.firstName.charAt(0).toUpperCase();
@@ -52,6 +75,20 @@ console.log(response.data[0].shortListedBy);
     acc[firstLetter].push(user);
     return acc;
   }, {});
+
+
+  if(shortlistData?.length === 0){
+    return (
+      <div className="bg-deep-plum h-screen overflow-y-auto">
+        <PageTitle icon={Search} pageTitle={"Shortlisted By"} />
+        <div className="rounded-t-4xl h-[600px] overflow-y-auto bg-white pt-5 px-5 pb-24 md:pb-5 sm:border-2 border-deep-plum ">
+          <div className="flex items-center justify-center h-full">
+            <p className="text-gray-500">No users have shortlisted you yet.</p>
+          </div>
+        </div>
+      </div>  
+    )
+  }
 
   return (
     <div className="bg-deep-plum h-screen overflow-y-auto">
@@ -65,11 +102,14 @@ console.log(response.data[0].shortListedBy);
               return (
                 <UserPreview
                   key={user.user.id}
+                  userId={user.user.id}
                   name={name}
                   url={user.profileImage.url}
                   bio={user.bio}
                   fav={true}
                   close={true}
+                  onFav={handleFav}
+                  onClose={handleClose}
                 />
               );
             })}

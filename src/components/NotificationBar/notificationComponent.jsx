@@ -1,6 +1,8 @@
-import { MessageSquare, Heart, Star, Clock } from "lucide-react";
+import { MessageSquare, Heart, Star, Clock, Check } from "lucide-react";
+import axios from "axios";
+import { API_URL } from "@/apiConfig";
 
-const NotificationComponent = ({ notification }) => {
+const NotificationComponent = ({ notification, onRead }) => {
   if (!notification) return null;
 
   const getTimeAgo = (date) => {
@@ -47,6 +49,17 @@ const NotificationComponent = ({ notification }) => {
   };
 
   const content = getNotificationContent();
+  
+  const handleMarkAsRead = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    try {
+      await axios.patch(`${API_URL}/notifications/read/${notification._id}`, {}, { withCredentials: true });
+      if (onRead) onRead(notification._id);
+    } catch (error) {
+      console.error('Error marking notification as read:', error);
+    }
+  };
 
   return (
     <div className="w-full bg-white border border-gray-100 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all duration-300 flex gap-4 items-start group">
@@ -65,6 +78,13 @@ const NotificationComponent = ({ notification }) => {
           {content.message}
         </p>
       </div>
+      <button 
+        onClick={handleMarkAsRead}
+        className="opacity-0 group-hover:opacity-100 p-2 hover:bg-green-50 rounded-full transition-all duration-300 text-green-500"
+        title="Mark as read"
+      >
+        <Check size={18} />
+      </button>
     </div>
   );
 };

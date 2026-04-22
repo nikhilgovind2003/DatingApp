@@ -10,6 +10,7 @@ import { logout } from "../../redux/features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Cookies from 'js-cookie';
 import { FaUserCircle } from "react-icons/fa";
+import { useSocket } from "@/context/SocketContext";
 
 const RightBar = () => {
   const [unreadCount, setUnreadCount] = useState(0); // For storing the number of unread notifications
@@ -35,19 +36,37 @@ const RightBar = () => {
   //   }
   // }
 
+  const { socket } = useSocket();
+
+  const fetchUnreadCount = async () => {
+    try {
+      const res = await axios.get(`${API_URL}/notifications`, { withCredentials: true });
+      // Notifications controller already filters by isRead: false if needed, 
+      // but let's be sure or just count what we get.
+      setUnreadCount(res.data.length);
+    } catch (error) {
+      console.error("Error fetching notifications:", error);
+    }
+  };
+
   useEffect(() => {
-    // Fetch notifications from the backend
-    axios
-      .get(`${API_URL}/users/notifications`, { withCredentials: true })
-      .then((res) => {
-        console.log(`Fetched Notifications::${res.data}`);
-        const unreadNotifications = res.data.filter((notification) => !notification.viewed); // Filter unread notifications
-        setUnreadCount(unreadNotifications.length); // Update unread count
-      })
-      .catch((error) => {
-        console.error("Error fetching notifications:", error);
+    fetchUnreadCount();
+
+    if (socket) {
+      socket.on('newNotification', () => {
+        fetchUnreadCount();
       });
-  }, []);
+
+      socket.on('notificationRead', () => {
+        fetchUnreadCount();
+      });
+
+      return () => {
+        socket.off('newNotification');
+        socket.off('notificationRead');
+      };
+    }
+  }, [socket]);
 
   const handleLogout = async () => {
     try {
@@ -58,6 +77,9 @@ const RightBar = () => {
       console.log(err);
     }
   };
+
+
+  
 
   return (
     <div className="w-full h-screen bg-hot-purple text-white text-lg sm:text-sm md:text-sm lg:text-lg pt-2">

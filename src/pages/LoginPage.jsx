@@ -40,22 +40,8 @@ const LoginPage = () => {
 
             toast.success(res.data.message);
 
-            const userCookie = Cookies.get('user');
-            const token = Cookies.get('token');
-            const myProfileCookie = Cookies.get('myProfile');
-
-            if (userCookie && token) {
-                const decodedUserCookie = decodeURIComponent(userCookie);
-                const cleanedUserJson = decodedUserCookie.startsWith('j:') ? decodedUserCookie.slice(2) : decodedUserCookie;
-                const user = JSON.parse(cleanedUserJson);
-
-                let myProfile = null;
-                if (myProfileCookie) {
-                    const decodedMyProfileCookie = decodeURIComponent(myProfileCookie);
-                    const cleanedMyProfileJson = decodedMyProfileCookie.startsWith('j:') ? decodedMyProfileCookie.slice(2) : decodedMyProfileCookie;
-                    myProfile = JSON.parse(cleanedMyProfileJson);
-                }
-
+            const { user, token, myProfile } = res.data;
+            if (user && token) {
                 const payload = {
                     userInfo: user._doc || user,
                     myProfile,

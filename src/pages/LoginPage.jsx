@@ -24,6 +24,15 @@ const LoginPage = () => {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
 
+    React.useEffect(() => {
+        const queryParams = new URLSearchParams(window.location.search);
+        const error = queryParams.get('error');
+        if (error === 'already_registered_local') {
+            toast.error("User already registered with this email. Please try to login.");
+            navigate('/login', { replace: true });
+        }
+    }, [navigate]);
+
     const {
         register,
         handleSubmit,

@@ -40,7 +40,7 @@ const SignUp = () => {
   });
 
   const google = () => {
-    window.open(`${SOCKET_URL}/auth/google/callback`, "_self");
+    window.open(`${SOCKET_URL}/auth/google`, "_self");
   };
 
   const handleOtpGeneration = async () => {
@@ -80,7 +80,7 @@ const SignUp = () => {
           try {
             const decodedUserCookie = decodeURIComponent(userCookie);
             const cleanedUserJson = decodedUserCookie.startsWith('j:') 
-              ? decodedUserCookie.slice(2) 
+              ? decodedUserCookie.slice(2)
               : decodedUserCookie;
             const user = JSON.parse(cleanedUserJson);
 

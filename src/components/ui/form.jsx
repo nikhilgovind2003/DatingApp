@@ -18,7 +18,7 @@ function FormLabel({ className, error, ...props }) {
   return (
     <Label
       data-slot="form-label"
-      className={cn(error && "text-destructive", className)}
+      className={cn(error && "text-red-500", className)}
       {...props}
     />
   );
@@ -42,7 +42,7 @@ function FormMessage({ className, children, ...props }) {
   return (
     <p
       data-slot="form-message"
-      className={cn("text-destructive text-xs font-medium", className)}
+      className={cn("text-red-500 text-xs font-medium", className)}
       {...props}
     >
       {children}

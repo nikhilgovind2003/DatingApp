@@ -1,13 +1,13 @@
 import { z } from "zod";
 
 export const signUpSchema = z.object({
-  firstName: z.string().min(1, "First Name is required"),
-  lastName: z.string().min(1, "Last Name is required"),
-  email: z.string().email("Invalid email address"),
-  mobile: z.string().regex(/^\d{10}$/, "Mobile number must be exactly 10 digits"),
-  password: z.string().min(6, "Password must be at least 6 characters long"),
+  firstName: z.string().trim().min(1, "First Name is required").max(50, "First Name cannot exceed 50 characters"),
+  lastName: z.string().trim().min(1, "Last Name is required").max(50, "Last Name cannot exceed 50 characters"),
+  email: z.string().trim().toLowerCase().min(1, "Email is required").email("Invalid email address"),
+  mobile: z.string().trim().min(1, "Mobile number is required").regex(/^\d{10}$/, "Mobile number must be exactly 10 digits"),
+  password: z.string().min(6, "Password must be at least 6 characters long").max(100, "Password cannot exceed 100 characters"),
   confirmPassword: z.string().min(1, "Confirm Password is required"),
-  otp: z.string().min(1, "OTP is required"),
+  otp: z.string().trim().length(6, "OTP must be exactly 6 digits"),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords do not match",
   path: ["confirmPassword"],

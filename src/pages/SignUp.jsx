@@ -39,6 +39,8 @@ const SignUp = () => {
     mode: "onChange",
   });
 
+  console.log("Validation errors:", errors);
+
   const google = () => {
     window.open(`${SOCKET_URL}/auth/google`, "_self");
   };
@@ -128,10 +130,11 @@ const SignUp = () => {
                     id="firstName"
                     placeholder="John"
                     className="pl-9 bg-white/50 focus:bg-white transition-all"
+                    aria-invalid={errors.firstName ? "true" : "false"}
                     {...register("firstName")}
                   />
                 </div>
-                <FormMessage>{errors.firstName?.message}</FormMessage>
+                <FormMessage className="text-red-500">{errors.firstName?.message}</FormMessage>
               </FormItem>
 
               <FormItem className="animate-in fade-in slide-in-from-bottom-2 duration-300">
@@ -140,9 +143,10 @@ const SignUp = () => {
                   id="lastName"
                   placeholder="Doe"
                   className="bg-white/50 focus:bg-white transition-all"
+                  aria-invalid={errors.lastName ? "true" : "false"}
                   {...register("lastName")}
                 />
-                <FormMessage>{errors.lastName?.message}</FormMessage>
+                <FormMessage className="text-red-500">{errors.lastName?.message}</FormMessage>
               </FormItem>
             </div>
 
@@ -156,10 +160,11 @@ const SignUp = () => {
                   type="email"
                   placeholder="john@example.com"
                   className="pl-9 bg-white/50 focus:bg-white transition-all"
+                  aria-invalid={errors.email ? "true" : "false"}
                   {...register("email")}
                 />
               </div>
-              <FormMessage>{errors.email?.message}</FormMessage>
+              <FormMessage className="text-red-500">{errors.email?.message}</FormMessage>
             </FormItem>
 
             {/* Mobile */}
@@ -171,10 +176,11 @@ const SignUp = () => {
                   id="mobile"
                   placeholder="10-digit number"
                   className="pl-9 bg-white/50 focus:bg-white transition-all"
+                  aria-invalid={errors.mobile ? "true" : "false"}
                   {...register("mobile")}
                 />
               </div>
-              <FormMessage>{errors.mobile?.message}</FormMessage>
+              <FormMessage className="text-red-500">{errors.mobile?.message}</FormMessage>
             </FormItem>
 
             {/* Passwords Row */}
@@ -188,10 +194,11 @@ const SignUp = () => {
                     type="password"
                     placeholder="••••••••"
                     className="pl-9 bg-white/50 focus:bg-white transition-all"
+                    aria-invalid={errors.password ? "true" : "false"}
                     {...register("password")}
                   />
                 </div>
-                <FormMessage>{errors.password?.message}</FormMessage>
+                <FormMessage className="text-red-500">{errors.password?.message}</FormMessage>
               </FormItem>
 
               <FormItem className="animate-in fade-in slide-in-from-bottom-2 duration-700">
@@ -203,10 +210,11 @@ const SignUp = () => {
                     type="password"
                     placeholder="••••••••"
                     className="pl-9 bg-white/50 focus:bg-white transition-all"
+                    aria-invalid={errors.confirmPassword ? "true" : "false"}
                     {...register("confirmPassword")}
                   />
                 </div>
-                <FormMessage>{errors.confirmPassword?.message}</FormMessage>
+                <FormMessage className="text-red-500">{errors.confirmPassword?.message}</FormMessage>
               </FormItem>
             </div>
 
@@ -220,6 +228,7 @@ const SignUp = () => {
                     id="otp"
                     placeholder="Enter OTP"
                     className="pl-9 bg-white/50 focus:bg-white transition-all"
+                    aria-invalid={errors.otp ? "true" : "false"}
                     {...register("otp")}
                   />
                 </div>
@@ -233,7 +242,7 @@ const SignUp = () => {
                   Get OTP
                 </Button>
               </div>
-              <FormMessage>{errors.otp?.message}</FormMessage>
+              <FormMessage className="text-red-500">{errors.otp?.message}</FormMessage>
             </FormItem>
 
             <Button

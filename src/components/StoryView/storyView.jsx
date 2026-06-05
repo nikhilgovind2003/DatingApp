@@ -12,6 +12,8 @@ const StoryView = () => {
 
   const myProfile = getSafeCookie('myProfile') || useSelector(state => state?.userAuth?.myProfile) || { _id: null, user: null };
 
+  const viewedStories = JSON.parse(localStorage.getItem("viewed-stories") || "[]");
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -49,7 +51,11 @@ const StoryView = () => {
         <>
           <Link to={`/story/${myProfile?._id}`}>
             <button>
-              <UserIcon story={true} url={myProfile?.profileImage?.url} />
+              <UserIcon 
+                story={true} 
+                url={myProfile?.profileImage?.url} 
+                viewed={myProfile?._id ? viewedStories.includes(myProfile._id) : false} 
+              />
               <p className="mt-0.5 text-[14px]">My Story</p>
             </button>
           </Link>
@@ -59,7 +65,11 @@ const StoryView = () => {
             .map((user, i) => (
               <Link key={i} to={`/story/${user._id}`}>
                 <button className="flex flex-col items-center">
-                  <UserIcon story={true} url={user.profileImage?.url} />
+                  <UserIcon 
+                    story={true} 
+                    url={user.profileImage?.url} 
+                    viewed={viewedStories.includes(user._id)} 
+                  />
                   <p className="mt-0.5 text-[14px]">{user.user?.firstName}</p>
                 </button>
               </Link>

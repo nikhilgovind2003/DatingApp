@@ -1,44 +1,85 @@
 import { API_URL, SOCKET_URL } from "@/apiConfig";
 import { toast } from 'sonner';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { X, Star, Heart, MessageCircle } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 import { SiTicktick } from "react-icons/si";
+import { useSelector } from "react-redux";
 
-function ProfileActionbar({ userId, from, to }) {
+function ProfileActionbar({ userId, from, to, shortListedBy, friendRequests }) {
 
   const userid = useParams();
-  console.log(userid.userId);
+  const targetUserId = userid.userId;
+
+  const userInfo = useSelector((state) => state.userAuth?.userInfo);
+  const loggedInUserId = userInfo?._id;
+
+  const [isShortlisted, setIsShortlisted] = useState(false);
+  const [isSentRequest, setIsSentRequest] = useState(false);
+
+  useEffect(() => {
+    if (loggedInUserId && shortListedBy) {
+      setIsShortlisted(shortListedBy.includes(loggedInUserId));
+    } else {
+      setIsShortlisted(false);
+    }
+  }, [shortListedBy, loggedInUserId]);
+
+  useEffect(() => {
+    if (loggedInUserId && friendRequests) {
+      const sent = friendRequests.some(
+        (req) => (req.from?._id || req.from) === loggedInUserId
+      );
+      setIsSentRequest(sent);
+    } else {
+      setIsSentRequest(false);
+    }
+  }, [friendRequests, loggedInUserId]);
 
   const handleSendRequest = async () => {
+    if (!targetUserId) return;
     try {
-      await axios.patch(`${API_URL}/users/send/${userid.userId}`, { from, to }, { withCredentials: true });
-      toast('Friend request sent!');
-      console.log(userid.userId);
+      if (isSentRequest) {
+        await axios.delete(`${API_URL}/users/friend-request/${targetUserId}`, { withCredentials: true });
+        setIsSentRequest(false);
+        toast.success('Friend request cancelled!');
+      } else {
+        await axios.patch(`${API_URL}/users/send/${targetUserId}`, {}, { withCredentials: true });
+        setIsSentRequest(true);
+        toast.success('Friend request sent!');
+      }
     } catch (error) {
-      console.error('Error sending friend request', error);
+      console.error('Error handling friend request', error);
+      toast.error(error.response?.data?.message || 'Error updating friend request');
     }
   };
 
   const handleAcceptRequest = async () => {
     try {
       await axios.put(`/api/friendRequests/accept/${userId}`, { from });
-      toast('Friend request accepted!');
+      toast.success('Friend request accepted!');
     } catch (error) {
       console.error('Error accepting friend request', error);
+      toast.error('Error accepting friend request');
     }
   };
 
   const handleShortlistRequest = async () => {
+    if (!targetUserId) return;
     try {
-      console.log(userid.userId);
-      console.log(from, to);
-      await axios.post(`${API_URL}/users/shortlist/${userid.userId}`, { from, to }, { withCredentials: true });
-      toast('Shortlisted!');
-      console.log(userid.userId);
+      if (isShortlisted) {
+        await axios.delete(`${API_URL}/users/delete-shortlist/${targetUserId}`, { withCredentials: true });
+        setIsShortlisted(false);
+        toast.success('Removed from shortlist!');
+      } else {
+        await axios.post(`${API_URL}/users/shortlist/${targetUserId}`, {}, { withCredentials: true });
+        setIsShortlisted(true);
+        toast.success('Shortlisted!');
+      }
     } catch (error) {
-      console.error('Error shortlisting', error);
+      console.error('Error handling shortlist request', error);
+      toast.error(error.response?.data?.message || 'Error updating shortlist');
     }
   };
 
@@ -57,9 +98,9 @@ function ProfileActionbar({ userId, from, to }) {
           className='p-3 cursor-pointer bg-[#4B164C] rounded-full relative group'
           onClick={handleShortlistRequest}
         >
-          <Star fill="white" strokeWidth={0} />
+          <Star fill={isShortlisted ? "white" : "none"} strokeWidth={isShortlisted ? 0 : 2} />
           <span className="absolute bottom-12 left-1/2 transform -translate-x-1/2 scale-0 group-hover:scale-100 bg-gray-700 text-white text-xs rounded-md px-2 py-1 transition-all">
-            Shortlist
+            {isShortlisted ? "Remove Shortlist" : "Shortlist"}
           </span>
         </div>
         
@@ -67,9 +108,9 @@ function ProfileActionbar({ userId, from, to }) {
           className='p-3 cursor-pointer bg-[#DD88CF] rounded-full relative group'
           onClick={handleSendRequest}
         >
-          <Heart fill='white' strokeWidth={0} />      
+          <Heart fill={isSentRequest ? "white" : "none"} strokeWidth={isSentRequest ? 0 : 2} />      
           <span className="absolute bottom-12 left-1/2 transform -translate-x-1/2 scale-0 group-hover:scale-100 bg-gray-700 text-white text-xs rounded-md px-2 py-1 transition-all">
-            Friend Request
+            {isSentRequest ? "Cancel Friend Request" : "Friend Request"}
           </span>
         </div>
         

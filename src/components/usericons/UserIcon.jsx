@@ -2,12 +2,12 @@ import { Pencil } from 'lucide-react'
 import React from 'react'
 import { FaUserCircle } from 'react-icons/fa'
 
-const UserIcon = ({ url, story, add, edit }) => {
+const UserIcon = ({ url, story, add, edit, viewed }) => {
   
   return (
     <div
       className='relative w-16 h-16'>
-        <div className={`inline-block h-16 w-16 rounded-full ring-2 ring-white object-center ${story ? "border-[3px] border-light-purple p-0.5" : ""}`}>
+        <div className={`inline-block h-16 w-16 rounded-full ring-2 ring-white object-center ${story && !viewed ? "border-[3px] border-light-purple p-0.5" : ""}`}>
     
     {url  ? (
   <img

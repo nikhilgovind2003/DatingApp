@@ -1,7 +1,7 @@
 import { API_URL, SOCKET_URL } from "@/apiConfig";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Bell} from "lucide-react";
+import { Bell } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { navData } from "../../datas/navData";
 import { MdInput } from "react-icons/md";
@@ -11,32 +11,18 @@ import { useDispatch, useSelector } from "react-redux";
 import Cookies from 'js-cookie';
 import { FaUserCircle } from "react-icons/fa";
 import { useSocket } from "@/context/SocketContext";
+import { getSafeCookie } from "@/utils/cookieHelper";
 
 const RightBar = () => {
   const [unreadCount, setUnreadCount] = useState(0); // For storing the number of unread notifications
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const {userInfo, myProfile} = useSelector((state) => state.userAuth);
-
-  const myProfileCookie = Cookies.get("myProfile");
-
-  console.log("data",myProfile )
-
-  // let myProfile = null;
-  // if (myProfileCookie) {
-  //   try {
-  //     const decodedMyProfileCookie = decodeURIComponent(myProfileCookie);
-  //     const cleanedMyProfileJson = decodedMyProfileCookie.startsWith("j:")
-  //       ? decodedMyProfileCookie.slice(2)
-  //       : decodedMyProfileCookie;
-  //     myProfile = cleanedMyProfileJson ? JSON.parse(cleanedMyProfileJson) : null;
-  //   } catch (error) {
-  //     console.error("Error parsing myProfile cookie:", error);
-  //   }
-  // }
+  const { userInfo, myProfile } = useSelector((state) => state?.userAuth);
 
   const { socket } = useSocket();
+
+  const myProfileFromCookie = getSafeCookie('myProfile') || { _id: null, profileImage: { url: null } };
 
   const fetchUnreadCount = async () => {
     try {
@@ -79,7 +65,7 @@ const RightBar = () => {
   };
 
 
-  
+
 
   return (
     <div className="w-full h-screen bg-hot-purple text-white text-lg sm:text-sm md:text-sm lg:text-lg pt-2">
@@ -88,16 +74,16 @@ const RightBar = () => {
         <div className="flex  gap-2 items-center ">
           <div className="relative">
             {/* Profile Picture */}
-          
-          {myProfile?.profileImage?.url ? (
-            <img
-              src={myProfile?.profileImage?.url} // Replace with the actual profile picture URL
-              alt="Profile"
-              className="rounded-full w-12 h-12 object-cover"
-            />
-          ) : (
-          <FaUserCircle className="rounded-full w-12 h-12 object-cover" />
-          )}
+
+            {myProfileFromCookie?.profileImage?.url ? (
+              <img
+                src={myProfileFromCookie?.profileImage?.url} // Replace with the actual profile picture URL
+                alt="Profile"
+                className="rounded-full w-12 h-12 object-cover"
+              />
+            ) : (
+              <FaUserCircle className="rounded-full w-12 h-12 object-cover" />
+            )}
             {/* Online Indicator */}
             <span className="absolute bottom-0 right-0 w-4 h-4 bg-green-500 rounded-full border-2 border-hot-purple"></span>
           </div>

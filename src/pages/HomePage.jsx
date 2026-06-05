@@ -37,6 +37,8 @@ const HomePage = () => {
   }, [dispatch]);
 
 
+  console.log("users", users)
+
 
   return (
     <section className=" sm: w-screen md:w-full lg:w-full pt-5 px-5 pb-24 md:pb-5 h-screen overflow-y-auto overflow-x-hidden">
@@ -61,7 +63,7 @@ const HomePage = () => {
 
       <ButtonGroup />
 
-      <div className="grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-3 grid-cols-2 gap-5">
+      <div className="grid xl:grid-cols-3 sm:grid-cols-2 max-xs:grid-cols-1 gap-5">
         {users.map((user, i) => (
           <HomeCardComponents
             key={user.user?._id || i}
@@ -73,6 +75,8 @@ const HomePage = () => {
             age={user.age}
             place={user.place}
             isActive={user.user?.isActive}
+            shortListedBy={user.user?.shortListedBy}
+            friendRequests={user.user?.friendRequests}
           />
         ))}
       </div>

@@ -7,7 +7,7 @@ const ProtectedRouter = ({ children, isAuthenticated }) => {
         return <Navigate to={"/login"} />;
     }
 
-    return children;
+    return  children;
 };
 
 export default ProtectedRouter;

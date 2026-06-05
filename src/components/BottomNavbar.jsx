@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { House, Compass, MessageCircle, Users } from 'lucide-react';
 
 function BottomNavbar({ show, hideOnRoutes = [] }) {
   const Menus = [
     { name: "Home", icon: <House />, activeIcon: <House className="text-white" />, path: "/home" },
     { name: "Discovery", icon: <Compass />, activeIcon: <Compass className="text-white" />, path: "/discover" },
-    { name: "Message", icon: <img src='https://upload.wikimedia.org/wikipedia/commons/9/98/Color_circle_%28RGB%29.png' className='rounded-full '  width={30} />, activeIcon: <img src='https://upload.wikimedia.org/wikipedia/commons/9/98/Color_circle_%28RGB%29.png' className='rounded-full bg-white '  width={30} />, path: "/spin" },
+  { name: "Message", icon: <img src='https://upload.wikimedia.org/wikipedia/commons/9/98/Color_circle_%28RGB%29.png' className='rounded-full '  width={30} />, activeIcon: <img src='https://upload.wikimedia.org/wikipedia/commons/9/98/Color_circle_%28RGB%29.png' className='rounded-full bg-white '  width={30} />, path: "/spin" },
     { name: "Photos", icon: <Users />, activeIcon: <Users className="text-white" />, path: "/groups" },
     { name: "Chat", icon: <MessageCircle />, activeIcon: <MessageCircle className="text-white" />, path: "/message" },
   ];
@@ -36,8 +36,8 @@ function BottomNavbar({ show, hideOnRoutes = [] }) {
 
             {Menus.map((menu, i) => (
               <li key={i} className="flex text-sm flex-col justify-center items-center">
-                <a
-                  href={menu.path}
+                <Link
+                  to={menu.path}
                   className="flex flex-col text-center text-[#6d3c65] items-center"
                   onClick={(e) => {
                     e.preventDefault();
@@ -57,7 +57,7 @@ function BottomNavbar({ show, hideOnRoutes = [] }) {
                     style={{ transition: '0.7s', transform: active === i ? 'translateY(-0.25rem)' : 'translateY(0.625rem)' }}
                   >
                   </span>
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

@@ -1,50 +1,43 @@
-import { API_URL, SOCKET_URL } from "@/apiConfig";
 import { ArrowLeft, CircleX, MessageSquare, Plus } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import axios from "axios";
 import Upgrade from "./../components/upgrademore/Upgrade";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { UserIcon } from "../components";
+import { useGetStoryQuery, useGetUsersQuery } from "@/redux/features/stories/storyApi";
 
 export default function Story() {
   const [clicked, setClicked] = useState(false);
-  const [story, setStory] = useState({});
-  const [users, setUsers] = useState([])
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const videoRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
   const path = location.pathname.split("/")[2];
-  useEffect(() => {
-    const getStory = async () => {
-      try {
-        const res = await axios.get(`${SOCKET_URL}/story/${path}`);
-        setStory(res.data);
-      } catch (error) {
-        console.error("Failed to load story:", error);
-      }
-    };
-    getStory();
 
-    const fetchUsers = async () => {
+  const { data: storyData } = useGetStoryQuery(path, { skip: !path });
+  const { data: users = [] } = useGetUsersQuery();
+  const story = storyData || {};
+
+  useEffect(() => {
+    if (path) {
       try {
-        const response = await axios.get(`${API_URL}/users/users`); // Fetch all users from your backend
-        setUsers(response.data); // Store fetched users in state
-        console.log("Fetched Data:", response.data);
-      } catch (error) {
-        console.log("Error fetching users:", error);
+        const viewed = JSON.parse(localStorage.getItem("viewed-stories") || "[]");
+        if (!viewed.includes(path)) {
+          viewed.push(path);
+          localStorage.setItem("viewed-stories", JSON.stringify(viewed));
+        }
+      } catch (e) {
+        console.error("Error updating viewed stories", e);
       }
-    };
-    fetchUsers();
+    }
   }, [path]);
 
   const videoUrl = story?.reel?.url;
-
+  const profileUrl = story?.profileImage?.url;
   const storyUser = useParams()
 
   const currentStoryUser = users.find(user => user._id == storyUser.id)
-  console.log(currentStoryUser);
+  console.log("currentStoryUser: ", currentStoryUser);
 
 
 
@@ -116,7 +109,7 @@ export default function Story() {
         className="absolute top-0 left-0 ml-5 flex items-center w-full md:w-1/3 bg-opacity-50 text-white py-4 z-10 cursor-pointer"
       >
         <ArrowLeft onClick={() => navigate("/home")} />
-        <UserIcon story={true} url={currentStoryUser?.profileImage?.url} />
+        <UserIcon story={true} url={profileUrl} viewed={true} />
       </header>
 
       {/* Footer */}

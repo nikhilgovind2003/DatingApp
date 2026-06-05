@@ -71,7 +71,7 @@ const LoginPage = () => {
         <div className="flex items-center justify-center min-h-screen bg-transparent bg-[url('/LandingPagebackgroundblur.png')] bg-no-repeat bg-cover bg-fixed">
             <div className="absolute inset-0 bg-black/10 backdrop-blur-2xl -z-10" />
 
-            <div className="flex flex-col min-h-screen p-4 lg:w-2/5 z-0 justify-center">
+            <div className="flex flex-col min-h-screen p-4 lg:w-2/5 w-full z-0 justify-center">
                 <div className="bg-white/70 backdrop-blur-md border border-white/40 p-8 rounded-2xl shadow-2xl w-full max-w-md mx-auto transition-all hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)]">
                     <h2 className="text-3xl font-extrabold mb-8 text-center text-deep-plum tracking-tight">Login</h2>
                     
@@ -84,7 +84,7 @@ const LoginPage = () => {
                                     id="email"
                                     type="text"
                                     placeholder="john@example.com"
-                                    className="pl-9 bg-white/50 focus:bg-white transition-all"
+                                className="pl-9 bg-white/50 focus:bg-white transition-all"
                                     {...register("email")}
                                 />
                             </div>

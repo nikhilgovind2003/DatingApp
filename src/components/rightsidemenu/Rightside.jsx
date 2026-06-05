@@ -19,7 +19,6 @@ const Rightside = () => {
 
   const myProfile = getSafeCookie('myProfile') || { _id: null, profileImage: { url: null } };
   
-
   const toggleDropdown = () => {
     setIsOpen((prevIsOpen) => !prevIsOpen);
   };

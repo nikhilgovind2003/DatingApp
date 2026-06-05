@@ -1,9 +1,8 @@
 import { lazy, Suspense } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 
 // Lazy loaded components
-const HomePage = lazy(() => import('./pages/HomePage.jsx'));
 const DiscoverPage = lazy(() => import('./pages/DiscoverPage'));
 const QualificationPage = lazy(() => import('./pages/QualificationPage'));
 const Profileviewpage = lazy(() => import('./pages/Profileviewpage'));
@@ -59,16 +58,19 @@ import ProtectedPrimeRouter from './utils/ProtectedPrimeRouter';
 import { useSelector } from 'react-redux';
 import { SocketProvider } from './context/SocketContext';
 import GlobalLocationHandler from './components/GlobalLocationHandler';
+import HomePage from './pages/HomePage';
 
 function App() {
   const isAuthenticated = useSelector(state => state.userAuth.isAuthenticated);
-  const isPrime = useSelector(state => state.userAuth.userInfo?.isPrime ? true : true);
-  console.log(isPrime, 'prime')
+  const isPrime = useSelector(state => state.userAuth.userInfo?.isPrime ? true : false);
   const hideOnRoutes = ['/credit', '/subscription', `/chat`, `/story/1`, '/spin', '/create_group', '/notification', '/partener_preferences', '/', '/login', '/sign_up', '/personal_details', '/interested', '/dating_interest', '/job_status', '/job_details', '/editprofile'];
+
+  console.log("Auth", isAuthenticated)
+
 
   return (
     <SocketProvider>
-       <GlobalLocationHandler />
+      <GlobalLocationHandler />
       <BrowserRouter>
         <Suspense fallback={<div className="flex items-center justify-center h-screen">Loading...</div>}>
           <Routes>
@@ -123,7 +125,11 @@ function App() {
             <Route path='/reset-password' element={<ResetPasswordPage />} />
             <Route path='/login' element={<LoginPage />} />
             <Route path='/sign_up' element={<SignUp />} />
-            <Route path='/' element={<LandingPage />} />
+            <Route path='/' element={
+              <ProtectedRouter isAuthenticated={isAuthenticated}>
+                isAuthenticated ? <Navigate to="/home" /> : <LandingPage />
+              </ProtectedRouter>
+            } />
           </Routes>
         </Suspense>
         <BottomNavbar show={true} hideOnRoutes={hideOnRoutes} />

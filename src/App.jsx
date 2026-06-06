@@ -49,6 +49,7 @@ const ResetPasswordPage = lazy(() => import('./pages/ResetPasswordPage'));
 const LoginPage = lazy(() => import('./pages/LoginPage'));
 const SignUp = lazy(() => import('./pages/SignUp'));
 const LandingPage = lazy(() => import('./pages/LandingPage'));
+const GoogleCallback = lazy(() => import('./pages/GoogleCallback'));
 
 import DesktopLayout from './layout/DesktopLayout';
 import BottomNavbar from './components/BottomNavbar';
@@ -61,7 +62,9 @@ import GlobalLocationHandler from './components/GlobalLocationHandler';
 import HomePage from './pages/HomePage';
 
 function App() {
-  const isAuthenticated = useSelector(state => state.userAuth.isAuthenticated);
+  const isAuthenticated = useSelector(state => {
+    console.log("state.userAuth.isAuthenticated", state.userAuth.isAuthenticated)
+    return state.userAuth.isAuthenticated});
   const isPrime = useSelector(state => state.userAuth.userInfo?.isPrime ? true : false);
   const hideOnRoutes = ['/credit', '/subscription', `/chat`, `/story/1`, '/spin', '/create_group', '/notification', '/partener_preferences', '/', '/login', '/sign_up', '/personal_details', '/interested', '/dating_interest', '/job_status', '/job_details', '/editprofile'];
 
@@ -125,6 +128,7 @@ function App() {
             <Route path='/reset-password' element={<ResetPasswordPage />} />
             <Route path='/login' element={<LoginPage />} />
             <Route path='/sign_up' element={<SignUp />} />
+            <Route path='/auth/callback' element={<GoogleCallback />} />
             <Route path='/' element={
               <ProtectedRouter isAuthenticated={isAuthenticated}>
                 isAuthenticated ? <Navigate to="/home" /> : <LandingPage />

@@ -10,6 +10,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { UserIcon } from '..';
 import { getSafeCookie } from '../../utils/cookieHelper';
+import { toast } from "sonner";
 
 const Rightside = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -51,7 +52,7 @@ const Rightside = () => {
 
   return (
     <div>
-      <Button variant={'none'} className='flex items-center gap-2 ' onClick={toggleDropdown}>
+      <Button variant={'none'} className='flex items-center gap-2' onClick={toggleDropdown}>
         <UserIcon url={myProfile?.profileImage?.url}/>
       </Button>
 
@@ -72,7 +73,7 @@ const Rightside = () => {
               <div className="text-center mt-3 ml-3">
                 <h2 className="font-bold text-lg text-light-purple">{userInfo?.firstName + " " + userInfo?.lastName || "User Name"}</h2>
                 <div className="text-sm text-yellow-300">
-                  <div className='flex flex-row '>
+                  <div className='flex flex-row'>
                     <FaCrown className='m-[.2rem]'/>
                     {userInfo?.membershipStatus}
                   </div>

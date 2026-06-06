@@ -1,16 +1,15 @@
-import { API_URL, SOCKET_URL } from "@/apiConfig";
+import { API_URL } from "@/apiConfig";
 import { useEffect, useState } from "react";
 import UserIcon from "../usericons/UserIcon";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { getSafeCookie } from "../../utils/cookieHelper";
-import { useSelector } from "react-redux";
+import useMyProfile from "../../hooks/useMyProfile";
 
 const StoryView = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const myProfile = getSafeCookie('myProfile') || useSelector(state => state?.userAuth?.myProfile) || { _id: null, user: null };
+  const myProfile = useMyProfile() || { _id: null, user: null };
 
   const viewedStories = JSON.parse(localStorage.getItem("viewed-stories") || "[]");
 

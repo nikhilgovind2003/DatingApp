@@ -1,5 +1,5 @@
 import { API_URL, SOCKET_URL } from "@/apiConfig";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { Bell } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,21 +8,19 @@ import { MdInput } from "react-icons/md";
 import { Button } from "@chakra-ui/react";
 import { logout } from "../../redux/features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import Cookies from 'js-cookie';
 import { FaUserCircle } from "react-icons/fa";
 import { useSocket } from "@/context/SocketContext";
-import { getSafeCookie } from "@/utils/cookieHelper";
+import useMyProfile from "../../hooks/useMyProfile";
 
 const RightBar = () => {
   const [unreadCount, setUnreadCount] = useState(0); // For storing the number of unread notifications
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { userInfo, myProfile } = useSelector((state) => state?.userAuth);
+  const { userInfo } = useSelector(state => state?.userAuth);
+  const myProfileFromCookie = useMyProfile() || { _id: null, profileImage: { url: null } };
 
   const { socket } = useSocket();
-
-  const myProfileFromCookie = getSafeCookie('myProfile') || { _id: null, profileImage: { url: null } };
 
   const fetchUnreadCount = async () => {
     try {
@@ -70,8 +68,8 @@ const RightBar = () => {
   return (
     <div className="w-full h-screen bg-hot-purple text-white text-lg sm:text-sm md:text-sm lg:text-lg pt-2">
       {/* Profile Section */}
-      <div className="flex justify-evenly items-center mt-4 ">
-        <div className="flex  gap-2 items-center ">
+      <div className="flex justify-evenly items-center mt-4">
+        <div className="flex gap-2 items-center">
           <div className="relative">
             {/* Profile Picture */}
 
@@ -87,7 +85,7 @@ const RightBar = () => {
             {/* Online Indicator */}
             <span className="absolute bottom-0 right-0 w-4 h-4 bg-green-500 rounded-full border-2 border-hot-purple"></span>
           </div>
-          <div className="text-center ">
+          <div className="text-center">
             <h2 className="font-bold text-lg">
               {userInfo?.firstName + " " + userInfo?.lastName || "User Name"}
             </h2>
@@ -113,7 +111,7 @@ const RightBar = () => {
         <ul className="space-y-2">
           {navData?.map((item) => (
             <Link to={item.href} key={item.title}>
-              <li className="hover:bg-dark-wine  px-4 py-2">{item.title}</li>
+              <li className="hover:bg-dark-wine px-4 py-2">{item.title}</li>
             </Link>
           ))}
         </ul>

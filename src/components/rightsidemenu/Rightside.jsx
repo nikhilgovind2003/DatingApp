@@ -7,18 +7,19 @@ import { MdInput } from "react-icons/md";
 import { navData } from '../../datas/navData';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { UserIcon } from '..';
-import { getSafeCookie } from '../../utils/cookieHelper';
+import { logout } from '../../redux/features/auth/authSlice';
+import useMyProfile from '../../hooks/useMyProfile';
 import { toast } from "sonner";
 
 const Rightside = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [placements, setPlacement] = useState('right');
-  
-  const userInfo = useSelector((state) => state.userAuth.userInfo);
+  const dispatch = useDispatch();
 
-  const myProfile = getSafeCookie('myProfile') || { _id: null, profileImage: { url: null } };
+  const userInfo = useSelector((state) => state.userAuth.userInfo);
+  const myProfile = useMyProfile() || { _id: null, profileImage: { url: null } };
   
   const toggleDropdown = () => {
     setIsOpen((prevIsOpen) => !prevIsOpen);
@@ -41,6 +42,8 @@ const Rightside = () => {
   const handleLogout = async () => {
     try {
       const res = await axios.post(`${SOCKET_URL}/logout`, null, { withCredentials: true });
+      dispatch(logout());
+      setIsOpen(false);
       setTimeout(() => {
         toast.success(res.data.message);
       }, 1000);

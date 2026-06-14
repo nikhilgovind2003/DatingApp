@@ -1,5 +1,5 @@
-import { API_URL, SOCKET_URL } from "@/apiConfig";
-import React, { useEffect, useState } from "react";
+import { API_URL } from "@/apiConfig";
+import { useEffect, useState } from "react";
 import { RangeSlider, RangeSliderTrack, RangeSliderFilledTrack, RangeSliderThumb, ChakraProvider } from "@chakra-ui/react";
 import PageTitle from "../components/PageTitle/PageTitle";
 import { Search } from "lucide-react";
@@ -141,7 +141,7 @@ function PartnerPreferences() {
         <select
           value={gender}
           onChange={(e) => setGender(e.target.value)}
-          className="mt-2 mb-4 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+          className="mt-2 mb-4 py-2 px-4 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
         >
           <option value="Male">Male</option>
           <option value="Female">Female</option>

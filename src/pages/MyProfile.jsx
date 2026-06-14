@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import {
   GraduationCap,
   Cigarette,
@@ -24,9 +24,9 @@ function MyProfile() {
   const authState = useSelector(state => state?.userAuth || state.auth || {});
 
 
+
   
   const userInfo = authState.userInfo;
-  console.log("userInfo", userInfo)
   const reduxProfile = authState.myProfile;
   const currentLocation = authState.currentLocation;
 

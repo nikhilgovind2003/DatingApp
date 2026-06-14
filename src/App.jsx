@@ -63,12 +63,10 @@ import HomePage from './pages/HomePage';
 
 function App() {
   const isAuthenticated = useSelector(state => {
-    console.log("state.userAuth.isAuthenticated", state.userAuth.isAuthenticated)
     return state.userAuth.isAuthenticated});
   const isPrime = useSelector(state => state.userAuth.userInfo?.isPrime ? true : false);
   const hideOnRoutes = ['/credit', '/subscription', `/chat`, `/story/1`, '/spin', '/create_group', '/notification', '/partener_preferences', '/', '/login', '/sign_up', '/personal_details', '/interested', '/dating_interest', '/job_status', '/job_details', '/editprofile'];
 
-  console.log("Auth", isAuthenticated)
 
 
   return (

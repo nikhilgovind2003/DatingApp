@@ -28,7 +28,6 @@ const SocketProvider = ({ children }) => {
             });
 
             socket.current.on('connect', () => {
-                console.log('Connected to socket server');
                 // Identify the user to the server
                 socket.current.emit('joinRoom', userInfo._id);
             });

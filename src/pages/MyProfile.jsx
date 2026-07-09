@@ -112,7 +112,7 @@ function MyProfile() {
               </div>
             </Link>
             <div className="rounded-full flex border-2 w-fit backdrop-filter backdrop-blur-sm bg-opacity-45 border-white py-2 px-6 text-white font-medium transition hover:bg-white/20">
-              <Link to="/editprofile"><span>Edit</span></Link>
+              <Link to="/profile/edit"><span>Edit</span></Link>
             </div>
           </div>
 

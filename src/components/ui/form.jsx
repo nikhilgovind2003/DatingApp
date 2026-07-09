@@ -1,4 +1,4 @@
-import * as React from "react";
+import PropTypes from "prop-types";
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
 
@@ -13,6 +13,10 @@ function FormItem({ className, ...props }) {
   );
 }
 
+FormItem.propTypes = {
+  className: PropTypes.string,
+};
+
 // ─── FormLabel ────────────────────────────────────────────────────────────────
 function FormLabel({ className, error, ...props }) {
   return (
@@ -24,6 +28,11 @@ function FormLabel({ className, error, ...props }) {
   );
 }
 
+FormLabel.propTypes = {
+  className: PropTypes.string,
+  error: PropTypes.bool,
+};
+
 // ─── FormDescription ──────────────────────────────────────────────────────────
 function FormDescription({ className, ...props }) {
   return (
@@ -34,6 +43,10 @@ function FormDescription({ className, ...props }) {
     />
   );
 }
+
+FormDescription.propTypes = {
+  className: PropTypes.string,
+};
 
 // ─── FormMessage ──────────────────────────────────────────────────────────────
 function FormMessage({ className, children, ...props }) {
@@ -49,5 +62,10 @@ function FormMessage({ className, children, ...props }) {
     </p>
   );
 }
+
+FormMessage.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.node,
+};
 
 export { FormItem, FormLabel, FormDescription, FormMessage };

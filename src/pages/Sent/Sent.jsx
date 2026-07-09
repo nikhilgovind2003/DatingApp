@@ -76,7 +76,6 @@ const RejectPage = () => {
     return acc;
   }, {});
 
-  console.log(groupedUsers);
 
 
   if(frdreqData.length === 0){

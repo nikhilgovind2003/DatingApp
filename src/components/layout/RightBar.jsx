@@ -17,15 +17,20 @@ const RightBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { userInfo } = useSelector(state => state?.userAuth);
-  const myProfileFromCookie = useMyProfile() || { _id: null, profileImage: { url: null } };
+  const { userInfo } = useSelector((state) => state?.userAuth);
+  const myProfileFromCookie = useMyProfile() || {
+    _id: null,
+    profileImage: { url: null },
+  };
 
   const { socket } = useSocket();
 
   const fetchUnreadCount = async () => {
     try {
-      const res = await axios.get(`${API_URL}/notifications`, { withCredentials: true });
-      // Notifications controller already filters by isRead: false if needed, 
+      const res = await axios.get(`${API_URL}/notifications`, {
+        withCredentials: true,
+      });
+      // Notifications controller already filters by isRead: false if needed,
       // but let's be sure or just count what we get.
       setUnreadCount(res.data.length);
     } catch (error) {
@@ -37,24 +42,26 @@ const RightBar = () => {
     fetchUnreadCount();
 
     if (socket) {
-      socket.on('newNotification', () => {
+      socket.on("newNotification", () => {
         fetchUnreadCount();
       });
 
-      socket.on('notificationRead', () => {
+      socket.on("notificationRead", () => {
         fetchUnreadCount();
       });
 
       return () => {
-        socket.off('newNotification');
-        socket.off('notificationRead');
+        socket.off("newNotification");
+        socket.off("notificationRead");
       };
     }
   }, [socket]);
 
   const handleLogout = async () => {
     try {
-      const res = await axios.post(`${SOCKET_URL}/logout`, null, { withCredentials: true });
+      await axios.post(`${SOCKET_URL}/logout`, null, {
+        withCredentials: true,
+      });
       dispatch(logout());
       navigate("/home");
     } catch (err) {
@@ -62,14 +69,15 @@ const RightBar = () => {
     }
   };
 
-
-
+  const isPrime = useSelector((state) =>
+    state.userAuth.userInfo?.isPrime ? true : false,
+  );
 
   return (
     <div className="w-full h-screen bg-hot-purple text-white text-lg sm:text-sm md:text-sm lg:text-lg pt-2">
       {/* Profile Section */}
-      <div className="flex justify-evenly items-center mt-4">
-        <div className="flex gap-2 items-center">
+      <div className="flex flex-col lg:flex-row items-center gap-2 justify-evenly mt-4">
+        <div className="flex flex-col lg:flex-row lg:gap-4 items-center">
           <div className="relative">
             {/* Profile Picture */}
 
@@ -89,7 +97,7 @@ const RightBar = () => {
             <h2 className="font-bold text-lg">
               {userInfo?.firstName + " " + userInfo?.lastName || "User Name"}
             </h2>
-            <p className="text-sm text-green-300">Prime Member</p>
+            {isPrime && <p className="text-sm text-green-300">Prime Member</p>}
             <p className="text-sm text-green-300">Online</p>
           </div>
         </div>
@@ -127,6 +135,3 @@ const RightBar = () => {
 };
 
 export default RightBar;
-
-
-

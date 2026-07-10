@@ -72,3 +72,22 @@ p {
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
 }
+
+
+
+.nav-fade-scroll {
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 40px,
+    black calc(100% - 40px),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 40px,
+    black calc(100% - 40px),
+    transparent 100%
+  );
+}

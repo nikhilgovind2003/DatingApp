@@ -1,4 +1,10 @@
+import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 import { BACKEND_URL } from "@/apiConfig";
+
+export function cn(...inputs) {
+  return twMerge(clsx(inputs));
+}
 
 // lib/utils.js
 export async function Api(url) {
@@ -13,7 +19,8 @@ export async function Api(url) {
       const errorBody = await response.json().catch(() => ({}));
       return {
         data: null,
-        error: errorBody.message || `Request failed with status ${response.status}`,
+        error:
+          errorBody.message || `Request failed with status ${response.status}`,
       };
     }
 

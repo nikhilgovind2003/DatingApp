@@ -397,12 +397,12 @@ function App() {
               <Route
                 path="/chat/:id"
                 element={
-                  <ProtectedPrimeRouter
+                  <ProtectedRouter
                     isAuthenticated={isAuthenticated}
                     isPrime={isPrime}
                   >
                     <Chat />
-                  </ProtectedPrimeRouter>
+                  </ProtectedRouter>
                 }
               />
             </Route>

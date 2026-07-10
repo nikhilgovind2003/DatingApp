@@ -8,7 +8,10 @@ import { API_URL } from "@/apiConfig";
 import { useSocket } from "@/context/SocketContext";
 import { useSelector } from "react-redux";
 
-const Chat = () => {
+export default function Chat(){
+
+
+  const [loading, setLoading] = useState(false);
   const [value, setValue] = useState("");
   const [messages, setMessages] = useState([]);
   const [receiverData, setReceiverData] = useState(null);
@@ -177,7 +180,7 @@ const Chat = () => {
       </div>
 
       {/* Input Field */}
-      <div className="fixed bottom-6 left-0 right-0 px-4 max-w-2xl mx-auto">
+      <div className="fixed bottom-6 left-0 right-0 absolute px-4 max-w-2xl mx-auto">
         <div className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-full px-4 py-2 shadow-lg">
           <Paperclip className="text-gray-400 cursor-pointer hover:text-gray-600 transition-colors" size={20} />
           <input
@@ -205,7 +208,3 @@ const Chat = () => {
     </div>
   );
 };
-
-export default Chat;
-
-

@@ -1,10 +1,10 @@
-import { API_URL, SOCKET_URL } from "@/apiConfig";
-import React, { useEffect, useState } from "react";
+import { API_URL } from "@/apiConfig";
+import { useEffect, useState } from "react";
 import PageTitle from "../components/PageTitle/PageTitle";
 import { ChevronLeft } from "lucide-react";
 import { UserPreview } from "../components";
 import { LiaHeartSolid } from "react-icons/lia";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSocket } from "@/context/SocketContext";
 
@@ -13,9 +13,12 @@ export default function Messages() {
   const [recentMatches, setRecentMatches] = useState([]);
   const { socket } = useSocket();
 
+  const navigate = useNavigate();
   const fetchChats = async () => {
     try {
-      const response = await axios.get(`${API_URL}/messages/list`, { withCredentials: true });
+      const response = await axios.get(`${API_URL}/messages/list`, {
+        withCredentials: true,
+      });
       setChats(response.data);
     } catch (error) {
       console.error("Error fetching chats:", error);
@@ -24,7 +27,9 @@ export default function Messages() {
 
   const fetchMatches = async () => {
     try {
-      const response = await axios.get(`${API_URL}/users/users`, { withCredentials: true });
+      const response = await axios.get(`${API_URL}/users/users`, {
+        withCredentials: true,
+      });
       setRecentMatches(response.data.slice(0, 10)); // Just show some as "matches" for now
     } catch (error) {
       console.error("Error fetching matches:", error);
@@ -59,9 +64,15 @@ export default function Messages() {
         </h2>
         <div className="flex overflow-x-auto space-x-5 pb-4 scrollbar-hide">
           {recentMatches.map((match) => (
-            <div key={match._id} className="flex-shrink-0 relative">
+            <div
+              onClick={() => navigate(`/chat/${match?._id}`)}
+              key={match._id}
+              className="flex-shrink-0 relative"
+            >
               <img
-                src={match.profileImage?.url || "https://via.placeholder.com/150"}
+                src={
+                  match.profileImage?.url || "https://via.placeholder.com/150"
+                }
                 alt={match.user?.firstName || "User"}
                 className="h-24 w-20 rounded-2xl object-cover border-2 border-deep-plum shadow-lg"
               />
@@ -86,12 +97,15 @@ export default function Messages() {
         ) : (
           chats.map((chat) => (
             <Link key={chat.conversationId} to={`/chat/${chat.otherUser._id}`}>
-              <UserPreview 
-                name={chat.otherUser.name} 
-                url={chat.otherUser.profileImage} 
+              <UserPreview
+                name={chat.otherUser.name}
+                url={chat.otherUser.profileImage}
                 message={chat.lastMessage}
                 unreadCount={chat.unreadCount}
-                bio={new Date(chat.lastMessageTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                bio={new Date(chat.lastMessageTime).toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
               />
             </Link>
           ))
@@ -100,6 +114,3 @@ export default function Messages() {
     </div>
   );
 }
-
-
-

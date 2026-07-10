@@ -1,5 +1,4 @@
-import React from 'react'
-import { House, Link as LinkIcon } from 'lucide-react';
+import { House } from 'lucide-react';
 import { Heart } from 'lucide-react';
 import { MessageCircle } from 'lucide-react';
 import { Star } from 'lucide-react';
@@ -15,27 +14,27 @@ const LeftBar = () => {
       </div>
       <ul className='space-y-2'>
        <li className="hover:bg-dark-wine">
-          <Link to="/home" className=" px-4 py-2 flex items-center">
+          <Link to="/home" className="px-4 py-2 flex items-center">
         <span className="mr-2"><House /></span>Home
           </Link>
         </li>
         <li className="hover:bg-dark-wine">
-          <Link to="/shortlisted" className=" px-4 py-2 flex items-center">
+          <Link to="/shortlisted" className="px-4 py-2 flex items-center">
             <span className="mr-2"><Heart /></span>Likes
           </Link>
         </li>
         <li className="hover:bg-dark-wine">
-          <Link to="/message" className=" px-4 py-2 flex items-center">
+          <Link to="/message" className="px-4 py-2 flex items-center">
             <span className="mr-2"><MessageCircle /></span>Messages
           </Link>
         </li>
         <li className="hover:bg-dark-wine">
-          <Link to="/favourites" className=" px-4 py-2 flex items-center">
+          <Link to="/favourites" className="px-4 py-2 flex items-center">
             <span className="mr-2"><Star /></span>Favourites
           </Link>
         </li>
         <li className="hover:bg-dark-wine">
-          <Link to="/search" className=" px-4 py-2 flex items-center">
+          <Link to="/search" className="px-4 py-2 flex items-center">
             <span className="mr-2"><Search /></span>Search
           </Link>
         </li>

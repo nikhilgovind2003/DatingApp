@@ -60,7 +60,7 @@ console.log(rejectrequests)
     return (
       <div className="bg-deep-plum h-screen overflow-y-auto">
         <PageTitle icon={Search} pageTitle={"Reject"} />
-        <div className="rounded-t-4xl h-[600px] overflow-y-scroll bg-white pt-5 px-5 pb-24 md:pb-5 sm:border-2 border-deep-plum ">
+        <div className="rounded-t-4xl h-screen overflow-y-scroll bg-white pt-5 px-5 pb-24 md:pb-5 sm:border-2 border-deep-plum ">
           <div className="flex items-center justify-center h-full">
             <p className="text-gray-500">No users have rejected you yet.</p>
           </div>
@@ -72,7 +72,7 @@ console.log(rejectrequests)
   return (
     <div className="bg-deep-plum h-screen overflow-y-auto">
       <PageTitle icon={Search} pageTitle={"Reject"} />
-      <div className="rounded-t-4xl h-[600px] overflow-y-scroll bg-white pt-5 px-5 pb-24 md:pb-5 sm:border-2 border-deep-plum">
+      <div className="rounded-t-4xl h-screen overflow-y-scroll bg-white pt-5 px-5 pb-24 md:pb-5 sm:border-2 border-deep-plum">
         {Object.keys(groupedUsers).sort().map(letter => (
           <div key={letter}>
             <h1 className="text-xl font-semibold mt-6 ms-10 sm:ms-7">{letter}</h1>

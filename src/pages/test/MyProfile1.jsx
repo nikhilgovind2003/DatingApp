@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ChevronLeft, Navigation } from 'lucide-react';
 import ProfileActionbar from '../../components/ProfileActionbar';
 import Button from '../../components/buttons/InterestButton';
@@ -14,10 +14,6 @@ function Profileviewpage() {
     const {userId}=useParams();
 
     const [sinUser] = useState(Userdata.find((user) => user.id === userId));
-
-    
-    console.log({sinUser});
-
 
   return (
     <div>

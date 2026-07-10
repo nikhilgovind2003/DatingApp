@@ -16,7 +16,6 @@ const ForgotPasswordPage = () => {
 
     const onSubmit = (data) => {
         setLoading(true);
-        // console.log(data);
         axios.post(`${SOCKET_URL}/forgot-password`, data)
             .then(res => {
                 setLoading(false);

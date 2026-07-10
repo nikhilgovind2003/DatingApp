@@ -1,5 +1,5 @@
 import { API_URL, SOCKET_URL } from "@/apiConfig";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Bell } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
@@ -14,9 +14,21 @@ import useMyProfile from "../../hooks/useMyProfile";
 
 const RightBar = () => {
   const [unreadCount, setUnreadCount] = useState(0); // For storing the number of unread notifications
+  const [scrolledTop, setScrolledTop] = useState(false);
+  const [scrolledBottom, setScrolledBottom] = useState(false);
+
+  const scrollRef = useRef(null);
+
+  const handleScroll = () => {
+    if (!scrollRef.current) return;
+    const { scrollTop, scrollHeight, clientHeight } = scrollRef.current;
+    setScrolledTop(scrollTop > 0);
+    const atBottom = scrollHeight - scrollTop - clientHeight <= 1;
+    setScrolledBottom(!atBottom && scrollHeight > clientHeight);
+  };
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const { userInfo } = useSelector((state) => state?.userAuth);
   const myProfileFromCookie = useMyProfile() || {
     _id: null,
@@ -76,7 +88,7 @@ const RightBar = () => {
   return (
     <div className="w-full h-screen bg-hot-purple text-white text-lg sm:text-sm md:text-sm lg:text-lg pt-2">
       {/* Profile Section */}
-      <div className="flex flex-col lg:flex-row items-center gap-2 justify-evenly mt-4">
+      <div className="flex flex-col lg:flex-row items-center gap-2 justify-evenly my-[30px]">
         <div className="flex flex-col lg:flex-row lg:gap-4 items-center">
           <div className="relative">
             {/* Profile Picture */}
@@ -115,7 +127,22 @@ const RightBar = () => {
       </div>
 
       {/* Menu Items */}
-      <div className="overflow-y-auto py-5" style={{ height: "550px" }}>
+      <div
+        ref={scrollRef}
+        className="overflow-y-auto py-5"
+        onScroll={handleScroll}
+        style={{
+          height: "550px",
+          WebkitMaskImage:
+            scrolledTop || scrolledBottom
+              ? "linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,1) 12%, rgba(0,0,0,1) 88%, rgba(0,0,0,0) 100%)"
+              : "none",
+          maskImage:
+            scrolledTop || scrolledBottom
+              ? "linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,1) 12%, rgba(0,0,0,1) 88%, rgba(0,0,0,0) 100%)"
+              : "none",
+        }}
+      >
         <ul className="space-y-2">
           {navData?.map((item) => (
             <Link to={item.href} key={item.title}>

@@ -1,16 +1,17 @@
 import { API_URL, SOCKET_URL } from "@/apiConfig";
 import { toast } from 'sonner';
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import axios from 'axios';
 import { X, Star, Heart, MessageCircle } from 'lucide-react';
-import { useParams } from 'react-router-dom';
-import { SiTicktick } from "react-icons/si";
+import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from "react-redux";
 
 function ProfileActionbar({ userId, from, to, shortListedBy, friendRequests }) {
 
   const userid = useParams();
   const targetUserId = userid.userId;
+
+  const navigate = useNavigate();
 
   const userInfo = useSelector((state) => state.userAuth?.userInfo);
   const loggedInUserId = userInfo?._id;
@@ -114,7 +115,7 @@ function ProfileActionbar({ userId, from, to, shortListedBy, friendRequests }) {
           </span>
         </div>
         
-        <div className='p-3 cursor-pointer bg-[#e7a5dc] rounded-full relative group'>
+        <div onClick={()=> navigate(`/chat/${userId}`)} className='p-3 cursor-pointer bg-[#e7a5dc] rounded-full relative group'>
           <MessageCircle fill='white' strokeWidth={0} />      
           <span className="absolute bottom-12 left-1/2 transform -translate-x-1/2 scale-0 group-hover:scale-100 bg-gray-700 text-white text-xs rounded-md px-2 py-1 transition-all">
             Message

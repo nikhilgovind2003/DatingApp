@@ -50,7 +50,7 @@ const {
   handleSubmit,
   reset,
   setValue,
-  formState: { errors },
+  formState: { errors, isSubmitting },
 } = useForm({
   resolver: zodResolver(editProfileSchema),
   mode: "onChange",          // validate when user leaves a field
@@ -175,7 +175,9 @@ const {
           mail will still remain un-edited.
         </p>
         <form
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={handleSubmit(onSubmit, (error)=> {
+            console.log(error)
+          })}
           className="mt-2 h-[59vh]"
         >
           <div className="grid grid-cols-2 gap-4">
@@ -447,7 +449,7 @@ const {
             type="submit"
             className="w-full bg-deep-plum text-white py-2 mt-6 rounded-full hover:bg-purple-900 transition duration-200 mb-4"
           >
-            Update
+            {isSubmitting? "Updating..." : "Update Profile"}
           </button>
         </form>
       </div>

@@ -1,8 +1,7 @@
 import { ArrowLeft, Mic, Paperclip, Send } from "lucide-react";
-import PageTitle from "../../components/PageTitle/PageTitle";
 import { MdCall } from "react-icons/md";
 import { useEffect, useState, useRef } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "@/apiConfig";
 import { useSocket } from "@/context/SocketContext";
@@ -34,14 +33,14 @@ export default function Chat(){
         setLoading(true);
         // Fetch receiver's basic profile for the header
         const userRes = await axios.get(`${API_URL}/users/profile/${receiverId}`, { withCredentials: true });
-        setReceiverData(userRes.data);
+        setReceiverData(userRes?.data);
 
         // Mark messages as read
         await axios.patch(`${API_URL}/messages/read/${receiverId}`, {}, { withCredentials: true });
 
         // Fetch messages
         const res = await axios.get(`${API_URL}/messages/${receiverId}`, { withCredentials: true });
-        const formattedMessages = res.data.map(msg => ({
+        const formattedMessages = res?.data?.map(msg => ({
           text: msg.message,
           time: new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
           sent: msg.senderId === userInfo?._id
@@ -94,6 +93,8 @@ export default function Chat(){
     const messageToSend = value;
     setValue("");
 
+
+
     try {
       // Optimistic update
       const newMessage = {
@@ -114,21 +115,24 @@ export default function Chat(){
     }
   };
 
+
+
+
   return (
     <div className="relative bg-deep-plum h-screen flex flex-col">
       <div className="flex items-center px-4 py-3 bg-deep-plum text-white">
           <ArrowLeft className="cursor-pointer mr-4" onClick={() => navigate(-1)} />
           <div className="flex-1 flex items-center gap-3">
               <div className="relative">
-                  {receiverData?.profileImage?.url ? (
+                  {receiverData?.profile?.profileImage?.url ? (
                       <img 
-                        src={receiverData.profileImage.url} 
+                        src={receiverData?.profile?.profileImage?.url} 
                         alt="Profile" 
                         className="w-10 h-10 rounded-full object-cover border border-white/20"
                       />
                   ) : (
                       <div className="w-10 h-10 bg-light-purple rounded-full flex items-center justify-center font-bold text-white uppercase">
-                          {receiverData?.user?.firstName?.[0] || 'U'}
+                          {receiverData?.firstName?.[0] || 'U'}
                       </div>
                   )}
                   {online && (
@@ -137,12 +141,14 @@ export default function Chat(){
               </div>
               <div>
                   <h3 className="font-bold leading-tight">
-                    {receiverData?.user ? `${receiverData.user.firstName} ${receiverData.user.lastName}` : 'Loading...'}
+                    {receiverData ? `${receiverData.firstName} ${receiverData.lastName}` : 'Loading...'}
                   </h3>
                   <p className="text-xs opacity-80">{online ? 'Online' : 'Offline'}</p>
               </div>
           </div>
+          <Link to={`tel:${receiverData?.contact}`}>
           <MdCall size={24} className="cursor-pointer" />
+          </Link>
       </div>
 
       {/* Chat Messages */}
@@ -180,7 +186,7 @@ export default function Chat(){
       </div>
 
       {/* Input Field */}
-      <div className="fixed bottom-6 left-0 right-0 absolute px-4 max-w-2xl mx-auto">
+      <div className="fixed bottom-[110px] md:bottom-6 left-0 right-0 absolute px-4 max-w-2xl mx-auto">
         <div className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-full px-4 py-2 shadow-lg">
           <Paperclip className="text-gray-400 cursor-pointer hover:text-gray-600 transition-colors" size={20} />
           <input

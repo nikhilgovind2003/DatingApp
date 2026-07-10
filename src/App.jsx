@@ -65,10 +65,6 @@ import HomePage from "./pages/HomePage";
 
 function App() {
   const isAuthenticated = useSelector((state) => {
-    console.log(
-      "state.userAuth.isAuthenticated",
-      state.userAuth.isAuthenticated,
-    );
     return state.userAuth.isAuthenticated;
   });
   const isPrime = useSelector((state) =>
@@ -94,7 +90,6 @@ function App() {
     "/profile/edit",
   ];
 
-  console.log("Auth", isAuthenticated);
 
   return (
     <SocketProvider>

@@ -2,11 +2,6 @@ import PropTypes from 'prop-types'
 import { Navigate } from 'react-router-dom'
 
 const ProtectedPrimeRouter = ({ children, isAuthenticated, isPrime }) => {
-
-
-    console.log("isprine", isPrime);
-    console.log("isAuthenticated", isAuthenticated);
-
     if (!isAuthenticated) {
         return <Navigate to={"/login"} />;
     }

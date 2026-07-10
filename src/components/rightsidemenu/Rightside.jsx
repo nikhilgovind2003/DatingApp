@@ -90,7 +90,7 @@ const Rightside = () => {
 
       <Drawer placement={"right"} isOpen={isOpen} onClose={!isOpen}>
         <DrawerOverlay />
-        <DrawerContent className="h-fit">
+        <DrawerContent className="h-fit rounded-md">
           <DrawerBody className="bg-deep-plum bg-opacity-100 backdrop-filter backdrop-blur-lg border border-white border-opacity-10 w-[20rem] rounded-sm">
             <CiCircleRemove
               className="size-7 text-white mb-2 ml-[15rem] mt-2"
@@ -152,7 +152,7 @@ const Rightside = () => {
                 ))}
               </ul>
             </div>
-            <div className="flex flex-row ml-7 mb-4">
+            <div className="flex flex-row mb-4">
               <Button variant={"none"} onClick={handleLogout} className="text-center w-full hover:bg-dark-wine">
                 <MdInput className="size-5 text-white -rotate-180 ..." />
                 <h3 className="text-white ml-4">Logout</h3>

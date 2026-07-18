@@ -23,6 +23,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dotenv": "^16.4.5",
+    "emoji-picker-react": "^4.19.1",
     "framer-motion": "^11.3.24",
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.426.0",

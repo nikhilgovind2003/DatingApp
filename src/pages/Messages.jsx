@@ -20,17 +20,19 @@ export default function Messages() {
         withCredentials: true,
       });
       setChats(response.data);
+      console.log("response.data", response.data);
     } catch (error) {
       console.error("Error fetching chats:", error);
     }
   };
 
+  console.log("chats", chats);
   const fetchMatches = async () => {
     try {
-      const response = await axios.get(`${API_URL}/users/users`, {
+      const response = await axios.get(`${API_URL}/messages/recent`, {
         withCredentials: true,
       });
-      setRecentMatches(response.data.slice(0, 10)); // Just show some as "matches" for now
+      setRecentMatches(response.data);
     } catch (error) {
       console.error("Error fetching matches:", error);
     }
@@ -96,18 +98,20 @@ export default function Messages() {
           </div>
         ) : (
           chats.map((chat) => (
-            <Link key={chat.conversationId} to={`/chat/${chat.otherUser._id}`}>
+            <div key={chat?.conversationId}>
               <UserPreview
-                name={chat.otherUser.name}
-                url={chat.otherUser.profileImage}
-                message={chat.lastMessage}
-                unreadCount={chat.unreadCount}
-                bio={new Date(chat.lastMessageTime).toLocaleTimeString([], {
+                userId={chat?.otherUser?._id}
+                name={chat?.otherUser?.name}
+                url={chat?.otherUser?.profileImage}
+                message={chat?.lastMessage}
+                unreadCount={chat?.unreadCount}
+                externalLink="chat"
+                bio={new Date(chat?.lastMessageTime).toLocaleTimeString([], {
                   hour: "2-digit",
                   minute: "2-digit",
                 })}
               />
-            </Link>
+            </div>
           ))
         )}
       </div>

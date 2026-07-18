@@ -19,6 +19,7 @@ const UserPreview = ({
   unreadCount,
   onFav,
   onClose,
+  externalLink="profile",
 }) => {
   // Handle the click event for the close button
   const handleCloseClick = () => {
@@ -45,7 +46,7 @@ const UserPreview = ({
 
   return (
     <div className="py-4 flex items-center justify-between px-6 sm:px-2 hover:bg-dark-wine rounded-xl transition-all ease-in-out duration-200">
-      <Link to={`/profile/${userId}`} className="flex gap-5 items-center">
+      <Link to={`/${externalLink}/${userId}`} className="flex gap-5 items-center">
         <div className="relative">
           <UserIcon url={url} edit={edit} />
           {online && (
@@ -106,6 +107,7 @@ UserPreview.propTypes = {
   unreadCount: PropTypes.number,
   onFav: PropTypes.func,
   onClose: PropTypes.func,
+  externalLink:  PropTypes.string
 };
 
 export default UserPreview;

@@ -12,7 +12,6 @@ const StoryView = () => {
   const myProfile = useMyProfile() || { _id: null, user: null };
 
 
-  console.log("myProfile", myProfile);
 
   const viewedStories = JSON.parse(localStorage.getItem("viewed-stories") || "[]");
 

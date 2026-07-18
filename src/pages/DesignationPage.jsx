@@ -1,7 +1,11 @@
-import { API_URL, SOCKET_URL } from "@/apiConfig";
-import React, { useEffect, useState } from "react";
-import { ButtonGroup, InteractionIcon, MatchCardComponent, StoryView, SubHeader, UserIcon } from "../components";
-import { Userdata } from "../datas/Userdata";
+import { API_URL } from "@/apiConfig";
+import { useEffect, useState } from "react";
+import {
+  ButtonGroup,
+  InteractionIcon,
+  MatchCardComponent,
+  StoryView,
+} from "../components";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -10,8 +14,14 @@ const DesignationPage = () => {
 
   const fetchDesignation = async () => {
     try {
-      const designationResponse = await axios.get(`${API_URL}/users/profile/designations`, { withCredentials: true });
-      const matchPercentageResponse = await axios.get(`${API_URL}/users/compare`, { withCredentials: true });
+      const designationResponse = await axios.get(
+        `${API_URL}/users/profile/designations`,
+        { withCredentials: true },
+      );
+      const matchPercentageResponse = await axios.get(
+        `${API_URL}/users/compare`,
+        { withCredentials: true },
+      );
 
       // Assuming the matchPercentageResponse returns an array of objects with user IDs and match percentages
       const matchPercentages = matchPercentageResponse.data.results;
@@ -19,12 +29,12 @@ const DesignationPage = () => {
       console.log("match percent:", matchPercentages);
       console.log("qualification response:", designationResponse);
 
-      const combinedData = designationResponse.data.map(user => {
+      const combinedData = designationResponse.data.map((user) => {
         console.log("User data:", user);
 
         // Find match data by comparing user properties
-        const matchData = matchPercentages.find(match => {
-          return match.user.user === user.user;  // Ensure both match.user and user.user exist and are correct
+        const matchData = matchPercentages.find((match) => {
+          return match.user.user === user.user; // Ensure both match.user and user.user exist and are correct
         });
 
         // Log matchData to see if the match was found
@@ -33,12 +43,14 @@ const DesignationPage = () => {
         // Return the combined object
         return {
           ...user,
-          matchPercentage: matchData ? matchData.matchPercentage : null
+          matchPercentage: matchData ? matchData.matchPercentage : null,
         };
       });
 
       // Sort the combined data by matchPercentage from high to low
-      const sortedData = combinedData.sort((a, b) => b.matchPercentage - a.matchPercentage);
+      const sortedData = combinedData.sort(
+        (a, b) => b.matchPercentage - a.matchPercentage,
+      );
 
       // Log the final sorted data
       console.log("Sorted Data:", sortedData);
@@ -49,19 +61,19 @@ const DesignationPage = () => {
     }
   };
 
+
+
   useEffect(() => {
     fetchDesignation();
   }, []);
-
 
   const count = users.length;
 
   return (
     <section className="sm: w-screen md:w-full lg:w-full pt-5 px-5 pb-24 md:pb-5 h-screen overflow-y-auto overflow-x-hidden">
       <div>
-        <div className="flex justify-between items-center gap-5 overflow-x-auto  lg:w-full sm: w-screen  ">
+        <div className="flex justify-between items-center gap-5 overflow-x-auto lg:w-full sm: w-screen">
           <StoryView />
-
         </div>
         <ButtonGroup />
 
@@ -73,8 +85,10 @@ const DesignationPage = () => {
       </div>
       <div className="grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-3 grid-cols-2 gap-5">
         {users?.map((user, i) => (
-          <Link to={`/profile/${user.user}?match=${user.matchPercentage}`}
-            key={i} >
+          <Link
+            to={`/profile/${user.user}?match=${user.matchPercentage}`}
+            key={i}
+          >
             <MatchCardComponent
               key={i}
               isNew={false}
@@ -93,6 +107,3 @@ const DesignationPage = () => {
 };
 
 export default DesignationPage;
-
-
-

@@ -1,10 +1,8 @@
-import { API_URL, SOCKET_URL } from "@/apiConfig";
-import React, { useEffect, useState } from 'react'
-import { ButtonGroup, InteractionIcon, MatchCardComponent, StoryView, SubHeader, UserIcon } from '../components'
+import { API_URL } from "@/apiConfig";
+import  { useEffect, useState } from 'react'
+import { ButtonGroup, InteractionIcon, MatchCardComponent, StoryView } from '../components'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
-import { Userdata } from "../datas/Userdata";
-import { User } from 'lucide-react';
 
 
 const QualificationPage = () => {
@@ -34,7 +32,6 @@ const QualificationPage = () => {
       // Sort the combined data by matchPercentage from high to low
       const sortedData = combinedData.sort((a, b) => b.matchPercentage - a.matchPercentage);
 
-      console.log("sorted data:", sortedData);
       setQualification(sortedData);
     } catch (error) {
       console.log(error);
@@ -49,7 +46,7 @@ const QualificationPage = () => {
   return (
     <section className='sm: w-screen md:w-full overflow-x-hidden lg:w-full pt-5 px-5 pb-24 md:pb-5 h-screen overflow-y-auto'>
       <div>
-        <div className="flex justify-between items-center gap-5 overflow-x-auto  lg:w-full sm: w-screen  ">
+        <div className="flex justify-between items-center gap-5 overflow-x-auto lg:w-full sm: w-screen">
           <StoryView />
         </div>
         <ButtonGroup />

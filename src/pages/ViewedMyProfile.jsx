@@ -67,7 +67,7 @@ const ViewedMyProfilePage = () => {
     return (
       <div className="bg-deep-plum h-screen overflow-y-auto">
         <PageTitle icon={Search} pageTitle={"Viewed My Profile"} />
-        <div className="rounded-t-4xl h-[600px] overflow-y-scroll bg-white pt-5 px-5 pb-24 md:pb-5 sm:border-2 border-deep-plum ">
+        <div className="rounded-t-4xl h-screen overflow-y-scroll bg-white pt-5 px-5 pb-24 md:pb-5 sm:border-2 border-deep-plum ">
           <div className="flex items-center justify-center h-full">
             <p className="text-gray-500">No users have viewed your profile yet.</p>
           </div>

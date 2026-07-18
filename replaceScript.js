@@ -43,6 +43,5 @@ for (const file of files) {
 
     if (content !== original) {
         fs.writeFileSync(file, content);
-        console.log("Updated", file);
     }
 }

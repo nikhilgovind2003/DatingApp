@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useRef, useState, useContext } from 'react';
+import React, { createContext, useEffect, useState, useContext } from 'react';
 import { io } from 'socket.io-client';
 import { SOCKET_URL } from '../apiConfig';
 import { useSelector } from 'react-redux';
@@ -15,25 +15,30 @@ export const useSocket = () => {
 };
 
 const SocketProvider = ({ children }) => {
-    const socket = useRef(null);
+    const [socket, setSocket] = useState(null);
     const [onlineUsers, setOnlineUsers] = useState(new Set());
     const { isAuthenticated, userInfo } = useSelector(state => state.userAuth);
 
     useEffect(() => {
         if (isAuthenticated && userInfo?._id) {
             // Initialize socket connection
-            socket.current = io(SOCKET_URL, {
+            const newSocket = io(SOCKET_URL, {
                 withCredentials: true,
                 transports: ['websocket', 'polling']
             });
 
+<<<<<<< HEAD
             socket.current.on('connect', () => {
+=======
+            newSocket.on('connect', () => {
+                console.log('Connected to socket server');
+>>>>>>> 394bcc8cd7b0b0e2e34d824425bae56048f56696
                 // Identify the user to the server
-                socket.current.emit('joinRoom', userInfo._id);
+                newSocket.emit('joinRoom', userInfo._id);
             });
 
             // Listen for status changes of other users
-            socket.current.on('userStatusChange', ({ userId, isActive }) => {
+            newSocket.on('userStatusChange', ({ userId, isActive }) => {
                 setOnlineUsers(prev => {
                     const newSet = new Set(prev);
                     if (isActive) {
@@ -46,14 +51,18 @@ const SocketProvider = ({ children }) => {
             });
 
             // Listen for real-time notifications
-            socket.current.on('newNotification', (data) => {
-                console.log('New notification received:', data);
+            newSocket.on('newNotification', (data) => {
+
+                const currentPath = window.location.pathname;
+
+                console.log("CURENT PATH", data)
+                if(currentPath === `/chat/${data.sender?._id}`) return;
                 // You could trigger a global sound or toast here
-                toast.info(`New ${data.type.replace('_', ' ')} from ${data.sender?.firstName || 'someone'}`);
+                toast.info(`New ${data.type.replace('_', ' ')} from ${data.sender?.firstName + " " + data?.sender?.lastName || 'someone'}`);
             });
 
             // Listen for real-time status responses (for initial check)
-            socket.current.on('statusResponse', ({ userId, isActive }) => {
+            newSocket.on('statusResponse', ({ userId, isActive }) => {
                 setOnlineUsers(prev => {
                     const newSet = new Set(prev);
                     if (isActive) newSet.add(userId);
@@ -62,11 +71,11 @@ const SocketProvider = ({ children }) => {
                 });
             });
 
+            setSocket(newSocket);
+
             return () => {
-                if (socket.current) {
-                    socket.current.disconnect();
-                    socket.current = null;
-                }
+                newSocket.disconnect();
+                setSocket(null);
             };
         }
     }, [isAuthenticated, userInfo?._id]);
@@ -76,7 +85,7 @@ const SocketProvider = ({ children }) => {
     };
 
     return (
-        <SocketContext.Provider value={{ socket: socket.current, onlineUsers, isOnline }}>
+        <SocketContext.Provider value={{ socket, onlineUsers, isOnline }}>
             {children}
         </SocketContext.Provider>
     );

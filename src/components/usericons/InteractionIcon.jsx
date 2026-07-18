@@ -1,6 +1,5 @@
 import { FaHeart } from "react-icons/fa";
-import { TbMessageCircle2Filled } from "react-icons/tb";
-import React from 'react'
+import { TbMessageCircleFilled } from "react-icons/tb";
 
 const InteractionIcon = () => {
   return (
@@ -36,7 +35,7 @@ const InteractionIcon = () => {
             alt="user icon"
             className="w-full h-full object-cover blur-[3px]"
           />
-          <TbMessageCircle2Filled
+          <TbMessageCircleFilled
             className='w-6 h-6 absolute top-[1.2rem] left-[1rem] text-white'
           />
         </div>

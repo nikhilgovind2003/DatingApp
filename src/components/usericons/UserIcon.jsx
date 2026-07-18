@@ -6,8 +6,8 @@ const UserIcon = ({ url, story, add, edit, viewed }) => {
   
   return (
     <div
-      className='relative w-16 h-16'>
-        <div className={`inline-block h-16 w-16 rounded-full ring-2 ring-white object-center ${story && !viewed ? "border-[3px] border-light-purple p-0.5" : ""}`}>
+      className='relative'>
+        <div className={`inline-block h-8 w-8 lg:w-16 lg:h-16 rounded-full ring-2 ring-white object-center ${story && !viewed ? "border-[3px] border-light-purple p-0.5" : ""}`}>
     
     {url  ? (
   <img

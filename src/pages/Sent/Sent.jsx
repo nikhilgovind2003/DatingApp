@@ -76,14 +76,13 @@ const RejectPage = () => {
     return acc;
   }, {});
 
-  console.log(groupedUsers);
 
 
   if(frdreqData.length === 0){
     return (
       <div className="bg-deep-plum h-screen overflow-y-auto">
         <PageTitle icon={Search} pageTitle={"Sent"} />
-        <div className="rounded-t-4xl bg-white h-[600px] overflow-y-auto pt-5 px-5 pb-24 md:pb-5 sm:border-2 border-deep-plum flex items-center justify-center">
+        <div className="rounded-t-4xl bg-white h-screen overflow-y-auto pt-5 px-5 pb-24 md:pb-5 sm:border-2 border-deep-plum flex items-center justify-center">
           <p className="text-center text-gray-500 mt-10">No sent requests</p>
         </div>
       </div>
@@ -94,7 +93,7 @@ const RejectPage = () => {
   return (
     <div className="bg-deep-plum h-screen overflow-y-auto">
       <PageTitle icon={Search} pageTitle={"Sent"} />
-      <div className="rounded-t-4xl h-[600px] overflow-y-scroll bg-white pt-5 px-5 pb-24 md:pb-5 sm:border-2 border-deep-plum">
+      <div className="rounded-t-4xl h-screen overflow-y-scroll bg-white pt-5 px-5 pb-24 md:pb-5 sm:border-2 border-deep-plum">
         {Object.keys(groupedUsers).sort().map(letter => (
           <div key={letter}>
             <h1 className="text-xl font-semibold mt-6 ms-10 sm:ms-7">{letter}</h1>

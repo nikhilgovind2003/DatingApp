@@ -1,20 +1,19 @@
-import { API_URL, SOCKET_URL } from "@/apiConfig";
-import { CheckCheck, ChevronLeft  } from 'lucide-react';
+import { API_URL } from "@/apiConfig";
+import { ChevronLeft  } from 'lucide-react';
 import '../SpinPage/SpinPage.css'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 const SpinPage = () => {
   const [users, setUsers] = useState(null);
-  const [currentUserIndex, setCurrentUserIndex] = useState(0);
   const [noUsersFound, setNoUsersFound] = useState(false)
   const [isSpinning, setIsSpinning] = useState(false);
 
     const fetchUsers = async () => {
       setIsSpinning(true)
       setUsers(null)
-      const spin = setTimeout(async() => {
+     setTimeout(async() => {
           try {
         const response = await axios.get(
           `${API_URL}/users/matchbyspin`,
@@ -26,7 +25,6 @@ const SpinPage = () => {
            setNoUsersFound(true); // Set state if no users are found
          }
 
-         console.log(response.data);
         
       } catch (error) {
         console.log(error);
@@ -37,15 +35,15 @@ const SpinPage = () => {
         }, 3000);
 
          // Clear the timeout if component unmounts
-         return () => clearTimeout(spinTimeout);
+         return () => clearTimeout(10000);
       }
       
  
   return (
     <div className=" relative  bg-deep-plum min-h-screen">
-      <div className=" p-2 border-[1px] relative top-[24px] left-[24px] border-gray-400 w-[40px] h-[40px] flex items-center justify-center rounded-full">
+      <Link to="/home" className="p-2 border-[1px] relative top-[24px] left-[24px] border-gray-400 w-[40px] h-[40px] flex items-center justify-center rounded-full">
         <ChevronLeft className=" text-gray-400 mt4" />
-      </div>
+      </Link>
 
       <div className=" flex items-center pt-24 text-primary flex-col justify-center">
         <h1>1 km near you</h1>

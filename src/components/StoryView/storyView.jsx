@@ -11,6 +11,8 @@ const StoryView = () => {
 
   const myProfile = useMyProfile() || { _id: null, user: null };
 
+
+
   const viewedStories = JSON.parse(localStorage.getItem("viewed-stories") || "[]");
 
   useEffect(() => {

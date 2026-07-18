@@ -20,7 +20,6 @@ const AddCreditCard = () => {
   };
 
 
-  console.log(Data);
   
   return (
     <div className=" h-screen md:shadow-lg lg:mx-auto font-poppins bg-white w-full lg:p-4 p-4 overflow-y-auto ">

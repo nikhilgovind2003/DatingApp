@@ -64,13 +64,6 @@ import GlobalLocationHandler from "./components/GlobalLocationHandler";
 import HomePage from "./pages/HomePage";
 
 function App() {
-<<<<<<< HEAD
-  const isAuthenticated = useSelector(state => {
-    return state.userAuth.isAuthenticated});
-  const isPrime = useSelector(state => state.userAuth.userInfo?.isPrime ? true : false);
-  const hideOnRoutes = ['/credit', '/subscription', `/chat`, `/story/1`, '/spin', '/create_group', '/notification', '/partener_preferences', '/', '/login', '/sign_up', '/personal_details', '/interested', '/dating_interest', '/job_status', '/job_details', '/editprofile'];
-
-=======
   const isAuthenticated = useSelector((state) => {
     return state.userAuth.isAuthenticated;
   });
@@ -96,7 +89,6 @@ function App() {
     "/job_details",
     "/profile/edit",
   ];
->>>>>>> 394bcc8cd7b0b0e2e34d824425bae56048f56696
 
 
   return (

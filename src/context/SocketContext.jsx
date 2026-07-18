@@ -27,12 +27,7 @@ const SocketProvider = ({ children }) => {
                 transports: ['websocket', 'polling']
             });
 
-<<<<<<< HEAD
-            socket.current.on('connect', () => {
-=======
             newSocket.on('connect', () => {
-                console.log('Connected to socket server');
->>>>>>> 394bcc8cd7b0b0e2e34d824425bae56048f56696
                 // Identify the user to the server
                 newSocket.emit('joinRoom', userInfo._id);
             });

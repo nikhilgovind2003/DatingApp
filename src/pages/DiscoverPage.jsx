@@ -1,7 +1,6 @@
-import React from 'react'
 import { MatchCardComponent } from '../components'
 import { Userdata } from '../datas/Userdata'
-import { ChevronDown, MapPin, Search, SlidersHorizontal } from 'lucide-react';
+import { ChevronDown, Search, SlidersHorizontal } from 'lucide-react';
 import Button from '../components/buttons/InterestButton';
 import { useSelector } from 'react-redux';
 
@@ -48,7 +47,7 @@ function DiscoverPage() {
 
         {/* Interest */}
         <div>
-          <div className='text-3xl mt-4 font-semibold flex  justify-between'>
+          <div className='text-3xl mt-4 font-semibold flex justify-between'>
             <h3>Interest</h3>
             <h3 className='text-pink-400 text-lg'>View all</h3>
           </div>

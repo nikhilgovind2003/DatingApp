@@ -1,16 +1,12 @@
-import { API_URL, SOCKET_URL } from "@/apiConfig";
-import React, { useRef } from "react";
+import { API_URL } from "@/apiConfig";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import {
   InteractionIcon,
   MatchCardComponent,
-  SubHeader,
   ButtonGroup,
-  UserIcon,
   StoryView,
 } from "../components";
-import { Userdata } from "../datas/Userdata";
 import { Link } from "react-router-dom";
 
 const LocationPage = () => {

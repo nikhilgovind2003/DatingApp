@@ -49,7 +49,7 @@ const UserPreview = ({
         <div className="relative">
           <UserIcon url={url} edit={edit} />
           {online && (
-            <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full z-1 bg-green-500 border-2 border-white animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]" />
+            <span className="absolute bottom-2 right-0  w-2 h-2 lg:w-3 lg:h-3 rounded-full z-1 bg-green-500 border-2 border-white animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]" />
           )}
         </div>
 

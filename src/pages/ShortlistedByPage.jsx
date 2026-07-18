@@ -37,8 +37,6 @@ const ShortlistByPage = () => {
         {},
         { withCredentials: true },
       );
-      // You might want to show a toast message here
-
       toast.success("Profile shortlisted back!");
     } catch (error) {
       toast.error(
@@ -75,7 +73,7 @@ const ShortlistByPage = () => {
     return (
       <div className="bg-deep-plum h-screen overflow-y-auto">
         <PageTitle icon={Search} pageTitle={"Shortlisted By"} />
-        <div className="rounded-t-4xl h-screen overflow-y-auto bg-white pt-5 px-5 pb-24 md:pb-5 sm:border-2 border-deep-plum ">
+        <div className="rounded-t-4xl h-screen overflow-y-auto bg-white pt-5 px-5 pb-24 md:pb-5 sm:border-2 border-deep-plum">
           <div className="flex items-center justify-center h-full">
             <p className="text-gray-500">No users have shortlisted you yet.</p>
           </div>
@@ -87,7 +85,7 @@ const ShortlistByPage = () => {
   return (
     <div className="bg-deep-plum h-screen overflow-y-auto">
       <PageTitle icon={Search} pageTitle={"Shortlisted By"} />
-      <div className="rounded-t-4xl h-screen overflow-y-auto bg-white pt-5 px-5 pb-24 md:pb-5 sm:border-2 border-deep-plum ">
+      <div className="rounded-t-4xl h-screen overflow-y-auto bg-white pt-5 px-5 pb-24 md:pb-5 sm:border-2 border-deep-plum">
         {Object.keys(groupedUsers)
           .sort()
           .map((letter) => (

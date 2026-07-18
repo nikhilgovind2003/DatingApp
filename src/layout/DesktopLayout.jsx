@@ -10,7 +10,7 @@ const DesktopLayout = ()=>{
     return(
         <>
         
-        <div className="grid md:grid-cols-12 gap-2 xl:gap-6 min-h-screen overflow-hidden w-screen">    
+        <div className="grid md:grid-cols-12 gap-4 min-h-screen overflow-hidden w-screen">    
             <aside className="md:col-span-3 md:grid hidden overflow-hidden h-screen">
                 <LeftBar />
             </aside>

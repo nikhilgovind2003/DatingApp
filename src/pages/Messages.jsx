@@ -66,15 +66,12 @@ export default function Messages() {
         </h2>
         <div className="flex overflow-x-auto space-x-5 pb-4 scrollbar-hide">
           {recentMatches.map((match) => (
-            <div
-              onClick={() => navigate(`/chat/${match?._id}`)}
+            <Link
               key={match._id}
-              className="flex-shrink-0 relative"
-            >
-              <img
-                src={
-                  match.profileImage?.url || "https://via.placeholder.com/150"
-                }
+              to={`/chat/${match._id}`}
+              className="flex-shrink-0"
+            >              <img
+                src={match.profileImage?.url || "https://via.placeholder.com/150"}
                 alt={match.user?.firstName || "User"}
                 className="h-24 w-20 rounded-2xl object-cover border-2 border-deep-plum shadow-lg"
               />
@@ -84,7 +81,7 @@ export default function Messages() {
               <p className="text-white text-[10px] text-center mt-1 truncate w-20">
                 {match.user?.firstName}
               </p>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
@@ -98,20 +95,15 @@ export default function Messages() {
           </div>
         ) : (
           chats.map((chat) => (
-            <div key={chat?.conversationId}>
+            <Link key={chat.conversationId} to={`/chat/${chat.otherUser._id}`}>
               <UserPreview
-                userId={chat?.otherUser?._id}
-                name={chat?.otherUser?.name}
-                url={chat?.otherUser?.profileImage}
-                message={chat?.lastMessage}
-                unreadCount={chat?.unreadCount}
-                externalLink="chat"
-                bio={new Date(chat?.lastMessageTime).toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
+                name={chat.otherUser.name}
+                url={chat.otherUser.profileImage}
+                message={chat.lastMessage}
+                unreadCount={chat.unreadCount}
+                bio={new Date(chat.lastMessageTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
               />
-            </div>
+            </Link>
           ))
         )}
       </div>

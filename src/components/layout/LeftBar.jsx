@@ -29,7 +29,7 @@ const LeftBar = () => {
           </Link>
         </li>
         <li className="hover:bg-dark-wine">
-          <Link to="/favourites" className="px-4 py-2 flex items-center">
+          <Link to="/shortlisted" className="px-4 py-2 flex items-center">
             <span className="mr-2"><Star /></span>Favourites
           </Link>
         </li>

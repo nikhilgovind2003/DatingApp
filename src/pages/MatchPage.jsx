@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { API_URL, SOCKET_URL } from "@/apiConfig";
 import React, { useEffect, useState } from 'react'
 import { InteractionIcon, MatchCardComponent, SubHeader } from '../components'
@@ -10,9 +11,9 @@ const MatchPage = () => {
   const [filteredUser, setFilteredUser] = useState([]);
   const [hasPartnerPreference, setHasPartnerPreference] = useState(true); // State to track partner preference existence
 
-  const userinfo = JSON.parse(sessionStorage.getItem('userInfo'))
+  const userinfo = useSelector((state) => state.userAuth.userInfo)
   const filterSort = JSON.parse(localStorage.getItem('selectedOptions'))
-  const userID = userinfo._id
+  const userID = userinfo?._id
   const navigate = useNavigate(); // For navigation
 
   console.log('userid', userID);

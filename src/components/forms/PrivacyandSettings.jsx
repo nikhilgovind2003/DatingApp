@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -8,8 +9,8 @@ const PrivacyAndSettings = () => {
     setTwoFactorAuth(!twoFactorAuth);
   };
 
-  const userinfo = JSON.parse(sessionStorage.getItem('userInfo'))
-  const userEmail = userinfo.email
+  const userinfo = useSelector((state) => state.userAuth.userInfo)
+  const userEmail = userinfo?.email
 
   return (
     <div className="flex justify-center items-center  bg-deep-plum">

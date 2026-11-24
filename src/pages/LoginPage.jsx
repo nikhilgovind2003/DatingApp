@@ -27,6 +27,9 @@ const LoginPage = () => {
     React.useEffect(() => {
         const queryParams = new URLSearchParams(window.location.search);
         const error = queryParams.get('error');
+        if (error === 'google_auth_failed' || error === 'no_google_email') {
+            toast.error("Google sign-in failed. Please try again.");
+        }
         if (error === 'already_registered_local') {
             toast.error("User already registered with this email. Please try to login.");
             navigate('/login', { replace: true });
@@ -83,7 +86,7 @@ const LoginPage = () => {
 
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                         <FormItem className="animate-in fade-in slide-in-from-bottom-2 duration-300">
-                            <FormLabel htmlFor="email" error={!!errors.email}>Email / Mobile</FormLabel>
+                            <FormLabel htmlFor="email" error={!!errors.email}>Email</FormLabel>
                             <div className="relative">
                                 <Mail className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
                                 <Input

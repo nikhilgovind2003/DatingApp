@@ -1,5 +1,4 @@
  import { Outlet } from 'react-router-dom';
-import BottomNavbar from '../components/BottomNavbar';
 import { LeftBar, RightBar } from '../components';
 import useMyProfile from '../hooks/useMyProfile';
 
@@ -10,7 +9,7 @@ const DesktopLayout = ()=>{
     return(
         <>
         
-        <div className="grid md:grid-cols-12 gap-4 min-h-screen overflow-hidden w-screen">    
+        <div className="grid md:grid-cols-12 gap-4 min-h-screen overflow-hidden w-full">    
             <aside className="md:col-span-3 md:grid hidden overflow-hidden h-screen">
                 <LeftBar />
             </aside>
@@ -18,8 +17,6 @@ const DesktopLayout = ()=>{
             
             <main className="md:col-span-6">
                 <Outlet />
-                <BottomNavbar 
-                className="md:hidden mx-2"/>
             </main>
         
         

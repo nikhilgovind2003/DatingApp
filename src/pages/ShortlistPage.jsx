@@ -33,7 +33,7 @@ const ShortlistPage = () => {
       await axios.delete(`${API_URL}/users/delete-shortlist/${userId}`, {
         withCredentials: true,
       });
-      setShortLists((prev) => prev.filter((id) => id !== userId));
+      setShortLists((prev) => prev.filter((u) => (u?._id ?? u) !== userId));
     } catch (error) {
       console.log("Failed to remove user from shortlist:", error);
     }
@@ -52,7 +52,7 @@ const ShortlistPage = () => {
 
   if (shortLists.length === 0) {
     return (
-      <div className="bg-deeplum h-screen overflow-y-auto">
+      <div className="bg-deep-plum h-screen overflow-y-auto">
         <PageTitle icon={Search} pageTitle={"Shortlisted"} />
         <div className="rounded-t-4xl bg-white h-screen overflow-y-auto pt-5 px-5 pb-24 md:pb-5 sm:border-2 border-deep-plum flex items-center justify-center">
           <p className="text-center text-gray-500 mt-10">

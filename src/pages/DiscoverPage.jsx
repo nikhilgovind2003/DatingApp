@@ -9,7 +9,7 @@ function DiscoverPage() {
 
   return (
     <div>
-      <div className='p-2 lg:w-full sm: w-screen h-screen overflow-y-auto'>
+      <div className='p-2 lg:w-full  w-full h-screen overflow-y-auto'>
         {/* Top Navbar */}
         <div className='top-nav flex justify-between items-center'>
           <div>

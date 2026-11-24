@@ -12,7 +12,7 @@ const Interested = () => {
                     <span onClick={() => navigate('/dating_interest')} className="w-full py-2 mb-2 bg-black text-white rounded-lg hover:bg-gray-500 text-center">Dating</span>
                 </div>
                 <div className="mb-4 flex justify-center">
-                    <Link to='/matrimony' className="w-full py-2 bg-black text-white rounded-lg hover:bg-gray-500 text-center">Matrimony</Link>
+                    <Link to='/home' className="w-full py-2 bg-black text-white rounded-lg hover:bg-gray-500 text-center">Matrimony</Link>
                 </div>
             </div>
         </div>

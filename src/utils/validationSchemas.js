@@ -14,10 +14,7 @@ export const signUpSchema = z.object({
 });
 
 export const loginSchema = z.object({
-  email: z.string().min(1, "Email or mobile is required").refine(
-    (val) => /\S+@\S+\.\S+/.test(val) || /^\d{10}$/.test(val),
-    { message: "Enter a valid email or 10-digit mobile number" }
-  ),
+  email: z.string().min(1, "Email is required").email("Enter a valid email address"),
   password: z.string().min(6, "Password must be at least 6 characters long"),
 });
 

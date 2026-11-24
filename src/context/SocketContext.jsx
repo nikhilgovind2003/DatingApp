@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState, useContext } from 'react';
 import { io } from 'socket.io-client';
 import { SOCKET_URL } from '../apiConfig';
+import { refreshSession } from '../lib/authRefresh';
 import { useSelector } from 'react-redux';
 import { toast } from 'sonner';
 
@@ -25,6 +26,16 @@ const SocketProvider = ({ children }) => {
             const newSocket = io(SOCKET_URL, {
                 withCredentials: true,
                 transports: ['websocket', 'polling']
+            });
+
+            // Access token expired before the socket connected: refresh it, then retry
+            newSocket.on('connect_error', async (err) => {
+                if (err?.message === 'Unauthorized') {
+                    try {
+                        await refreshSession();
+                        newSocket.connect();
+                    } catch { /* session ended elsewhere */ }
+                }
             });
 
             newSocket.on('connect', () => {

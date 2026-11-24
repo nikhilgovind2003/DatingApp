@@ -11,7 +11,7 @@ const PaymentMethods = () => {
         <button aria-label="Close" className="text-base sm:text-lg font-bold">
           ✕
         </button>
-        <button className="text-sm sm:text-md font-semibold text-gray-700">Done</button>
+        <button className="text-sm sm:text-base font-semibold text-gray-700">Done</button>
       </div>
 
       {/* Title */}
@@ -28,7 +28,7 @@ const PaymentMethods = () => {
           <img src="/IMAGES/images-removebg-preview (33) 1.png" alt="MasterCard" className="w-12 h-10 sm:ms-7" />
           <div className="flex-1">
             <p className="font-semibold  sm:ms-7">************4444</p>
-            <p className="text-gray-500 text-xs md:text-md sm:ms-7">Expires 09/25</p>
+            <p className="text-gray-500 text-xs md:text-base sm:ms-7">Expires 09/25</p>
           </div>
         </div>
 

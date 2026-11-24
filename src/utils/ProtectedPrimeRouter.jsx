@@ -5,12 +5,10 @@ const ProtectedPrimeRouter = ({ children, isAuthenticated, isPrime }) => {
     if (!isAuthenticated) {
         return <Navigate to={"/login"} />;
     }
-    if(isPrime) {
+    if (!isPrime) {
         return <Navigate to={"/subscription"} />;
     }
-    if (isPrime && isAuthenticated) {
-        return children;
-    }
+    return children;
 
 };
 

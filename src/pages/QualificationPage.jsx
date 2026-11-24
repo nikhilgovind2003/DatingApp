@@ -44,9 +44,9 @@ const QualificationPage = () => {
 
 
   return (
-    <section className='sm: w-screen md:w-full overflow-x-hidden lg:w-full pt-5 px-5 pb-24 md:pb-5 h-screen overflow-y-auto'>
+    <section className='w-full md:w-full overflow-x-hidden lg:w-full pt-5 px-5 pb-24 md:pb-5 h-screen overflow-y-auto'>
       <div>
-        <div className="flex justify-between items-center gap-5 overflow-x-auto lg:w-full sm: w-screen">
+        <div className="flex justify-between items-center gap-5 overflow-x-auto lg:w-full  w-full">
           <StoryView />
         </div>
         <ButtonGroup />

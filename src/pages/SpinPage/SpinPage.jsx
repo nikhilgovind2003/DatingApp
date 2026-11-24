@@ -45,7 +45,7 @@ const SpinPage = () => {
         <ChevronLeft className=" text-gray-400 mt4" />
       </Link>
 
-      <div className=" flex items-center pt-24 text-primary flex-col justify-center">
+      <div className=" flex items-center pt-24 text-white flex-col justify-center">
         <h1>1 km near you</h1>
         {users && (
           <div>
@@ -59,7 +59,7 @@ const SpinPage = () => {
               </div>
             </Link>
 
-            <div className=" text-center mt-12 text-primary flex flex-col items-center gap-4">
+            <div className=" text-center mt-12 text-white flex flex-col items-center gap-4">
               <p>
                 {users.userDetails.firstName} - {users.profileDetails.age}
               </p>
@@ -72,7 +72,7 @@ const SpinPage = () => {
         )}
 
         {noUsersFound && (
-          <p className="text-primary mt-6">
+          <p className="text-white mt-6">
             No users found. Please try again later!
           </p>
         )}

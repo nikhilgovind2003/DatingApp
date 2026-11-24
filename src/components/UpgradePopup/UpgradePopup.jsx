@@ -14,7 +14,7 @@ const UpgradePopup = () => {
       <h1 className="text-[32px] font-[400] text-center mb-4">Upgrade To View More</h1>
       <button
         onClick={handleUpgradeClick}
-        className="font-bold text-xs py-4 bg-deep-plum text-primary px-16 rounded-full shadow-md shadow-gray-400"
+        className="font-bold text-xs py-4 bg-deep-plum text-white px-16 rounded-full shadow-md shadow-gray-400"
       >
         Upgrade
       </button>

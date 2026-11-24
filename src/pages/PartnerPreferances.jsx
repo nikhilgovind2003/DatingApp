@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { API_URL } from "@/apiConfig";
 import { useEffect, useState } from "react";
 import { RangeSlider, RangeSliderTrack, RangeSliderFilledTrack, RangeSliderThumb, ChakraProvider } from "@chakra-ui/react";
@@ -25,8 +26,8 @@ function PartnerPreferences() {
   const [prefData, setPrefData] = useState(null);
   const navigate = useNavigate(); 
 
-  const userinfo = JSON.parse(sessionStorage.getItem('userInfo'));
-  const userId = userinfo._id;
+  const userinfo = useSelector((state) => state.userAuth.userInfo);
+  const userId = userinfo?._id;
 
   useEffect(() => {
     const getPreferenceData = async () => {
@@ -184,7 +185,7 @@ function PartnerPreferences() {
 
         {/* Interests */}
         <div className="mb-4">
-          <h1 className="text-md">Interests & Hobbies</h1>
+          <h1 className="text-base">Interests & Hobbies</h1>
           <div className="flex items-center">
             <input
               type="text"

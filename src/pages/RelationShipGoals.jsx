@@ -30,7 +30,7 @@ const RelationshipGoals = () => {
                 if (selectedGoal === "short-term") {
                     navigate('/interested');
                 } else if (selectedGoal === "long-term") {
-                    navigate('/matrimony');
+                    navigate('https://www.m4marry.com/');
                 }
             }
         } catch (err) {

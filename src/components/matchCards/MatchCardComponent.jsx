@@ -58,7 +58,7 @@ const MatchCardComponent = (props) => {
             </p>
           </div>
           {isNew ? (
-            <div className="absolute border-2 border-light-purple rounded-xl top-4 left-4 px-4 py-0 bg-deep-plum p-2 text-primary">
+            <div className="absolute border-2 border-light-purple rounded-xl top-4 left-4 px-4 py-0 bg-deep-plum p-2 text-white">
               <p>NEW</p>
             </div>
           ) : (

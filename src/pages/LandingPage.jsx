@@ -24,7 +24,7 @@ const LandingPage = () => {
         </div>
 
         <Link
-          className="flex items-center justify-center gap-4 bg-[#4B164C] text-white p-4 rounded-full text-sm mt-8 lg:mt-12 lg:text-lg md:text-md lg:w-3/4 mx-auto lg:mx-0"
+          className="flex items-center justify-center gap-4 bg-[#4B164C] text-white p-4 rounded-full text-sm mt-8 lg:mt-12 lg:text-lg md:text-base lg:w-3/4 mx-auto lg:mx-0"
           to="/login"
         >
           <LuPhoneCall />
@@ -39,7 +39,7 @@ const LandingPage = () => {
           Login with Google
         </a>
 
-        <div className="flex  mt-8 lg:mt-12 w-full text-center text-sm md:text-md lg:text-lg p-2">
+        <div className="flex  mt-8 lg:mt-12 w-full text-center text-sm md:text-base lg:text-lg p-2">
           Don't have an account?{" "}
           <Link className="text-[#DD88CF] ml-2" to="/sign_up">
             Sign Up

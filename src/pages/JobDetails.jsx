@@ -27,7 +27,7 @@ const JobDetails = () => {
             })
             .catch(err => {
                 setLoading(false);
-                toast.error(err.response.data.message, { duration: 1000 });
+                toast.error(err.response?.data?.message, { duration: 1000 });
             });
     };
 

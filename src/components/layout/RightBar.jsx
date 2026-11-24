@@ -75,7 +75,7 @@ const RightBar = () => {
         withCredentials: true,
       });
       dispatch(logout());
-      navigate("/home");
+      navigate("/login");
     } catch (err) {
       console.log(err);
     }
@@ -107,7 +107,7 @@ const RightBar = () => {
           </div>
           <div className="text-center">
             <h2 className="font-bold text-lg">
-              {userInfo?.firstName + " " + userInfo?.lastName || "User Name"}
+              {[userInfo?.firstName, userInfo?.lastName].filter(Boolean).join(" ") || "User Name"}
             </h2>
             {isPrime && <p className="text-sm text-green-300">Prime Member</p>}
             <p className="text-sm text-green-300">Online</p>

@@ -58,12 +58,35 @@ import BottomNavbar from "./components/BottomNavbar";
 import Notification from "./components/NotificationBar/notificationBar";
 import ProtectedRouter from "./utils/ProtectedRouter";
 import ProtectedPrimeRouter from "./utils/ProtectedPrimeRouter";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { SOCKET_URL } from "./apiConfig";
+import { login } from "./redux/features/auth/authSlice";
+import store from "./redux/store";
 import { SocketProvider } from "./context/SocketContext";
 import GlobalLocationHandler from "./components/GlobalLocationHandler";
 import HomePage from "./pages/HomePage";
 
 function App() {
+  const dispatch = useDispatch();
+  const [hydrating, setHydrating] = useState(
+    () => !!Cookies.get("token") && !store.getState().userAuth.isAuthenticated,
+  );
+  // A valid token cookie without a user cookie (e.g. Google sign-in, new tab): restore the session from the server
+  useEffect(() => {
+    if (!hydrating) return;
+    axios
+      .get(`${SOCKET_URL}/auth/me`, { withCredentials: true })
+      .then(({ data }) => {
+        if (data?.user && !data.user.isTempGoogle) {
+          dispatch(login({ isAuthenticated: true, userInfo: data.user, myProfile: null, token: data.token }));
+        }
+      })
+      .catch(() => {})
+      .finally(() => setHydrating(false));
+  }, []);
   const isAuthenticated = useSelector((state) => {
     return state.userAuth.isAuthenticated;
   });
@@ -74,7 +97,7 @@ function App() {
     "/credit",
     "/subscription",
     `/chat`,
-    `/story/1`,
+    `/story`,
     "/spin",
     "/create_group",
     "/notification",
@@ -90,6 +113,10 @@ function App() {
     "/profile/edit",
   ];
 
+
+  if (hydrating) {
+    return <div className="flex items-center justify-center h-screen">Loading...</div>;
+  }
 
   return (
     <SocketProvider>
@@ -416,9 +443,7 @@ function App() {
             <Route
               path="/"
               element={
-                <ProtectedRouter isAuthenticated={isAuthenticated}>
-                  isAuthenticated ? <Navigate to="/home" /> : <LandingPage />
-                </ProtectedRouter>
+                isAuthenticated ? <Navigate to="/home" replace /> : <LandingPage />
               }
             />
           </Routes>

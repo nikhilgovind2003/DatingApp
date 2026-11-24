@@ -1,35 +1,39 @@
 import { useEffect, useState } from "react";
-import { ChevronLeft, Navigation, Search } from "lucide-react";
+import { ChevronLeft, Search } from "lucide-react";
 import ProfileActionbar from "../components/ProfileActionbar";
 import Button from "../components/buttons/InterestButton";
 import { Api } from "@/lib/utils";
 
 import PageTitle from "@/components/PageTitle/PageTitle";
-import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Profileviewpage() {
   const [data, setData] = useState(null);
-
-
-  const params = useParams();
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const getProfile = async () => {
     const { data } = await Api(`users/get-profile`);
 
     if (data) setData(data);
+    setLoading(false);
   };
 
   useEffect(() => {
     getProfile();
   }, []);
 
-  if (data?.length === 0) {
+  if (loading) {
+    return <div className="flex items-center justify-center h-screen text-gray-500">Loading...</div>;
+  }
+
+  if (!data) {
     return (
       <div className="bg-deep-plum h-screen overflow-y-auto">
         <PageTitle icon={Search} pageTitle={"Profile"} />
         <div className="rounded-t-4xl h-screen overflow-y-scroll bg-white pt-5 px-5 pb-24 md:pb-5 sm:border-2 border-deep-plum ">
           <div className="flex items-center justify-center h-full">
-            <p className="text-gray-500">No users have shortlisted you yet.</p>
+            <p className="text-gray-500">Couldn't load your profile.</p>
           </div>
         </div>
       </div>
@@ -42,43 +46,31 @@ function Profileviewpage() {
         <div
           className="h-[75vh] overflow-hidden sticky top-0 "
           style={{
-            background: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(128, 0, 128, 0.7)), url(${data?.profileDetails?.profileImage?.url}) `,
+            background: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(128, 0, 128, 0.7)), url("${data?.profileDetails?.profileImage?.url ?? ""}") `,
             backgroundSize: "cover",
             backgroundPosition: "center",
             // backgroundAttachment: 'fixed',
           }}
         >
           <div className="topnavigation flex p-2 sticky top-6 justify-between">
-            <div className="rounded-full backdrop-filter backdrop-blur-sm bg-opacity-45 border-2 w-fit border-white p-2 text-white">
+            <button
+              type="button"
+              aria-label="Go back"
+              onClick={() => navigate(-1)}
+              className="rounded-full backdrop-filter backdrop-blur-sm bg-black/40 border-2 w-fit border-white p-2 text-white"
+            >
               <ChevronLeft />
-            </div>
-            <div className="rounded-full flex border-2 w-fit backdrop-filter backdrop-blur-sm bg-opacity-45 border-white p-2 text-white">
-              <Navigation />
-              <span>2.5 KM</span>
-            </div>
+            </button>
           </div>
 
           <div className="mt- absolute bottom-24 left-1/2 transform -translate-x-1/2 p-2 flex-wrap justify-center items-center">
             <div className="text-center">
               <span className="text-3xl text-white text-center">
-                Alfredo Calzoni, 20
+                {[data.firstName, data.lastName].filter(Boolean).join(" ")}
+                {data.profileDetails?.age ? `, ${data.profileDetails.age}` : ""}
               </span>{" "}
               <br />
-              <span className="text-sm text-gray-300">HAMBURG, GERMANY</span>
-            </div>
-            <div className="text-white text-center mt-6">
-              <span
-                className="pl-1 pr-4 bg-[#4b164c] py-4 rounded-full"
-                style={{ border: "2px solid violet" }}
-              >
-                <span
-                  className="p-2 rounded-full mr-2 border-orange-100"
-                  style={{ border: "4px solid violet" }}
-                >
-                  80%
-                </span>
-                Match
-              </span>
+              <span className="text-sm text-gray-300 uppercase">{data.profileDetails?.location}</span>
             </div>
           </div>
         </div>
@@ -98,15 +90,16 @@ function Profileviewpage() {
             <div>
               <span className="text-gray-600">About</span>
               <p className="font-Roboto font-medium">
-                A good listener. I love having a good talk to know each other’s
-                side 😍.
+                {data.profileDetails?.bio || "No bio added yet."}
               </p>
             </div>
             <div className="mt-4">
               <span className="text-gray-600">Interest</span>
               <div className="flex gap-2 flex-wrap">
                 {/* Interests */}
-                <Button text="Football" icon="⚽" selected={false} />
+                {(data.profileDetails?.interests || []).flatMap((i) => String(i).split(",")).map((i) => i.trim()).filter(Boolean).map((interest) => (
+                  <Button key={interest} text={interest} />
+                ))}
               </div>
             </div>
           </div>

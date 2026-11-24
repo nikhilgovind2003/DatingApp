@@ -50,13 +50,13 @@ const UserPreview = ({
         <div className="relative">
           <UserIcon url={url} edit={edit} />
           {online && (
-            <span className="absolute bottom-2 right-0  w-2 h-2 lg:w-3 lg:h-3 rounded-full z-1 bg-green-500 border-2 border-white animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]" />
+            <span className="absolute bottom-2 right-0  w-2 h-2 lg:w-3 lg:h-3 rounded-full z-10 bg-green-500 border-2 border-white animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]" />
           )}
         </div>
 
         <div>
           <div className="flex items-center gap-2">
-            <p className="text-text font-semibold text-md lg:text-xl">{name}</p>
+            <p className="text-text font-semibold text-base lg:text-xl">{name}</p>
             {unreadCount > 0 && (
               <span className="bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center">
                 {unreadCount}

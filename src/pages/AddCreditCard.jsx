@@ -59,7 +59,7 @@ const AddCreditCard = () => {
           />
         </div>
 
-        <button className=" w-[154px] bg-deep-plum rounded-xl flex items-center gap-2 py-4 justify-center text-primary  mt-4">
+        <button className=" w-[154px] bg-deep-plum rounded-xl flex items-center gap-2 py-4 justify-center text-white  mt-4">
           <ScanLine />
           Scan Card
         </button>
@@ -129,7 +129,7 @@ const AddCreditCard = () => {
           <input
             type="submit"
             value="ADD PAYMENT METHOD"
-            className=" sm:p-4 bg-deep-plum p-4 w-full lg:text-lg md:w-full text-2xl mx-4 py-4 rounded-xl text-primary"
+            className=" sm:p-4 bg-deep-plum p-4 w-full lg:text-lg md:w-full text-2xl mx-4 py-4 rounded-xl text-white"
           />
         </div>
       </form>

@@ -58,7 +58,7 @@ function ProfileActionbar({ userId, from, to, shortListedBy, friendRequests }) {
 
   const handleAcceptRequest = async () => {
     try {
-      await axios.put(`/api/friendRequests/accept/${userId}`, { from });
+      await axios.patch(`${API_URL}/users/accept/${from ?? userId}`, {}, { withCredentials: true });
       toast.success('Friend request accepted!');
     } catch (error) {
       console.error('Error accepting friend request', error);

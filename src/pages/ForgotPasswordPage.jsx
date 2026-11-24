@@ -23,7 +23,7 @@ const ForgotPasswordPage = () => {
             })
             .catch(err => {
                 setLoading(false);
-                toast.error(err.response.data.message || err, { duration: 1000 })
+                toast.error(err.response?.data?.message || err, { duration: 1000 })
             })
     };
 
